@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "229771756622",
+    "firebase_url": "https://okasyon-23e5c.firebaseio.com",
+    "project_id": "okasyon-23e5c",
+    "storage_bucket": "okasyon-23e5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229771756622:android:41f18eb981c7465f",
+        "android_client_info": {
+          "package_name": "com.example.morkince.okasyon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229771756622-20m9lfdj5cb3or9r7q41rf2ajikj0frn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyon",
+            "certificate_hash": "a97f8b970584b1e327baeaf6ef684c7827481035"
+          }
+        },
+        {
+          "client_id": "229771756622-pg08ihaptbtbjk2f32id09ss1teup1e6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyon",
+            "certificate_hash": "f7cecba016bb38e3034ff00ca4f6f860092b8daf"
+          }
+        },
+        {
+          "client_id": "229771756622-ni57vqpcorkn0a9u8auom94bdi4jiu5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyon",
+            "certificate_hash": "432f8eb419a4d160503b4d939c3867f6c5360435"
+          }
+        },
+        {
+          "client_id": "229771756622-ekq5b19d9fk5bhf71v4jau9vt3lo4uuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrW0JMQ7SamRakx5O315_jK3h5d8yXclM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229771756622-ekq5b19d9fk5bhf71v4jau9vt3lo4uuk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229771756622:android:1335aef6b4c6e734",
+        "android_client_info": {
+          "package_name": "com.example.morkince.okasyonv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229771756622-vc9fn3pu8v53e06eihhbb3qvio0be9tr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyonv2",
+            "certificate_hash": "a97f8b970584b1e327baeaf6ef684c7827481035"
+          }
+        },
+        {
+          "client_id": "229771756622-ekq5b19d9fk5bhf71v4jau9vt3lo4uuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrW0JMQ7SamRakx5O315_jK3h5d8yXclM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229771756622-ekq5b19d9fk5bhf71v4jau9vt3lo4uuk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
