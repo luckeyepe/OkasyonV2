@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
+        </activity>
+        <activity android:name=".activities.signup_organizer_activities.SignUpOrganizerPart1Activity">
+        </activity>
+        <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
+        </activity>
     </application>
 
 </manifest>
