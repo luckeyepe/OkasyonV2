@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_organizer_activities.SignUpOrganizerPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             //add functionality to buttons
             buttonClient.setOnClickListener {
                 Log.d(TAG, "Sign Up Client Button Pressed")
-                startActivity(Intent(this, SignUpSupplierPart1Activity::class.java))
+                startActivity(Intent(this, SignUpClientPart1Activity::class.java))
             }
 
             buttonOrganizer.setOnClickListener {
