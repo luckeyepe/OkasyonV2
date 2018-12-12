@@ -10,16 +10,20 @@ import kotlinx.android.synthetic.main.activity_sign_up_client_part2.*
 
 class SignUpClientPart2Activity : AppCompatActivity() {
     var gender = arrayOf( "Male", "Female")
-
     var spinner: Spinner? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_client_part2)
+
+        //grab some stuff from previous activity
+        var user_email = intent.getStringExtra("user_email")
+        var user_password = intent.getStringExtra("user_password")
+
         imageButton_signupclientPart2BackButton.setOnClickListener {
-            val intent = Intent(this, SignUpClientPart1Activity::class.java)
-            // start your next activity
-            startActivity(intent)
+            onBackPressed()
         }
+
         imageButton_signupclientPart2NextButton.setOnClickListener {
             val intent = Intent(this,SingUpSummaryClientActivity::class.java)
             // start your next activity
@@ -32,6 +36,6 @@ class SignUpClientPart2Activity : AppCompatActivity() {
         // Set layout to use when the list of choices appear
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Set Adapter to Spinner
-        spinner!!.setAdapter(aa)
+        spinner!!.adapter = aa
     }
 }
