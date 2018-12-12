@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".activities.signup_client_activities.SingUpSummaryClientActivity">
         </activity>
+        <activity android:name=".activities.PlaceHolderActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -83,6 +83,38 @@
           }
         },
         {
+          "client_id": "229771756622-cp6i3qsukakicqjf8jurgt6v80r2eo16.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyonv2",
+            "certificate_hash": "f7cecba016bb38e3034ff00ca4f6f860092b8daf"
+          }
+        },
+        {
+          "client_id": "229771756622-3l4e4iv6nbbdtkp5e3jol121a9cqeedt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyonv2",
+            "certificate_hash": "432f8eb419a4d160503b4d939c3867f6c5360435"
+          }
+        },
+        {
+          "client_id": "229771756622-6m3om42k208v1e324heek5rin6a3sbub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyonv2",
+            "certificate_hash": "49121cb4ec4d7874abd794be2d7b92da418ac9f2"
+          }
+        },
+        {
+          "client_id": "229771756622-dbmbmc4i1r7q31ptu1efm5v8av1rdrjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morkince.okasyonv2",
+            "certificate_hash": "19e437c88f28ffa70dd41443f27a318d71f69983"
+          }
+        },
+        {
           "client_id": "229771756622-ekq5b19d9fk5bhf71v4jau9vt3lo4uuk.apps.googleusercontent.com",
           "client_type": 3
         }
