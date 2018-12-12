@@ -10,17 +10,21 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".activities.login_activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
         </activity>
         <activity android:name=".activities.signup_organizer_activities.SignUpOrganizerPart1Activity">
         </activity>
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
+        </activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.login_activities.SignUpSupplierPart2">
         </activity>
     </application>
 
