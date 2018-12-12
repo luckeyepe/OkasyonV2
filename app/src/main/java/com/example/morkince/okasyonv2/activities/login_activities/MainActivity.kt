@@ -9,19 +9,37 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_organizer_activities.SignUpOrganizerPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
 class MainActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
+    var mAuth: FirebaseAuth?= null
+    var mAuthListener: FirebaseAuth.AuthStateListener ?= null
+    var user: FirebaseUser?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mAuth = FirebaseAuth.getInstance()
+
+        //check for logged in user
+        mAuthListener = FirebaseAuth.AuthStateListener {
+                firebaseAuth: FirebaseAuth ->
+            user = firebaseAuth.currentUser
+            if (user!= null){
+                startActivity(Intent(this, PlaceHolderActivity::class.java))
+                finish()
+            }
+        }
 
         button_mainLogIn.setOnClickListener {
             Log.d(TAG, "Sign In Button Pressed")
@@ -72,6 +90,18 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
 
+        }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        mAuth!!.addAuthStateListener(mAuthListener!!)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mAuthListener != null){
+            mAuth!!.removeAuthStateListener(mAuthListener!!)
         }
     }
 }

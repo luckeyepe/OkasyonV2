@@ -22,6 +22,12 @@
         </activity>
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
         </activity>
+        <activity android:name=".activities.signup_client_activities.SignUpClientPart2Activity">
+        </activity>
+        <activity android:name=".activities.signup_client_activities.SingUpSummaryClientActivity">
+        </activity>
+        <activity android:name=".activities.PlaceHolderActivity">
+        </activity>
     </application>
 
 </manifest>
