@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:hint="First Name"
                 android:textColorHint="@android:color/white"
-                android:textColorLink="@android:color/holo_blue_dark" android:id="@+id/Sign2_txt_fname"/>
+                android:textColorLink="@android:color/holo_blue_dark"
+                android:id="@+id/textInputEditText_signupclientPart2FirstName"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -63,7 +64,8 @@
                 android:shadowColor="@color/colorAccent"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/white"
-                android:textColorLink="@android:color/holo_blue_dark" android:id="@+id/Sign2_txt_ContactNum"/>
+                android:textColorLink="@android:color/holo_blue_dark"
+                android:id="@+id/textInputEditText_signupClientclientPart2ContactNumber"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -83,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Last Name"
                 android:textColorHint="@android:color/white"
-                android:textColorLink="@android:color/holo_blue_dark" android:id="@+id/Sign2_txt_lname"/>
+                android:textColorLink="@android:color/holo_blue_dark"
+                android:id="@+id/textInputEditText_signupclientPart2LastName"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -104,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Address"
                 android:textColorHint="@android:color/white"
-                android:textColorLink="@android:color/holo_blue_dark" android:id="@+id/Sign2_txt_address"/>
+                android:textColorLink="@android:color/holo_blue_dark"
+                android:id="@+id/textInputEditText_signupclientPart2Address"/>
     </android.support.design.widget.TextInputLayout>
 
 
@@ -126,11 +130,12 @@
                 android:layout_height="wrap_content"
                 android:hint="Date Of Birth"
                 android:textColorHint="@android:color/white"
-                android:textColorLink="@android:color/holo_blue_dark" android:id="@+id/Sign2_txt_dateofbirth"/>
+                android:textColorLink="@android:color/holo_blue_dark"
+                android:id="@+id/textInputEditText_signupclientPart2DateOfBirth"/>
     </android.support.design.widget.TextInputLayout>
 
     <Spinner
-            android:id="@+id/Spinner"
+            android:id="@+id/Spinner_signupclientpart2Gender"
             android:layout_width="131dp"
             android:layout_height="23dp"
             android:layout_marginStart="8dp"
@@ -155,7 +160,7 @@
             app:srcCompat="@drawable/account" />
 
     <CheckBox
-            android:id="@+id/Sign2_chekbox"
+            android:id="@+id/chekbox_signupPart2TermsAndCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -166,13 +171,13 @@
             android:text=" Terms and Condition"
             android:textColor="#5daeae"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/img_btn_next1"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton_signupclientPart2NextButton"
             app:layout_constraintHorizontal_bias="0.958"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Spinner"/>
+            app:layout_constraintTop_toBottomOf="@+id/Spinner_signupclientpart2Gender"/>
 
     <ImageButton
-            android:id="@+id/img_btn_back"
+            android:id="@+id/imageButton_signupclientPart2BackButton"
             android:layout_width="55dp"
             android:layout_height="56dp"
             android:layout_marginEnd="8dp"
@@ -182,10 +187,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_navigate_before_black_24dp" />
+            app:srcCompat="@drawable/ic_navigate_before_black_24dp"/>
 
     <ImageButton
-            android:id="@+id/img_btn_next1"
+            android:id="@+id/imageButton_signupclientPart2NextButton"
             android:layout_width="56dp"
             android:layout_height="59dp"
             android:layout_marginStart="284dp"
@@ -199,7 +204,7 @@
             app:srcCompat="@drawable/ic_navigate_next_black_24dp" />
 
     <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/imageButton_signupclientPart2UploadPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -210,7 +215,7 @@
             app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"/>
 
     <ImageView
             android:id="@+id/imageView4"
