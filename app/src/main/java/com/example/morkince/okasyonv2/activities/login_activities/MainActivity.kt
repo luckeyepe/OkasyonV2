@@ -85,7 +85,9 @@ class MainActivity : AppCompatActivity() {
 
             buttonSupplier.setOnClickListener {
                 Log.d(TAG, "Sign Up Supplier Button Pressed")
-                startActivity(Intent(this, SignUpSupplierPart1Activity::class.java))
+                var intent = Intent(this, SignUpUserPart1Activity::class.java)
+                intent.putExtra("user_role", "supplier")
+                startActivity(intent)
             }
 
             buttonClose.setOnClickListener {

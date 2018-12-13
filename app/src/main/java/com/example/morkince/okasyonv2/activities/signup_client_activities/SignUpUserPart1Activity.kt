@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity
+import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart2Activity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -37,12 +38,20 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                             if (task.isSuccessful){
                                 var result = task.result
                                 if(result!!.isEmpty){
-                                    val intent = Intent(this, SignUpUserPart2Activity::class.java)
+                                    if (user_role != "supplier") {
+                                        val intent = Intent(this, SignUpUserPart2Activity::class.java)
+                                    }else{
+                                        val intent = Intent(this, SignUpSupplierPart2Activity::class.java)
+                                    }
+
                                     intent.putExtra("user_email", email)
                                     intent.putExtra("user_password", password)
                                     intent.putExtra("user_role", user_role)
                                     // start your next activity
                                     startActivity(intent)
+
+                                    //add animation
+                                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
                                 }else{
                                     Log.d("Emails", result.toString())
                                     //todo popup error email taken

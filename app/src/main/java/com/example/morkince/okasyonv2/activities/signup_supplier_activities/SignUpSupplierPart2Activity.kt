@@ -18,11 +18,29 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right)
         }
         imageButton_SignUpSupplierPart2Next.setOnClickListener {
+
+            if (isCompleteData()){
+
+            }else{
+                //todo popup error that empty fields
+            }
+
+
+
+
+
+
+
+
             val intent = Intent(this@SignUpSupplierPart2Activity, SignUpSupplierPart3Activity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
 
+    }
+
+    private fun isCompleteData(): Boolean {
+        return true
     }
 
     //when pressing back button the transation will occur from right to left
