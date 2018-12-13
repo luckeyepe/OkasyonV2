@@ -156,7 +156,7 @@
             app:srcCompat="@drawable/account" />
 
     <CheckBox
-            android:id="@+id/chekbox_signupClientPart2TermsAndCondition"
+            android:id="@+id/checkbox_signupClientPart2TermsAndCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"

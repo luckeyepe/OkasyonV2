@@ -25,10 +25,37 @@ class SignUpClientPart2Activity : AppCompatActivity() {
         }
 
         imageButton_signupclientPart2NextButton.setOnClickListener {
-            val intent = Intent(this,SingUpSummaryClientActivity::class.java)
-            // start your next activity
-            startActivity(intent)
+            //grab data
+            if(isCompleteData()){
+                if(checkbox_signupClientPart2TermsAndCondition.isActivated){
+                    var user_first_name = textInputEditText_signupClientPart2FirstName.text.toString().trim()
+                    var user_last_name = textInputEditText_signupClientPart2LastName.text.toString().trim()
+                    var user_address = textInputEditText_signupClientPart2Address.text.toString().trim()
+                    var user_contact_no = textInputEditText_signupClientPart2ContactNumber.text.toString().trim()
+                    var user_birth_date = textInputEditText_signupClientPart2DateOfBirth.text.toString().trim()
+                    if(spinner!!.equals("Male")){
+                        var user_gender = "m"
+                    }else{
+                        var user_gender = "f"
+                    }
+
+                    val intent = Intent(this,SingUpSummaryClientActivity::class.java)
+                    // start your next activity
+                    startActivity(intent)
+
+
+                }else{
+                    //todo popup error that terms and conditions have not been agreed
+                }
+            }else{
+                //todo popup error for incomplete data
+            }
+
+
+
         }
+
+
         spinner = this.Spinner_signupclientpart2Gender
 
         // Create an ArrayAdapter using a simple spinner layout and languages array
@@ -37,5 +64,11 @@ class SignUpClientPart2Activity : AppCompatActivity() {
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Set Adapter to Spinner
         spinner!!.adapter = aa
+    }
+
+    private fun isCompleteData(): Boolean {
+        return !(textInputEditText_signupClientPart2FirstName.text.isNullOrEmpty() && textInputEditText_signupClientPart2LastName.text.isNullOrEmpty()
+                && textInputEditText_signupClientPart2Address.text.isNullOrEmpty() && textInputEditText_signupClientPart2ContactNumber.text.isNullOrEmpty()
+                && textInputEditText_signupClientPart2DateOfBirth.text.isNullOrEmpty())
     }
 }
