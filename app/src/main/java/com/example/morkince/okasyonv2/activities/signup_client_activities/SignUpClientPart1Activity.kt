@@ -18,6 +18,9 @@ class SignUpClientPart1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_client_part1)
 
+        //grab some stuff from previous activity
+        var user_role = intent.getStringExtra("user_role")
+
         imagebutton_signupClientPart1Next.setOnClickListener {
 
             if(isCompleteData()) {
@@ -37,6 +40,7 @@ class SignUpClientPart1Activity : AppCompatActivity() {
                                     val intent = Intent(this, SignUpClientPart2Activity::class.java)
                                     intent.putExtra("user_email", email)
                                     intent.putExtra("user_password", password)
+                                    intent.putExtra("user_role", user_role)
                                     // start your next activity
                                     startActivity(intent)
                                 }else{

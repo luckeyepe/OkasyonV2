@@ -72,12 +72,16 @@ class MainActivity : AppCompatActivity() {
             //add functionality to buttons
             buttonClient.setOnClickListener {
                 Log.d(TAG, "Sign Up Client Button Pressed")
-                startActivity(Intent(this, SignUpClientPart1Activity::class.java))
+                var intent = Intent(this, SignUpClientPart1Activity::class.java)
+                intent.putExtra("user_role", "client")
+                startActivity(intent)
             }
 
             buttonOrganizer.setOnClickListener {
                 Log.d(TAG, "Sign Up Organizer Button Pressed")
-                startActivity(Intent(this, SignUpOrganizerPart1Activity::class.java))
+                var intent = Intent(this, SignUpClientPart1Activity::class.java)
+                intent.putExtra("user_role", "organizer")
+                startActivity(intent)
             }
 
             buttonSupplier.setOnClickListener {

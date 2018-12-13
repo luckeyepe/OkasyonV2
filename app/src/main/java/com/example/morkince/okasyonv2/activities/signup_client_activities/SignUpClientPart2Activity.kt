@@ -26,6 +26,7 @@ class SignUpClientPart2Activity : AppCompatActivity() {
         //grab some stuff from previous activity
         var user_email = intent.getStringExtra("user_email")
         var user_password = intent.getStringExtra("user_password")
+        var user_role = intent.getStringExtra("user_role")
 
         imageButton_signupclientPart2BackButton.setOnClickListener {
             onBackPressed()
@@ -90,6 +91,7 @@ class SignUpClientPart2Activity : AppCompatActivity() {
                     intent.putExtra("user_gender", user_gender)
                     intent.putExtra("user_email", user_gender)
                     intent.putExtra("user_password", user_gender)
+                    intent.putExtra("user_role", user_role)
 
                     // start your next activity
                     startActivity(intent)
