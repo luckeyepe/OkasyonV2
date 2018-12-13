@@ -26,6 +26,11 @@
         </activity>
         <activity android:name=".activities.signup_client_activities.SingUpSummaryClientActivity">
         </activity>
+        <activity
+                android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
+                android:label="@string/title_activity_home_page__supplier_"
+                android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
