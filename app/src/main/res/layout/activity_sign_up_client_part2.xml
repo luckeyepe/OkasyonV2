@@ -27,13 +27,13 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="176dp"
             android:layout_marginEnd="8dp"
             android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.528"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton_signupclientPart2UploadPhoto">
+            app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:hint="First Name"
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
-                android:id="@+id/textInputEditText_signupClientPart2FirstName" android:inputType="textPersonName"/>
+                android:id="@+id/textInputEditText_signupclientPart2FirstName"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -54,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" android:layout_marginTop="8dp">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -62,17 +62,21 @@
                 android:hint="Last Name"
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
-                android:id="@+id/textInputEditText_signupClientPart2LastName" android:inputType="textPersonName"/>
+                android:id="@+id/textInputEditText_signupclientPart2LastName"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout4"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:textColorHint="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
         <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -80,7 +84,7 @@
                 android:hint="Address"
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
-                android:id="@+id/textInputEditText_signupClientPart2Address" android:inputType="textPersonName"/>
+                android:id="@+id/textInputEditText_signupclientPart2Address"/>
     </android.support.design.widget.TextInputLayout>
 
 
@@ -105,14 +109,15 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
-                android:id="@+id/textInputEditText_signupClientPart2ContactNumber" android:inputType="phone"/>
+                android:id="@+id/textInputEditText_signupClientclientPart2ContactNumber"
+                android:inputType="phone"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout6"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,22 +126,24 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
         <android.support.design.widget.TextInputEditText
+                android:editable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Date Of Birth"
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
-                android:id="@+id/textInputEditText_signupClientPart2DateOfBirth" android:inputType="datetime"/>
+                android:id="@+id/textInputEditText_signupclientPart2DateOfBirth" android:inputType="date"/>
     </android.support.design.widget.TextInputLayout>
 
     <Spinner
             android:id="@+id/Spinner_signupclientpart2Gender"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_width="131dp"
+            android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
             android:background="@drawable/background_deafult_button_round"
@@ -156,20 +163,20 @@
             app:srcCompat="@drawable/account" />
 
     <CheckBox
-            android:id="@+id/checkbox_signupClientPart2TermsAndCondition"
+            android:id="@+id/checkbox_signupPart2TermsAndCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:buttonTint="#5daeae"
             android:text=" Terms and Condition"
-            android:textColor="@color/gradient1"
+            android:textColor="#5daeae"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Spinner_signupclientpart2Gender"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:textAllCaps="true"
-            app:layout_constraintVertical_bias="0.783"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageButton
             android:id="@+id/imageButton_signupclientPart2BackButton"
@@ -223,14 +230,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/breadcrumbs2"/>
+            app:srcCompat="@drawable/breadcrumbs2" />
     <TextView
             android:text="Gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.077" android:textColor="@color/gradient1"
-            android:textSize="18sp"/>
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/Spinner_signupclientpart2Gender"
+            android:layout_marginEnd="8dp" android:textColor="@color/gradient1" android:textSize="24sp"
+            app:layout_constraintHorizontal_bias="0.833"/>
 </android.support.constraint.ConstraintLayout>
