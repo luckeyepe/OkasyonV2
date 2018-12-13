@@ -64,39 +64,42 @@
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText_summaryEmailAddress" android:hint="EmailAddress"/>
+                    android:id="@+id/editText_summaryEmailAddress" android:hint="EmailAddress"
+                    android:textColor="@color/gradient1" android:inputType="textEmailAddress"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText_summaryName" android:hint="Name"/>
+                    android:id="@+id/editText_summaryName" android:hint="Name" android:textColor="@color/gradient1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText_summaryAddress" android:hint="Address"/>
+                    android:id="@+id/editText_summaryAddress" android:hint="Address" android:enabled="false"
+                    android:textColor="@color/gradient1"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/editText_summaryContactNumber" android:hint="Contact Number"
+                    android:textColor="@color/gradient1"/>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/editText_summaryDateOfBirth" android:hint="DateOfBirth"
+                    android:inputType="datetime" android:textColor="@color/gradient1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText_summaryContactNumber" android:hint="ContactNumber"/>
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/editText_summaryDateOfBirth" android:hint="DateOfBirth"/>
-            <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/editText_summaryGender" android:hint="Gender"/>
+                    android:id="@+id/editText_summaryGender" android:hint="Gender"
+                    android:textColor="@color/gradient1"/>
         </LinearLayout>
     </ScrollView>
 

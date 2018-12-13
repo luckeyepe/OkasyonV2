@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.ocr_activities.ocr_supplier_registration
 import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import java.util.*
 
@@ -29,42 +30,22 @@ class SignUpUserPart2Activity : AppCompatActivity() {
             onBackPressed()
         }
 
-        //calendar popup
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
-
-//        val date = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-//            // TODO Auto-generated method stub
-//            calendar.set(Calendar.YEAR, year)
-//            calendar.set(Calendar.MONTH, monthOfYear)
-//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//            updatetextInputEditText_signupClientPart2DateOfBirth()
-//        }
-
         textInputLayout6.setOnClickListener {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                // Display Selected date in textbox
-                var date = "$monthOfYear/$dayOfMonth/$year"
-                textInputEditText_signupclientPart2DateOfBirth.setText(date)
-            }, year, month, day)
-
-            dpd.show()
+            popupDateTimePicker()
         }
 
+        textInputEditText_signupclientPart2DateOfBirth.setOnClickListener {
+            popupDateTimePicker()
+        }
 
+        if(textInputEditText_signupclientPart2DateOfBirth.isFocused){
+            popupDateTimePicker()
+        }
 
         imageButton_signupclientPart2NextButton.setOnClickListener {
             //grab data
             if(isCompleteData()){
-                if(checkbox_signupPart2TermsAndCondition.isActivated){
+                if(checkbox_signupPart2TermsAndCondition.isChecked){
                     var user_first_name = textInputEditText_signupclientPart2FirstName.text.toString().trim()
                     var user_last_name = textInputEditText_signupclientPart2LastName.text.toString().trim()
                     var user_address = textInputEditText_signupclientPart2Address.text.toString().trim()
@@ -78,7 +59,7 @@ class SignUpUserPart2Activity : AppCompatActivity() {
                         user_gender = "f"
                     }
 
-                    val intent = Intent(this,SignUpUserSummaryActivity::class.java)
+                    val intent = Intent(this, ocr_supplier_registration::class.java)
                     //put extra data
                     intent.putExtra("user_first_name", user_first_name)
                     intent.putExtra("user_last_name", user_last_name)
@@ -86,8 +67,8 @@ class SignUpUserPart2Activity : AppCompatActivity() {
                     intent.putExtra("user_contact_no", user_contact_no)
                     intent.putExtra("user_birth_date", user_birth_date)
                     intent.putExtra("user_gender", user_gender)
-                    intent.putExtra("user_email", user_gender)
-                    intent.putExtra("user_password", user_gender)
+                    intent.putExtra("user_email", user_email)
+                    intent.putExtra("user_password", user_password)
                     intent.putExtra("user_role", user_role)
 
                     // start your next activity
@@ -119,6 +100,21 @@ class SignUpUserPart2Activity : AppCompatActivity() {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Set Adapter to Spinner
         spinner!!.adapter = arrayAdapter
+    }
+
+    private fun popupDateTimePicker() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            // Display Selected date in textbox
+            var date = "$monthOfYear/$dayOfMonth/$year"
+            textInputEditText_signupclientPart2DateOfBirth.setText(date)
+        }, year, month, day)
+
+        dpd.show()
     }
 
     private fun isCompleteData(): Boolean {

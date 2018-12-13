@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2;
+package com.example.morkince.okasyonv2.activities.ocr_activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserSummaryActivity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -25,6 +27,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
     ImageView ocr_supplier_valid_id,ocr_supplier_valid_business_permit;
     ImageButton btn_supplier_valid_id,btn_supplier_valid_business_permit;
+    Button btn_supplier_continue;
     boolean ifValidIdImageIsSelected=false;
     boolean ifBusinessPermitImageIsSelected =false;
     private Uri filePathValidID=null;
@@ -35,16 +38,45 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private static FaceDetector.Face[] facesValidID = new FaceDetector.Face[MAXIMUM_FACE];
     private static FaceDetector.Face[] facesBusinessPermit = new FaceDetector.Face[MAXIMUM_FACE];
     private static final int PICK_IMAGE = 100;
+    private String user_email = getIntent().getStringExtra("user_email");
+    private String user_password = getIntent().getStringExtra("user_password");
+    private String user_role = getIntent().getStringExtra("user_role");
+    private String user_first_name = getIntent().getStringExtra("user_first_name");
+    private String user_last_name = getIntent().getStringExtra("user_last_name");
+    private String user_address = getIntent().getStringExtra("user_address");
+    private String user_contact_no = getIntent().getStringExtra("user_contact_no");
+    private String user_birth_date = getIntent().getStringExtra("user_birth_date");
+    private String user_gender = getIntent().getStringExtra("user_gender");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_supplier_registration);
         refs();
+        btn_supplier_continue.setEnabled(false);//button will not work without proper id
 
         btn_supplier_valid_id.setOnClickListener(addValidID);
         btn_supplier_valid_business_permit.setOnClickListener(addBusinesspermit);
+        btn_supplier_continue.setOnClickListener(goToSummary);
     }
+
+    private View.OnClickListener goToSummary = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (user_role != "supplier") {
+                Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
+                //firestore and firebase auth insert here
+
+
+
+
+
+                startActivity(intent);
+                finish();
+            }
+
+        }
+    };
 
     //ON CLICK LISTENER TO ADD IMAGE TO VALID ID IMAGE VIEW AND CHOOSE FROM GALLERY
     private View.OnClickListener addValidID = new View.OnClickListener() {
@@ -77,8 +109,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
-            //CHECK IF UPLOADING A VALID ID
-            if(ifValidIdImageIsSelected)
+            //CHECK IF UPLOADING A VALID ID and user is not supplier
+            if(ifValidIdImageIsSelected )
             {
                 filePathValidID = data.getData();
                 try {
@@ -86,8 +118,10 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
 
 
-                    if( recognizeText() &&  detectFaceValidID())
+                    if( recognizeText() &&  detectFaceValidID()) {
                         ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
+                        btn_supplier_continue.setEnabled(true);
+                    }
                 }
                 catch (IOException e)
                 {
@@ -97,7 +131,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
 
             }
+
             //CHECK IF UPLOADING A BUSINESS PERMIT
+            //todo prevent client and organiser from using bir
             else{
                 filePathBusinessPermit = data.getData();
                 try {
@@ -161,7 +197,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     validIDText.append("\n");
                 }
 
-                if(validIDText.toString().contains("ABANTO, JAPHET TITUS H."))
+                String fullName = ""+user_last_name+", "+user_first_name+"".toUpperCase();
+                if(validIDText.toString().contains(fullName))
                 {
                     Toast.makeText(getApplication(), "CONTAINS NAME!! ", Toast.LENGTH_SHORT).show();
                     Log.e("TEXT : ", validIDText + "");
@@ -187,5 +224,6 @@ public class ocr_supplier_registration extends AppCompatActivity {
         ocr_supplier_valid_business_permit=findViewById(R.id.ocr_registration_supplier_busPermit_ImgView);
         btn_supplier_valid_id=findViewById(R.id.ocr_registration_supplier_validID_imageBtn);
         btn_supplier_valid_business_permit=findViewById(R.id.ocr_registration_supplier_businessPermit_imgBtn);
+        btn_supplier_continue = findViewById(R.id.ocr_supplier_registration_completeRegistrationBtn);
     }
 }

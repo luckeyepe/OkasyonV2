@@ -18,13 +18,6 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activities.login_activities.MainActivity">
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
-        </activity>
-        <activity
-                android:name=".activities.signup_organizer_activities.SignUpOrganizerPart1Activity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan">
-        </activity>
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
         </activity>
         <activity android:name=".SplashScreen">
@@ -35,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
+        </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart2Activity"
                 android:screenOrientation="portrait"
@@ -45,16 +39,15 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
-        </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart2Activity">
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserSummaryActivity">
         </activity>
         <activity android:name=".activities.PlaceHolderActivity">
+        </activity>
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart4Activity">
         </activity>
-        <activity android:name=".ocr_supplier_registration">
+        <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
 
         </activity>
 
