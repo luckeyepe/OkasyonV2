@@ -10,13 +10,13 @@ import com.example.morkince.okasyonv2.activities.login_activities.MainActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.android.synthetic.main.activity_sign_up_client_part1.*
+import kotlinx.android.synthetic.main.activity_sign_up_user_part1.*
 
-class SignUpClientPart1Activity : AppCompatActivity() {
+class SignUpUserPart1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up_client_part1)
+        setContentView(R.layout.activity_sign_up_user_part1)
 
         //grab some stuff from previous activity
         var user_role = intent.getStringExtra("user_role")
@@ -37,7 +37,7 @@ class SignUpClientPart1Activity : AppCompatActivity() {
                             if (task.isSuccessful){
                                 var result = task.result
                                 if(result!!.isEmpty){
-                                    val intent = Intent(this, SignUpClientPart2Activity::class.java)
+                                    val intent = Intent(this, SignUpUserPart2Activity::class.java)
                                     intent.putExtra("user_email", email)
                                     intent.putExtra("user_password", password)
                                     intent.putExtra("user_role", user_role)

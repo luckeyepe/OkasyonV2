@@ -1,27 +1,24 @@
 package com.example.morkince.okasyonv2.activities.signup_client_activities
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.morkince.okasyonv2.R
-import kotlinx.android.synthetic.main.activity_sign_up_client_part2.*
+import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
-class SignUpClientPart2Activity : AppCompatActivity() {
+class SignUpUserPart2Activity : AppCompatActivity() {
     var gender = arrayOf( "Male", "Female")
     var spinner: Spinner? = null
     var calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up_client_part2)
+        setContentView(R.layout.activity_sign_up_user_part2)
 
         //grab some stuff from previous activity
         var user_email = intent.getStringExtra("user_email")
@@ -81,7 +78,7 @@ class SignUpClientPart2Activity : AppCompatActivity() {
                         user_gender = "f"
                     }
 
-                    val intent = Intent(this,SingUpSummaryClientActivity::class.java)
+                    val intent = Intent(this,SignUpUserSummaryActivity::class.java)
                     //put extra data
                     intent.putExtra("user_first_name", user_first_name)
                     intent.putExtra("user_last_name", user_last_name)

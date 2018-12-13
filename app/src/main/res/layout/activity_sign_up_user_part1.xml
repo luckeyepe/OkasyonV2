@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_default_gradient"
-        tools:context=".activities.signup_client_activities.SignUpClientPart1Activity">
+        tools:context=".activities.signup_client_activities.SignUpUserPart1Activity">
     <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout3"
             android:layout_width="298dp"

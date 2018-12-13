@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_default_gradient"
-        tools:context=".activities.signup_client_activities.SignUpClientPart2Activity">
+        tools:context=".activities.signup_client_activities.SignUpUserPart2Activity">
     <ImageView
             android:id="@+id/imageView15"
             android:layout_width="361dp"

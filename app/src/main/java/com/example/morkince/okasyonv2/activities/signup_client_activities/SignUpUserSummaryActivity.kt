@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.morkince.okasyonv2.R
 
-class SingUpSummaryClientActivity : AppCompatActivity() {
+class SignUpUserSummaryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sing_up_summary_client)
+        setContentView(R.layout.activity_sign_up_user_summary)
     }
 }

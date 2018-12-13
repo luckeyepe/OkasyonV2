@@ -10,8 +10,7 @@ import android.view.Window
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
-import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart1Activity
-import com.example.morkince.okasyonv2.activities.signup_organizer_activities.SignUpOrganizerPart1Activity
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -72,14 +71,14 @@ class MainActivity : AppCompatActivity() {
             //add functionality to buttons
             buttonClient.setOnClickListener {
                 Log.d(TAG, "Sign Up Client Button Pressed")
-                var intent = Intent(this, SignUpClientPart1Activity::class.java)
+                var intent = Intent(this, SignUpUserPart1Activity::class.java)
                 intent.putExtra("user_role", "client")
                 startActivity(intent)
             }
 
             buttonOrganizer.setOnClickListener {
                 Log.d(TAG, "Sign Up Organizer Button Pressed")
-                var intent = Intent(this, SignUpClientPart1Activity::class.java)
+                var intent = Intent(this, SignUpUserPart1Activity::class.java)
                 intent.putExtra("user_role", "organizer")
                 startActivity(intent)
             }
