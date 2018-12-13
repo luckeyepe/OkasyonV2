@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserSummaryActivity;
+import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart4Activity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -65,6 +66,16 @@ public class ocr_supplier_registration extends AppCompatActivity {
         public void onClick(View v) {
             if (user_role != "supplier") {
                 Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
+                //firestore and firebase auth insert here
+
+
+
+
+
+                startActivity(intent);
+                finish();
+            }else{
+                Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart4Activity.class);
                 //firestore and firebase auth insert here
 
 
