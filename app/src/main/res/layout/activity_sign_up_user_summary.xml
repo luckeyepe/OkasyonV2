@@ -9,13 +9,12 @@
         tools:context=".activities.signup_client_activities.SignUpUserSummaryActivity">
     <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="63dp"
-            android:layout_height="53dp"
+            android:layout_width="102dp"
+            android:layout_height="92dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="72dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/account"/>
@@ -49,10 +48,10 @@
             android:id="@+id/summary_scrollView"
             android:layout_width="313dp"
             android:layout_height="241dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginEnd="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="22dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/imageButton_signupPart2EditButton">
 
         <LinearLayout
@@ -65,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:id="@+id/editText_summaryEmailAddress" android:hint="EmailAddress"
+                    android:id="@+id/editText_summaryEmailAddress" android:hint="Emai Address"
                     android:textColor="@color/gradient1" android:inputType="textEmailAddress"/>
             <EditText
                     android:layout_width="match_parent"
@@ -106,41 +105,46 @@
     <ImageView
             android:id="@+id/imageView2"
             android:layout_width="362dp"
-            android:layout_height="215dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="112dp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/img_okasyon_logo"/>
 
     <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="155dp"
-            android:layout_height="149dp"
+            android:layout_width="156dp"
+            android:layout_height="46dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="172dp"
+            android:layout_marginTop="196dp"
             android:layout_marginEnd="8dp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/breadcrumbs3"/>
 
     <Button
-            android:id="@+id/Button_summaryClientCreateAccount"
+            android:id="@+id/button_summaryClientCreateAccount"
             android:layout_width="166dp"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="100dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/roundbtn"
             android:text="CREATE ACCOUNT"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/summary_scrollView" android:layout_marginEnd="8dp"/>
+    <ImageButton
+            android:layout_width="28dp"
+            android:layout_height="32dp" app:srcCompat="@drawable/camera_icon"
+            android:id="@+id/imageButton_signUpUserSummaryCamera"
+            android:background="@android:color/transparent" android:scaleType="fitCenter"
+            android:layout_marginTop="160dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.841"/>
 </android.support.constraint.ConstraintLayout>

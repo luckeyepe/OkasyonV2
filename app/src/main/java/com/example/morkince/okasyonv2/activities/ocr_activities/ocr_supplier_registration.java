@@ -66,18 +66,22 @@ public class ocr_supplier_registration extends AppCompatActivity {
         public void onClick(View v) {
             if (user_role != "supplier") {
                 Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
-                //firestore and firebase auth insert here
-
-
-
-
+                //grab data
+                intent.putExtra("user_email", user_email);
+                intent.putExtra("user_password",user_password);
+                intent.putExtra( "user_role",user_role);
+                intent.putExtra("user_first_name",user_first_name);
+                intent.putExtra("user_last_name",user_last_name);
+                intent.putExtra("user_address",user_address);
+                intent.putExtra("user_contact_no",user_contact_no);
+                intent.putExtra("user_birth_date", user_birth_date);
+                intent.putExtra("user_gender", user_gender);
 
                 startActivity(intent);
                 finish();
             }else{
                 Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart4Activity.class);
-                //firestore and firebase auth insert here
-
+                //grab data if supplier, still need to think of how this should go
 
 
 
