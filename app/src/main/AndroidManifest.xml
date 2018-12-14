@@ -32,6 +32,13 @@
                 android:name="com.google.android.gms.vision.DEPENDENCIES"
                 android:value="ocr,face,barcode"/>
 
+        <activity android:name=".OcrClientRegistration">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
