@@ -23,6 +23,7 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 public class ocr_supplier_registration extends AppCompatActivity {
 
@@ -39,18 +40,29 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private static FaceDetector.Face[] facesValidID = new FaceDetector.Face[MAXIMUM_FACE];
     private static FaceDetector.Face[] facesBusinessPermit = new FaceDetector.Face[MAXIMUM_FACE];
     private static final int PICK_IMAGE = 100;
-    private String user_email = getIntent().getStringExtra("user_email");
-    private String user_password = getIntent().getStringExtra("user_password");
-    private String user_role = getIntent().getStringExtra("user_role");
-    private String user_first_name = getIntent().getStringExtra("user_first_name");
-    private String user_last_name = getIntent().getStringExtra("user_last_name");
-    private String user_address = getIntent().getStringExtra("user_address");
-    private String user_contact_no = getIntent().getStringExtra("user_contact_no");
-    private String user_birth_date = getIntent().getStringExtra("user_birth_date");
-    private String user_gender = getIntent().getStringExtra("user_gender");
+    private String user_email = "";
+    private String user_password = "";
+    private String user_role = "";
+    private String user_first_name = "";
+    private String user_last_name = "";
+    private String user_address = "";
+    private String user_contact_no = "";
+    private String user_birth_date = "";
+    private String user_gender = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        user_email = getIntent().getStringExtra("user_email");
+        user_password = getIntent().getStringExtra("user_password");
+        user_role = getIntent().getStringExtra("user_role");
+        user_first_name = getIntent().getStringExtra("user_first_name");
+        user_last_name = getIntent().getStringExtra("user_last_name");
+        user_address = getIntent().getStringExtra("user_address");
+        user_contact_no = getIntent().getStringExtra("user_contact_no");
+        user_birth_date = getIntent().getStringExtra("user_birth_date");
+        user_gender = getIntent().getStringExtra("user_gender");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_supplier_registration);
         refs();
@@ -204,23 +216,64 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 Frame frame = new Frame.Builder().setBitmap(bitmapValidID).build();
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
                 StringBuilder validIDText = new StringBuilder();
+                String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
 
                 for(int ctr=0;ctr<items.size();ctr++)
                 {
                     TextBlock myItem = items.valueAt(ctr);
-                    validIDText.append(myItem.getValue());
-                    validIDText.append("\n");
+                    validIDText.append(myItem.getValue().trim());
+//                    validIDText.append("\n");
                 }
 
-                String fullName = ""+user_last_name+", "+user_first_name+"".toUpperCase();
-                if(validIDText.toString().contains(fullName))
+//                if(validIDText.toString().contains(user_last_name.toUpperCase())){
+//                    Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name);
+//                }
+//
+//                if(validIDText.toString().contains(user_first_name.toUpperCase())){
+//                    Log.d("OCR", "OCR result: "+validIDText.toString()+"; First Name: "+ user_first_name);
+//                }
+
+                String[] firsnameArray = user_first_name.split(" ");
+
+
+                Boolean isMatchingName = false;
+
+                for (String fname: firsnameArray)
                 {
-                    Toast.makeText(getApplication(), "CONTAINS NAME!! ", Toast.LENGTH_SHORT).show();
+                    Log.d("OCCCRRR", fname);
+                    Log.d("OCCCRRR", validIDText.toString());
+                    if(validIDText.toString().contains(fname.toUpperCase()))
+                    {
+                        Log.d("OCRRRRRRRRRRRRR",fname);
+                        isMatchingName =true;
+                    }
+                    else
+                    {
+                        isMatchingName= false;
+                    }
+
+                }
+
+                if(validIDText.toString().contains(user_last_name.toUpperCase()))
+                {
+                    isMatchingName =true;
+                }
+                else
+                {
+                    isMatchingName= false;
+                }
+
+                Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name+"; First Name: "+ user_first_name);
+                if(isMatchingName)
+                {
+                    Toast.makeText(getApplication(), "CONTAINS NAME!! "+fullName, Toast.LENGTH_LONG).show();
                     Log.e("TEXT : ", validIDText + "");
                     return true;
                 }
                 else
                 {
+                    Toast.makeText(getApplication(), "NAMES DO NOT MATCH!! "+fullName, Toast.LENGTH_SHORT).show();
+                    Log.e("TEXT : ", validIDText + "");
                     return false;
                 }
 

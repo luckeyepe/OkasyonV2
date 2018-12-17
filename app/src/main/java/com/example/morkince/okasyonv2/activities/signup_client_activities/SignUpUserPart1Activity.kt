@@ -36,12 +36,13 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                         query.get().addOnCompleteListener {
                             task: Task<QuerySnapshot> ->
                             if (task.isSuccessful){
+                                val intent: Intent?
                                 var result = task.result
                                 if(result!!.isEmpty){
                                     if (user_role != "supplier") {
-                                        val intent = Intent(this, SignUpUserPart2Activity::class.java)
+                                        intent = Intent(this, SignUpUserPart2Activity::class.java)
                                     }else{
-                                        val intent = Intent(this, SignUpSupplierPart2Activity::class.java)
+                                        intent = Intent(this, SignUpSupplierPart2Activity::class.java)
                                     }
 
                                     intent.putExtra("user_email", email)

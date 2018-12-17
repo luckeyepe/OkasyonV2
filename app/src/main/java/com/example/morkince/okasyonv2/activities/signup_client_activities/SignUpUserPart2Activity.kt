@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.morkince.okasyonv2.R
@@ -46,30 +47,24 @@ class SignUpUserPart2Activity : AppCompatActivity() {
             //grab data
             if(isCompleteData()){
                 if(checkbox_signupPart2TermsAndCondition.isChecked){
-                    var user_first_name = textInputEditText_signupclientPart2FirstName.text.toString().trim()
-                    var user_last_name = textInputEditText_signupclientPart2LastName.text.toString().trim()
-                    var user_address = textInputEditText_signupclientPart2Address.text.toString().trim()
-                    var user_contact_no = textInputEditText_signupClientclientPart2ContactNumber.text.toString().trim()
-                    var user_birth_date = textInputEditText_signupclientPart2DateOfBirth.text.toString().trim()
+                    var intent = Intent(this, ocr_supplier_registration::class.java)
 
                     var user_gender: String?
-                    if(spinner!!.equals("Male")){
+                    if(spinner!!.selectedItem == "Male"){
                         user_gender= "m"
                     }else{
                         user_gender = "f"
                     }
 
-                    val intent = Intent(this, ocr_supplier_registration::class.java)
-                    //put extra data
-                    intent.putExtra("user_first_name", user_first_name)
-                    intent.putExtra("user_last_name", user_last_name)
-                    intent.putExtra("user_address", user_address)
-                    intent.putExtra("user_contact_no", user_contact_no)
-                    intent.putExtra("user_birth_date", user_birth_date)
-                    intent.putExtra("user_gender", user_gender)
-                    intent.putExtra("user_email", user_email)
+                    intent.putExtra("user_email",user_email )
                     intent.putExtra("user_password", user_password)
                     intent.putExtra("user_role", user_role)
+                    intent.putExtra("user_first_name", textInputEditText_signupclientPart2FirstName.text.toString().trim())
+                    intent.putExtra("user_last_name", textInputEditText_signupclientPart2LastName.text.toString().trim())
+                    intent.putExtra("user_address", textInputEditText_signupclientPart2Address.text.toString().trim())
+                    intent.putExtra("user_contact_no", textInputEditText_signupClientclientPart2ContactNumber.text.toString())
+                    intent.putExtra("user_birth_date", textInputEditText_signupclientPart2DateOfBirth.text.toString().trim())
+                    intent.putExtra("user_gender", user_gender)
 
                     // start your next activity
                     startActivity(intent)
