@@ -3,25 +3,66 @@ package com.example.morkince.okasyonv2.activities.signup_supplier_activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part3.*
 
 class SignUpSupplierPart3Activity : AppCompatActivity() {
+
+    private var user_email: String ?= null
+    private var user_password: String ?= null
+    private var user_role: String ?= null
+    private var user_first_name: String ?= null
+    private var user_last_name: String ?= null
+    private var user_address: String ?= null
+    private var user_contact_no: String ?= null
+    private var store_store_name: String ?= null
+    private var store_description: String ?= null
+    private val TAG = "SignUpSupplierPart3"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_supplier_part3)
 
         textInputEditText_SignUpSupplierPart3StoreName.isEnabled = false
-        textInputEditText_SignUpSupplierPart3Name.isEnabled =false
+        textInputEditText_SignUpSupplierPart3FirstName.isEnabled =false
+        textInputEditText_SignUpSupplierPart3LastName.isEnabled =false
         textInputEditText_SignUpSupplierPart3Address.isEnabled = false
         textInputEditText_SignUpSupplierPart3EmailAddress.isEnabled =false
         textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =false
         textInputEditText_SignUpSupplierPart3About.isEnabled =false
 
 
+        //grab some stuff from previous activity
+        user_email = intent.getStringExtra("user_email")
+        user_password = intent.getStringExtra("user_password")
+        user_role = intent.getStringExtra("user_role")
+        user_first_name = intent.getStringExtra("user_first_name")
+        user_last_name = intent.getStringExtra("user_last_name")
+        user_address = intent.getStringExtra("user_address")
+        user_contact_no = intent.getStringExtra("user_contact_no")
+        store_store_name = intent.getStringExtra("store_store_name")
+        store_description = intent.getStringExtra("store_description")
 
+        createUser()
+
+        imageButton_SignUpSupplierPart3EditSummary.setOnClickListener()
+        {
+            textInputEditText_SignUpSupplierPart3StoreName.isEnabled = true
+            textInputEditText_SignUpSupplierPart3FirstName.isEnabled =true
+            textInputEditText_SignUpSupplierPart3LastName.isEnabled =true
+            textInputEditText_SignUpSupplierPart3Address.isEnabled = true
+            textInputEditText_SignUpSupplierPart3EmailAddress.isEnabled =true
+            textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =true
+            textInputEditText_SignUpSupplierPart3About.isEnabled =true
+        }
         imageButton_SignUpSupplierPart3Before.setOnClickListener()
         {
             onBackPressed()
@@ -35,6 +76,58 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
     }
+
+    private fun createUser()
+    {
+        var mAuth = FirebaseAuth.getInstance()
+        var db = FirebaseFirestore.getInstance()
+
+        mAuth.createUserWithEmailAndPassword(user_email!!, user_password!!)
+            .addOnCompleteListener {
+                task: Task<AuthResult> ->
+                run {
+                    if (task.isSuccessful) {
+                        var currentUser = mAuth.currentUser
+                        var userHashMap = HashMap<String, String>()
+                        userHashMap["user_email"] = user_email!!
+                        userHashMap["user_password"] = user_password!!
+                        userHashMap["user_role"] = user_role!!
+                        userHashMap["user_first_name"] = user_first_name!!
+                        userHashMap["user_last_name"] = user_last_name!!
+                        userHashMap["user_address"] = user_address!!
+                        userHashMap["user_contact_no"] = user_contact_no!!
+
+                        var storeMap= HashMap<String,String>()
+                        storeMap["store_store_name"] =store_store_name!!
+                        storeMap["store_description"] =store_description!!
+
+
+
+                        Log.d(TAG, "Success SignUp ${mAuth.currentUser!!.uid}")
+                        db.collection("User").document("$currentUser.uid")
+                            .set(userHashMap as Map<String, Any>).addOnCompleteListener {
+                                task: Task<Void> ->
+                                run {
+                                    if (task.isSuccessful) {
+                                        db.collection("Store").add(storeMap as Map<String, Any>)
+                                            .addOnCompleteListener {
+                                                task: Task<DocumentReference> ->
+                                                run {
+                                                    if (task.isSuccessful) {
+                                                        startActivity(Intent(this, PlaceHolderActivity::class.java))
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
+                            }
+                    } else {
+                        Log.e(TAG, task.exception.toString())
+                    }
+                }
+            }
+    }
+
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right)

@@ -113,7 +113,7 @@
                 android:textColorHint="@android:color/white"
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupClientclientPart2ContactNumber"
-                android:inputType="phone" android:textAlignment="viewStart"/>
+                android:inputType="phone" android:textAlignment="viewStart" android:maxLength="11"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout6"

@@ -49,7 +49,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private String user_contact_no = "";
     private String user_birth_date = "";
     private String user_gender = "";
-
+    private String store_store_name = "";
+    private String store_description = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,16 @@ public class ocr_supplier_registration extends AppCompatActivity {
         user_contact_no = getIntent().getStringExtra("user_contact_no");
         user_birth_date = getIntent().getStringExtra("user_birth_date");
         user_gender = getIntent().getStringExtra("user_gender");
+
+        if (getIntent().hasExtra(store_store_name))
+        {
+            store_store_name = getIntent().getStringExtra("store_store_name");
+        }
+
+        if (getIntent().hasExtra(store_description))
+        {
+            store_description = getIntent().getStringExtra("store_description");
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_supplier_registration);
@@ -95,6 +106,16 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart4Activity.class);
                 //grab data if supplier, still need to think of how this should go
 
+
+                intent.putExtra("user_email", user_email);
+                intent.putExtra("user_password",user_password);
+                intent.putExtra( "user_role",user_role);
+                intent.putExtra("user_first_name",user_first_name);
+                intent.putExtra("user_last_name",user_last_name);
+                intent.putExtra("user_address",user_address);
+                intent.putExtra("user_contact_no",user_contact_no);
+                intent.putExtra("store_store_name",store_store_name);
+                intent.putExtra("store_description",store_description);
 
 
 
@@ -217,26 +238,14 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
                 StringBuilder validIDText = new StringBuilder();
                 String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+                String[] firsnameArray = user_first_name.split(" ");
+                Boolean isMatchingName = false;
 
                 for(int ctr=0;ctr<items.size();ctr++)
                 {
                     TextBlock myItem = items.valueAt(ctr);
                     validIDText.append(myItem.getValue().trim());
-//                    validIDText.append("\n");
                 }
-
-//                if(validIDText.toString().contains(user_last_name.toUpperCase())){
-//                    Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name);
-//                }
-//
-//                if(validIDText.toString().contains(user_first_name.toUpperCase())){
-//                    Log.d("OCR", "OCR result: "+validIDText.toString()+"; First Name: "+ user_first_name);
-//                }
-
-                String[] firsnameArray = user_first_name.split(" ");
-
-
-                Boolean isMatchingName = false;
 
                 for (String fname: firsnameArray)
                 {

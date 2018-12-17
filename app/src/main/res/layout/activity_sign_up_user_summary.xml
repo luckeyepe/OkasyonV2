@@ -70,7 +70,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:ems="10"
-                        android:id="@+id/editText_summaryLastName" android:layout_weight="1" android:hint="Last Name"/>
+                        android:id="@+id/editText_summaryLastName" android:layout_weight="1" android:hint="Last Name"
+                        android:textColor="@color/gradient1"/>
             </LinearLayout>
             <EditText
                     android:layout_width="match_parent"
