@@ -4,12 +4,14 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.ocr_activities.ocr_supplier_registration
 import kotlinx.android.synthetic.main.activity_ocr_supplier_registration.*
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part2.*
 
 class SignUpSupplierPart2Activity : AppCompatActivity() {
+    private val TAG = "SignUpSupplierPart2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,8 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
         var user_email = intent.getStringExtra("user_email")
         var user_password = intent.getStringExtra("user_password")
         var user_role = intent.getStringExtra("user_role")
+
+        Log.d(TAG, "User Email $user_email, and Password $user_password")
 
         imageButton_SignUpSupplierPart2Before.setOnClickListener()
         {
@@ -47,8 +51,7 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
                 intent.putExtra("store_description", store_description)
 
                 startActivity(intent)
-
-
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }else{
                 //todo popup error that empty fields
                 var alertDialog = AlertDialog.Builder(this)
@@ -56,10 +59,6 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
                 alertDialog.setTitle("INFO MISSING")
                 alertDialog.show()
             }
-
-            val intent = Intent(this@SignUpSupplierPart2Activity, SignUpSupplierPart3Activity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
 
     }

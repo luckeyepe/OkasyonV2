@@ -123,14 +123,6 @@
                     android:backgroundTint="@color/gradient1"
                     android:id="@+id/Email">
 
-                <android.support.design.widget.TextInputEditText
-                        android:focusableInTouchMode="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/gradient1"
-                        android:hint="Email Address" android:textSize="14sp" android:textColor="@color/gradient1"
-                        android:textColorHint="@color/gradient1" android:fontFamily="serif"
-                        android:id="@+id/textInputEditText_SignUpSupplierPart3EmailAddress" android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                     android:layout_width="280dp"

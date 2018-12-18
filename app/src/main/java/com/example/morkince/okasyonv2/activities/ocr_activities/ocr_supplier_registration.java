@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserSummaryActivity;
+import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart3Activity;
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart4Activity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class ocr_supplier_registration extends AppCompatActivity {
-
+    private String TAG = "ocr_supplier_registration";
     ImageView ocr_supplier_valid_id,ocr_supplier_valid_business_permit;
     ImageButton btn_supplier_valid_id,btn_supplier_valid_business_permit;
     Button btn_supplier_continue;
@@ -64,12 +65,12 @@ public class ocr_supplier_registration extends AppCompatActivity {
         user_birth_date = getIntent().getStringExtra("user_birth_date");
         user_gender = getIntent().getStringExtra("user_gender");
 
-        if (getIntent().hasExtra(store_store_name))
+        if (getIntent().hasExtra("store_store_name"))
         {
             store_store_name = getIntent().getStringExtra("store_store_name");
         }
 
-        if (getIntent().hasExtra(store_description))
+        if (getIntent().hasExtra("store_description"))
         {
             store_description = getIntent().getStringExtra("store_description");
         }
@@ -87,7 +88,10 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private View.OnClickListener goToSummary = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (user_role != "supplier") {
+            Log.d(TAG, "This is the user role: "+user_role);
+
+            if (!user_role.equals("supplier")) {
+                Log.d(TAG, "This is the user role: "+user_role);
                 Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
                 //grab data
                 intent.putExtra("user_email", user_email);
@@ -103,10 +107,11 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else{
-                Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart4Activity.class);
+                Log.d(TAG, "This is the user role: "+user_role);
+                Log.d(TAG, "User Email "+user_email+", and Password "+user_password);
+
+                Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart3Activity.class);
                 //grab data if supplier, still need to think of how this should go
-
-
                 intent.putExtra("user_email", user_email);
                 intent.putExtra("user_password",user_password);
                 intent.putExtra( "user_role",user_role);
@@ -117,12 +122,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 intent.putExtra("store_store_name",store_store_name);
                 intent.putExtra("store_description",store_description);
 
-
-
                 startActivity(intent);
                 finish();
             }
-
         }
     };
 

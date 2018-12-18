@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part3.*
+import kotlinx.android.synthetic.main.activity_sign_up_user_summary.*
 
 class SignUpSupplierPart3Activity : AppCompatActivity() {
 
@@ -35,7 +36,6 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         textInputEditText_SignUpSupplierPart3FirstName.isEnabled =false
         textInputEditText_SignUpSupplierPart3LastName.isEnabled =false
         textInputEditText_SignUpSupplierPart3Address.isEnabled = false
-        textInputEditText_SignUpSupplierPart3EmailAddress.isEnabled =false
         textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =false
         textInputEditText_SignUpSupplierPart3About.isEnabled =false
 
@@ -53,13 +53,14 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
 
         createUser()
 
+        fillInData()
+
         imageButton_SignUpSupplierPart3EditSummary.setOnClickListener()
         {
             textInputEditText_SignUpSupplierPart3StoreName.isEnabled = true
             textInputEditText_SignUpSupplierPart3FirstName.isEnabled =true
             textInputEditText_SignUpSupplierPart3LastName.isEnabled =true
             textInputEditText_SignUpSupplierPart3Address.isEnabled = true
-            textInputEditText_SignUpSupplierPart3EmailAddress.isEnabled =true
             textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =true
             textInputEditText_SignUpSupplierPart3About.isEnabled =true
         }
@@ -71,10 +72,19 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         }
         imageButton_SignUpSupplierPart3Next.setOnClickListener()
         {
-            val intent = Intent(this@SignUpSupplierPart3Activity, SignUpSupplierPart4Activity::class.java)
+            val intent = Intent(this, PlaceHolderActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
+    }
+
+    private fun fillInData() {
+        textInputEditText_SignUpSupplierPart3StoreName.setText(store_store_name)
+        textInputEditText_SignUpSupplierPart3FirstName.setText(user_first_name)
+        textInputEditText_SignUpSupplierPart3LastName.setText(user_last_name)
+        textInputEditText_SignUpSupplierPart3Address.setText(user_address)
+        textInputEditText_SignUpSupplierPart3About.setText(store_description)
+        textInputEditText_SignUpSupplierPart3ContactNumber.setText(user_contact_no)
     }
 
     private fun createUser()
@@ -82,6 +92,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         var mAuth = FirebaseAuth.getInstance()
         var db = FirebaseFirestore.getInstance()
 
+        Log.d(TAG, "User Email $user_email, and Password $user_password")
         mAuth.createUserWithEmailAndPassword(user_email!!, user_password!!)
             .addOnCompleteListener {
                 task: Task<AuthResult> ->
@@ -90,7 +101,6 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                         var currentUser = mAuth.currentUser
                         var userHashMap = HashMap<String, String>()
                         userHashMap["user_email"] = user_email!!
-                        userHashMap["user_password"] = user_password!!
                         userHashMap["user_role"] = user_role!!
                         userHashMap["user_first_name"] = user_first_name!!
                         userHashMap["user_last_name"] = user_last_name!!
@@ -100,11 +110,11 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                         var storeMap= HashMap<String,String>()
                         storeMap["store_store_name"] =store_store_name!!
                         storeMap["store_description"] =store_description!!
-
-
+                        storeMap["store_owner_id"] = currentUser!!.uid
+                        storeMap["store_location"] = user_address.toString()
 
                         Log.d(TAG, "Success SignUp ${mAuth.currentUser!!.uid}")
-                        db.collection("User").document("$currentUser.uid")
+                        db.collection("User").document("${currentUser.uid}")
                             .set(userHashMap as Map<String, Any>).addOnCompleteListener {
                                 task: Task<Void> ->
                                 run {
@@ -114,7 +124,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                                                 task: Task<DocumentReference> ->
                                                 run {
                                                     if (task.isSuccessful) {
-                                                        startActivity(Intent(this, PlaceHolderActivity::class.java))
+                                                        imageButton_SignUpSupplierPart3Next.isEnabled = true
                                                     }
                                                 }
                                             }
