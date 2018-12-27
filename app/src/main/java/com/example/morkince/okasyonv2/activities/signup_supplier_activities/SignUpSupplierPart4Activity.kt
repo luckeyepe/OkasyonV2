@@ -12,7 +12,7 @@ class SignUpSupplierPart4Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_supplier_part4)
-
+        supportActionBar!!.hide()
         imageButton_SignUpSupplierPart4Before.setOnClickListener()
         {
             onBackPressed()

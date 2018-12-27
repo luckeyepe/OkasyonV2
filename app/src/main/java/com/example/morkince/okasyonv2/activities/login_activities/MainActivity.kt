@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportActionBar!!.hide()
         button_mainLogIn.setOnClickListener {
             Log.d(TAG, "Sign In Button Pressed")
             var username = textInputEditText_mainUsername.text.toString().trim()

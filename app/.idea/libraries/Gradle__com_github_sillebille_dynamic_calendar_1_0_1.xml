@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.sillebille:dynamic-calendar-1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dynamic-calendar-1.0.1.aar/52fb41803620614b7528d7e86cdc8225/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dynamic-calendar-1.0.1.aar/52fb41803620614b7528d7e86cdc8225/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.sillebille/dynamic-calendar/1.0.1/94cdf71f1ae38afbfc354c8c8379c438cadad4ec/dynamic-calendar-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

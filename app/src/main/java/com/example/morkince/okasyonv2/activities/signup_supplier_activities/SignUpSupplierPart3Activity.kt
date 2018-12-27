@@ -12,7 +12,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_supplier_part3)
-
+        supportActionBar!!.hide()
         textInputEditText_SignUpSupplierPart3StoreName.isEnabled = false
         textInputEditText_SignUpSupplierPart3Name.isEnabled =false
         textInputEditText_SignUpSupplierPart3Address.isEnabled = false

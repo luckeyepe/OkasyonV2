@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
        ImageView view = findViewById(R.id.imageView4);
+
 
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.forsplash);
         view.startAnimation(animation);
