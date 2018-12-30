@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
-import com.example.morkince.okasyonv2.activities.signup_organizer_activities.SignUpOrganizerPart1Activity
-import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar!!.hide()
         button_mainLogIn.setOnClickListener {
             Log.d(TAG, "Sign In Button Pressed")
             var username = textInputEditText_mainUsername.text.toString().trim()
@@ -38,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
             //assign buttons from the modal
             var buttonClient = view.button_modalUserTypeSelectionClient
-            var buttonOrganizer = view.button_modalUserTypeSelectionOrganizer
-            var buttonSupplier = view.button_modalUserTypeSelectionSupplier
+            var buttonOrganizer = view.button_modalCreateOwnEvent
+            var buttonSupplier = view.button_modalCreateEventBusinessEvents
             var buttonClose = view.imageButton_modalUserTypeSelectionClose
 
             //instantiate the dialog
@@ -53,17 +52,18 @@ class MainActivity : AppCompatActivity() {
             //add functionality to buttons
             buttonClient.setOnClickListener {
                 Log.d(TAG, "Sign Up Client Button Pressed")
-                startActivity(Intent(this, SignUpSupplierPart1Activity::class.java))
+                startActivity(Intent(this, ClientHomePage::class.java))
             }
 
             buttonOrganizer.setOnClickListener {
                 Log.d(TAG, "Sign Up Organizer Button Pressed")
-                startActivity(Intent(this, SignUpOrganizerPart1Activity::class.java))
+                startActivity(Intent(this, ClientHomePage::class.java))
+
             }
 
             buttonSupplier.setOnClickListener {
                 Log.d(TAG, "Sign Up Supplier Button Pressed")
-                startActivity(Intent(this, SignUpSupplierPart1Activity::class.java))
+                startActivity(Intent(this, SupplierHomePage::class.java))
             }
 
             buttonClose.setOnClickListener {

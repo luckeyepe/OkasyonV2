@@ -10,6 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".activities.login_activities.MainActivity">
+
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
         </activity>
@@ -21,7 +22,11 @@
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
         </activity>
         <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart2Activity"
@@ -38,16 +43,22 @@
         <activity android:name=".activities.client_activities.Client_Create_Event"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity android:name=".activities.client_activities.Client_Set_Preference"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".activities.homepages_for_supplier_client.ClientHomePage"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activities.homepages_for_supplier_client.SupplierHomePage"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
 
