@@ -2,18 +2,25 @@ package com.example.morkince.okasyonv2.activities.signup_client_activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.widget.Toast
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
+import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import kotlinx.android.synthetic.main.activity_sign_up_user_summary.*
+import java.net.URI
 import java.util.*
 
 class SignUpUserSummaryActivity : AppCompatActivity() {
@@ -27,6 +34,7 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
     private var user_contact_no: String ?= null
     private var user_birth_date: String ?= null
     private var user_gender: String ?= null
+    private var user_validIDURL: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +49,8 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
         user_contact_no = intent.getStringExtra("user_contact_no")
         user_birth_date = intent.getStringExtra("user_birth_date")
         user_gender = intent.getStringExtra("user_gender")
+        user_validIDURL = intent.getStringExtra("user_validIDURL")
+
 
 
         //fill up the data fields
@@ -66,17 +76,56 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
             userMap["user_first_name"] = editText_summaryFirstName.text.toString().trim()
             userMap["user_gender"] = editText_summaryGender.text.toString().trim()
             userMap["user_last_name"] = editText_summaryLastName.text.toString().trim()
+            userMap["user_validIDURL"] = user_validIDURL.toString()
 
             var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
                 .update(userMap as Map<String, Any>).addOnCompleteListener {
                         task: Task<Void> ->
                     if (task.isSuccessful){
-                        var alertDialog = AlertDialog.Builder(this)
-                        alertDialog.setMessage("Welcome to Okasyon, ${userMap[user_first_name!!]}")
-                        alertDialog.setTitle("WELCOME")
-                        alertDialog.show()
+                        //upload image
+                        val database = FirebaseFirestore.getInstance().collection("Client").document(currentUser.uid)
+                        val mStorage = FirebaseStorage.getInstance().reference
 
-                        startActivity(Intent(this, PlaceHolderActivity::class.java))
+                        val thumbnailPath = mStorage!!.child("user_profPic").child("${currentUser.uid}.jpg")
+
+                        val uploadTask = thumbnailPath.putFile(user_validIDURL as Uri)
+
+                        var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    throw it
+                                }
+                            }
+                            return@Continuation thumbnailPath.downloadUrl
+                        }).addOnCompleteListener {
+                                task ->
+                            if(task.isSuccessful){
+                                val downloadUri = task.result
+                                var userAddedDetails = HashMap<String, String>()
+                                userAddedDetails["user_profilePictureURL"] = downloadUri.toString()
+
+                                database.update(userAddedDetails as Map<String, Any>).addOnCompleteListener {
+                                        task: Task<Void> ->
+                                    if (task.isSuccessful) {
+                                        var alertDialog = AlertDialog.Builder(this)
+                                        alertDialog.setMessage("Welcome to Okasyon, ${userMap[user_first_name!!]}")
+                                        alertDialog.setTitle("WELCOME")
+                                        alertDialog.show()
+
+                                        startActivity(Intent(this, PlaceHolderActivity::class.java))
+                                    }
+                                    else{
+                                        //loading end
+                                        Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+                                    }
+                                }
+                            }else{
+                                //loading end
+                                Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+                            }
+                        }
+
+                        //////////////////////
                     }else{
                         var alertDialog = AlertDialog.Builder(this)
                         alertDialog.setMessage("Please check your internet connection and try again")

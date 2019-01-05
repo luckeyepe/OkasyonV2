@@ -103,6 +103,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 intent.putExtra("user_contact_no",user_contact_no);
                 intent.putExtra("user_birth_date", user_birth_date);
                 intent.putExtra("user_gender", user_gender);
+                intent.putExtra("user_validIDURL", filePathValidID.toString());
 
                 startActivity(intent);
                 finish();
@@ -121,6 +122,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 intent.putExtra("user_contact_no",user_contact_no);
                 intent.putExtra("store_store_name",store_store_name);
                 intent.putExtra("store_description",store_description);
+                intent.putExtra("store_ownerIDURL", filePathValidID.toString());
 
                 startActivity(intent);
                 finish();
