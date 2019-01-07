@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.view.WindowManager
 import com.example.morkince.okasyonv2.R
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part1.*
+import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.HomePage_Supplier_Activity
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart2Activity
+import kotlinx.android.synthetic.main.activity_sign_up_client_part1.*
+import kotlinx.android.synthetic.main.activity_sign_up_supplier_part1.*
 
 class SignUpSupplierPart1Activity : AppCompatActivity() {
 

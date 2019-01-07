@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -75,6 +77,16 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".activities.signup_client_activities.SingUpSummaryClientActivity">
+        </activity>
+        <activity
+                android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
+                android:label="@string/title_activity_home_page__supplier_"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
+        </activity>
+        <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity">
 
 
 
