@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
 import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_sign_up_client_part1.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
 class MainActivity : AppCompatActivity() {
