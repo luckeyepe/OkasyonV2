@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
                 firebaseAuth: FirebaseAuth ->
             user = firebaseAuth.currentUser
             if (user!= null){
+
+
                 startActivity(Intent(this, PlaceHolderActivity::class.java))
                 finish()
             }
@@ -48,6 +50,8 @@ class MainActivity : AppCompatActivity() {
             var password = textInputEditText_mainPassword.text.toString().trim()
 
             Toast.makeText(this, "Username: $username and Password $password", Toast.LENGTH_SHORT).show()
+
+
         }
 
         textView_mainSignUp.setOnClickListener {
