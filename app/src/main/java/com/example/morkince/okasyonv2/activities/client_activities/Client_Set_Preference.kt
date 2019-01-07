@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2.activities.signup_client_activities
+package com.example.morkince.okasyonv2.activities.client_activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

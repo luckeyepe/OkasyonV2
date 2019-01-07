@@ -21,8 +21,6 @@
         <activity android:name=".activities.login_activities.MainActivity">
 
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
-        </activity>
         <activity
                 android:name=".activities.signup_organizer_activities.SignUpOrganizerPart1Activity"
                 android:screenOrientation="portrait"
@@ -77,8 +75,6 @@
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activities.signup_client_activities.SingUpSummaryClientActivity">
-        </activity>
         <activity
                 android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
                 android:label="@string/title_activity_home_page__supplier_"
@@ -86,14 +82,6 @@
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
         </activity>
-        <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity">
-
-
-
-
-
-
-
         <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
 
         </activity>
