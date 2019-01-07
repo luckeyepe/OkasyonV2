@@ -65,6 +65,6 @@
             android:id="@+id/textView_mainSignUp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textStyle="bold" android:textColor="@color/gradient1" android:textSize="18sp"/>
 </android.support.constraint.ConstraintLayout>

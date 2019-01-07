@@ -13,10 +13,6 @@ class SingUpSummaryClientActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_up_summary_client)
-        imageButton_signupclientPart3NextButton.setOnClickListener {
-            val intent = Intent(this,HomePage_Supplier_Activity ::class.java)
-            // start your next activity
-            startActivity(intent)
-        }
+
     }
 }

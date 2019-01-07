@@ -19,8 +19,8 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.697"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.027"
+            app:layout_constraintVertical_bias="0.838"/>
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="133dp" app:srcCompat="@drawable/bannerhomepage"
@@ -98,15 +98,20 @@
     </FrameLayout>
     <ScrollView
             android:layout_width="358dp"
-            android:layout_height="143dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/supplierHompage_bannerImg"
-            android:layout_marginBottom="8dp"
+            android:layout_height="82dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="1.0">
+            app:layout_constraintHorizontal_bias="0.722" android:id="@+id/scrollView2">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="vertical"/>
+                      android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerhold"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
     </ScrollView>
     <Button
             android:text="VIEW MY ITEMS"
@@ -119,4 +124,11 @@
             android:textColor="#FFFFFF"
             android:layout_marginTop="244dp" app:layout_constraintTop_toTopOf="parent"
     />
+    <ImageView
+            android:layout_width="370dp"
+            android:layout_height="131dp" app:srcCompat="@drawable/capture"
+            android:id="@+id/Supplier_StoreLocation_Imageview" android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/supplierHomepage_viewItemsBtn"/>
 </android.support.constraint.ConstraintLayout>
