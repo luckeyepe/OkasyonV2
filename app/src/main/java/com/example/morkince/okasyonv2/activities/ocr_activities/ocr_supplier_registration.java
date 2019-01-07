@@ -168,8 +168,6 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 try {
                      bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
 
-
-
                     if( recognizeText() &&  detectFaceValidID()) {
                         ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
                         btn_supplier_continue.setEnabled(true);
