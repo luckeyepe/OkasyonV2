@@ -14,6 +14,8 @@ import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUp
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
@@ -56,8 +58,8 @@ class MainActivity : AppCompatActivity() {
 
             //assign buttons from the modal
             var buttonClient = view.button_modalUserTypeSelectionClient
-            var buttonOrganizer = view.button_modalUserTypeSelectionOrganizer
-            var buttonSupplier = view.button_modalUserTypeSelectionSupplier
+            var buttonOrganizer = view.button_modalCreateOwnEvent
+            var buttonSupplier = view.button_modalCreateEventBusinessEvents
             var buttonClose = view.imageButton_modalUserTypeSelectionClose
 
             //instantiate the dialog

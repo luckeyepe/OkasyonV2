@@ -12,7 +12,7 @@ class SignUpSupplierPart1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_supplier_part1)
-
+        supportActionBar!!.hide()
          imageButton_SignUpSupplierPart1Next.setOnClickListener {
             val intent =Intent(this@SignUpSupplierPart1Activity, SignUpSupplierPart2Activity :: class.java)
             startActivity(intent)

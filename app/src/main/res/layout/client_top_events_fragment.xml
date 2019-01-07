@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditText
+            android:layout_width="314dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Search Event"
+            android:ems="10"
+            android:textSize="20dp"
+            android:fontFamily="serif"
+            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:background="@drawable/background_for_search_event"
+            android:id="@+id/editText_clientSearchTopEvents"
+            android:textColorHint="@color/mycolor6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.00999999"
+
+    />
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="368dp"
+            android:layout_height="499dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintVertical_bias="0.90999997" android:id="@+id/recyclerView_clientTopEvents"/>
+</android.support.constraint.ConstraintLayout>

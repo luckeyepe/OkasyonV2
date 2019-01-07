@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_ocr_supplier_registration.*
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part2.*
 
 class SignUpSupplierPart2Activity : AppCompatActivity() {
-    private val TAG = "SignUpSupplierPart2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +23,7 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
 
         Log.d(TAG, "User Email $user_email, and Password $user_password")
 
+        supportActionBar!!.hide()
         imageButton_SignUpSupplierPart2Before.setOnClickListener()
         {
             onBackPressed()
