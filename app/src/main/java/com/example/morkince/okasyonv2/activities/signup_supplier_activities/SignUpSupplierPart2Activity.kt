@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_ocr_supplier_registration.*
 import kotlinx.android.synthetic.main.activity_sign_up_supplier_part2.*
 
 class SignUpSupplierPart2Activity : AppCompatActivity() {
+    private val TAG = "SignUpSupplierPart2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

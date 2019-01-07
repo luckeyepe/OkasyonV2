@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_item__supplier_activity.*
-import kotlinx.android.synthetic.main.activity_sign_up_client_part2.*
 import java.io.IOException
 import android.R.attr.data
 
@@ -58,7 +57,7 @@ class AddItem_Supplier_activity : AppCompatActivity() {
     }
 
 
-        }
+}
 
 
 

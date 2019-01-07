@@ -9,6 +9,6 @@ class SignUpOrganizerPart1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up_organizer_part1)
+//        setContentView(R.layout.activity_sign_up_organizer_part1)
     }
 }
