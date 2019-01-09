@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -51,12 +52,10 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
         user_gender = intent.getStringExtra("user_gender")
         user_validIDURL = intent.getStringExtra("user_validIDURL")
 
-
-
         //fill up the data fields
         fillEditTexts()
 
-        //create user
+        //create user after loading summary
         createUser()
 
         editText_summaryDateOfBirth.setOnClickListener{
@@ -83,7 +82,7 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                         task: Task<Void> ->
                     if (task.isSuccessful){
                         //upload image
-                        val database = FirebaseFirestore.getInstance().collection("Client").document(currentUser.uid)
+                        val database = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
                         val mStorage = FirebaseStorage.getInstance().reference
 
                         val thumbnailPath = mStorage!!.child("user_profPic").child("${currentUser.uid}.jpg")
@@ -112,7 +111,7 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                                         alertDialog.setTitle("WELCOME")
                                         alertDialog.show()
 
-                                        startActivity(Intent(this, PlaceHolderActivity::class.java))
+                                        startActivity(Intent(this, ClientHomePage::class.java))
                                     }
                                     else{
                                         //loading end
