@@ -22,6 +22,8 @@ class SignUpUserPart2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_user_part2)
+        textInputEditText_signupclientPart2DateOfBirth.isFocusable = false
+        textInputEditText_signupclientPart2DateOfBirth.isClickable = true
 
         //grab some stuff from previous activity
         var user_email = intent.getStringExtra("user_email")
@@ -106,7 +108,7 @@ class SignUpUserPart2Activity : AppCompatActivity() {
 
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             // Display Selected date in textbox
-            var date = "$monthOfYear/$dayOfMonth/$year"
+            var date = "${monthOfYear+1}/$dayOfMonth/$year"
             textInputEditText_signupclientPart2DateOfBirth.setText(date)
         }, year, month, day)
 

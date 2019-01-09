@@ -196,6 +196,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             ifBusinessPermitImageIsSelected=false;
             ifValidIdImageIsSelected=false;
         }
