@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import com.example.morkince.okasyonv2.Content_Home_Page_Supplier
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
 import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
@@ -71,6 +72,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right)
 
         }
+
         imageButton_SignUpSupplierPart3Next.setOnClickListener()
         {
             val intent = Intent(this, SupplierHomePage::class.java)

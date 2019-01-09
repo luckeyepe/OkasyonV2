@@ -8,7 +8,7 @@ import com.example.morkince.okasyonv2.R
 
 class MyViewHolder(itemView: View, var context: Context): RecyclerView.ViewHolder(itemView) {
     fun bindItem(string: String){
-        var textView = itemView.findViewById<TextView>(R.id.textView_contentReviews)
-        textView.text = string
+//        var textView = itemView.findViewById<TextView>(R.id.textView_contentReviews)
+//        textView.text = string
     }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Button
 import android.widget.Toast
+import com.example.morkince.okasyonv2.Content_Home_Page_Supplier
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserPart1Activity
@@ -43,9 +44,38 @@ class MainActivity : AppCompatActivity() {
             user = firebaseAuth.currentUser
             if (user!= null){
 
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                FirebaseFirestore
+                    .getInstance()
+                    .collection("User")
+                    .document(currentUser!!.uid)
+                    .get().addOnCompleteListener {
+                            task: Task<DocumentSnapshot> ->
+                        if (task.isSuccessful){
+                            val userRole = task.result!!.getString("user_role")
+                            Log.d(TAG,"USER ROLE $userRole")
+                            when(userRole){
+                                "client" ->{
+                                    startActivity(Intent(this, ClientHomePage::class.java))
+                                    finish()
+                                }
 
+                                "organizer" ->{
+                                    startActivity(Intent(this, ClientHomePage::class.java))
+                                    finish()
+                                }
+
+                                "supplier" ->{
+                                    startActivity(Intent(this, Content_Home_Page_Supplier::class.java))
+                                    finish()
+                                }
+                            }
+                        }
+                    }
+
+/*
                 startActivity(Intent(this, PlaceHolderActivity::class.java))
-                finish()
+                finish()*/
             }
         }
 
@@ -68,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                                 task: Task<DocumentSnapshot> ->
                                 if (task.isSuccessful){
                                     val userRole = task.result!!.getString("user_role")
+                                    Log.d(TAG,"USER ROLE $userRole")
                                     when(userRole){
                                         "client" ->{
                                             startActivity(Intent(this, ClientHomePage::class.java))
@@ -86,6 +117,10 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 }
                             }
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Invalid Credentials",Toast.LENGTH_LONG).show()
                     }
                 }
 

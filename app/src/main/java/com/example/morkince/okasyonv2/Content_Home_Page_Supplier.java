@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,18 +43,30 @@ public class Content_Home_Page_Supplier extends AppCompatActivity {
     private Uri filePath=null;
     FirebaseUser user;
     FirebaseFirestore db;
+    Button homepageSupplier_logoutBtn;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_home_page__supplier_);
+        setContentView(R.layout.activity_supplier_homepage);
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
         setProfileInformation();
         ocr_registration_supplier_validID_imageBtn2.setOnClickListener(uploadBannerImage);
         supplierHomepage_viewItemsBtn.setOnClickListener(viewItems);
+        homepageSupplier_logoutBtn.setOnClickListener(logout);
     }
+
+    private View.OnClickListener logout = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(Content_Home_Page_Supplier.this,MainActivity.class);
+            startActivity(intent);
+        }
+    };
 
     public void setProfileInformation()
     {
@@ -191,6 +204,7 @@ public class Content_Home_Page_Supplier extends AppCompatActivity {
         supplierHompage_bannerImg=findViewById(R.id.supplierHompage_bannerImg);
         supplierHomepage_viewItemsBtn=findViewById(R.id.supplierHomepage_viewItemsBtn);
         supplierHomepage_storeName_txtView=findViewById(R.id.supplierHomepage_storeName_txtView);
+        homepageSupplier_logoutBtn=findViewById(R.id.homepageSupplier_logoutBtn);
     }
 
 }

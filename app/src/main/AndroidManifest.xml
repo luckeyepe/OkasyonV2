@@ -27,7 +27,11 @@
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
         </activity>
         <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -80,11 +84,7 @@
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity"/>
         <activity android:name=".Content_Home_Page_Supplier">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".Select_Multiple_Images">
         </activity>
