@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
 import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
@@ -47,11 +51,43 @@ class MainActivity : AppCompatActivity() {
 
         button_mainLogIn.setOnClickListener {
             Log.d(TAG, "Sign In Button Pressed")
-            var username = textInputEditText_mainUsername.text.toString().trim()
+
+            var email = textInputEditText_mainUsername.text.toString().trim()
             var password = textInputEditText_mainPassword.text.toString().trim()
 
-            Toast.makeText(this, "Username: $username and Password $password", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    task: Task<AuthResult> ->
+                    if (task.isSuccessful){
+                        val currentUser = FirebaseAuth.getInstance().currentUser
+                        FirebaseFirestore
+                            .getInstance()
+                            .collection("User")
+                            .document(currentUser!!.uid)
+                            .get().addOnCompleteListener {
+                                task: Task<DocumentSnapshot> ->
+                                if (task.isSuccessful){
+                                    val userRole = task.result!!.getString("user_role")
+                                    when(userRole){
+                                        "client" ->{
+                                            startActivity(Intent(this, ClientHomePage::class.java))
+                                            finish()
+                                        }
 
+                                        "organizer" ->{
+                                            startActivity(Intent(this, ClientHomePage::class.java))
+                                            finish()
+                                        }
+
+                                        "supplier" ->{
+                                            startActivity(Intent(this, SupplierHomePage::class.java))
+                                            finish()
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                }
 
         }
 

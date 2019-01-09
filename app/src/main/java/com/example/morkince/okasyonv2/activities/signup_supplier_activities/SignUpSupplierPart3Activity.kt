@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.WindowManager
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -72,7 +73,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         }
         imageButton_SignUpSupplierPart3Next.setOnClickListener()
         {
-            val intent = Intent(this, PlaceHolderActivity::class.java)
+            val intent = Intent(this, SupplierHomePage::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
