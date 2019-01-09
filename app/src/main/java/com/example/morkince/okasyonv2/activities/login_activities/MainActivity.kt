@@ -1,6 +1,8 @@
 package com.example.morkince.okasyonv2.activities.login_activities
 
+import android.app.AlertDialog
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -85,44 +87,55 @@ class MainActivity : AppCompatActivity() {
             var email = textInputEditText_mainUsername.text.toString().trim()
             var password = textInputEditText_mainPassword.text.toString().trim()
 
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    task: Task<AuthResult> ->
-                    if (task.isSuccessful){
-                        val currentUser = FirebaseAuth.getInstance().currentUser
-                        FirebaseFirestore
-                            .getInstance()
-                            .collection("User")
-                            .document(currentUser!!.uid)
-                            .get().addOnCompleteListener {
-                                task: Task<DocumentSnapshot> ->
-                                if (task.isSuccessful){
-                                    val userRole = task.result!!.getString("user_role")
-                                    Log.d(TAG,"USER ROLE $userRole")
-                                    when(userRole){
-                                        "client" ->{
-                                            startActivity(Intent(this, ClientHomePage::class.java))
-                                            finish()
-                                        }
+            if(email.isNullOrEmpty() && password.isNullOrEmpty()){
+                errorDialog("Please fill out all the fields", "MISSING DATA")
+            }else {
+                val progress = ProgressDialog(this)
+                progress.setTitle("Loading")
+                progress.setMessage("Grabbing you data, please wait...")
+                progress.setCancelable(false)
+                progress.show()
 
-                                        "organizer" ->{
-                                            startActivity(Intent(this, ClientHomePage::class.java))
-                                            finish()
-                                        }
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task: Task<AuthResult> ->
+                        if (task.isSuccessful) {
+                            val currentUser = FirebaseAuth.getInstance().currentUser
+                            FirebaseFirestore
+                                .getInstance()
+                                .collection("User")
+                                .document(currentUser!!.uid)
+                                .get().addOnCompleteListener { task: Task<DocumentSnapshot> ->
+                                    if (task.isSuccessful) {
+                                        val userRole = task.result!!.getString("user_role")
+                                        Log.d(TAG, "USER ROLE $userRole")
+                                        when (userRole) {
+                                            "client" -> {
+                                                progress.dismiss()
+                                                startActivity(Intent(this, ClientHomePage::class.java))
+                                                finish()
+                                            }
 
-                                        "supplier" ->{
-                                            startActivity(Intent(this, SupplierHomePage::class.java))
-                                            finish()
+                                            "organizer" -> {
+                                                progress.dismiss()
+                                                startActivity(Intent(this, ClientHomePage::class.java))
+                                                finish()
+                                            }
+
+                                            "supplier" -> {
+                                                progress.dismiss()
+                                                startActivity(Intent(this, SupplierHomePage::class.java))
+                                                finish()
+                                            }
                                         }
                                     }
                                 }
-                            }
+                        } else {
+                            progress.dismiss()
+                            errorDialog("Username and password not in the database", "INVALID CREDENTIALS")
+                            Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show()
+                        }
                     }
-                    else
-                    {
-                        Toast.makeText(this, "Invalid Credentials",Toast.LENGTH_LONG).show()
-                    }
-                }
+            }
 
         }
 
@@ -186,5 +199,17 @@ class MainActivity : AppCompatActivity() {
         if (mAuthListener != null){
             mAuth!!.removeAuthStateListener(mAuthListener!!)
         }
+    }
+
+    private fun errorDialog(message: String, title: String) {
+        var alertDialog = AlertDialog.Builder(this)
+        alertDialog.setIcon(R.drawable.ic_error_outline_black_24dp)
+        alertDialog.setMessage(message)
+        alertDialog.setTitle(title)
+        alertDialog.setCancelable(false)
+        alertDialog.setPositiveButton("OK") { dialog, which ->
+            dialog.dismiss()
+        }
+        alertDialog.show()
     }
 }

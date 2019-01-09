@@ -65,6 +65,7 @@ public class Content_Home_Page_Supplier extends AppCompatActivity {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(Content_Home_Page_Supplier.this,MainActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 
