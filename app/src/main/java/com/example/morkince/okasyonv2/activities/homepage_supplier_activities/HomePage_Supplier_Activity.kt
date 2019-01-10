@@ -32,8 +32,8 @@ class HomePage_Supplier_Activity : AppCompatActivity(), NavigationView.OnNavigat
         var viewAdapter = RecyclerAdapter(myDataset, this)
 
 
-        recyclerhold.adapter = viewAdapter
-        recyclerhold.layoutManager = viewManager
+        supplierHomePage_recyclerView.adapter = viewAdapter
+        supplierHomePage_recyclerView.layoutManager = viewManager
 
 
         val mstartActBtn = findViewById<Button>(R.id.supplierHomepage_viewItemsBtn)

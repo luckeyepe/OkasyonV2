@@ -15,14 +15,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import com.example.morkince.okasyonv2.Content_Home_Page_Supplier;
-import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.View_Store_Items;
+import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,8 +39,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SupplierHomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,7 +55,14 @@ public class SupplierHomePage extends AppCompatActivity
     private Uri filePath=null;
     FirebaseUser user;
     FirebaseFirestore db;
-    Button homepageSupplier_logoutBtn;
+    private StorageReference mStorageRef;
+
+
+    private ArrayList<Reviews> reviews = new ArrayList<>();
+    StoreReviewsAdapter adapter;
+    RecyclerView supplierHomePage_recyclerView;
+    int size = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +78,6 @@ public class SupplierHomePage extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -78,7 +88,34 @@ public class SupplierHomePage extends AppCompatActivity
         setProfileInformation();
         ocr_registration_supplier_validID_imageBtn2.setOnClickListener(uploadBannerImage);
         supplierHomepage_viewItemsBtn.setOnClickListener(viewItems);
-        homepageSupplier_logoutBtn.setOnClickListener(logout);
+
+
+
+
+        //ADD REVIEWS TO RECYCLER VIEW
+
+        reviews.add(new Reviews("kaylokoto",4,"YOUR STORE IS REALLY GREAT! I WANT TO RECOMMEND YOU!I WANT TO RECOMMEND YOU!I WANT TO RECOMMEND YOU!I WANT TO RECOMMEND YOU!"));
+        reviews.add(new Reviews("colinamarc",3,"YOUR STORE IS REALLY AMAZING!"));
+        reviews.add(new Reviews("japhet",2,"YOUR STORE IS REALLY NICE!"));
+
+
+        adapter = new StoreReviewsAdapter(reviews,SupplierHomePage.this);
+        supplierHomePage_recyclerView.setAdapter(adapter);
+
+        supplierHomePage_recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        supplierHomePage_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        //LOAD IMAGE BANNER
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(user.getUid());
+        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(supplierHompage_bannerImg);
+
+            }
+        });
+
     }
 
     @Override
@@ -140,19 +177,10 @@ public class SupplierHomePage extends AppCompatActivity
 
     //THIS IS THE BACK_END CODE
 
-    private View.OnClickListener logout = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
-            startActivity(intent);
-        }
-    };
-
     public void setProfileInformation()
     {
         db = FirebaseFirestore.getInstance();
-        db.collection("Store").whereEqualTo("store_owner_id","1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Store").whereEqualTo("store_owner_id",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -206,7 +234,7 @@ public class SupplierHomePage extends AppCompatActivity
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 supplierHompage_bannerImg.setImageBitmap(bitmap);
-                uploadImage("116");
+                uploadImage(user.getUid());
             }
             catch (IOException e)
             {
@@ -218,6 +246,7 @@ public class SupplierHomePage extends AppCompatActivity
     public void uploadImage(String txtid){
         if(filePath != null)
         {
+            Log.e("THIS IS THE USER UID", txtid);
             Toast.makeText(getApplication(), "I GOT IN FILE PATH!! ", Toast.LENGTH_SHORT).show();
             final ProgressDialog progressDialog = new ProgressDialog(SupplierHomePage.this);
             progressDialog.setTitle("Uploading...");
@@ -285,6 +314,7 @@ public class SupplierHomePage extends AppCompatActivity
         supplierHompage_bannerImg=findViewById(R.id.supplierHompage_bannerImg);
         supplierHomepage_viewItemsBtn=findViewById(R.id.supplierHomepage_viewItemsBtn);
         supplierHomepage_storeName_txtView=findViewById(R.id.supplierHomepage_storeName_txtView);
-        homepageSupplier_logoutBtn=findViewById(R.id.homepageSupplier_logoutBtn);
+        supplierHomePage_recyclerView=findViewById(R.id.supplierHomePage_recyclerView);
+
     }
 }

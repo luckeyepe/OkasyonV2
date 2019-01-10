@@ -22,7 +22,6 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
     }
 
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

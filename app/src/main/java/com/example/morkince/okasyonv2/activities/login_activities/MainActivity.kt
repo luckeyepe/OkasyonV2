@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                 "supplier" ->{
-                                    startActivity(Intent(this, Content_Home_Page_Supplier::class.java))
+                                    startActivity(Intent(this, SupplierHomePage::class.java))
                                     finish()
                                 }
                             }
@@ -136,7 +136,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
             }
-
         }
 
         textView_mainSignUp.setOnClickListener {

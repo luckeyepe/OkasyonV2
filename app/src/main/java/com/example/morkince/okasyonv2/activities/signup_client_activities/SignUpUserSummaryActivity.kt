@@ -87,6 +87,7 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
 
                         val thumbnailPath = mStorage!!.child("user_profPic").child("${currentUser.uid}.jpg")
 
+
                         val uploadTask = thumbnailPath.putFile(user_validIDURL as Uri)
 
                         var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
