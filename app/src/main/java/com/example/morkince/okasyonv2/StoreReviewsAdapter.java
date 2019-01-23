@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class StoreReviewsAdapter  extends RecyclerView.Adapter<StoreReviewsAdapt
     public void onBindViewHolder(@NonNull StoreReviewsAdapter.ViewHolder holder, int position) {
         holder.reviews_reviewerName.setText(reviews.get(position).getEvaluatorName());
         holder.reviews_reviewComments.setText(reviews.get(position).getReviewComment() + "");
-        holder.reviews_reviewStars.setRating(reviews.get(position).getNumStars());
+        holder.reviews_reviewStars.setRating((reviews.get(position).getNumStars()));
     }
 
     @Override
@@ -48,7 +49,7 @@ public class StoreReviewsAdapter  extends RecyclerView.Adapter<StoreReviewsAdapt
         TextView reviews_reviewerName;
         EditText reviews_reviewComments;
         RatingBar reviews_reviewStars;
-        RelativeLayout parentLayoutStoreReviews;
+        ConstraintLayout parentLayoutStoreReviews;
 
 
 

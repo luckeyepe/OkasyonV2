@@ -19,24 +19,27 @@
                 android:layout_width="160dp"
                 android:layout_height="130dp"
                 android:scaleType="centerCrop"
-                cardview:srcCompat="@drawable/tudloe" />
+                cardview:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
                 android:id="@+id/cardviewItem_itemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="TextView"/>
 
         <TextView
                 android:id="@+id/cardviewItem_starRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="TextView" />
 
         <TextView
                 android:id="@+id/cardview_itemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="TextView" />
 
     </LinearLayout>

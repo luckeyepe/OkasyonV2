@@ -3,12 +3,12 @@ package com.example.morkince.okasyonv2;
 public class Reviews {
 
     String evaluatorName;
-    int numStars;
+    Long numStars;
     String reviewComment;
 
     public Reviews(){}
 
-    public Reviews(String evaluatorName, int numStars, String reviewComment) {
+    public Reviews(String evaluatorName, Long numStars, String reviewComment) {
         this.evaluatorName = evaluatorName;
         this.numStars = numStars;
         this.reviewComment = reviewComment;
@@ -22,11 +22,11 @@ public class Reviews {
         this.evaluatorName = evaluatorName;
     }
 
-    public int getNumStars() {
+    public Long getNumStars() {
         return numStars;
     }
 
-    public void setNumStars(int numStars) {
+    public void setNumStars(Long numStars) {
         this.numStars = numStars;
     }
 
