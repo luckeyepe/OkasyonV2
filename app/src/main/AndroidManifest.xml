@@ -31,8 +31,12 @@
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -132,11 +136,6 @@
                 android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".testingphase.testingpart">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".activities.HomePage_Client_activity.Client_Viewitems"
