@@ -166,7 +166,7 @@
             android:background="@drawable/background_deafult_button_round"
             android:layout_width="170dp"
             android:layout_height="43dp"
-            android:id="@+id/button_modalCreateEventSports" android:layout_marginTop="8dp"
+            android:id="@+id/button_CreateEvent" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"

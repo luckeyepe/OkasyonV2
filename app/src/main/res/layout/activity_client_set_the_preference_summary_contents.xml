@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                             android:background="@drawable/background_default_gradient"
+                                             tools:context=".activities.client_activities.Client_Set_Preference_Summary"
+                                             tools:showIn="@layout/activity_client_set_the_preference_summary_toolbar_content">
+
+
+    <TextView
+            android:text="Name of The Party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_ActivityClientSetThePreferenceSummaryNameofParty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:textSize="18sp" android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.068" app:layout_constraintVertical_bias="0.060000002"/>
+    <TextView
+            android:text="Address of The Party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_ActivityClientSetThePreferenceSummaryAddressofParty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:textSize="18sp" android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.068" app:layout_constraintVertical_bias="0.14999998"/>
+    <TextView
+            android:text="Shopping List :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_ActivityClientSetThePreferenceSummaryAddressofParty2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:textSize="16sp" android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.05" app:layout_constraintVertical_bias="0.232"/>
+    <TextView
+            android:text="Budget :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_ActivityClientSetThePreferenceSummaryAddressofParty3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:textSize="16sp" android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.05" app:layout_constraintVertical_bias="0.314"/>
+    <EditText
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:maxWidth="50dp"
+            android:id="@+id/editText_ActivityClientSetThePreferenceSummaryBudget"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.359"
+            app:layout_constraintVertical_bias="0.303" android:textSize="16sp" android:hint="Budget"/>
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="309dp"
+            android:layout_height="207dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.648"
+            android:id="@+id/recyclerView_ActivityClientSetThePreferenceSummaryRecyclerViewForItemNeeded"/>
+</android.support.constraint.ConstraintLayout>
