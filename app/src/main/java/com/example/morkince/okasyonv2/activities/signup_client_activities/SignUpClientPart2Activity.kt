@@ -45,7 +45,7 @@ class SignUpClientPart2Activity : AppCompatActivity() {
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
 
-        val dpd = DatePickerDialog(this, android.R.style.Theme_Holo_Dialog, DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+        val dpd = DatePickerDialog(this, android.R.style.Theme_DeviceDefault_Dialog, DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
             textView_signupClientPart2DateOfBirth.text ="$dayOfMonth, $monthOfYear $year"
         }, year, month, day)
 

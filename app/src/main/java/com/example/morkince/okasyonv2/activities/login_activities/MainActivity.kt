@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 var buttonClient = view.button_modalUserTypeSelectionClient
                 var buttonOrganizer = view.button_modalUserTypeSelectionOrganizer
                 var buttonSupplier = view.button_modalUserTypeSelectionSupplier
-                var buttonClose = view.imageButton_modalUserTypeSelectionClose
+                    var buttonClose = view.imageButton_modalUserTypeSelectionClose
 
                 //instantiate the dialog
                 dialog = Dialog(this)

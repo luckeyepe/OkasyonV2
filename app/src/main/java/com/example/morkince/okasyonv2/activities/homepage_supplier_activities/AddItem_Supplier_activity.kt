@@ -46,8 +46,7 @@ class AddItem_Supplier_activity : AppCompatActivity() {
         // Set Adapter to Spinner
         spinner!!.setAdapter(aa)
     }
-    override fun  onSupportNavigateUp():Boolean{
-      onBackPressed()
+    override fun  onSupportNavigateUp():Boolean{onBackPressed()
         return true
     }
 
@@ -56,6 +55,7 @@ class AddItem_Supplier_activity : AppCompatActivity() {
         mi.inflate(R.menu.actionbar1, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
 
 
         }
