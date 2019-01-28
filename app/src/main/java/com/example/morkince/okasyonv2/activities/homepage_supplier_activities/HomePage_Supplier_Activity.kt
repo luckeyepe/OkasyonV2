@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.HomePage_Client_activity.Client_Viewitems
 import com.example.morkince.okasyonv2.activities.adapter.RecyclerAdapter
 import kotlinx.android.synthetic.main.activity_home_page__supplier_.*
 import kotlinx.android.synthetic.main.app_bar_home_page__supplier_.*
@@ -102,7 +103,9 @@ class HomePage_Supplier_Activity : AppCompatActivity(), NavigationView.OnNavigat
                     startActivity(intent)
                 }
                 R.id.nav_slideshow -> {
-
+                    val intent = Intent(this,Client_Viewitems::class.java)
+                    // start your next activity
+                    startActivity(intent)
                 }
                 R.id.nav_manage -> {
 

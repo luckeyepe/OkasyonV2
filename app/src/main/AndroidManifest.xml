@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
+        <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
+        </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart2Activity"
                 android:screenOrientation="portrait"
@@ -102,6 +104,12 @@
                 android:value="ocr,face,barcode"/>
 
         <activity android:name=".View_Store_Items">
+        </activity>
+        <activity
+                android:name=".activities.HomePage_Client_activity.Client_Viewitems"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        </activity>
+        <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
         </activity>
         <activity android:name=".GetStoreDirections">
         </activity>

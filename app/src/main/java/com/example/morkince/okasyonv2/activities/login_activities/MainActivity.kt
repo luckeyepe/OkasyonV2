@@ -13,8 +13,10 @@ import android.widget.Button
 import android.widget.Toast
 import com.example.morkince.okasyonv2.Content_Home_Page_Supplier
 import com.example.morkince.okasyonv2.R
-import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
-import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserPart1Activity
+import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.AddItem_Supplier_activity
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart1Activity
+import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpClientPart2Activity
+import com.example.morkince.okasyonv2.activities.signup_organizer_activities.SignUpOrganizerPart1Activity
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart1Activity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -25,6 +27,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_sign_up_client_part1.*
 import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     var mAuth: FirebaseAuth?= null
     var mAuthListener: FirebaseAuth.AuthStateListener ?= null
     var user: FirebaseUser?= null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
