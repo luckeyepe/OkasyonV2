@@ -39,8 +39,6 @@
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpClientPart1Activity">
-        </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart2Activity"
                 android:screenOrientation="portrait"

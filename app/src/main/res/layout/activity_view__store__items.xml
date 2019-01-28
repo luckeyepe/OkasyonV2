@@ -10,13 +10,13 @@
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="351dp"
-            android:layout_height="447dp" android:layout_marginTop="8dp"
+            android:layout_height="416dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:id="@+id/viewStoreItems_recyclerViewItems"
-            app:layout_constraintBottom_toTopOf="@+id/viewStoreItems_addItemsButton"
-            app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.428"/>
+            app:layout_constraintHorizontal_bias="0.428" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/viewStoreItems_addItemsButton"/>
     <Button
             android:text="ADD ITEM TO STORE"
             android:layout_width="376dp"
