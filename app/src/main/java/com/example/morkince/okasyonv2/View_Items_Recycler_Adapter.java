@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,6 +53,13 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         holder.cardviewItem_itemName.setText(items.get(position).getItemName());
         holder.cardview_itemPrice.setText("P"+items.get(position).getItemPrice() + "");
         holder.cardviewItem_starRating.setText(items.get(position).getStarRating() + " Stars");
+
+        holder.parentLayout_Item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //PUT ITEM DETAILS HERE!
+            }
+        });
     }
 
     @Override
@@ -66,8 +74,7 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         TextView cardview_itemPrice;
         TextView cardviewItem_starRating;
         ImageView cardviewItem_imageItem;
-        CardView parentLayout;
-
+        LinearLayout parentLayout_Item;
 
 
         public ViewHolder(View itemView) {
@@ -76,8 +83,7 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
             cardview_itemPrice = itemView.findViewById(R.id.cardview_itemPrice);
             cardviewItem_starRating = itemView.findViewById(R.id.cardviewItem_starRating);
             cardviewItem_imageItem = itemView.findViewById(R.id.cardviewItem_imageItem);
-            parentLayout=itemView.findViewById(R.id.parentLayout);
+            parentLayout_Item=itemView.findViewById(R.id.parentLayout_Item);
         }
     }
-
 }
