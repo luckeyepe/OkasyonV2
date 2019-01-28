@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/navigation_message_now"
+            android:icon="@drawable/message"
+
+            android:title="Message Now"/>
+
+    <item
+            android:id="@+id/navigation_addtocart"
+            android:icon="@drawable/cart"
+
+            android:title="Add To Cart"/>
+
+
+</menu>

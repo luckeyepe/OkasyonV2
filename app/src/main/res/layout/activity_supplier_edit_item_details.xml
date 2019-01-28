@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#188c8c"
+        tools:context=".activities.homepage_supplier_activities.SupplierEditItemDetailsActivity">
+
+    <ToggleButton
+            android:text=""
+            android:textOff=""
+            android:textOn=""
+            android:layout_width="192dp"
+            android:layout_height="45dp"
+            android:background="@drawable/togglebutton"
+            android:id="@+id/toggleButton_editText_supplierEditItemDetailsToggleButtonForRentAndSale"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.53999996"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/mycolor6"
+            android:layout_height="160dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" android:id="@+id/linearLayout">
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"/>
+
+
+    </LinearLayout>
+
+    <!--<EditText-->
+            <!--android:text="Name of Item"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/editText_supplierEditItemDetailsNameofItem"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textSize="18dp"-->
+            <!--android:enabled="false"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.05"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintVertical_bias="0.35000002"-->
+            <!--android:textStyle="bold"/>-->
+    <!--<EditText-->
+            <!--android:text="Price of Item"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/editText_supplierEditItemDetailsPriceofItem"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:enabled="false"-->
+            <!--android:textSize="18dp"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintVertical_bias="0.351"-->
+            <!--&lt;!&ndash;android:textStyle="bold"/>&ndash;&gt;-->
+    <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviews_reviewStars"
+            android:isIndicator="true"
+            android:theme="@style/RatingBar"
+            android:stepSize="1"
+            android:scaleX=".5" android:scaleY=".5"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/reviews_reviewerName"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:rating="4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.36"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"/>
+
+    <TextView
+            android:text="Reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:id="@+id/textView12"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.77"
+            app:layout_constraintHorizontal_bias="0.04"/>
+
+    <TextView
+            android:text="Item Details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:id="@+id/textView10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.608"
+            app:layout_constraintHorizontal_bias="0.041"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/editicon"
+            android:id="@+id/imageView_supplierEditItemDetailsEdit" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.863" app:layout_constraintVertical_bias="0.32999998"/>
+    <ImageView
+            android:layout_width="25dp"
+            android:scaleType="fitXY"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
+            android:id="@+id/imageView_supplierUploadImage" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.976" app:layout_constraintVertical_bias="0.331"/>
+    <EditText
+            android:layout_width="108dp"
+            android:maxWidth="108dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:enabled="false"
+            android:id="@+id/editText_supplierEditItemDetailsNameofItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintVertical_bias="0.348" android:hint="Name of Item" android:textSize="14sp"
+    />
+    <EditText
+            android:layout_width="108dp"
+            android:maxWidth="108dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:id="@+id/editText_supplierEditItemDetailsPriceofItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.032"
+            app:layout_constraintVertical_bias="0.433" android:hint="Price of Item" android:textSize="14sp"
+            android:inputType="number|numberDecimal"/>
+    <ScrollView
+            android:layout_width="368dp"
+            android:layout_height="41dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.69"
+            android:id="@+id/scrollView3">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <EditText android:layout_width="wrap_content"
+                      android:id="@+id/editText_supplierEditItemDetails"
+                      android:layout_height="wrap_content"
+                      android:inputType="textMultiLine"
+                      android:textSize="16sp"
+                      android:enabled="false"
+                      android:textColor="@color/mycolor6"
+                      android:text="This item is desiged by Mikhaelo Nheal Bongo himself. It is durable and convenient to use. This is a top choice for brides "
+                      android:textAlignment="center"/>
+        </LinearLayout>
+    </ScrollView>
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="368dp"
+            android:layout_height="96dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.99"/>
+
+</android.support.constraint.ConstraintLayout>

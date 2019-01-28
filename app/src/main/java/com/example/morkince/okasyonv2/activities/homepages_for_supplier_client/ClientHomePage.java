@@ -21,6 +21,7 @@ import com.example.morkince.okasyonv2.activities.client_activities.Client_Create
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.TopEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.YourEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ClientHomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -408,11 +409,15 @@ public class ClientHomePage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
+     int id = item.getItemId();
+
+        if (id == R.id.nav_logout) {
+            // Handle the camera action
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(ClientHomePage.this,MainActivity.class);
+            startActivity(intent);
+        }
+        //else if (id == R.id.nav_gallery) {
 //
 //        } else if (id == R.id.nav_slideshow) {
 //

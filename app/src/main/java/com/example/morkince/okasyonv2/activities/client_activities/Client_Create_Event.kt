@@ -1,5 +1,6 @@
 package com.example.morkince.okasyonv2.activities.client_activities
 
+import android.content.Intent
 import android.media.Image
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.text.Html
 import android.view.Menu
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
 import com.kd.dynamic.calendar.generator.ImageGenerator
 import kotlinx.android.synthetic.main.activity_client_create_event_contents.*
 
@@ -23,6 +25,10 @@ class Client_Create_Event : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         textInputEditText_clientCreateEventDate.isEnabled =false
+
+        button_CreateEvent.setOnClickListener{
+            startActivity(Intent(this, Client_Set_Preference::class.java))
+        }
 
     }
 

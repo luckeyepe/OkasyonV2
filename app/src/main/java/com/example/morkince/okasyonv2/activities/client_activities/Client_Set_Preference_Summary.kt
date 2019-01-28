@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.morkince.okasyonv2.R
 
-class Client_Set_Preference: AppCompatActivity() {
+class Client_Set_Preference_Summary: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_set_the_preference)

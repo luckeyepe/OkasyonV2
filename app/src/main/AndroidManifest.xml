@@ -17,8 +17,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.login_activities.MainActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".activities.login_activities.MainActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".activities.signup_organizer_activities.SignUpOrganizerPart1Activity"
@@ -27,12 +28,10 @@
         </activity>
         <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity">
         </activity>
-        <activity android:name=".SplashScreen" android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity
+                android:name=".SplashScreen"
+                android:theme="@style/AppTheme.NoActionBar">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -56,28 +55,35 @@
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Create_Event"
-               android:theme="@style/AppTheme.NoActionBar"
                 android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Set_Preference"
                 android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".activities.client_activities.Client_Set_Preference_Summary"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.homepages_for_supplier_client.ClientHomePage"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.homepages_for_supplier_client.SupplierHomePage"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
@@ -90,7 +96,6 @@
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity"/>
         <activity android:name=".Content_Home_Page_Supplier">
-
         </activity>
         <activity android:name=".Select_Multiple_Images">
         </activity>
@@ -100,6 +105,33 @@
                 android:value="ocr,face,barcode"/>
 
         <activity android:name=".View_Store_Items">
+        </activity>
+        <activity
+                android:name=".activities.client_activities.EventDetailsActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".activities.client_activities.FoundEventDetailsActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".activities.client_activities.ClientFindItemActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+                android:name=".activities.homepage_supplier_activities.SupplierEditItemDetailsActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".testingphase.testingpart">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

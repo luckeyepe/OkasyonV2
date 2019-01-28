@@ -7,11 +7,52 @@
                                              android:background="@drawable/background_default_gradient"
                                              tools:context=".activities.client_activities.Client_Set_Preference"
                                              tools:showIn="@layout/activity_client_set_the_preference_toolbar_content">
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="HELLOOOOOOOOOOOOOO" android:layout_marginBottom="8dp"
-              app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-              app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-              android:layout_marginStart="8dp"/>
+    <TextView
+            android:text="Budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.01999998" android:textSize="18sp"/>
+    <EditText
+            android:layout_width="134dp"
+            android:layout_height="44dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.286"
+            app:layout_constraintVertical_bias="0.0" android:hint="Budget" android:textSize="18sp"/>
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="340dp"
+            android:layout_height="192dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.363"
+            android:id="@+id/recyclerView"/>
+    <ImageView
+            android:layout_width="95dp"
+            android:layout_height="41dp" app:srcCompat="@drawable/ic_add_circle_black_24dp"
+            android:id="@+id/imageView7" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            app:layout_constraintHorizontal_bias="0.0"/>
+    <Button
+            android:text="Save Budget"
+            android:background="@drawable/background_deafult_button_round"
+            android:layout_width="146dp"
+            android:textColor="@color/mycolor6"
+            android:layout_height="wrap_content"
+            android:id="@+id/button" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" app:layout_constraintVertical_bias="0.677"/>
 
 </android.support.constraint.ConstraintLayout>
