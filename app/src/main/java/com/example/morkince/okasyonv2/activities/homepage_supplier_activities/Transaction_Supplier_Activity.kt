@@ -1,12 +1,21 @@
 package com.example.morkince.okasyonv2.activities.homepage_supplier_activities
 
+import android.app.Dialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.Window
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.adapter.TransactionRecyclerAdapter
+import com.example.morkince.okasyonv2.activities.client_activities.Client_Create_Event
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_transaction__supplier_.*
+import kotlinx.android.synthetic.main.rows_transactions_reviews.*
 
 class Transaction_Supplier_Activity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -28,11 +37,22 @@ class Transaction_Supplier_Activity : AppCompatActivity() {
         var viewAdapter = TransactionRecyclerAdapter(myDataset2, this)
 
 
-      transactionRecycler.adapter = viewAdapter
-     transactionRecycler.layoutManager = viewManager
-
+        transactionRecycler.adapter = viewAdapter
+        transactionRecycler.layoutManager = viewManager
+//        button7.setOnClickListener {
+//            //setup modal
+//            var dialog: Dialog?
+//            var view = LayoutInflater.from(this.applicationContext).inflate(R.layout.modal_rateitemstore_client, null)//inflate the modal
+//            dialog = Dialog(this)
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//            dialog.setContentView(view)
+//            dialog.setCancelable(false)
+//            dialog.show()
+//        }
     }
-    override fun  onSupportNavigateUp():Boolean{
+
+
+    override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }

@@ -24,7 +24,7 @@
             android:src="@drawable/img_okasyon_logo"
             android:layout_width="370dp"
             android:layout_height="209dp"
-            android:id="@+id/imageView" app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/imageView_OrganizerImage" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"/>

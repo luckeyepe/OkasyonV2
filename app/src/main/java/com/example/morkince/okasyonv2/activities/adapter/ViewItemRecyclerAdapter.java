@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.holder.MyViewHolder;
 import com.example.morkince.okasyonv2.activities.model.Store;
 
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class ViewItemRecyclerAdapter extends RecyclerView.Adapter<ViewItemRecycl
         public ViewHolder(View itemView) {
             super(itemView);
             Storetitle = itemView.findViewById(R.id.textView_storeTitle);
-            Location = itemView.findViewById(R.id.textView_storeLocation);
+            Location = itemView.findViewById(R.id.textView_Location);
             Price = itemView.findViewById(R.id.textView_ItemPrice);
             storerate = itemView.findViewById(R.id.RatingBar_storeRate);
             parentLayout=itemView.findViewById(R.id.ParentLayout);
