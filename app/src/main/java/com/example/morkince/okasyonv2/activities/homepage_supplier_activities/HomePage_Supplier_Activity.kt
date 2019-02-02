@@ -17,6 +17,7 @@ import android.view.MenuItem
 import android.widget.Button
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.HomePage_Client_activity.Client_Viewitems
+import com.example.morkince.okasyonv2.activities.HomePage_Client_activity.Transaction_ClientView
 import com.example.morkince.okasyonv2.activities.HomePage_Client_activity.activity_ViewCart
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer
 import com.example.morkince.okasyonv2.activities.adapter.RecyclerAdapter
@@ -139,6 +140,11 @@ class HomePage_Supplier_Activity : AppCompatActivity(), NavigationView.OnNavigat
 
                 }
                 R.id.nav_send -> {
+                    val intent = Intent(this,Transaction_ClientView::class.java)
+                    // start your next activity
+                    startActivity(intent)
+                }
+                R.id.nav_messages -> {
 
                 }
             }

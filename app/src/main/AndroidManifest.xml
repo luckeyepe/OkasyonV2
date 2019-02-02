@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -150,8 +151,21 @@
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".activities.HomePage_Client_activity.activity_ViewCart"
-                  android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        <activity
+                android:name=".activities.HomePage_Client_activity.activity_ViewCart"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        </activity>
+        <activity
+                android:name=".activities.HomePage_Client_activity.Transaction_ClientView"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        </activity>
+        <activity android:name=".chatactivities.ChatLogActivitiy">
+        </activity>
+        <activity android:name=".chatactivities.LatestMessagesactivity">
+        </activity>
+        <activity android:name=".chatactivities.MaxImageactivity">
+        </activity>
+        <activity android:name=".chatactivities.Newmesssagesactivity">
         </activity>
     </application>
 

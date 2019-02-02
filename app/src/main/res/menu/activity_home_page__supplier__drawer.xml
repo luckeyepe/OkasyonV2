@@ -32,6 +32,10 @@
                     android:id="@+id/nav_send"
                     android:icon="@drawable/ic_menu_send"
                     android:title="Send"/>
+            <item
+                    android:id="@+id/Messages"
+                    android:icon="@drawable/ic_chat_black_24dp"
+                    android:title="Messages"/>
         </menu>
     </item>
 
