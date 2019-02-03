@@ -6,7 +6,7 @@
         android:background="@drawable/background_default_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".chatactivities.Newmesssagesactivity">
+        tools:context=".activities.chat_activities.NewMessagesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"

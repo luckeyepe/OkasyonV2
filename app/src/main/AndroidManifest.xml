@@ -159,13 +159,13 @@
                 android:name=".activities.HomePage_Client_activity.Transaction_ClientView"
                 android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
         </activity>
-        <activity android:name=".chatactivities.ChatLogActivitiy">
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy">
         </activity>
-        <activity android:name=".chatactivities.LatestMessagesactivity">
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity">
         </activity>
-        <activity android:name=".chatactivities.MaxImageactivity">
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity">
         </activity>
-        <activity android:name=".chatactivities.Newmesssagesactivity">
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.NewMessagesActivity">
         </activity>
     </application>
 

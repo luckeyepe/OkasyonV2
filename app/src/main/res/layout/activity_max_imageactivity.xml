@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/grey_800"
-        tools:context=".chatactivities.MaxImageactivity">
+        tools:context=".activities.chat_activities.MaxImageActivity">
     <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@android:drawable/btn_dialog"

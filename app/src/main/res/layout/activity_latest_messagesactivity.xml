@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".chatactivities.LatestMessagesactivity"
+        tools:context=".activities.chat_activities.LatestMessagesActivity"
         android:background="@drawable/background_default_gradient">
 
     <androidx.recyclerview.widget.RecyclerView
