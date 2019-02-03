@@ -10,7 +10,7 @@
     tools:context=".activities.homepages_for_supplier_client.ClientHomePage"
     tools:showIn="@layout/activity_client_homepage_app_bar">
 
-   <android.support.design.widget.BottomNavigationView
+   <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/event_navigation"
             android:layout_width="match_parent"
             android:layout_height="70dp"

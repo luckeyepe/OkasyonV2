@@ -1,16 +1,12 @@
 package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.client_activities_fragments.TopEvents_Fragment;
-import com.example.morkince.okasyonv2.activities.client_activities_fragments.YourEvents_Fragment;
 
 public class ClientFindItemActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;

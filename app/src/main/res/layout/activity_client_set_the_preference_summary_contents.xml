@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                             android:background="@drawable/background_default_gradient"
-                                             tools:context=".activities.client_activities.Client_Set_Preference_Summary"
-                                             tools:showIn="@layout/activity_client_set_the_preference_summary_toolbar_content">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                                   android:background="@drawable/background_default_gradient"
+                                                   tools:context=".activities.client_activities.Client_Set_Preference_Summary"
+                                                   tools:showIn="@layout/activity_client_set_the_preference_summary_toolbar_content">
 
 
     <TextView
@@ -61,11 +61,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.359"
             app:layout_constraintVertical_bias="0.303" android:textSize="16sp" android:hint="Budget"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="309dp"
             android:layout_height="207dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.648"
             android:id="@+id/recyclerView_ActivityClientSetThePreferenceSummaryRecyclerViewForItemNeeded"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

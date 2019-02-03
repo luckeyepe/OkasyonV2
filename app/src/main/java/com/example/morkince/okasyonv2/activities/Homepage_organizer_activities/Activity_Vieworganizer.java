@@ -2,19 +2,16 @@ package com.example.morkince.okasyonv2.activities.Homepage_organizer_activities;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.*;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.HomePage_Client_activity.Client_Viewitems;
-import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewOrganizersAdapter;
 import com.example.morkince.okasyonv2.activities.model.Organizer;
-import com.example.morkince.okasyonv2.activities.model.Store;
 
 import java.util.ArrayList;
 

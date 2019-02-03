@@ -2,26 +2,20 @@ package com.example.morkince.okasyonv2.activities.HomePage_Client_activity;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
 import com.example.morkince.okasyonv2.activities.model.Store;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Client_Viewitems extends AppCompatActivity {
     private ArrayList<Store> StoreItem = new ArrayList<>();

@@ -4,12 +4,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -26,9 +26,9 @@ import kotlinx.android.synthetic.main.app_bar_home_page__supplier_.*
 import kotlinx.android.synthetic.main.content_home_page__supplier_.*
 
 class HomePage_Supplier_Activity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     private lateinit var myDataset: ArrayList<String>
     internal val context: Context = this
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class HomePage_Supplier_Activity : AppCompatActivity(), NavigationView.OnNavigat
         var myDataset = ArrayList<String>()
         myDataset.add("Smiles")
         myDataset.add("Dead")
-        var viewManager = LinearLayoutManager(this)
+        var viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         var viewAdapter = RecyclerAdapter(myDataset, this)
 
 

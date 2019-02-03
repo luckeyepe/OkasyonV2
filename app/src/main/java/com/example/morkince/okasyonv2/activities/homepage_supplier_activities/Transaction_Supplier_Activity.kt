@@ -2,10 +2,10 @@ package com.example.morkince.okasyonv2.activities.homepage_supplier_activities
 
 import android.app.Dialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.activity_transaction__supplier_.*
 import kotlinx.android.synthetic.main.rows_transactions_reviews.*
 
 class Transaction_Supplier_Activity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     private lateinit var myDataset: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class Transaction_Supplier_Activity : AppCompatActivity() {
         myDataset2.add("Mikay Shop")
         myDataset2.add("Mikky Shop")
         myDataset2.add("japhet Shop")
-        var viewManager = LinearLayoutManager(this)
+        var viewManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         var viewAdapter = TransactionRecyclerAdapter(myDataset2, this)
 
 

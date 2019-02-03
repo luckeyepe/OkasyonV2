@@ -1,9 +1,9 @@
 package com.example.morkince.okasyonv2.activities.signup_supplier_activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.ocr_activities.ocr_supplier_registration
