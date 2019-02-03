@@ -17,7 +17,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val currentUser = FirebaseAuth.getInstance().currentUser
 
         if (currentUser!=null) {
-            val db = FirebaseFirestore.getInstance().collection("Users").document(currentUser.uid)
+            val db = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
             db.update("user_token", token)
         }
     }
