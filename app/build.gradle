@@ -50,4 +50,5 @@ dependencies {
 
     implementation 'com.xwray:groupie:2.3.0'//easy recyler view adapter
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 }
