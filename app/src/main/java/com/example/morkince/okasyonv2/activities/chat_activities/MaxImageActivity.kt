@@ -12,8 +12,8 @@ class MaxImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_max_image)
 
-        val sourcUrl = intent.getStringExtra("sourceUrl")
+        val sourceUrl = intent.getStringExtra("sourceUrl")
 
-        Picasso.get().load(sourcUrl).into(imageView_maxImageImage)
+        Picasso.get().load(sourceUrl).into(imageView_maxImageImage)
     }
 }
