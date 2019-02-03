@@ -26,7 +26,7 @@ class LatestMessagesViewHolder(val message: Message): Item<ViewHolder>() {
         if (currentUser != null) {
             if (message.message_senderID != currentUser.uid){
                 val userDB = FirebaseFirestore.getInstance()
-                    .collection("Users")
+                    .collection("User")
                     .document(message.message_senderID!!)
 
                 userDB.get()
@@ -62,7 +62,7 @@ class LatestMessagesViewHolder(val message: Message): Item<ViewHolder>() {
                     }
             }else{
                 val userDB = FirebaseFirestore.getInstance()
-                    .collection("Users")
+                    .collection("User")
                     .document(message.message_recieverID!!)
 
                 userDB.get()

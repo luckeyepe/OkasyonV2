@@ -89,11 +89,11 @@
                 android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
                 android:label="@string/title_activity_home_page__supplier_"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
         </activity>
@@ -162,6 +162,11 @@
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy">
         </activity>
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity">
         </activity>

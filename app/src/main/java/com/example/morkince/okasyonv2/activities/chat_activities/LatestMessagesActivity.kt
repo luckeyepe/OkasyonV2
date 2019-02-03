@@ -68,14 +68,14 @@ class LatestMessagesActivity : AppCompatActivity() {
                 Log.d("LatestMessages", "User UID: ${messageItem.message.message_recieverID}")
                 //pass on entire user object
                 FirebaseFirestore.getInstance()
-                    .collection("Users")
+                    .collection("User")
                     .document(FirebaseAuth.getInstance().currentUser!!.uid)
                     .get()
                     .addOnCompleteListener { task: Task<DocumentSnapshot> ->
                         if (task.isSuccessful) {
                             val document = task.result!!.toObject(User::class.java)
                             FirebaseFirestore.getInstance()
-                                .collection("Users")
+                                .collection("User")
                                 .document(messageItem.message.message_recieverID!!)
                                 .get()
                                 .addOnCompleteListener { task: Task<DocumentSnapshot> ->
@@ -93,14 +93,14 @@ class LatestMessagesActivity : AppCompatActivity() {
                 Log.d("LatestMessages", "User UID: ${messageItem.message.message_senderID}")
                 //pass on entire user object
                 FirebaseFirestore.getInstance()
-                    .collection("Users")
+                    .collection("User")
                     .document(messageItem.message.message_senderID!!)
                     .get()
                     .addOnCompleteListener { task: Task<DocumentSnapshot> ->
                         if (task.isSuccessful) {
                             val document = task.result!!.toObject(User::class.java)
                             FirebaseFirestore.getInstance()
-                                .collection("Users")
+                                .collection("User")
                                 .document(messageItem.message.message_recieverID!!)
                                 .get()
                                 .addOnCompleteListener { task: Task<DocumentSnapshot> ->

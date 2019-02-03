@@ -115,6 +115,8 @@ public class User implements Parcelable {
         return 0;
     }
 
+    public User() {
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
