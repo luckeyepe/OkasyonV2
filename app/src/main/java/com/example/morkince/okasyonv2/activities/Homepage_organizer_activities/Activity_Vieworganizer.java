@@ -2,7 +2,6 @@ package com.example.morkince.okasyonv2.activities.Homepage_organizer_activities;
 
 import android.app.Dialog;
 import android.content.Context;
-import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -74,7 +73,7 @@ public class Activity_Vieworganizer extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.clientviewitemsactionbar, menu);
+        mi.inflate(R.menu.menuclientviewitemsactionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

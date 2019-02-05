@@ -1,7 +1,12 @@
 package com.example.morkince.okasyonv2.activities.HomePage_Client_activity;
 
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
+import android.content.Intent;
+import android.widget.SearchView;
+import android.widget.Toast;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +18,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
+import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.example.morkince.okasyonv2.activities.model.Store;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Client_Viewitems extends AppCompatActivity {
     private ArrayList<Store> StoreItem = new ArrayList<>();
@@ -25,6 +32,7 @@ public class Client_Viewitems extends AppCompatActivity {
     final Context context = this;
     private Button button;
     ImageButton Logout;
+    private SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,7 @@ public class Client_Viewitems extends AppCompatActivity {
         setContentView(R.layout.activity_client__viewitems);
         getSupportActionBar().setTitle("Gowns");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         refs();
 
 
@@ -81,9 +90,61 @@ public class Client_Viewitems extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.clientviewitemsactionbar, menu);
-        return super.onCreateOptionsMenu(menu);
+        mi.inflate(R.menu.menuclientviewitemsactionbar, menu);
+//        mSearchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+////        setupSearchView();
+
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchView vs  = (SearchView) searchItem.getActionView();
+        vs.setQueryHint("Search View Hint");
+        vs.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Log.e("onQueryTextChange", "called");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                // Do your task here
+
+                return false;
+            }
+
+        });
+
+        return true;
     }
+
+//    private void setupSearchView() {
+//
+//        mSearchView.setIconifiedByDefault(true);
+//
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        if (searchManager != null) {
+//            List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
+//
+//            // Try to use the "applications" global search provider
+//            SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+//            for (SearchableInfo inf : searchables) {
+//                if (inf.getSuggestAuthority() != null
+//                        && inf.getSuggestAuthority().startsWith("applications")) {
+//                    info = inf;
+//                    Toast.makeText(getApplicationContext(), "This is my Toast message!" + info,
+//                            Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            mSearchView.setSearchableInfo(info);
+//            Toast.makeText(getApplicationContext(), "This is my Toast message!" + info,
+//                    Toast.LENGTH_LONG).show();
+//        }
+//
+//    }
+
+
 
     //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,9 +163,7 @@ public class Client_Viewitems extends AppCompatActivity {
 //        Fragment selectedFragment = null;
         // Handle item selection
         switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+
             case R.id.Filter:
 //                selectedFragment = new activity_filter();
 //                break;

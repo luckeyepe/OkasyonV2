@@ -136,6 +136,11 @@
         <activity
                 android:name=".activities.HomePage_Client_activity.Client_Viewitems"
                 android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
         </activity>
@@ -162,11 +167,7 @@
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy">
         </activity>
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity">
         </activity>
