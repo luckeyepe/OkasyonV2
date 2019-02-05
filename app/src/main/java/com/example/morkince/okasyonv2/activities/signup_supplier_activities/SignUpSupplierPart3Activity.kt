@@ -96,6 +96,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         var db = FirebaseFirestore.getInstance()
 
         Log.d(TAG, "User Email $user_email, and Password $user_password")
+
         mAuth.createUserWithEmailAndPassword(user_email!!, user_password!!)
             .addOnCompleteListener {
                 task: Task<AuthResult> ->
@@ -122,13 +123,19 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                                 task: Task<Void> ->
                                 run {
                                     if (task.isSuccessful) {
-                                        db.collection("Store").add(storeMap as Map<String, Any>)
-                                            .addOnCompleteListener {
-                                                task: Task<DocumentReference> ->
-                                                run {
-                                                    if (task.isSuccessful) {
-                                                        imageButton_SignUpSupplierPart3Next.isEnabled = true
-                                                    }
+                                        db.collection("User").document(currentUser.uid)
+                                            .update("user_uid", currentUser.uid).addOnCompleteListener {
+                                                task: Task<Void> ->
+                                                if (task.isSuccessful){
+                                                    db.collection("Store").add(storeMap as Map<String, Any>)
+                                                        .addOnCompleteListener {
+                                                                task: Task<DocumentReference> ->
+                                                            run {
+                                                                if (task.isSuccessful) {
+                                                                    imageButton_SignUpSupplierPart3Next.isEnabled = true
+                                                                }
+                                                            }
+                                                        }
                                                 }
                                             }
                                     }
