@@ -110,6 +110,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                         userHashMap["user_last_name"] = user_last_name!!
                         userHashMap["user_address"] = user_address!!
                         userHashMap["user_contact_no"] = user_contact_no!!
+                        userHashMap["user_uid"] = currentUser!!.uid
 
                         var storeMap= HashMap<String,String>()
                         storeMap["store_store_name"] =store_store_name!!
@@ -123,21 +124,15 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                                 task: Task<Void> ->
                                 run {
                                     if (task.isSuccessful) {
-                                        db.collection("User").document(currentUser.uid)
-                                            .update("user_uid", currentUser.uid).addOnCompleteListener {
-                                                task: Task<Void> ->
-                                                if (task.isSuccessful){
-                                                    db.collection("Store").add(storeMap as Map<String, Any>)
-                                                        .addOnCompleteListener {
-                                                                task: Task<DocumentReference> ->
-                                                            run {
-                                                                if (task.isSuccessful) {
-                                                                    imageButton_SignUpSupplierPart3Next.isEnabled = true
-                                                                }
-                                                            }
-                                                        }
+                                        if (task.isSuccessful){
+                                            db.collection("Store").add(storeMap as Map<String, Any>)
+                                                .addOnCompleteListener {
+                                                        task: Task<DocumentReference> ->
+                                                    run {
+
+                                                    }
                                                 }
-                                            }
+                                        }
                                     }
                                 }
                             }
