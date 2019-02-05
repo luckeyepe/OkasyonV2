@@ -45,7 +45,7 @@
                                 android:textColor="#000000"
                                 android:textStyle="bold"
                                 android:inputType="text"
-                                android:textSize="14dp"
+                                android:textSize="20sp"
                                 android:enabled="false"
                                 android:layout_marginStart="5dp"
                                 android:textColorHint="#000000"
@@ -56,10 +56,13 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                             <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
                                     android:layout_marginStart="5dp"
-                                    android:src="@drawable/calendariconsmall"/>
+                                    android:src="@drawable/calendar_icon"
+                                    android:id="@+id/imageView_calendar"
+                                    android:clickable="false"
+                            />
                             <EditText
                                     android:id="@+id/textView_eventdetailsDateoftheEvent"
                                     android:layout_width="wrap_content"
@@ -67,9 +70,8 @@
                                     android:hint="Date of the  event"
                                     android:textColor="#000000"
                                     android:textStyle="bold"
-                                    android:textSize="14dp"
+                                    android:textSize="18sp"
                                     android:enabled="false"
-                                    android:inputType="text"
                                     android:textColorHint="#000000"
                                     android:layout_marginStart="5dp"
                                     android:textAllCaps="true"/>
@@ -80,10 +82,10 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                             <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
                                     android:layout_marginStart="5dp"
-                                    android:src="@drawable/pinlocation"/>
+                                    android:src="@drawable/mapmarker"/>
                             <EditText
                                     android:id="@+id/textView_eventdetailsAddressofTheEvent"
                                     android:layout_width="wrap_content"
@@ -92,7 +94,7 @@
                                     android:textColor="#000000"
                                     android:textStyle="bold"
                                     android:textColorHint="#000"
-                                    android:textSize="14dp"
+                                    android:textSize="18sp"
                                     android:enabled="false"
                                     android:inputType="text"
                                     android:layout_marginStart="5dp"
@@ -106,7 +108,7 @@
                                 android:textStyle="bold"
                                 android:textColor="#000000"
                                 android:inputType="text"
-                                android:textSize="13dp"
+                                android:textSize="18sp"
                                 android:enabled="false"
                                 android:textColorHint="#000"
                                 android:layout_marginStart="5dp"
@@ -119,12 +121,19 @@
             </LinearLayout>
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="match_parent"
-                              android:orientation="horizontal">
+                              android:orientation="vertical">
                     <ImageView
                             android:layout_width="60dp"
                             android:layout_height="45dp"
                             android:id="@+id/imageView_eventdetailsEdit"
                             android:src="@drawable/editicon"/>
+                    <Button
+                            android:id="@+id/Button_saveEditEvent"
+                            android:layout_width="wrap_content"
+                            android:text="Save"
+                            android:layout_marginTop="4dp"
+                            android:visibility="invisible"
+                            android:layout_height="wrap_content"/>
                 </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -208,7 +217,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#fff"
-            android:id="@+id/textView8"
+            android:id="@+id/textView_numberofEventsInterestedAttendees"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp"
@@ -225,7 +234,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffff"
 
-            android:id="@+id/textView9" android:layout_marginTop="8dp"
+            android:id="@+id/textView_numberofEventsInterestedSponsor" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"

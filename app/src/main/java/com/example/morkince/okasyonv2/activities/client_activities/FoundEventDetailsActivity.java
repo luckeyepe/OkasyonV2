@@ -11,5 +11,6 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_event_details);
 
+
     }
 }

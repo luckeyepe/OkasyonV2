@@ -38,19 +38,18 @@
     </LinearLayout>
 
     <TextView
-            android:text="Name of Item"
+            android:text="NAME OF ITEM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView_ActivityClientFindItemNameofTheItem"
-            android:textColor="#ffffff"
+            android:textColor="#188c8c"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.35000002"
-            android:textStyle="bold"/>
+            app:layout_constraintVertical_bias="0.248"
+            android:textStyle="bold" android:textAlignment="center"/>
     <TextView
             android:text="Price of Item"
             android:layout_width="wrap_content"
@@ -61,7 +60,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.799"
+            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.351"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Price of Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_ActivityClientFindItemPriceofTheItem2"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.82"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.351"
             android:textStyle="bold"/>
