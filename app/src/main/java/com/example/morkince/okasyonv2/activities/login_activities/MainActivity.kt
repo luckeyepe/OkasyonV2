@@ -79,10 +79,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-
-/*
-                startActivity(Intent(this, PlaceHolderActivity::class.java))
-                finish()*/
             }
         }
 

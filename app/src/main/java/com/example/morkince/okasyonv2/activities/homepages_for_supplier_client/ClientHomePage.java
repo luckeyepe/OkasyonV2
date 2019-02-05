@@ -3,7 +3,9 @@ package com.example.morkince.okasyonv2.activities.homepages_for_supplier_client;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
@@ -22,6 +24,11 @@ import com.example.morkince.okasyonv2.activities.client_activities_fragments.Top
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.YourEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class ClientHomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +64,18 @@ public class ClientHomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Client");
 
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                DocumentReference db = FirebaseFirestore.getInstance().collection("Users")
+                        .document(currentUser.getUid());
+                db.update("user_token", instanceIdResult.getToken());
+                db.update("user_instanceID", instanceIdResult.getId());
+                Log.d("Dashboard", "Token: "+instanceIdResult.getToken());
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(

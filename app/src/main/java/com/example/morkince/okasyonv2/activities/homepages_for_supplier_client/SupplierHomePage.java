@@ -33,6 +33,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -75,6 +77,17 @@ public class SupplierHomePage extends AppCompatActivity
         getSupportActionBar().setTitle("Supplier Home");
 
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                DocumentReference db = FirebaseFirestore.getInstance().collection("Users")
+                        .document(currentUser.getUid());
+                db.update("user_token", instanceIdResult.getToken());
+                db.update("user_instanceID", instanceIdResult.getId());
+                Log.d("Dashboard", "Token: "+instanceIdResult.getToken());
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
