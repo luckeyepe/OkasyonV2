@@ -2,17 +2,26 @@ package com.example.morkince.okasyonv2.activities.model;
 
 public class Item {
 
-    String item_name = null;
+    String item_name = "";
     double item_average_rating = 0;
     double item_price = 0;
-    String item_uid = null;
-    String item_category_id = null;
-    String item_description = null;
+    String item_uid = "";
+    String item_category_id = "";
+    String item_description = "";
     boolean item_is_per_sqr_unit_of_measurement = false;
     boolean item_for_sale = false;
-    String item_price_description = null;
-    String item_store_id = null;
-    String item_display_picture_url = null;
+    String item_price_description = "";
+    String item_store_id = "";
+    String item_display_picture_url = "";
+    String item_doc="";
+
+    public String getItem_doc() {
+        return item_doc;
+    }
+
+    public void setItem_doc(String item_doc) {
+        this.item_doc = item_doc;
+    }
 
     public String getItem_display_picture_url() {
         return item_display_picture_url;
@@ -25,7 +34,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description, boolean item_is_per_sqr_unit_of_measurement, boolean item_for_sale, String item_price_description, String item_store_id, String item_display_picture_url) {
+    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description, boolean item_is_per_sqr_unit_of_measurement, boolean item_for_sale, String item_price_description, String item_store_id, String item_display_picture_url, String item_doc) {
         this.item_name = item_name;
         this.item_average_rating = item_average_rating;
         this.item_price = item_price;
@@ -37,6 +46,7 @@ public class Item {
         this.item_price_description = item_price_description;
         this.item_store_id = item_store_id;
         this.item_display_picture_url = item_display_picture_url;
+        this.item_doc = item_doc;
     }
 
     public Item(String item_name, double item_average_rating, double item_price, String item_uid) {

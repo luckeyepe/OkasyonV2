@@ -24,7 +24,7 @@ class BasicItemViewHolder(val item_uid: String,
         val itemPrice = viewHolder.itemView.textView_ItemPrice
         val itemRating = viewHolder.itemView.ratingBar_rowViewItemContentItemRating
 
-        if (item_display_picture_url==null || item_display_picture_url == "default"){
+        if (item_display_picture_url=="" || item_display_picture_url == "default"){
             Picasso.get().load(R.drawable.backgroundimage).into(itemDisplayImage)
         }else{
             Picasso.get().load(item_display_picture_url).into(itemDisplayImage)
