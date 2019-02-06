@@ -39,6 +39,13 @@ public class Item {
         this.item_display_picture_url = item_display_picture_url;
     }
 
+    public Item(String item_name, double item_average_rating, double item_price, String item_uid) {
+        this.item_name = item_name;
+        this.item_average_rating = item_average_rating;
+        this.item_price = item_price;
+        this.item_uid = item_uid;
+    }
+
     public String getItem_name() {
         return item_name;
     }

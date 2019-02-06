@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,7 +69,7 @@ public class View_Store_Items extends AppCompatActivity {
                         double numStars=3.0;//(Long)document.get("storeRating_starRating");
                         double itemPrice=Double.parseDouble(document.get("item_price").toString());
                         String item_uid=document.getString("item_uid");
-                        //  double priceOfItem = itemPrice.doubleValue();
+                        //  double priceOfItem = item_price.doubleValue();
 
                         Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
                         items.add(new Item(itemName,numStars,itemPrice,item_uid));
@@ -106,14 +107,14 @@ public class View_Store_Items extends AppCompatActivity {
               /*  for(DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()){
                     QueryDocumentSnapshot document=dc.getDocument();
                     Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
-                    String itemName=document.getString("item_name");
+                    String item_name=document.getString("item_name");
                     double numStars=3.0;//(Long)document.get("storeRating_starRating");
-                    double itemPrice=Double.parseDouble(document.get("item_price").toString());
+                    double item_price=Double.parseDouble(document.get("item_price").toString());
                     String item_uid=document.getString("item_uid");
-                    //  double priceOfItem = itemPrice.doubleValue();
+                    //  double priceOfItem = item_price.doubleValue();
 
-                    Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
-                    itemsTOUpdate.add(new Item(itemName,numStars,itemPrice,item_uid));
+                    Log.e("HERE IT IS ", item_name + numStars + " " + item_price );
+                    itemsTOUpdate.add(new Item(item_name,numStars,item_price,item_uid));
                     adapter = new View_Items_Recycler_Adapter(itemsTOUpdate,View_Store_Items.this);
 
                     //   recyclerView.addItemDecoration(new DividerItemDecoration(View_Store_Items.this, LinearLayoutManager.HORIZONTAL));
