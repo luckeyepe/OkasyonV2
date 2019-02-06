@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.SearchView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,15 @@ import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.example.morkince.okasyonv2.activities.model.Store;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Client_Viewitems extends AppCompatActivity {
     private ArrayList<Store> StoreItem = new ArrayList<>();
@@ -33,6 +40,7 @@ public class Client_Viewitems extends AppCompatActivity {
     private Button button;
     ImageButton Logout;
     private SearchView mSearchView;
+    private FirebaseFunctions mFunctions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,7 @@ public class Client_Viewitems extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         refs();
+        mFunctions = FirebaseFunctions.getInstance();
 
 
         // add button listener
@@ -55,7 +64,6 @@ public class Client_Viewitems extends AppCompatActivity {
 ////                text.setText("Android custom dialog example!");
 ////                ImageView image = (ImageView) dialog.findViewById(R.id.image);
 ////                image.setImageResource(R.drawable.ic_launcher);
-
 
 
         Store item1 = new Store();
@@ -95,7 +103,7 @@ public class Client_Viewitems extends AppCompatActivity {
 ////        setupSearchView();
 
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-        SearchView vs  = (SearchView) searchItem.getActionView();
+        SearchView vs = (SearchView) searchItem.getActionView();
         vs.setQueryHint("Search View Hint");
         vs.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -145,7 +153,6 @@ public class Client_Viewitems extends AppCompatActivity {
 //    }
 
 
-
     //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        int id = item.getItemId();
@@ -167,11 +174,11 @@ public class Client_Viewitems extends AppCompatActivity {
             case R.id.Filter:
 //                selectedFragment = new activity_filter();
 //                break;
-            View view = LayoutInflater.from(this).inflate(R.layout.activity_filter, null);
-            final Dialog dialog = new Dialog(context);
-            dialog.setContentView(view);
-            dialog.setTitle("FILTER");
-            dialog.show();
+                View view = LayoutInflater.from(this).inflate(R.layout.activity_filter, null);
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(view);
+                dialog.setTitle("FILTER");
+                dialog.show();
                 Window window = dialog.getWindow();
                 WindowManager.LayoutParams wlp = window.getAttributes();
                 wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
@@ -185,10 +192,32 @@ public class Client_Viewitems extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void refs()
-    {
+
+    public void refs() {
 
         recyclerView = findViewById(R.id.RecyclerView_ClientViewItems);
+    }
+
+    private Task<Integer> addNumbers(int a, int b) {
+        // Create the arguments to the callable function, which are two integers
+        Map<String, Object> data = new HashMap<>();
+        data.put("firstNumber", a);
+        data.put("secondNumber", b);
+
+        // Call the function and extract the operation from the result
+        return mFunctions
+                .getHttpsCallable("addNumbers")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, Integer>() {
+                    @Override
+                    public Integer then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        Map<String, Object> result = (Map<String, Object>) task.getResult().getData();
+                        return (Integer) result.get("operationResult");
+                    }
+                });
     }
 }
 
