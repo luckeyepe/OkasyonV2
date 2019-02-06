@@ -55,7 +55,7 @@ public class ViewOrganizersAdapter extends RecyclerView.Adapter<ViewOrganizersAd
             public ViewHolder(View itemView) {
                 super(itemView);
                 Organizername= itemView.findViewById(R.id.textView_OrganizerName);
-                Location = itemView.findViewById(R.id.textView_Location);
+                Location = itemView.findViewById(R.id.textView_rowViewItemContentItemName);
                 Price = itemView.findViewById(R.id.textView_Organizerprize);
                Organizerrate = itemView.findViewById(R.id.RatingBar_Organizerrate);
                 parentLayout = itemView.findViewById(R.id.ParentLayout);

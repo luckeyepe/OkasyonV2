@@ -85,7 +85,7 @@ public class ViewItemRecyclerAdapter extends RecyclerView.Adapter<ViewItemRecycl
         public ViewHolder(View itemView) {
             super(itemView);
             Storetitle = itemView.findViewById(R.id.textView_storeTitle);
-            Location = itemView.findViewById(R.id.textView_Location);
+            Location = itemView.findViewById(R.id.textView_rowViewItemContentItemName);
             Price = itemView.findViewById(R.id.textView_ItemPrice);
             storerate = itemView.findViewById(R.id.RatingBar_storeRate);
             parentLayout=itemView.findViewById(R.id.ParentLayout);

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,9 +50,9 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         });
 
 
-        holder.cardviewItem_itemName.setText(items.get(position).getItemName());
-        holder.cardview_itemPrice.setText("P"+items.get(position).getItemPrice() + "");
-        holder.cardviewItem_starRating.setText(items.get(position).getStarRating() + " Stars");
+        holder.cardviewItem_itemName.setText(items.get(position).getItem_name());
+        holder.cardview_itemPrice.setText("P"+items.get(position).getItem_price() + "");
+        holder.cardviewItem_starRating.setText(items.get(position).getItem_average_rating() + " Stars");
 
         holder.parentLayout_Item.setOnClickListener(new View.OnClickListener() {
             @Override
