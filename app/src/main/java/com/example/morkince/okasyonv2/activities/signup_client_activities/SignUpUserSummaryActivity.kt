@@ -9,8 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import com.example.morkince.okasyonv2.R
-import com.example.morkince.okasyonv2.activities.PlaceHolderActivity
-import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage
+import com.example.morkince.okasyonv2.activities.client_activities.ClientHomePage
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -18,10 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import kotlinx.android.synthetic.main.activity_sign_up_user_summary.*
-import java.net.URI
 import java.util.*
 
 class SignUpUserSummaryActivity : AppCompatActivity() {

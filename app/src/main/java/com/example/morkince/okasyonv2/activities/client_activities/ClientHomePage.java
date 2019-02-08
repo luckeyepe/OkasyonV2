@@ -1,9 +1,10 @@
-package com.example.morkince.okasyonv2.activities.homepages_for_supplier_client;
+package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer;
-import com.example.morkince.okasyonv2.activities.client_activities.Client_Create_Event;
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.TopEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.YourEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;

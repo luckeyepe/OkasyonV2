@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
-import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.SupplierHomePage;
+import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;

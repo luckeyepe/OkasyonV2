@@ -32,10 +32,8 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
     String event_id;
     Events event;
 
-
     Bitmap generatedateIcon;
     ImageGenerator imageGenerator;
-
 
     ImageView eventdetailsimage,eventdetailsmessage,foundEventDetails_dateCalendar;
     TextView nameofevent,dateevent,addressevent,descriptionofevent;
@@ -71,12 +69,15 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
 
     public void getEventDetails(){
         db = FirebaseFirestore.getInstance();
-        db.collection("Event").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Event").document(event_id).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+
                         event=document.toObject(Events.class);
                         nameofevent.setText(event.getEvent_name());
                         addressevent.setText(event.getEvent_location());
@@ -93,7 +94,6 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
 
                         // .set(selectedYear,selectedMonth,selectedDay);
                         imageGenerator = new ImageGenerator(FoundEventDetailsActivity.this);
-
 
                         imageGenerator.setIconSize(100, 100);
                         imageGenerator.setDateSize(40);

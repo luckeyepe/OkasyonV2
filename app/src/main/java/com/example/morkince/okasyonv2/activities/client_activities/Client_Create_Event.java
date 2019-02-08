@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.*;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.homepages_for_supplier_client.ClientHomePage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

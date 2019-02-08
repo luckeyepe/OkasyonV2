@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2;
+package com.example.morkince.okasyonv2.activities.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.morkince.okasyonv2.Events;
+import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.client_activities.EventDetailsActivity;
 import com.example.morkince.okasyonv2.activities.client_activities.FoundEventDetailsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,17 +33,16 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder>{
+
     private ArrayList<Events> events;
     private Context mContext;
-    FirebaseUser user;
+    private FirebaseUser user;
     private StorageReference mStorageRef;
-    String eventName,eventLocation;
-
+    private String eventName,eventLocation;
 
   //  Calendar currentDate;
     Bitmap generatedateIcon;
     ImageGenerator imageGenerator;
-
 
     public EventsAdapter(ArrayList<Events> events, Context mContext) {
         this.events = events;
@@ -52,27 +53,35 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @NonNull
     @Override
     public EventsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.client_top_events_to_be_recycle, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.client_top_events_to_be_recycle, parent, false);
         EventsAdapter.ViewHolder holder = new EventsAdapter.ViewHolder(view,mContext,events);
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final EventsAdapter.ViewHolder holder, int position) {
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("event_images").child(events.get(position).getEvent_event_uid_());
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mStorageRef = FirebaseStorage
+                .getInstance()
+                .getReference()
+                .child("event_images")
+                .child(events.get(position)
+                        .getEvent_event_uid_());
+
+        mStorageRef
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(holder.ImageView_clientTopEventsPicture);
             }
         });
 
-
         eventName=events.get(position).getEvent_name();
         eventLocation=events.get(position).getEvent_location() + "";
         holder.textView_clientTopEventsToBeRecycleNameoftheEvent.setText(eventName);
         holder.textView_clientTopEventsToBeRecycleLocationoftheEvent.setText(eventLocation);
-
 
 
         Calendar currentDate = Calendar.getInstance();
@@ -101,8 +110,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
         holder.imageView_topEventsToBeRecycled.setImageBitmap(generatedateIcon);
-
-
     }
 
     @Override
@@ -124,6 +131,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             this.events=events;
             this.mContext=mContext;
             eventsView.setOnClickListener(this);
+
             textView_clientTopEventsToBeRecycleNameoftheEvent = itemView.findViewById(R.id.textView_clientTopEventsToBeRecycleNameoftheEvent);
             textView_clientTopEventsToBeRecycleLocationoftheEvent = itemView.findViewById(R.id.textView_clientTopEventsToBeRecycleLocationoftheEvent);
             imageView_topEventsToBeRecycled = itemView.findViewById(R.id.imageView_topEventsToBeRecycled);
@@ -134,20 +142,25 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            user = FirebaseAuth.getInstance().getCurrentUser();
             int position = getAdapterPosition();
-            Log.e("EVENT", events.get(position).getEvent_creator_id());
-            Log.e("EVENT SSSS ",  events.get(position).getEvent_event_organizer_uid());
-            if (events.get(position).getEvent_creator_id().equalsIgnoreCase(user.getUid() + "") || events.get(position).getEvent_event_organizer_uid().equalsIgnoreCase(user.getUid()))
+            user = FirebaseAuth.getInstance().getCurrentUser();
+
+            Log.e("EVENT Adapter: ", "Creator: "+events.get(position).getEvent_creator_id());
+            Log.e("EVENT Adapter: ",  "Org"+events.get(position).getEvent_event_organizer_uid());
+
+            if (events.get(position).getEvent_creator_id().equalsIgnoreCase(user.getUid() + "") ||
+                    events.get(position).getEvent_event_organizer_uid().equalsIgnoreCase(user.getUid()))
             {
                 Intent intent = new Intent(mContext,EventDetailsActivity.class);
                 intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+
                 mContext.startActivity(intent);
             }
             else
             {
                 Intent intent = new Intent(mContext,FoundEventDetailsActivity.class);
                 intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+
                 mContext.startActivity(intent);
             }
         }

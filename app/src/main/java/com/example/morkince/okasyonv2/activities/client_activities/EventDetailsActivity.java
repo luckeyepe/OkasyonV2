@@ -112,11 +112,15 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             final ProgressDialog progressDialog = new ProgressDialog(EventDetailsActivity.this);
             progressDialog.setTitle("Uploading...");
-            // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-            //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             progressDialog.show();
             progressDialog.setCancelable(false);
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images").child(txtid);
+
+            StorageReference ref = FirebaseStorage
+                    .getInstance()
+                    .getReference()
+                    .child("images")
+                    .child(txtid);
+
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

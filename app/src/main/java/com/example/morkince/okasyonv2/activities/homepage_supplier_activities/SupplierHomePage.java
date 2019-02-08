@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2.activities.homepages_for_supplier_client;
+package com.example.morkince.okasyonv2.activities.homepage_supplier_activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

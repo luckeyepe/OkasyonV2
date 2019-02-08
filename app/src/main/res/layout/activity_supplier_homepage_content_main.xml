@@ -6,7 +6,7 @@
                                                    android:layout_height="match_parent"
                                                    android:background="@drawable/background_default_gradient"
                                                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                                   tools:context=".activities.homepages_for_supplier_client.SupplierHomePage"
+                                                   tools:context=".activities.homepage_supplier_activities.SupplierHomePage"
                                                    tools:showIn="@layout/activity_supplier_homepage_app_bar">
     <Button
             android:text="SAVE"
