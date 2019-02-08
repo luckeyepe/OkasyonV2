@@ -8,19 +8,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.R;
 
-public class ClientFindItemActivity extends AppCompatActivity {
+public class ClientItemDetailActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_find_item);
+        setContentView(R.layout.activity_client_item_detail);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
-
-
-
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavigationViewListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

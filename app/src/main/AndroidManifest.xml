@@ -127,7 +127,7 @@
                 android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-                android:name=".activities.client_activities.ClientFindItemActivity"
+                android:name=".activities.client_activities.ClientItemDetailActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
         </activity>
@@ -139,7 +139,7 @@
         <activity android:name=".testingphase.testingpart">
         </activity>
         <activity
-                android:name=".activities.HomePage_Client_activity.Client_Viewitems"
+                android:name=".activities.client_activities.ClientViewItemsActivity"
                 android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
@@ -156,7 +156,7 @@
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".activities.HomePage_Client_activity.activity_ViewCart"
+        <activity android:name=".activities.client_activities.ClientViewCartActivty"
                   android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
         </activity>
     </application>

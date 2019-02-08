@@ -147,7 +147,6 @@ public class SupplierHomePage extends AppCompatActivity
                                     Toast.makeText(getApplicationContext(), "Error in Retrieving Records!!",
                                             Toast.LENGTH_SHORT).show();
                                 }
-
                                 supplierHomepage_reviewTxtView.setText("REVIEWS(" + reviews.size() + ")");
                             }
                         });

@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2.activities.client_activities_fragments;
+package com.example.morkince.okasyonv2.activities.client_fragments;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

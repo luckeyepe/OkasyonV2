@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2.activities.HomePage_Client_activity;
+package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.example.morkince.okasyonv2.activities.HomePage_Client_activity;
+package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import com.example.morkince.okasyonv2.activities.model.Cart;
 
 import java.util.ArrayList;
 
-public class activity_ViewCart extends AppCompatActivity {
+public class ClientViewCartActivty extends AppCompatActivity {
     private ArrayList<Cart> CartItem = new ArrayList<>();
     ViewCartAdapter adapter;
     RecyclerView recyclerView;
@@ -42,7 +42,7 @@ public class activity_ViewCart extends AppCompatActivity {
         CartItem.add(item2);
         CartItem.add(item3);
 
-        adapter = new ViewCartAdapter(CartItem, activity_ViewCart.this);
+        adapter = new ViewCartAdapter(CartItem, ClientViewCartActivty.this);
         recyclerView.setAdapter(adapter);
 
 

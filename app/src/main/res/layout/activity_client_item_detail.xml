@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#188c8c"
-        tools:context=".activities.client_activities.ClientFindItemActivity">
+        tools:context=".activities.client_activities.ClientItemDetailActivity">
 
     <ToggleButton
             android:text=""

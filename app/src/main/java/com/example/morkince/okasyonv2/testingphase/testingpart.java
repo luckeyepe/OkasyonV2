@@ -10,7 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.client_activities.ClientFindItemActivity;
+import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity;
 import com.example.morkince.okasyonv2.activities.client_activities.EventDetailsActivity;
 import com.example.morkince.okasyonv2.activities.client_activities.FoundEventDetailsActivity;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierEditItemDetailsActivity;
@@ -49,7 +49,7 @@ public class testingpart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(testingpart.this, ClientFindItemActivity.class);
+                Intent intent = new Intent(testingpart.this, ClientItemDetailActivity.class);
                 startActivity(intent);
             }
         });
