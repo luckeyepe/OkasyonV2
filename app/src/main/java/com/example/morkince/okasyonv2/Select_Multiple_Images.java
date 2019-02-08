@@ -15,17 +15,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
+import com.example.morkince.okasyonv2.activities.model.Item_Images;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.protobuf.Any;
 import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Select_Multiple_Images extends AppCompatActivity {
 
@@ -124,20 +131,53 @@ public class Select_Multiple_Images extends AppCompatActivity {
         }
     }
 
-    public void uploadImages(final String txtid,Uri filePath){
+    public void uploadImages(final String txtid, final Uri filePath){
         if(filePath != null)
         {
             Log.e("THIS IS THE USER UID", txtid);
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("item_images").child(itemID).child(txtid);
+            final StorageReference ref = FirebaseStorage.getInstance().getReference().child("item_images").child(itemID).child(txtid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                           if(txtid.equals(itemID + filePaths.size() + "")) {
-                               progressDialog.dismiss();
-                               showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
-                           }
+                            if (txtid.equals(itemID + filePaths.size() + "")) {
 
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        ArrayList<String> e = new ArrayList<String>();
+                                        if (filePaths.size() == 1) {
+                                            Item_Images item_images = new Item_Images(e, itemID);
+                                            e.add(uri.toString());
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("Item_Images")
+                                                    .document(itemID).set(item_images)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            progressDialog.dismiss();
+                                                            showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
+                                                        }
+                                                    });
+
+                                        }else {
+                                            Item_Images item_images = new Item_Images(e, itemID);
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("Item_Images")
+                                                    .document(itemID).update("item_images_images_url", FieldValue.arrayUnion(uri.toString()))
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            progressDialog.dismiss();
+                                                            showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
+                                                        }
+                                                    });
+                                        }
+                                    }
+
+                                });
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

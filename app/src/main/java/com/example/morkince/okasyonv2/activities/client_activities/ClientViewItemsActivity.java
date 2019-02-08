@@ -25,8 +25,6 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.xwray.groupie.GroupAdapter;
-import com.xwray.groupie.Item;
-import com.xwray.groupie.OnItemClickListener;
 import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientViewItemsActivity extends AppCompatActivity {
+
     private ArrayList<Store> StoreItem = new ArrayList<>();
     ViewItemRecyclerAdapter adapter;
     RecyclerView recyclerView;
@@ -48,6 +47,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_viewitems);
         getSupportActionBar().setTitle("Gowns");

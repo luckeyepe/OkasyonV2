@@ -31,12 +31,11 @@
         <activity
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -96,11 +95,6 @@
                 android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
                 android:label="@string/title_activity_home_page__supplier_"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
         </activity>
@@ -140,12 +134,6 @@
         </activity>
         <activity
                 android:name=".activities.client_activities.ClientViewItemsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <!--android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">-->
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
