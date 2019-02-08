@@ -37,10 +37,12 @@ import java.util.HashMap;
 public class Select_Multiple_Images extends AppCompatActivity {
 
     ArrayList<String> filePaths= new ArrayList<>();
+    ArrayList<String> e = new ArrayList<String>();
     GridView gridLayout;
     String itemID;
     private Uri filePathtoUpload=null;
     ProgressDialog progressDialog=null;
+    Item_Images item_images;
 
 
 
@@ -140,30 +142,33 @@ public class Select_Multiple_Images extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            if (txtid.equals(itemID + filePaths.size() + "")) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // if (filePaths.size() == 1) {
+                                    //   Item_Images item_images = new Item_Images(e, itemID);
+                                    e.add(uri.toString());
+                                    if (txtid.equals(itemID + filePaths.size() + "")) {
+                                        progressDialog.dismiss();
+                                        showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
 
-                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
+//                                        item_images.setItem_images_images_url(e);
+//                                        item_images.setItem_images_item_uid(itemID);
+//                                        FirebaseFirestore.getInstance()
+//                                                .collection("Item_Images")
+//                                                .document(itemID).set(item_images)
+//                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<Void> task) {
+//                                                        progressDialog.dismiss();
+//                                                        showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
+//                                                    }
+//                                                });
+                                    }
 
-                                        ArrayList<String> e = new ArrayList<String>();
-                                        if (filePaths.size() == 1) {
-                                            Item_Images item_images = new Item_Images(e, itemID);
-                                            e.add(uri.toString());
-                                            FirebaseFirestore.getInstance()
-                                                    .collection("Item_Images")
-                                                    .document(itemID).set(item_images)
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            progressDialog.dismiss();
-                                                            showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
-                                                        }
-                                                    });
-
-                                        }else {
-                                            Item_Images item_images = new Item_Images(e, itemID);
-                                            FirebaseFirestore.getInstance()
+                                    //    }else {
+                                    //   Item_Images item_images = new Item_Images(e, itemID);
+                                         /*   FirebaseFirestore.getInstance()
                                                     .collection("Item_Images")
                                                     .document(itemID).update("item_images_images_url", FieldValue.arrayUnion(uri.toString()))
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -172,12 +177,13 @@ public class Select_Multiple_Images extends AppCompatActivity {
                                                             progressDialog.dismiss();
                                                             showAlertSuccessfulUpload("Successfully Uploaded!", "Success");
                                                         }
-                                                    });
-                                        }
-                                    }
+                                                    });*/
+                                    //  }
+                                }
 
-                                });
-                            }
+                            });
+
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

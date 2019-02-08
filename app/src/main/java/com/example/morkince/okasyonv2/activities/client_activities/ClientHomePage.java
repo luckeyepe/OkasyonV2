@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
+import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
@@ -444,6 +445,11 @@ public void ClientCreateEvent()
             Intent intent = new Intent(ClientHomePage.this,MainActivity.class);
             startActivity(intent);
             finish();
+        }
+        else if(id == R.id.nav_messages)
+        {
+            Intent intent = new Intent(ClientHomePage.this,LatestMessagesActivity.class);
+            startActivity(intent);
         }
         //else if (id == R.id.nav_gallery) {
 //

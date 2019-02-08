@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
+import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -220,9 +221,15 @@ public class SupplierHomePage extends AppCompatActivity
            Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
            startActivity(intent);
            finish();
-////            // Handle the camera action
      }
+
+     else if(id == R.id.nsv_supplier_messages)
+       {
+           Intent intent = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
+           startActivity(intent);
+       }
 ////        else if (id == R.id.nav_manage) {
+
 ////
 ////        } else if (id == R.id.nav_share) {
 ////

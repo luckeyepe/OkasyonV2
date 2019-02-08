@@ -68,7 +68,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 .getReference()
                 .child("event_images")
                 .child(events.get(position)
-                        .getEvent_event_uid_());
+                        .getEvent_event_uid());
 
         mStorageRef
                 .getDownloadUrl()
@@ -154,14 +154,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                     events.get(position).getEvent_event_organizer_uid().equalsIgnoreCase(user.getUid()))
             {
                 Intent intent = new Intent(mContext,EventDetailsActivity.class);
-                intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+                intent.putExtra("event_id",events.get(position).getEvent_event_uid());
 
                 mContext.startActivity(intent);
             }
             else
             {
                 Intent intent = new Intent(mContext,FoundEventDetailsActivity.class);
-                intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+                intent.putExtra("event_id",events.get(position).getEvent_event_uid());
 
                 mContext.startActivity(intent);
             }
