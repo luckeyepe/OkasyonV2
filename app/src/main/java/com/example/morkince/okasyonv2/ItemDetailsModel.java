@@ -11,10 +11,11 @@ public class ItemDetailsModel {
     String item_price_description;
     String item_store_id;
     String item_uid;
+    String item_tag;
 
     public ItemDetailsModel(){}
 
-    public ItemDetailsModel(String item_category_id, String item_description, boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement, String item_name, double item_price, String item_price_description, String item_store_id, String item_uid) {
+    public ItemDetailsModel(String item_category_id, String item_description, boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement, String item_name, double item_price, String item_price_description, String item_store_id, String item_uid,  String item_tag) {
         this.item_category_id = item_category_id;
         this.item_description = item_description;
         this.item_for_sale = item_for_sale;
@@ -24,6 +25,7 @@ public class ItemDetailsModel {
         this.item_price_description = item_price_description;
         this.item_store_id = item_store_id;
         this.item_uid = item_uid;
+        this.item_tag=item_tag;
     }
 
     public String getItem_category_id() {
@@ -96,5 +98,13 @@ public class ItemDetailsModel {
 
     public void setItem_uid(String item_uid) {
         this.item_uid = item_uid;
+    }
+
+    public String getItem_tag() {
+        return item_tag;
+    }
+
+    public void setItem_tag(String item_tag) {
+        this.item_tag = item_tag;
     }
 }

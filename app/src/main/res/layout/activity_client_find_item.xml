@@ -38,33 +38,31 @@
     </LinearLayout>
 
     <TextView
-            android:text="Name of Item"
+            android:text="NAME OF ITEM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView_ActivityClientFindItemNameofTheItem"
-            android:textColor="#ffffff"
-            android:textSize="18dp"
+            android:textColor="#188c8c"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.35000002"
+            app:layout_constraintVertical_bias="0.26999998"
             android:textStyle="bold"/>
     <TextView
             android:text="Price of Item"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="23dp"
             android:id="@+id/textView_ActivityClientFindItemPriceofTheItem"
             android:textColor="#ffffff"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.799"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.351"
-            android:textStyle="bold"/>
+            app:layout_constraintVertical_bias="0.32999998"
+            android:textStyle="bold" app:layout_constraintHorizontal_bias="0.06"/>
     <RatingBar
             android:layout_width="236dp"
             android:layout_height="40dp"

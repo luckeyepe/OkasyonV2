@@ -11,17 +11,31 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.*;
+import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer;
 import com.example.morkince.okasyonv2.activities.client_activities.Client_Create_Event;
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.TopEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.client_activities_fragments.YourEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class ClientHomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +63,15 @@ public class ClientHomePage extends AppCompatActivity
                 }
             };
 
+
+    FirebaseUser user;
+    FirebaseFirestore db;
+    private StorageReference mStorageRef;
+    RecyclerView recyclerView_clientTopEvents;
+    EventsAdapter adapter;
+    String typeOfEvent;
+    private ArrayList<Events> events = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +79,7 @@ public class ClientHomePage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Client");
-
+        refs();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -72,6 +95,19 @@ public class ClientHomePage extends AppCompatActivity
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_events, new TopEvents_Fragment()).commit();
     }
+
+    public void refs()
+    {
+        recyclerView_clientTopEvents=findViewById(R.id.recyclerView_clientTopEvents);
+    }
+
+public void ClientCreateEvent()
+    {
+        Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+        intent.putExtra("event_category",typeOfEvent);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
@@ -129,8 +165,7 @@ public class ClientHomePage extends AppCompatActivity
                     organizeOwn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
-                            startActivity(intent);
+                           ClientCreateEvent();
                         }
                     });
 
@@ -138,12 +173,11 @@ public class ClientHomePage extends AppCompatActivity
                     hireOrganizer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+                            Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
+                            intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
                         }
                     });
-
-
 
                     closeDialog.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -151,6 +185,7 @@ public class ClientHomePage extends AppCompatActivity
                             dialogWedding.dismiss();
                         }
                     });
+                    typeOfEvent="Wedding";
                     Toast.makeText(getApplicationContext(),"Wedding Event",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -180,8 +215,7 @@ public class ClientHomePage extends AppCompatActivity
                     organizeOwn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
-                            startActivity(intent);
+                            ClientCreateEvent();
                         }
                     });
 
@@ -203,6 +237,7 @@ public class ClientHomePage extends AppCompatActivity
                             dialogParty.dismiss();
                         }
                     });
+                    typeOfEvent="Party";
                     Toast.makeText(getApplicationContext(),"Party Events!!",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -232,8 +267,7 @@ public class ClientHomePage extends AppCompatActivity
                     organizeOwn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
-                            startActivity(intent);
+                            ClientCreateEvent();
                         }
                     });
 
@@ -253,6 +287,7 @@ public class ClientHomePage extends AppCompatActivity
                             dialogBusiness.dismiss();
                         }
                     });
+                    typeOfEvent="Business";
                     Toast.makeText(getApplicationContext(),"Business Event!!",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -282,8 +317,7 @@ public class ClientHomePage extends AppCompatActivity
                     organizeOwn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
-                            startActivity(intent);
+                            ClientCreateEvent();
                         }
                     });
 
@@ -304,6 +338,7 @@ public class ClientHomePage extends AppCompatActivity
                             dialogSports.dismiss();
                         }
                     });
+                    typeOfEvent="Sports";
                     Toast.makeText(getApplicationContext(),"Sports Events",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -331,8 +366,7 @@ public class ClientHomePage extends AppCompatActivity
                     organizeOwn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
-                            startActivity(intent);
+                            ClientCreateEvent();
                         }
                     });
 
@@ -352,7 +386,7 @@ public class ClientHomePage extends AppCompatActivity
                             dialogCustomize.dismiss();
                         }
                     });
-
+                    typeOfEvent="Customized";
                     Toast.makeText(getApplicationContext(),"Customize Events",Toast.LENGTH_SHORT).show();
 
                 }
@@ -416,6 +450,7 @@ public class ClientHomePage extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(ClientHomePage.this,MainActivity.class);
             startActivity(intent);
+            finish();
         }
         //else if (id == R.id.nav_gallery) {
 //

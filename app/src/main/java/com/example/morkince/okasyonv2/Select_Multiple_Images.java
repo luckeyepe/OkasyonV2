@@ -88,7 +88,7 @@ public class Select_Multiple_Images extends AppCompatActivity {
         public void onClick(View view) {
           filePaths.clear();
 
-            FilePickerBuilder.getInstance().setMaxCount(6)
+            FilePickerBuilder.getInstance().setMaxCount(5)
                     .setSelectedFiles(filePaths)
                    // .setActivityTheme(R.style.AppTheme)
                     .pickPhoto(Select_Multiple_Images.this);
@@ -115,7 +115,6 @@ public class Select_Multiple_Images extends AppCompatActivity {
                             image.setImageURI(Uri.fromFile(new File(path)));
                             images.add(image);
                         }
-
                         gridLayout.setAdapter(new CustomAdapter(this,images));
                     }catch(Exception e)
                     {
@@ -192,6 +191,7 @@ public class Select_Multiple_Images extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(Select_Multiple_Images.this);
         alert.setTitle(""+label);
         alert.setMessage(""+Message);
+        alert.setCancelable(false);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick (DialogInterface dialog, int id){

@@ -32,70 +32,86 @@
                     android:layout_width="305dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                <TextView
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/textView_eventdetailsNameoftheEvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name of The Event"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
+                <ScrollView android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="match_parent"
+                                  android:orientation="vertical">
+                        <TextView
+                                android:layout_marginTop="5dp"
+                                android:id="@+id/textView_eventdetailsNameoftheEvent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Name of The Event"
+                                android:textColor="#000000"
+                                android:textStyle="bold"
 
-                        android:textSize="16dp"
-                        android:layout_marginStart="5dp"
-                        android:textAllCaps="true"/>
-                <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                    <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/calendariconsmall"/>
-                    <TextView
-                            android:id="@+id/textView_eventdetailsDateoftheEvent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Date of the  event"
-                            android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:textSize="14dp"
-                            android:layout_marginStart="5dp"
-                            android:textAllCaps="true"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                    <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/pinlocation"/>
-                    <TextView
-                            android:id="@+id/textView_eventdetailsAddressofTheEvent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Address of the Event"
-                            android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:textSize="14dp"
-                            android:layout_marginStart="5dp"
-                            android:textAllCaps="true"/>
-                </LinearLayout>
-                <TextView
-                        android:id="@+id/textView_eventdetailsDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Descrition of the Event"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:textSize="12dp"
-                        android:layout_marginStart="5dp"
-                        android:textAllCaps="true"/>
+                                android:textSize="20sp"
+                                android:layout_marginStart="5dp"
+                                android:textAllCaps="true"/>
+                        <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                            <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="5dp"
+                                    android:src="@drawable/calendar_icon"
+                                    android:id="@+id/foundEventDetails_dateCalendar"/>
+                            <TextView
+                                    android:id="@+id/textView_foundeventdetailsDateoftheEvent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Date of the  event"
+                                    android:textColor="#000000"
+                                    android:textStyle="bold"
+                                    android:textSize="18sp"
+                                    android:layout_marginTop="20sp"
+                                    android:layout_marginStart="5dp"
+                                    android:textAllCaps="true"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                            <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="5dp"
+                                    android:src="@drawable/mapmarker"/>
+                            <TextView
+                                    android:id="@+id/textView_foundeventdetailsAddressofTheEvent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Address of the Event"
+                                    android:textColor="#000000"
+                                    android:textStyle="bold"
+                                    android:textSize="18sp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginStart="5dp"
+                                    android:textAllCaps="true"/>
+                        </LinearLayout>
+                        <TextView
+                                android:id="@+id/textView_foundeventdetailsDescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Description of the Event"
+                                android:textStyle="bold"
+                                android:textColor="#000000"
+                                android:textSize="18sp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginStart="5dp"
+                                android:textAllCaps="true"/>
+
+
+
+                    </LinearLayout>
+
+
+                </ScrollView>
             </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
@@ -157,14 +173,14 @@
             android:layout_height="64dp"
             android:background="#0294a5"
             android:textColor="#ffff"
-            android:id="@+id/button3"
+            android:id="@+id/button_foundEventSponsorButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
             android:text="Attend Events"
             android:layout_width="191dp"
             android:layout_height="64dp"
-            android:id="@+id/button4"
+            android:id="@+id/button_foundEventAttendButton"
             android:background="#0294a5"
             android:textColor="#ffff"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"

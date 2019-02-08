@@ -53,7 +53,7 @@ public class SupplierHomePage extends AppCompatActivity
     EditText supplierHomepage_storeName_txtView,supplierHomepage_storeContact;
     TextView supplierHomepage_storeAddress,supplierHomepage_reviewTxtView;
     String documentID;
-     String documentIDofStore;
+    String documentIDofStore;
 
     private static final int PICK_IMAGE = 100;
     private Uri filePath=null;
@@ -209,6 +209,7 @@ public class SupplierHomePage extends AppCompatActivity
            FirebaseAuth.getInstance().signOut();
            Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
            startActivity(intent);
+           finish();
 ////            // Handle the camera action
      }
 ////        else if (id == R.id.nav_manage) {
@@ -425,7 +426,6 @@ public class SupplierHomePage extends AppCompatActivity
                         }
                     }
                 });
-
 
                 db = FirebaseFirestore.getInstance();
                 DocumentReference userToUpdate = db.collection("User").document("" + user.getUid());

@@ -84,7 +84,7 @@
                 android:layout_width="310dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:hint="Price" android:inputType="number" android:id="@+id/addItem_itemPrice"/>
+                android:hint="Price" android:inputType="number|numberDecimal" android:id="@+id/addItem_itemPrice"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

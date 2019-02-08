@@ -58,14 +58,12 @@ public class SupplierAddItem extends AppCompatActivity {
         addItem_forRentforSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
-
                     item_for_sale=false;
 
                 } else {
                     // The toggle is disabled
 
-                    item_for_sale=true;
+                    item_for_sale = true;
 
                 }
             }
@@ -115,6 +113,7 @@ public class SupplierAddItem extends AppCompatActivity {
                     // Create a new user with a first and last name
                     String item_category_id = addItem_itemCategorySpinner.getSelectedItem().toString();
                     String item_description = addItem_itemDescription.getText().toString();
+                    String item_tag = addItem_itemDescription.getText().toString();
 
                     boolean item_is_per_sqr_unit_of_measurement;
                     String item_name = addItem_itemName.getText().toString();
@@ -128,10 +127,11 @@ public class SupplierAddItem extends AppCompatActivity {
                     else
                         item_is_per_sqr_unit_of_measurement = false;
 
+
                     //GET STORE ID
                     Intent intent = getIntent();
                     item_store_id = intent.getStringExtra("storeID");
-                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid);
+                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid,item_tag);
 
 
 
@@ -163,7 +163,6 @@ public class SupplierAddItem extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     public void fillSpinner()
     {
@@ -216,7 +215,5 @@ public class SupplierAddItem extends AppCompatActivity {
         addItem_itemCategorySpinner=findViewById(R.id.addItem_itemCategorySpinner);
         checkBox_soldPersquareunit=findViewById(R.id.checkBox_soldPersquareunit);
         addItem_forRentforSale=findViewById(R.id.addItem_forRentforSale);
-
-
     }
 }

@@ -3,7 +3,7 @@
                                     xmlns:tools="http://schemas.android.com/tools"
                                     android:layout_width="170dp"
                                     android:layout_height="200dp"
-                                    android:id="@+id/parentLayout"
+                                    android:id="@+id/parentLayout_Item"
                                     xmlns:cardview="http://schemas.android.com/apk/res-auto"
                                     android:layout_margin="5dp"
 >
@@ -12,7 +12,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" android:id="@+id/parentLayout_Item">
+            android:orientation="vertical" android:id="@+id/parentLayout_ItemLinear">
 
         <ImageView
                 android:id="@+id/cardviewItem_imageItem"

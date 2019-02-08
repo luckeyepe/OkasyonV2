@@ -30,13 +30,11 @@
         <activity
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -63,6 +61,7 @@
                android:theme="@style/AppTheme.NoActionBar"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
+
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Set_Preference"
@@ -85,6 +84,7 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan"
                 android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
                 android:name=".activities.homepages_for_supplier_client.SupplierHomePage"
@@ -99,8 +99,6 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
-        </activity>
-        <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity"/>
         <activity android:name=".Content_Home_Page_Supplier">

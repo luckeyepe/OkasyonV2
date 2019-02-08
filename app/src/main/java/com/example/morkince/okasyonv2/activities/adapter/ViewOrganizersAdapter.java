@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.model.Store;
+import com.example.morkince.okasyonv2.activities.model.Organizer;
 
 import java.util.ArrayList;
 
 public class ViewOrganizersAdapter extends RecyclerView.Adapter<ViewOrganizersAdapter.ViewHolder> {
-    private ArrayList<Store> store;
+    private ArrayList<Organizer> Organizer;
     private Context mContext;
     //  private StorageReference mStorageRef;
 
-    public ViewOrganizersAdapter(ArrayList<Store> store, Context mContext) {
-        this.store = store;
+    public ViewOrganizersAdapter(ArrayList<Organizer> Organizer, Context mContext) {
+        this.Organizer = Organizer;
         this.mContext = mContext;
     }
 
@@ -33,33 +33,32 @@ public class ViewOrganizersAdapter extends RecyclerView.Adapter<ViewOrganizersAd
     @Override
     public void onBindViewHolder(final ViewOrganizersAdapter.ViewHolder holder, final int position) {
 
-        holder.Storetitle.setText(store.get(position).getStoreName());
-        holder.Location.setText(store.get(position).getLocation());
-        holder.Price.setText(store.get(position).getPrice() + "");
-        holder.storerate.setRating(store.get(position).getRating());
+        holder.Organizername.setText(Organizer.get(position).getStoreName());
+        holder.Location.setText(Organizer.get(position).getLocation());
+        holder.Price.setText(Organizer.get(position).getPrice() + "");
+        holder.Organizerrate.setRating(Organizer.get(position).getRating());
     }
-        @Override
-        public int getItemCount () {
-            return store.size();
-        }
-
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-
-            TextView Storetitle;
-            TextView Location;
-            TextView Price;
-            RatingBar storerate;
-            ConstraintLayout parentLayout;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                Storetitle = itemView.findViewById(R.id.textView_storeTitle);
-                Location = itemView.findViewById(R.id.textView_storeLocation);
-                Price = itemView.findViewById(R.id.textView_ItemPrice);
-                storerate = itemView.findViewById(R.id.RatingBar_storeRate);
-                parentLayout = itemView.findViewById(R.id.ParentLayout);
-            }
-        }
+    @Override
+    public int getItemCount () {
+        return Organizer.size();
     }
 
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView Organizername;
+        TextView Location;
+        TextView Price;
+        RatingBar Organizerrate;
+        ConstraintLayout parentLayout;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            Organizername= itemView.findViewById(R.id.textView_OrganizerName);
+            Location = itemView.findViewById(R.id.textView_Location);
+            Price = itemView.findViewById(R.id.textView_Organizerprize);
+            Organizerrate = itemView.findViewById(R.id.RatingBar_Organizerrate);
+            parentLayout = itemView.findViewById(R.id.ParentLayout);
+        }
+    }
+}

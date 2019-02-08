@@ -167,7 +167,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
             {
                 filePathValidID = data.getData();
                 try {
-                     bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
+                    bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
 
                     if( recognizeText() &&  detectFaceValidID()) {
                         ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
@@ -188,7 +188,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
             else{
                 filePathBusinessPermit = data.getData();
                 try {
-                     bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
+                    bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
                     ocr_supplier_valid_business_permit.setImageBitmap(bitmapBusinessPermit);
                 }
                 catch (IOException e)

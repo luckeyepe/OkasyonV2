@@ -46,14 +46,6 @@ public class View_Store_Items extends AppCompatActivity {
         //GET STORE ID
         Intent intent = getIntent();
         storeID = intent.getStringExtra("storeID");
-        Log.e("STORE ID HERE!", storeID);
-
-
-      //  Task[] task = new Task[];
-
-       /* CollectionReference taskToUpdate  =db.collection("Items").whereEqualTo("item_store_id",storeID);
-        taskUpdated=taskToUpdate;*/
-
        showStoreItems();
 
     }
@@ -67,18 +59,22 @@ public class View_Store_Items extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     items= new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        //       Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
+
                         String itemName=document.getString("item_name");
                         double numStars=3.0;//(Long)document.get("storeRating_starRating");
                         double itemPrice=Double.parseDouble(document.get("item_price").toString());
                         String item_uid=document.getString("item_uid");
-                        //  double priceOfItem = itemPrice.doubleValue();
+                        String item_category=document.getString("item_category_id");
+                        String item_description=document.getString("item_description");
+                        String isForSale = document.get("item_for_sale").toString();
+                        String isPerSquareUnit = document.get("item_is_per_sqr_unit_of_measurement").toString();
+                        String price_description = document.getString("item_price_description");
+                        String store_id = document.getString("item_store_id");
 
-                        Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
-                        items.add(new Item(itemName,numStars,itemPrice,item_uid));
+
+                       // Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
+                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id));
                         adapter = new View_Items_Recycler_Adapter(items,View_Store_Items.this);
-
-                        //   recyclerView.addItemDecoration(new DividerItemDecoration(View_Store_Items.this, LinearLayoutManager.HORIZONTAL));
                         recyclerView.setLayoutManager(new GridLayoutManager(View_Store_Items.this,2));
                         recyclerView.setAdapter(adapter);
 
