@@ -1,6 +1,6 @@
 package com.example.morkince.okasyonv2.activities.signup_organizer_activities
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.morkince.okasyonv2.R
 

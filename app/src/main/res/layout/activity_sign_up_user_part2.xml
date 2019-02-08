@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/img_okasyon_logo"/>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
 
             android:id="@+id/textInputLayout2"
             android:layout_width="300dp"
@@ -35,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="First Name"
@@ -43,9 +43,9 @@
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupclientPart2FirstName" android:textColor="@color/gradient1"
                 android:inputType="textPersonName"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Last Name"
@@ -65,9 +65,9 @@
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupclientPart2LastName" android:textColor="@color/gradient1"
                 android:inputType="textPersonName"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address"
@@ -88,10 +88,10 @@
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupclientPart2Address" android:textColor="@color/gradient1"
                 android:inputType="textPostalAddress"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout5"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contact Number"
@@ -114,8 +114,8 @@
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupClientclientPart2ContactNumber"
                 android:inputType="phone" android:textAlignment="viewStart" android:maxLength="11"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout6"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:editable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 android:textColorLink="@android:color/holo_blue_dark"
                 android:id="@+id/textInputEditText_signupclientPart2DateOfBirth" android:inputType="date"
                 android:textAlignment="viewStart" android:textColor="@color/gradient1"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
             android:id="@+id/Spinner_signupclientpart2Gender"
@@ -244,4 +244,4 @@
             android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/Spinner_signupclientpart2Gender"
             android:layout_marginEnd="8dp" android:textColor="@color/gradient1" android:textSize="24sp"
             app:layout_constraintHorizontal_bias="0.833"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package com.example.morkince.okasyonv2.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity

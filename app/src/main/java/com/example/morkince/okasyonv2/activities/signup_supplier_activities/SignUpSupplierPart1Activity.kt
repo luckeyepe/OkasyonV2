@@ -1,7 +1,7 @@
 package com.example.morkince.okasyonv2.activities.signup_supplier_activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import com.example.morkince.okasyonv2.R

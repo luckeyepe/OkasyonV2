@@ -1,7 +1,7 @@
 package com.example.morkince.okasyonv2.activities.holder
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.example.morkince.okasyonv2.R

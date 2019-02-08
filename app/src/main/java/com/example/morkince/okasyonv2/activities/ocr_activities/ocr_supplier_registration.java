@@ -2,11 +2,10 @@ package com.example.morkince.okasyonv2.activities.ocr_activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -18,13 +17,11 @@ import android.widget.Toast;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserSummaryActivity;
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart3Activity;
-import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart4Activity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class ocr_supplier_registration extends AppCompatActivity {
     private String TAG = "ocr_supplier_registration";

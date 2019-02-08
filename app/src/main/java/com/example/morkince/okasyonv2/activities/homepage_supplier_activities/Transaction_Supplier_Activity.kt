@@ -1,9 +1,9 @@
 package com.example.morkince.okasyonv2.activities.homepage_supplier_activities
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.adapter.TransactionRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_transaction__supplier_.*

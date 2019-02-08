@@ -4,7 +4,7 @@
                                              android:layout_height="wrap_content"
                                               android:orientation="vertical"
                                              xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.SearchView
+    <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:fillViewport="true"
             android:focusable="true"
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
     />
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"

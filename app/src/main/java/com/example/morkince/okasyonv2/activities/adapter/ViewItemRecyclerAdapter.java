@@ -1,15 +1,14 @@
 package com.example.morkince.okasyonv2.activities.adapter;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.holder.MyViewHolder;
 import com.example.morkince.okasyonv2.activities.model.Store;
 
 import java.util.ArrayList;
