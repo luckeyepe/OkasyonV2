@@ -44,6 +44,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     private FirebaseFunctions mFunctions;
     private String itemCategory = "Gowns";
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
+    private String event_event_uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,10 @@ public class ClientViewItemsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Gowns");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
+
+        if (getIntent().hasExtra("event_event_uid")){
+            event_event_uid = getIntent().getStringExtra("event_event_uid");
+        }
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -81,7 +86,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                         item.getItem_price(),
                                         item.getItem_name(),
                                         getApplicationContext(),
-                                        item.getItem_display_picture_url());
+                                        item.getItem_display_picture_url(), event_event_uid);
 
                                 groupieAdapter.add(basicItemViewHolder);
                             }
@@ -152,7 +157,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                 item.getItem_price(),
                                                 item.getItem_name(),
                                                 getApplicationContext(),
-                                                item.getItem_display_picture_url());
+                                                item.getItem_display_picture_url(), event_event_uid);
 
                                         groupieAdapter.add(basicItemViewHolder);
                                     }

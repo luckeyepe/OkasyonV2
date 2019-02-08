@@ -31,7 +31,7 @@ import java.util.Calendar;
 public class EventDetailsActivity extends AppCompatActivity {
     ImageView editDetails, calendarHandler,imageView_eventdetailsImage;
     TextView numberofInterestedAttendees,numberofInterestedSponsors;
-    Button buttonSave;
+    Button buttonSave,foundEventDetails_browseItemsButton;
     String event_id;
     EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
 
@@ -54,6 +54,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);
+        foundEventDetails_browseItemsButton.setOnClickListener(browseItems);
         calendarHandler.setOnClickListener(calendarHandlerDetails);
         imageView_eventdetailsImage.setOnClickListener(pickEventImage);
 
@@ -73,6 +74,15 @@ public class EventDetailsActivity extends AppCompatActivity {
         imageGenerator.setStorageToSDCard(true);
 
     }
+
+    public View.OnClickListener browseItems = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+            intent.putExtra("event_event_uid",event_id);
+            startActivity(intent);
+        }
+    };
 
     public View.OnClickListener pickEventImage = new View.OnClickListener() {
         @Override
@@ -243,5 +253,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         numberofInterestedAttendees = findViewById(R.id.textView_numberofEventsInterestedAttendees);
         numberofInterestedSponsors = findViewById(R.id.textView_numberofEventsInterestedSponsor);
         imageView_eventdetailsImage = findViewById(R.id.imageView_eventdetailsImage);
+        foundEventDetails_browseItemsButton = findViewById(R.id.foundEventDetails_browseItemsButton);
     }
 }
