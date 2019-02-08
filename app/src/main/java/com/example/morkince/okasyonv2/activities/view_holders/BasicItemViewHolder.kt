@@ -1,7 +1,9 @@
 package com.example.morkince.okasyonv2.activities.view_holders
 
 import android.content.Context
+import android.content.Intent
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -33,5 +35,12 @@ class BasicItemViewHolder(val item_uid: String,
         itemName.text = item_name
         itemPrice.text = "₱$item_price"
         itemRating.numStars = item_rating.toInt()
+
+        viewHolder.itemView.ParentLayout.setOnClickListener {
+            var intent = Intent(context, ClientItemDetailActivity::class.java)
+            intent.putExtra("item_uid", item_uid)
+            context.startActivity(intent)
+        }
+
     }
 }

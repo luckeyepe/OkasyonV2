@@ -25,6 +25,8 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
@@ -87,6 +89,13 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                     }
 
                     recyclerView.setAdapter(groupieAdapter);
+
+//                    groupieAdapter.setOnItemClickListener(new OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(@NonNull Item item, @NonNull View view) {
+//                            com.example.morkince.okasyonv2.activities.model.Item itemDetails = item;
+//                        }
+//                    });
 
                 }else {
                     Exception e = task.getException();
