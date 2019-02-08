@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,8 +62,8 @@ public class View_Store_Items extends AppCompatActivity {
                         String item_uid=document.getString("item_uid");
                         String item_category=document.getString("item_category_id");
                         String item_description=document.getString("item_description");
-                        String isForSale = document.get("item_for_sale").toString();
-                        String isPerSquareUnit = document.get("item_is_per_sqr_unit_of_measurement").toString();
+                        Boolean isForSale = Boolean.valueOf(document.get("item_for_sale").toString());
+                        Boolean isPerSquareUnit = Boolean.valueOf(document.get("item_is_per_sqr_unit_of_measurement").toString());
                         String price_description = document.getString("item_price_description");
                         String store_id = document.getString("item_store_id");
 

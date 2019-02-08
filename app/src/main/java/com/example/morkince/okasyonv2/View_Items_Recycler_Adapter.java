@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierEditItemDetailsActivity;
+import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -55,9 +56,9 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         });
 
 
-        item_name=items.get(position).getItemName();
-        item_price=items.get(position).getItemPrice() + "";
-        star_rating=items.get(position).getStarRating()+"";
+        item_name=items.get(position).getItem_name();
+        item_price=items.get(position).getItem_price() + "";
+        star_rating=items.get(position).getItem_average_rating()+"";
 
 
         holder.cardviewItem_itemName.setText(item_name);
@@ -99,15 +100,15 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         int position = getAdapterPosition();
         Item item = this.items.get(position);
             item_uid=item.getItem_uid();
-            item_name=item.getItemName();
-            item_price=item.getItemPrice() + "";
-            star_rating=item.getStarRating()+"";
-            item_category=item.getItem_category()+"";
+            item_name=item.getItem_name();
+            item_price=item.getItem_price() + "";
+            star_rating=item.getItem_average_rating()+"";
+            item_category=item.getItem_category_id()+"";
             item_description=item.getItem_description()+"";
-            isForSale=item.isForSale()+"";
-            isPerSquareUnit=item.isPerSquareUnit()+"";
-            price_description=item.getPrice_description()+"";
-            store_id=item.getStore_id()+"";
+            isForSale=item.isItem_for_sale()+"";
+            isPerSquareUnit=item.isItem_is_per_sqr_unit_of_measurement()+"";
+            price_description=item.getItem_price_description()+"";
+            store_id=item.getItem_store_id()+"";
 
             Intent intent = new Intent(mContext,SupplierEditItemDetailsActivity.class);
             intent.putExtra("item_uid",item_uid);

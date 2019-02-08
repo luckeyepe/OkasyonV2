@@ -74,7 +74,8 @@ public class Activity_Vieworganizer extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.clientviewitemsactionbar, menu);
+//        mi.inflate(R.menu.clientviewitemsactionbar, menu);
+        mi.inflate(R.menu.menuclientviewitemsactionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
