@@ -74,12 +74,16 @@ public class TopEvents_Fragment extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(getActivity().getApplicationContext(), "No Events to Show!",
-                                Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Toast.makeText(getActivity(), "No Events to Show!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "No Events to Show!",
-                            Toast.LENGTH_SHORT).show();
+                    if(isAdded()) {
+                        Toast.makeText(getActivity(), "No Events to Show!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
