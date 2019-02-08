@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
             android:allowBackup="true"
@@ -61,7 +61,6 @@
                android:theme="@style/AppTheme.NoActionBar"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
-
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Set_Preference"
@@ -69,22 +68,18 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan">
         </activity>
-
-    <activity
-            android:name=".activities.client_activities.Client_Set_Preference_Summary"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
-    </activity>
-
-
+        <activity
+                android:name=".activities.client_activities.Client_Set_Preference_Summary"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity
                 android:name=".activities.homepages_for_supplier_client.ClientHomePage"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan"
-                android:theme="@style/AppTheme.NoActionBar">
-
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.homepages_for_supplier_client.SupplierHomePage"
@@ -99,6 +94,8 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
+        </activity>
+        <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity"/>
         <activity android:name=".Content_Home_Page_Supplier">
@@ -144,14 +141,31 @@
         <activity android:name=".GetStoreDirections">
         </activity>
         <activity android:name=".SupplierAddItem">
-
         </activity>
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key" />
+                android:value="@string/google_maps_key"/>
         <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version"/>
+
+        <activity
+                android:name=".activities.HomePage_Client_activity.activity_ViewCart"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        </activity>
+        <activity
+                android:name=".activities.HomePage_Client_activity.Transaction_ClientView"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+        </activity>
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy">
+        </activity>
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity">
+
+        </activity>
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity">
+        </activity>
+        <activity android:name="com.example.morkince.okasyonv2.activities.chat_activities.NewMessagesActivity">
+        </activity>
     </application>
 
 </manifest>

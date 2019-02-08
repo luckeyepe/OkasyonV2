@@ -152,11 +152,16 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                         userMap["user_gender"] = user_gender!!
                         userMap["user_last_name"] = user_last_name!!
                         userMap["user_role"] = user_role!!
+                        userMap["user_uid"] = currentUser.uid
+
                         var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
                             .set(userMap as Map<String, Any>).addOnCompleteListener { task: Task<Void> ->
                                 if (task.isSuccessful) {
-                                    Log.d("SIGN UP USER PT 2", "User ${currentUser.uid} created")
+                                    if (task.isSuccessful){
+                                        Log.d("SIGN UP USER PT 2", "User ${currentUser.uid} created")
+                                    }
                                 }
+
                             }
                     } else {
                         Log.e("SIGN UP USER PT 2", task.exception.toString())

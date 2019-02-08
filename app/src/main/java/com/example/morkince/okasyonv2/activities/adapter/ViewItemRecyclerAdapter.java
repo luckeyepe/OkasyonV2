@@ -25,7 +25,7 @@ public class ViewItemRecyclerAdapter extends RecyclerView.Adapter<ViewItemRecycl
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_viewitemcontent_client, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_viewitemcontent_client, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -84,11 +84,11 @@ public class ViewItemRecyclerAdapter extends RecyclerView.Adapter<ViewItemRecycl
 
         public ViewHolder(View itemView) {
             super(itemView);
-            Storetitle = itemView.findViewById(R.id.textView_storeTitle);
-            Location = itemView.findViewById(R.id.textView_storeLocation);
-            Price = itemView.findViewById(R.id.textView_ItemPrice);
-            storerate = itemView.findViewById(R.id.RatingBar_storeRate);
-            parentLayout=itemView.findViewById(R.id.ParentLayout);
+//            Storetitle = itemView.findViewById(R.id.textView_storeTitle);
+//            Location = itemView.findViewById(R.id.textView_rowViewItemContentItemName);
+//            Price = itemView.findViewById(R.id.textView_ItemPrice);
+//            storerate = itemView.findViewById(R.id.RatingBar_storeRate);
+//            parentLayout=itemView.findViewById(R.id.ParentLayout);
         }
     }
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content">
+
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:text="OK"
+            android:textColor="#e8e9e9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:fontFamily="serif-monospace" android:textStyle="bold"
+            android:textSize="30sp" android:id="@+id/button6" app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/editText5_ratestorereview"/>
+    <EditText
+            android:layout_width="298dp"
+            android:layout_height="55dp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText4_rateitemReview" android:layout_marginTop="9dp"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar_storeRate2"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="30dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="34dp"/>
+    <EditText
+            android:layout_width="294dp"
+            android:layout_height="55dp"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText5_ratestorereview" android:layout_marginTop="9dp"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar_ItemRate"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="30dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="34dp"/>
+    <TextView
+            android:text="Rate Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="154dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="172dp" android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar_storeRate2"/>
+    <TextView
+            android:text="Rate Store"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:id="@+id/textView16"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="125dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="163dp"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/editText4_rateitemReview" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar_ItemRate"/>
+    <RatingBar
+            android:layout_width="233dp"
+            android:layout_height="39dp"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:id="@+id/ratingBar_ItemRate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="105dp" app:layout_constraintHorizontal_bias="0.151"
+            android:layout_marginEnd="34dp" android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"/>
+    <RatingBar
+            android:layout_width="233dp"
+            android:layout_height="39dp"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/ratingBar_storeRate2"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="44dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="200dp" app:layout_constraintHorizontal_bias="0.698"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

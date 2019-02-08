@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.holder.MyViewHolder
 
-class RecyclerAdapter(private val myDataset: ArrayList<String>, private val context: Context) : RecyclerView.Adapter<MyViewHolder>(){
+class RecyclerAdapter(private val myDataset: ArrayList<String>, private val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<MyViewHolder>(){
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.rows_content_reviews, p0, false)
         return MyViewHolder(view, context)
