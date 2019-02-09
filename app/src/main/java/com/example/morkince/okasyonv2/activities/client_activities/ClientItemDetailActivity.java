@@ -24,17 +24,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class ClientItemDetailActivity extends AppCompatActivity {
@@ -169,8 +172,13 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick (DialogInterface dialog, int id){
                 //CODE GOES HERE TO ADD TO CART
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put("cart_item_item_uid", item_uid);
+                map.put("cart_item_user_uid", currentUser.getUid());
                 db = FirebaseFirestore.getInstance();
-                db.collection("Cart_Group").document("cart_group").collection(eventUID).add("");
+                db.collection("Cart_Items").document("cart_items").collection(eventUID).add(map);
                 dialog.cancel();
             }
         });

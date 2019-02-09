@@ -60,7 +60,7 @@
                                     android:layout_height="50dp"
                                     android:layout_marginStart="5dp"
                                     android:src="@drawable/calendar_icon"
-                                    android:id="@+id/imageView_calendar"
+                                    android:id="@+id/eventDetails_imageView_calendar"
                                     android:clickable="false"
                             />
                             <EditText
