@@ -66,14 +66,14 @@ public class View_Store_Items extends AppCompatActivity {
                         Boolean isPerSquareUnit = Boolean.valueOf(document.get("item_is_per_sqr_unit_of_measurement").toString());
                         String price_description = document.getString("item_price_description");
                         String store_id = document.getString("item_store_id");
+                        String item_tag=document.getString("item_tag");
 
 
                        // Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
-                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id));
+                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id,item_tag));
                         adapter = new View_Items_Recycler_Adapter(items,View_Store_Items.this);
                         recyclerView.setLayoutManager(new GridLayoutManager(View_Store_Items.this,2));
                         recyclerView.setAdapter(adapter);
-
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Error in Retrieving Records!!",

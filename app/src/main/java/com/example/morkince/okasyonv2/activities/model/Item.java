@@ -14,11 +14,12 @@ public class Item {
     String item_store_id = "";
     String item_display_picture_url = "";
     String item_doc="";
+    String item_tag="";
 
     public Item() {
     }
 
-    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description,  boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement,String item_price_description, String item_store_id) {
+    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description,  boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement,String item_price_description, String item_store_id, String item_tag) {
         this.item_name = item_name;
         this.item_average_rating = item_average_rating;
         this.item_price = item_price;
@@ -29,6 +30,7 @@ public class Item {
         this.item_for_sale = item_for_sale;
         this.item_price_description = item_price_description;
         this.item_store_id = item_store_id;
+        this.item_tag=item_tag;
     }
 
     public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description, boolean item_is_per_sqr_unit_of_measurement, boolean item_for_sale, String item_price_description, String item_store_id, String item_display_picture_url, String item_doc) {
@@ -142,6 +144,12 @@ public class Item {
         this.item_doc = item_doc;
     }
 
+    public String getItem_tag() {
+        return item_tag;
+    }
 
+    public void setItem_tag(String item_tag) {
+        this.item_tag = item_tag;
+    }
 }
 

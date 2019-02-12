@@ -16,9 +16,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -26,18 +32,25 @@ import com.google.firebase.storage.UploadTask;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class EventDetailsActivity extends AppCompatActivity {
     ImageView editDetails, calendarHandler,imageView_eventdetailsImage;
     TextView numberofInterestedAttendees,numberofInterestedSponsors;
-    Button buttonSave;
+    Button buttonSave,foundEventDetails_browseItemsButton;
     String event_id;
+    Events event;
     EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
 
     Calendar currentDate;
     Bitmap generatedateIcon;
     ImageGenerator imageGenerator;
+
+    FirebaseUser user;
+    FirebaseFirestore db;
 
     private static final int PICK_IMAGE = 100;
     private Uri filePath=null;
@@ -50,10 +63,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         enable(false);
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_id");
-
+        getEventDetails();
         calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);
+        foundEventDetails_browseItemsButton.setOnClickListener(browseItems);
         calendarHandler.setOnClickListener(calendarHandlerDetails);
         imageView_eventdetailsImage.setOnClickListener(pickEventImage);
 
@@ -73,6 +87,71 @@ public class EventDetailsActivity extends AppCompatActivity {
         imageGenerator.setStorageToSDCard(true);
 
     }
+
+    public void getEventDetails(){
+        db = FirebaseFirestore.getInstance();
+        db.collection("Event").document(event_id).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+
+                                event=document.toObject(Events.class);
+                                nameofEvent.setText(event.getEvent_name());
+                                addressofevent.setText(event.getEvent_location());
+                                descpitionofevent.setText(event.getEvent_description());
+                                detailsofevent.setText(event.getEvent_tags());
+
+                                Calendar currentDate = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH);
+                                try {
+                                    currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                // .set(selectedYear,selectedMonth,selectedDay);
+                                imageGenerator = new ImageGenerator(EventDetailsActivity.this);
+
+                                imageGenerator.setIconSize(100, 100);
+                                imageGenerator.setDateSize(40);
+                                imageGenerator.setMonthSize(20);
+
+                                imageGenerator.setDatePosition(80);
+                                imageGenerator.setMonthPosition(24);
+
+                                imageGenerator.setDateColor(Color.parseColor("#D81B60"));
+                                imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
+
+                                imageGenerator.setStorageToSDCard(true);
+
+                                generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+                                calendarHandler.setImageBitmap(generatedateIcon);
+
+                            } else {
+                                Log.d("", "No such document exist");
+                            }
+                        } else {
+                            Log.d("", "Failed with ", task.getException());
+                        }
+                    }
+                });
+
+    }
+
+
+
+    public View.OnClickListener browseItems = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+            intent.putExtra("event_event_uid",event_id);
+            startActivity(intent);
+        }
+    };
 
     public View.OnClickListener pickEventImage = new View.OnClickListener() {
         @Override
@@ -238,10 +317,12 @@ public class EventDetailsActivity extends AppCompatActivity {
         descpitionofevent =findViewById(R.id.textView_eventdetailsDescription);
         detailsofevent =findViewById(R.id.editext_eventdetailsDetails);
         editDetails = findViewById(R.id.imageView_eventdetailsEdit);
-        calendarHandler = findViewById(R.id.imageView_calendar);
+        calendarHandler = findViewById(R.id.eventDetails_imageView_calendar);
         buttonSave = findViewById(R.id.Button_saveEditEvent);
         numberofInterestedAttendees = findViewById(R.id.textView_numberofEventsInterestedAttendees);
         numberofInterestedSponsors = findViewById(R.id.textView_numberofEventsInterestedSponsor);
         imageView_eventdetailsImage = findViewById(R.id.imageView_eventdetailsImage);
+        foundEventDetails_browseItemsButton = findViewById(R.id.foundEventDetails_browseItemsButton);
+
     }
 }

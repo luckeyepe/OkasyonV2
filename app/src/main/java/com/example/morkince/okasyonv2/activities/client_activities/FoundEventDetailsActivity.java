@@ -51,7 +51,10 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
 
         sponsor.setOnClickListener(sponsorEvent);
         attend.setOnClickListener(attendEvent);
+
     }
+
+
 
     public View.OnClickListener sponsorEvent = new View.OnClickListener() {
         @Override
