@@ -45,7 +45,7 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_event_details);
         Intent intent = getIntent();
-        event_id= intent.getStringExtra("event_id");
+        event_id= intent.getStringExtra("event_event_uid");
         refs();
         getEventDetails();
 

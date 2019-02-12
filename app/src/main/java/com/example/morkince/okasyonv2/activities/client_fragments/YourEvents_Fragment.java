@@ -92,20 +92,25 @@ public class YourEvents_Fragment extends Fragment {
                                     }
                                     else
                                     {
-
-                                        Toast.makeText(getActivity().getApplicationContext(), "No Events to Show!",
-                                                Toast.LENGTH_SHORT).show();
+                                        if(isAdded()) {
+                                            Toast.makeText(getActivity(), "No Events to Show!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Error in Retrieving Records!",
-                                            Toast.LENGTH_SHORT).show();
+                                    if (isAdded()) {
+                                        Toast.makeText(getActivity(), "Error in Retrieving Records!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Error in Retrieving Records!",
-                            Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getActivity(), "Error in Retrieving Records!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

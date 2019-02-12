@@ -61,9 +61,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
         refs();
         enable(false);
+
         Intent intent = getIntent();
-        event_id= intent.getStringExtra("event_id");
+        event_id= intent.getStringExtra("event_event_uid");
+
+
         getEventDetails();
+
+
         calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);

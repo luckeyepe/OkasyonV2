@@ -62,24 +62,25 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final EventsAdapter.ViewHolder holder, int position) {
+
         mStorageRef = FirebaseStorage
                 .getInstance()
                 .getReference()
                 .child("event_images")
                 .child(events.get(position)
-                        .getEvent_event_uid_());
+                        .getEvent_event_uid());
 
         mStorageRef
                 .getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(holder.ImageView_clientTopEventsPicture);
-            }
-        });
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(holder.ImageView_clientTopEventsPicture);
+                    }
+                });
 
-        eventName=events.get(position).getEvent_name();
-        eventLocation=events.get(position).getEvent_location() + "";
+        eventName = events.get(position).getEvent_name();
+        eventLocation = events.get(position).getEvent_location() + "";
         holder.textView_clientTopEventsToBeRecycleNameoftheEvent.setText(eventName);
         holder.textView_clientTopEventsToBeRecycleLocationoftheEvent.setText(eventLocation);
 
@@ -92,7 +93,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             e.printStackTrace();
         }
 
-       // .set(selectedYear,selectedMonth,selectedDay);
+        // .set(selectedYear,selectedMonth,selectedDay);
         imageGenerator = new ImageGenerator(mContext);
 
 
@@ -108,8 +109,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         imageGenerator.setStorageToSDCard(true);
 
-        generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+        generatedateIcon = imageGenerator.generateDateImage(currentDate, R.drawable.calendar_icon);
         holder.imageView_topEventsToBeRecycled.setImageBitmap(generatedateIcon);
+
     }
 
     @Override
@@ -152,14 +154,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                     events.get(position).getEvent_event_organizer_uid().equalsIgnoreCase(user.getUid()))
             {
                 Intent intent = new Intent(mContext,EventDetailsActivity.class);
-                intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+                intent.putExtra("event_event_uid",events.get(position).getEvent_event_uid());
 
                 mContext.startActivity(intent);
             }
             else
             {
                 Intent intent = new Intent(mContext,FoundEventDetailsActivity.class);
-                intent.putExtra("event_id",events.get(position).getEvent_event_uid_());
+                intent.putExtra("event_event_uid",events.get(position).getEvent_event_uid());
 
                 mContext.startActivity(intent);
             }

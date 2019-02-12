@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_sign_up_user_summary.*
+import java.net.URI
 import java.util.*
 
 class SignUpUserSummaryActivity : AppCompatActivity() {
@@ -83,8 +84,9 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
 
                         val thumbnailPath = mStorage!!.child("user_profPic").child("${currentUser.uid}.jpg")
 
+                        val uri = Uri.parse(user_validIDURL!!)
 
-                        val uploadTask = thumbnailPath.putFile(user_validIDURL as Uri)
+                        val uploadTask = thumbnailPath.putFile(uri)
 
                         var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                             if (!task.isSuccessful) {
@@ -121,7 +123,6 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                             }
                         }
 
-                        //////////////////////
                     }else{
                         var alertDialog = AlertDialog.Builder(this)
                         alertDialog.setMessage("Please check your internet connection and try again")

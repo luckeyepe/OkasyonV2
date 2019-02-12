@@ -234,7 +234,7 @@ public class Client_Create_Event extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     String eventID = documentReference.getId();
-                                    FirebaseFirestore.getInstance().collection("Event").document(eventID).update("event_eventUid", eventID);
+                                    FirebaseFirestore.getInstance().collection("Event").document(eventID).update("event_event_uid", eventID);
                                     uploadImage(eventID);
                                 }
                             })
@@ -279,7 +279,7 @@ public class Client_Create_Event extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             progressDialog.dismiss();
-                            showAlert("Successfully Created Event!","Success");
+                            showAlertSuccess("Successfully Created Event!","Success");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -302,8 +302,7 @@ public class Client_Create_Event extends AppCompatActivity {
         }
 
     }
-
-    public void showAlert(String Message,String label)
+    public void showAlertSuccess(String Message,String label)
     {
         //set alert for executing the task
         AlertDialog.Builder alert = new AlertDialog.Builder(Client_Create_Event.this);
@@ -313,6 +312,25 @@ public class Client_Create_Event extends AppCompatActivity {
             public void onClick (DialogInterface dialog, int id){
                 Intent intent = new Intent(Client_Create_Event.this,ClientHomePage.class);
                 startActivity(intent);
+                dialog.cancel();
+
+            }
+        });
+        Dialog dialog = alert.create();
+        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+
+    public void showAlert(String Message,String label)
+    {
+        //set alert for executing the task
+        AlertDialog.Builder alert = new AlertDialog.Builder(Client_Create_Event.this);
+        alert.setTitle(""+label);
+        alert.setMessage(""+Message);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick (DialogInterface dialog, int id){
+
                 dialog.cancel();
 
             }
