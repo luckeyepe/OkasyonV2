@@ -60,7 +60,7 @@
                                     android:layout_height="50dp"
                                     android:layout_marginStart="5dp"
                                     android:src="@drawable/calendar_icon"
-                                    android:id="@+id/imageView_calendar"
+                                    android:id="@+id/eventDetails_imageView_calendar"
                                     android:clickable="false"
                             />
                             <EditText
@@ -166,7 +166,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.23">
+            app:layout_constraintHorizontal_bias="0.23" android:id="@+id/scrollView4">
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
@@ -240,6 +240,14 @@
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.96"
             app:layout_constraintHorizontal_bias="0.09" android:textSize="16sp"/>
+    <Button
+            android:text="Browse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/foundEventDetails_browseItemsButton"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/scrollView4"
+            android:layout_marginStart="8dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

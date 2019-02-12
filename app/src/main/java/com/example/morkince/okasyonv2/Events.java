@@ -6,7 +6,7 @@ String event_category_id;
 String event_creator_id;
 String event_date;
 String event_description;
-String event_event_uid_;
+String event_event_uid;
 boolean event_is_private;
 String event_location;
 String event_name;
@@ -20,13 +20,13 @@ String event_tags;
 
     public Events(){}
 
-    public Events(double event_budget_spent, String event_category_id, String event_creator_id, String event_date, String event_description, String event_event_uid_, boolean event_is_private, String event_location, String event_name, int event_num_of_sponsors, int event_num_of_attendees, String event_picture, double event_set_budget, Long event_timestamp, String event_event_organizer_uid, String event_tags) {
+    public Events(double event_budget_spent, String event_category_id, String event_creator_id, String event_date, String event_description, String event_event_uid, boolean event_is_private, String event_location, String event_name, int event_num_of_sponsors, int event_num_of_attendees, String event_picture, double event_set_budget, Long event_timestamp, String event_event_organizer_uid, String event_tags) {
         this.event_budget_spent = event_budget_spent;
         this.event_category_id = event_category_id;
         this.event_creator_id = event_creator_id;
         this.event_date = event_date;
         this.event_description = event_description;
-        this.event_event_uid_ = event_event_uid_;
+        this.event_event_uid = event_event_uid;
         this.event_is_private = event_is_private;
         this.event_location = event_location;
         this.event_name = event_name;
@@ -79,12 +79,12 @@ String event_tags;
         this.event_description = event_description;
     }
 
-    public String getEvent_event_uid_() {
-        return event_event_uid_;
+    public String getEvent_event_uid() {
+        return event_event_uid;
     }
 
-    public void setEvent_event_uid_(String event_event_uid_) {
-        this.event_event_uid_ = event_event_uid_;
+    public void setEvent_event_uid(String event_event_uid) {
+        this.event_event_uid = event_event_uid;
     }
 
     public boolean isEvent_is_private() {

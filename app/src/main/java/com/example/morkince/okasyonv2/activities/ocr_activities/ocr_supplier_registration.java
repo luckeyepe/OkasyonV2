@@ -160,7 +160,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 && data != null && data.getData() != null )
         {
             //CHECK IF UPLOADING A VALID ID and user is not supplier
-            if(ifValidIdImageIsSelected )
+            if(ifValidIdImageIsSelected)
             {
                 filePathValidID = data.getData();
                 try {

@@ -28,9 +28,9 @@ class SignUpUserPart1Activity : AppCompatActivity() {
 
             if(isCompleteData()) {
                 if (isValidPassword()) {
-                    var email = textInputEdittext_signupClientpart1Emailaddress.text.toString().trim()
+                    var email = textInputEdittext_signupClientpart1EmailAddress.text.toString().trim()
                     var password =
-                        textInputEdittext_signupClienpart1Password.text.toString().trim()
+                        textInputEdittext_signupClientPart1Password.text.toString().trim()
                     var mFirestore = FirebaseFirestore.getInstance()
                     var query = mFirestore.collection("User").whereEqualTo("user_email", email)
 
@@ -79,13 +79,13 @@ class SignUpUserPart1Activity : AppCompatActivity() {
     }
 
     private fun isMatchingPassword(): Boolean {
-        return textInputEdittext_signupClienpart1Password.text.toString().trim() ==
+        return textInputEdittext_signupClientPart1Password.text.toString().trim() ==
                 textInputEdittext_signupClientpart1ConfirmPassword.text.toString().trim()
     }
 
     private fun isCompleteData(): Boolean {
-        return !(textInputEdittext_signupClientpart1Emailaddress.text.isNullOrEmpty() &&
-                textInputEdittext_signupClienpart1Password.text.isNullOrEmpty() &&
+        return !(textInputEdittext_signupClientpart1EmailAddress.text.isNullOrEmpty() &&
+                textInputEdittext_signupClientPart1Password.text.isNullOrEmpty() &&
                 textInputEdittext_signupClientpart1ConfirmPassword.text.isNullOrEmpty())
     }
 
@@ -108,7 +108,7 @@ class SignUpUserPart1Activity : AppCompatActivity() {
     }
 
     private fun isValidPassword(): Boolean {
-        var password = textInputEdittext_signupClienpart1Password.text.toString().trim()
+        var password = textInputEdittext_signupClientPart1Password.text.toString().trim()
         var password2 = textInputEdittext_signupClientpart1ConfirmPassword.text.toString().trim()
 
         if(isStringContainNumber(password)){
@@ -121,7 +121,7 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                             }else{
                                 Log.e("ERROR", "Incomplete data")
                                 var alertDialog = AlertDialog.Builder(this)
-                                alertDialog.setMessage("Please matching password")
+                                alertDialog.setMessage("Please make sure you have matching passwords")
                                 alertDialog.setTitle("PASSWORD MISMATCH")
                                 alertDialog.show()
                             }

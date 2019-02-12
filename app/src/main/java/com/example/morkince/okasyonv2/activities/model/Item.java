@@ -1,6 +1,7 @@
 package com.example.morkince.okasyonv2.activities.model;
 
-public class Item {
+public class
+Item {
 
     String item_name = "";
     double item_average_rating = 0;

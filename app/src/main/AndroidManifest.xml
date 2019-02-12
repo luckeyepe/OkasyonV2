@@ -93,11 +93,6 @@
                 android:name=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"
                 android:label="@string/title_activity_home_page__supplier_"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activities.homepage_supplier_activities.AddItem_Supplier_activity">
         </activity>
@@ -136,8 +131,8 @@
         <activity android:name=".testingphase.testingpart">
         </activity>
         <activity
-                android:name=".activities.client_activities.ClientViewItemsActivity"
-                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+                android:name=".activities.client_activities.ClientViewItemsActivity">
+            <!--android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">-->
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
         </activity>
@@ -159,6 +154,13 @@
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
         </activity>
+        <activity
+            android:name=".activities.ocr_activities.ocr_supplier_registration">
+        </activity>
+        <activity android:name=".activities.chat_activities.LatestMessagesActivity"></activity>
+        <activity android:name=".activities.chat_activities.NewMessagesActivity"></activity>
+        <activity android:name=".activities.chat_activities.MaxImageActivity"></activity>
+        <activity android:name=".activities.chat_activities.ChatLogActivitiy"></activity>
     </application>
 
 </manifest>

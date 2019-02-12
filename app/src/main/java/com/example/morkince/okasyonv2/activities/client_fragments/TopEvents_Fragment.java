@@ -55,7 +55,7 @@ public class TopEvents_Fragment extends Fragment {
     public void displayEvents()
     {
         db = FirebaseFirestore.getInstance();
-        db.collection("Event").whereEqualTo("event_isPrivate", false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Event").whereEqualTo("event_is_private", false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -74,12 +74,16 @@ public class TopEvents_Fragment extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(getActivity().getApplicationContext(), "No Events to Show!",
-                                Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Toast.makeText(getActivity(), "No Events to Show!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "No Events to Show!",
-                            Toast.LENGTH_SHORT).show();
+                    if(isAdded()) {
+                        Toast.makeText(getActivity(), "No Events to Show!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
