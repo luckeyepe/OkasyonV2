@@ -133,7 +133,7 @@ public class SupplierAddItem extends AppCompatActivity {
                     //GET STORE ID
                     Intent intent = getIntent();
                     item_store_id = intent.getStringExtra("storeID");
-                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid,item_tag);
+                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid, item_tag);
 
 
                     // Add a new document with a generated ID
