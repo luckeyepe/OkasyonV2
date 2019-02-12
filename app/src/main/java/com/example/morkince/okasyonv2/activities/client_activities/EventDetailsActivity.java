@@ -30,6 +30,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -39,7 +40,7 @@ import java.util.Locale;
 
 public class EventDetailsActivity extends AppCompatActivity {
     ImageView editDetails, calendarHandler,imageView_eventdetailsImage;
-    TextView numberofInterestedAttendees,numberofInterestedSponsors;
+    TextView eventDetails_setNumAttendeesTextView,numberofInterestedAttendees,numberofInterestedSponsors,textView_numberofEventsInterestedAttendees,textView_numberofEventsInterestedSponsor;
     Button buttonSave,foundEventDetails_browseItemsButton;
     String event_id;
     Events event;
@@ -51,6 +52,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     FirebaseUser user;
     FirebaseFirestore db;
+    private StorageReference mStorageRef;
 
     private static final int PICK_IMAGE = 100;
     private Uri filePath=null;
@@ -94,6 +96,16 @@ public class EventDetailsActivity extends AppCompatActivity {
     }
 
     public void getEventDetails(){
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("event_images").child(event_id);
+        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(imageView_eventdetailsImage);
+            }
+        });
+
+
         db = FirebaseFirestore.getInstance();
         db.collection("Event").document(event_id).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -109,6 +121,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 addressofevent.setText(event.getEvent_location());
                                 descpitionofevent.setText(event.getEvent_description());
                                 detailsofevent.setText(event.getEvent_tags());
+                                eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
 
                                 Calendar currentDate = Calendar.getInstance();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH);
@@ -145,6 +158,36 @@ public class EventDetailsActivity extends AppCompatActivity {
                     }
                 });
 
+
+        //GET NUMBER OF ATTENDEES
+        db.collection("Attendees_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        int num_attendees =(Integer)(document.get("attendees_list_list_size"));
+                        textView_numberofEventsInterestedAttendees.setText(num_attendees + "");
+                    }
+                }
+            }
+        });
+       // GET NUMBER OF SPONSORS
+
+        db.collection("Sponsors_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
+                        textView_numberofEventsInterestedAttendees.setText(num_sponsors + "");
+                    }
+                }
+            }
+        });
     }
 
 
@@ -328,6 +371,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         numberofInterestedSponsors = findViewById(R.id.textView_numberofEventsInterestedSponsor);
         imageView_eventdetailsImage = findViewById(R.id.imageView_eventdetailsImage);
         foundEventDetails_browseItemsButton = findViewById(R.id.foundEventDetails_browseItemsButton);
+        textView_numberofEventsInterestedAttendees = findViewById(R.id.textView_numberofEventsInterestedAttendees);
+        textView_numberofEventsInterestedSponsor = findViewById(R.id.textView_numberofEventsInterestedSponsor);
+        eventDetails_setNumAttendeesTextView = findViewById(R.id.eventDetails_setNumAttendeesTextView);
 
     }
 }

@@ -281,7 +281,7 @@ public void ClientCreateEvent()
                             dialogBusiness.dismiss();
                         }
                     });
-                    typeOfEvent="Business";
+                    typeOfEvent="Business_Events";
                     Toast.makeText(getApplicationContext(),"Business Event!!",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -332,7 +332,7 @@ public void ClientCreateEvent()
                             dialogSports.dismiss();
                         }
                     });
-                    typeOfEvent="Sports";
+                    typeOfEvent="Sports_Events";
                     Toast.makeText(getApplicationContext(),"Sports Events",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -380,7 +380,7 @@ public void ClientCreateEvent()
                             dialogCustomize.dismiss();
                         }
                     });
-                    typeOfEvent="Customized";
+                    typeOfEvent="Customized_Events";
                     Toast.makeText(getApplicationContext(),"Customize Events",Toast.LENGTH_SHORT).show();
 
                 }

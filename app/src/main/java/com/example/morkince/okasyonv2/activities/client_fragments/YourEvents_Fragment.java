@@ -83,7 +83,7 @@ public class YourEvents_Fragment extends Fragment {
 
                                             Events event = document.toObject(Events.class);
                                             events.add(event);
-                                            Log.e("THIS IS THE EVENT", event.getEvent_event_uid_());
+                                            Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
                                         }
                                         adapter = new EventsAdapter(events, getActivity());
                                         RecyclerView_client_your_eventfragment.setAdapter(adapter);
