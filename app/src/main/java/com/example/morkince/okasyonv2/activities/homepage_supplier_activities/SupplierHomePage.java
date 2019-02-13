@@ -77,6 +77,15 @@ public class SupplierHomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Supplier Home");
 
+        if (getIntent().hasExtra("isNewUser")){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Welcome to Okasyon");
+            alertDialogBuilder.setCancelable(true);
+
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+        }
+
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override

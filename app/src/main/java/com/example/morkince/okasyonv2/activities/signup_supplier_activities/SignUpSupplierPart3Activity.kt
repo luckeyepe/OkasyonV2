@@ -117,18 +117,19 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                         Log.d(TAG, "Success SignUp ${mAuth.currentUser!!.uid}")
                         db.collection("User").document("${currentUser.uid}")
                             .set(userHashMap as Map<String, Any>).addOnCompleteListener {
-                                task: Task<Void> ->
-                                run {
+                                    task: Task<Void> ->
                                     if (task.isSuccessful) {
-                                        if (task.isSuccessful){
-                                            db.collection("Store").add(storeMap as Map<String, Any>)
+                                            db.collection("Store")
+                                                .add(storeMap as Map<String, Any>)
                                                 .addOnCompleteListener {
-                                                        task: Task<DocumentReference> ->
-                                                    run {
+                                                    task: Task<DocumentReference> ->
+                                                    if (task.isSuccessful){
+                                                        val intent = Intent(this, SupplierHomePage::class.java)
+                                                        intent.putExtra("isNewUser", true)
 
-                                                    }
+                                                        finishAffinity()
+                                                        startActivity(intent)
                                                 }
-                                        }
                                     }
                                 }
                             }
@@ -142,6 +143,5 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right)
-
     }
 }

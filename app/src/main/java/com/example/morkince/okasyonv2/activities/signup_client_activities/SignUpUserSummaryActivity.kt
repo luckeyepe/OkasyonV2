@@ -110,7 +110,11 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                                         alertDialog.setTitle("WELCOME")
                                         alertDialog.show()
 
-                                        startActivity(Intent(this, ClientHomePage::class.java))
+                                        val intent = Intent(this, ClientHomePage::class.java)
+                                        intent.putExtra("isNewUser", true)
+
+                                        finishAffinity()
+                                        startActivity(intent)
                                     }
                                     else{
                                         //loading end

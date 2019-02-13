@@ -40,6 +40,12 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         //check for logged in user
+        val progress = ProgressDialog(this)
+        progress.setTitle("PLEASE WAIT")
+        progress.setMessage("Checking your credentials")
+        progress.setCancelable(false)
+        progress.show()
+
         mAuthListener = FirebaseAuth.AuthStateListener {
                 firebaseAuth: FirebaseAuth ->
             user = firebaseAuth.currentUser
@@ -58,22 +64,27 @@ class MainActivity : AppCompatActivity() {
                             when(userRole){
                                 "client" ->{
                                     startActivity(Intent(this, ClientHomePage::class.java))
+                                    progress.dismiss()
                                     finish()
                                 }
 
                                 "organizer" ->{
                                     startActivity(Intent(this, ClientHomePage::class.java))
+                                    progress.dismiss()
                                     finish()
                                 }
 
                                 "supplier" ->{
                                     startActivity(Intent(this, SupplierHomePage::class.java))
+                                    progress.dismiss()
                                     finish()
                                 }
                             }
                         }
                     }
             }
+
+            progress.dismiss()
         }
 
         button_mainLogIn.setOnClickListener {

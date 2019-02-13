@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -74,6 +75,15 @@ public class ClientHomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Client");
         refs();
+
+        if (getIntent().hasExtra("isNewUser")){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Welcome to Okasyon");
+            alertDialogBuilder.setCancelable(true);
+
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
