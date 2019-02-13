@@ -9,28 +9,29 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
+import com.example.morkince.okasyonv2.activities.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
@@ -55,14 +56,16 @@ public class SupplierHomePage extends AppCompatActivity
     TextView supplierHomepage_storeAddress,supplierHomepage_reviewTxtView;
     String documentID;
     String documentIDofStore;
-
+    User usersupplier;
     private static final int PICK_IMAGE = 100;
     private Uri filePath=null;
     FirebaseUser user;
     FirebaseFirestore db;
     private StorageReference mStorageRef;
 
-
+    ImageView drawerImage;
+    TextView drawerUsername;
+    TextView drawerAccount;
     private ArrayList<Reviews> reviews = new ArrayList<>();
     StoreReviewsAdapter adapter;
     RecyclerView supplierHomePage_recyclerView;
@@ -104,20 +107,22 @@ public class SupplierHomePage extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view1);
         navigationView.setNavigationItemSelectedListener(this);
 
 
         //CODE STARTS HERE
 
         refs();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        updateSupplierProfileInfo();
         enableEditText(false);
         supplierHomepage_editBtn.setOnClickListener(editInfo);
         supplierHomepage_saveBtn.setOnClickListener(saveInfo);
         SupplierHomepage_addressImageView.setOnClickListener(getDirections);
 
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+
         setProfileInformation();
         ocr_registration_supplier_validID_imageBtn2.setOnClickListener(uploadBannerImage);
         supplierHomepage_viewItemsBtn.setOnClickListener(viewItems);
@@ -237,14 +242,7 @@ public class SupplierHomePage extends AppCompatActivity
            Intent intent = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
            startActivity(intent);
        }
-////        else if (id == R.id.nav_manage) {
 
-////
-////        } else if (id == R.id.nav_share) {
-////
-////        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -338,7 +336,7 @@ public class SupplierHomePage extends AppCompatActivity
     public void uploadImage(String txtid){
         if(filePath != null)
         {
-            Log.e("THIS IS THE USER UID", txtid);
+            Log.e("THIS IS supplier UID", txtid);
 
             final ProgressDialog progressDialog = new ProgressDialog(SupplierHomePage.this);
             progressDialog.setTitle("Uploading...");
@@ -486,7 +484,50 @@ public class SupplierHomePage extends AppCompatActivity
                     }
                 });
             }
+    public void updateSupplierProfileInfo()
+    {
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(user.getUid());
 
+        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
+//                Picasso.get().load(uri.toString()).into(drawerImage);
+            }
+        });
+        db = FirebaseFirestore.getInstance();
+        db.collection("User").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                     if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                usersupplier =document.toObject(User.class);
+                                drawerUsername.setText(usersupplier.getUser_first_name()+ usersupplier.getUser_last_name());
+                                drawerAccount.setText(usersupplier.getUser_email());
+                                Log.e("NAA DISPLAY", usersupplier.getUser_first_name());
+                            } else {
+                                Log.d("", "No such document exist");
+                            }
+                        } else {
+                            Log.d("", "Failed with ", task.getException());
+                        }
+                    }
+                });
+
+        //     Intent intent = new Intent(MainActivity.this, homepage.class);
+        //    intent.putExtra("name", personName+"");     }
+
+        NavigationView drawer =  findViewById(R.id.nav_view1);
+        View headerView = drawer.getHeaderView(0);
+        drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
+        drawerUsername =  headerView.findViewById(R.id.textView_SupplierName);
+        drawerAccount =headerView.findViewById(R.id.textView_SupplierEmail);
+
+
+    }
 
 
     public void refs()

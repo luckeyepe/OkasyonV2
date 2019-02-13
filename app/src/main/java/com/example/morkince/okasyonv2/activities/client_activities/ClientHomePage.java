@@ -2,7 +2,11 @@ package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
@@ -14,21 +18,33 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.view.*;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
-import com.example.morkince.okasyonv2.*;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.morkince.okasyonv2.Events;
+import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer;
+import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.UserProfileActivity;
+import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
+import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.example.morkince.okasyonv2.activities.client_fragments.TopEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.client_fragments.YourEvents_Fragment;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
+import com.example.morkince.okasyonv2.activities.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -58,7 +74,9 @@ public class ClientHomePage extends AppCompatActivity
                 }
             };
 
-
+    ImageView drawerImage;
+    TextView drawerUsername;
+    TextView drawerAccount;
     FirebaseUser user;
     FirebaseFirestore db;
     private StorageReference mStorageRef;
@@ -66,7 +84,7 @@ public class ClientHomePage extends AppCompatActivity
     EventsAdapter adapter;
     String typeOfEvent;
     private ArrayList<Events> events = new ArrayList<>();
-
+    User userclient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +93,8 @@ public class ClientHomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Client");
         refs();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        updateProfileInfo();
 
         if (getIntent().hasExtra("isNewUser")){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -119,6 +139,7 @@ public void ClientCreateEvent()
         if(toggle.onOptionsItemSelected(item)){
             return true;
         }
+
         else if(id == R.id.imageButton_clientCreateEvent)
         {
             final Dialog dialog = new Dialog(this);
@@ -461,6 +482,11 @@ public void ClientCreateEvent()
             Intent intent = new Intent(ClientHomePage.this,LatestMessagesActivity.class);
             startActivity(intent);
         }
+        else if(id == R.id.nav_profile)
+        {
+            Intent intent = new Intent (ClientHomePage.this, UserProfileActivity.class);
+            startActivity(intent);
+        }
         //else if (id == R.id.nav_gallery) {
 //
 //        } else if (id == R.id.nav_slideshow) {
@@ -476,5 +502,49 @@ public void ClientCreateEvent()
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void updateProfileInfo()
+    {
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("user_profPic").child(user.getUid());
+
+        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
+//                Picasso.get().load(uri.toString()).into(drawerImage);
+            }
+        });
+        db = FirebaseFirestore.getInstance();
+        db.collection("User").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                userclient =document.toObject(User.class);
+                                drawerUsername.setText(userclient.getUser_first_name()+ userclient.getUser_last_name());
+                                drawerAccount.setText(userclient.getUser_email());
+                                Log.e("NAA DISPLAY", userclient.getUser_first_name());
+                            } else {
+                                Log.d("", "No such document exist");
+                            }
+                        } else {
+                            Log.d("", "Failed with ", task.getException());
+                        }
+                    }
+                });
+
+        //     Intent intent = new Intent(MainActivity.this, homepage.class);
+            //    intent.putExtra("name", personName+"");     }
+
+        NavigationView drawer =  findViewById(R.id.nav_view);
+        View headerView = drawer.getHeaderView(0);
+       drawerImage =  headerView.findViewById(R.id.imageView_OrganizerImage);
+        drawerUsername =  headerView.findViewById(R.id.textview_OrganizerName);
+         drawerAccount =headerView.findViewById(R.id.textView_OrganizerEmail);
+
+
     }
 }

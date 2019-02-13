@@ -58,7 +58,8 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_event_details);
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        getSupportActionBar().setTitle("Event Details");
+         user = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_event_uid");
         event_category_id= intent.getStringExtra("event_category_id");
@@ -141,7 +142,7 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
                         textView_foundeventdetailsDateoftheEvent.setText(event.getEvent_date());
                         textView_foundeventdetailsDateoftheEvent.setText(event.getEvent_date());
                         Calendar currentDate = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
                         try {
                             currentDate.setTime(sdf.parse(event.getEvent_date()));// all done

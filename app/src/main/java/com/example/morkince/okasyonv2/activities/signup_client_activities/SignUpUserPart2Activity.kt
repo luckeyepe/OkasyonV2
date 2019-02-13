@@ -2,14 +2,13 @@ package com.example.morkince.okasyonv2.activities.signup_client_activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.ocr_activities.SignupOCRClientOrganizer
 import com.example.morkince.okasyonv2.activities.ocr_activities.ocr_supplier_registration
 import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import java.util.*
@@ -48,7 +47,7 @@ class SignUpUserPart2Activity : AppCompatActivity() {
             //grab data
             if(isCompleteData()){
                 if(checkbox_signupPart2TermsAndCondition.isChecked){
-                    var intent = Intent(this, ocr_supplier_registration::class.java)
+                    var intent = Intent(this, SignupOCRClientOrganizer::class.java)
 
                     var user_gender: String?
                     if(spinner!!.selectedItem == "Male"){
@@ -103,7 +102,6 @@ class SignUpUserPart2Activity : AppCompatActivity() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             // Display Selected date in textbox
             var date = "$monthOfYear/$dayOfMonth/$year"
@@ -111,7 +109,9 @@ class SignUpUserPart2Activity : AppCompatActivity() {
         }, year, month, day)
 
         dpd.show()
+
     }
+
 
     private fun isCompleteData(): Boolean {
         return !(textInputEditText_signupclientPart2FirstName.text.isNullOrEmpty() && textInputEditText_signupclientPart2LastName.text.isNullOrEmpty()

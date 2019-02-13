@@ -38,7 +38,7 @@
                 android:orientation="horizontal">
 
             <LinearLayout
-                    android:layout_width="305dp"
+                    android:layout_width="280dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                 <ScrollView android:layout_width="match_parent"
@@ -132,8 +132,8 @@
                           android:layout_height="match_parent"
                           android:orientation="vertical">
                 <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="45dp"
+                        android:layout_width="59dp"
+                        android:layout_height="49dp"
                         android:id="@+id/imageView_eventdetailsEdit"
                         android:src="@drawable/editicon"/>
                 <Button

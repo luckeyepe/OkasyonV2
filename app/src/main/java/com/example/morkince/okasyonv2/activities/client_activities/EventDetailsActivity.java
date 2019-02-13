@@ -10,6 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,6 +51,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     Events event;
     EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
 
+
     Calendar currentDate;
     Bitmap generatedateIcon;
     ImageGenerator imageGenerator;
@@ -61,6 +67,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
+        getSupportActionBar().setTitle("Event Details");
         refs();
         enable(false);
 
@@ -121,10 +128,11 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 addressofevent.setText(event.getEvent_location());
                                 descpitionofevent.setText(event.getEvent_description());
                                 detailsofevent.setText(event.getEvent_tags());
+                                dateofevent.setText(event.getEvent_date());
                                 eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
 
                                 Calendar currentDate = Calendar.getInstance();
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH);
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                                 try {
                                     currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
                                 } catch (ParseException e) {
@@ -167,7 +175,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        int num_attendees =(Integer)(document.get("attendees_list_list_size"));
+                        int num_attendees =Integer.parseInt(document.get("attendees_list_list_size") + "");
                         textView_numberofEventsInterestedAttendees.setText(num_attendees + "");
                     }
                 }
@@ -182,8 +190,10 @@ public class EventDetailsActivity extends AppCompatActivity {
                 {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
-                        textView_numberofEventsInterestedAttendees.setText(num_sponsors + "");
+
+                        //int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
+                        int num_sponsors = Integer.parseInt(document.get("sponsors_list_list_size") + "");
+                        textView_numberofEventsInterestedSponsor.setText(num_sponsors + "");
                     }
                 }
             }
@@ -235,7 +245,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     public void uploadImage(String txtid){
         if(filePath != null)
         {
-            Log.e("THIS IS THE USER UID", txtid);
+            Log.e("THIS IS THE client UID", txtid);
 
             final ProgressDialog progressDialog = new ProgressDialog(EventDetailsActivity.this);
             progressDialog.setTitle("Uploading...");
@@ -304,10 +314,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             enable(true);
             buttonSave.setVisibility(View.VISIBLE);
-
-
-
-
+            editDetails.setVisibility(View.INVISIBLE);
         }
     };
 
@@ -325,9 +332,57 @@ public class EventDetailsActivity extends AppCompatActivity {
     public View.OnClickListener saveUpdatedData = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
             enable(false);
             buttonSave.setVisibility(View.INVISIBLE);
+            editDetails.setVisibility(View.VISIBLE);
+            String eventName = nameofEvent.getText().toString();
+            String eventAddress = addressofevent.getText().toString();
+            String eventDescription = descpitionofevent.getText().toString();
+            String eventDetails = detailsofevent.getText().toString();
+            String eventDate=dateofevent.getText().toString();
+
+            if(eventName.isEmpty())
+            {
+                nameofEvent.setError("Please Enter Name of Event");
+            }
+            else if(eventAddress.isEmpty())
+            {
+                addressofevent.setError("Please Enter Address of Event");
+            }
+            else if(eventDescription.isEmpty())
+            {
+                descpitionofevent.setError("Please Enter Description of Event");
+            }
+            else if(eventDetails.isEmpty())
+            {
+                detailsofevent.setError("Please Enter Details of Event");
+            }
+            else if(eventDate.isEmpty())
+            {
+                dateofevent.setText("Please Enter Date of Event");
+            }
+            {
+                Long tsLong = System.currentTimeMillis()/1000;
+                Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                cal.setTimeInMillis(tsLong);
+                String date = DateFormat.format("dd-MM-yyyy", currentDate).toString();
+
+                db = FirebaseFirestore.getInstance();
+                DocumentReference userToUpdate = db.collection("Event").document("" + event_id);
+                userToUpdate.update("event_name", eventName);
+                userToUpdate.update("event_location", eventAddress);
+                userToUpdate.update("event_description", eventDescription);
+                userToUpdate.update("event_tags", eventDetails);
+                userToUpdate.update("event_date", eventDate)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                showAlert("Successfully Updated Data", "SUCCESS!");
+                            }
+                        });
+
+            }
+
 
         }
     };
@@ -376,4 +431,117 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventDetails_setNumAttendeesTextView = findViewById(R.id.eventDetails_setNumAttendeesTextView);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.delete_event, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if(id == R.id.deleteEventButton)
+        {
+            showAlertConfirmDelete("Are you sure you want to Delete Event?","Confirm");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showAlertConfirmDelete(String Message,String label)
+    {
+        //set alert for executing the task
+        AlertDialog.Builder alert = new AlertDialog.Builder(EventDetailsActivity.this);
+        alert.setTitle(""+label);
+        alert.setMessage(""+Message);
+
+        alert.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick (DialogInterface dialog, int id){
+                dialog.cancel();
+
+            }
+        });
+
+        alert.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DeleteItem();
+            }
+        });
+
+        Dialog dialog = alert.create();
+        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+    public void DeleteItem()
+    {
+
+
+
+        // Create a storage reference from our app
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+
+            // Create a reference to the file to delete
+            StorageReference desertRef = storageRef.child("event_images").child(event_id);
+
+            // Delete the file
+            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+
+                }
+            });
+
+
+        db.collection("Event").document(event_id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        showAlertSuccessfulDelete("Sucessfully Deleted Event", "SUCCESS");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showAlert("Error : " + e, "ERROR");
+                    }
+                });
+    }
+
+
+    public void showAlertSuccessfulDelete(String Message,String label)
+    {
+        //set alert for executing the task
+        AlertDialog.Builder alert = new AlertDialog.Builder(EventDetailsActivity.this);
+        alert.setTitle(""+label);
+        alert.setMessage(""+Message);
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick (DialogInterface dialog, int id){
+                Intent intent = new Intent(EventDetailsActivity.this,ClientHomePage.class);
+                startActivity(intent);
+                dialog.cancel();
+                finish();
+            }
+        });
+
+        Dialog dialog = alert.create();
+        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+
+
 }
