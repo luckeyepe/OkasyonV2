@@ -245,7 +245,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     public void uploadImage(String txtid){
         if(filePath != null)
         {
-            Log.e("THIS IS THE USER UID", txtid);
+            Log.e("THIS IS THE client UID", txtid);
 
             final ProgressDialog progressDialog = new ProgressDialog(EventDetailsActivity.this);
             progressDialog.setTitle("Uploading...");

@@ -158,13 +158,18 @@
         <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
     </activity>
         <activity android:name=".activities.ocr_activities.SignupOCRClientOrganizer">
-
         </activity>
+
+        <activity android:name=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
+        </activity>
+
         <activity android:name=".activities.chat_activities.LatestMessagesActivity"/>
         <activity android:name=".activities.chat_activities.NewMessagesActivity"/>
         <activity android:name=".activities.chat_activities.MaxImageActivity"/>
         <activity android:name=".activities.chat_activities.ChatLogActivitiy"/>
+        <activity android:name=".activities.Homepage_organizer_activities.UserProfileActivity"  android:windowSoftInputMode="adjustPan">
 
+        </activity>
     </application>
 
 </manifest>
