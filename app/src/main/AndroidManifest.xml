@@ -35,6 +35,7 @@
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+
             </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
@@ -160,7 +161,8 @@
         <activity android:name=".activities.chat_activities.NewMessagesActivity"/>
         <activity android:name=".activities.chat_activities.MaxImageActivity"/>
         <activity android:name=".activities.chat_activities.ChatLogActivitiy"/>
-        <activity android:name=".activities.Homepage_organizer_activities.UserProfileActivity">
+        <activity android:name=".activities.Homepage_organizer_activities.UserProfileActivity"  android:windowSoftInputMode="adjustPan">
+
         </activity>
     </application>
 
