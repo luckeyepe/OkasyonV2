@@ -107,6 +107,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                         userHashMap["user_address"] = user_address!!
                         userHashMap["user_contact_no"] = user_contact_no!!
                         userHashMap["user_uid"] = currentUser!!.uid
+                        userHashMap["user_profPic"] = "default"
 
                         var storeMap= HashMap<String,String>()
                         storeMap["store_store_name"] =store_store_name!!

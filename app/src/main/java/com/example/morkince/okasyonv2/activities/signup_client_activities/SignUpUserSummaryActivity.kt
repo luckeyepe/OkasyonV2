@@ -72,17 +72,17 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
             userMap["user_first_name"] = editText_summaryFirstName.text.toString().trim()
             userMap["user_gender"] = editText_summaryGender.text.toString().trim()
             userMap["user_last_name"] = editText_summaryLastName.text.toString().trim()
-            userMap["user_validIDURL"] = user_validIDURL.toString()
+            userMap["user_profPic"] = "default"
 
             var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
                 .update(userMap as Map<String, Any>).addOnCompleteListener {
                         task: Task<Void> ->
                     if (task.isSuccessful){
-                        //upload image
+                        //upload valid id image
                         val database = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
                         val mStorage = FirebaseStorage.getInstance().reference
 
-                        val thumbnailPath = mStorage!!.child("user_profPic").child("${currentUser.uid}.jpg")
+                        val thumbnailPath = mStorage!!.child("user_valid_id").child("${currentUser.uid}.jpg")
 
                         val uri = Uri.parse(user_validIDURL!!)
 
@@ -100,16 +100,11 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                             if(task.isSuccessful){
                                 val downloadUri = task.result
                                 var userAddedDetails = HashMap<String, String>()
-                                userAddedDetails["user_profilePictureURL"] = downloadUri.toString()
+                                userAddedDetails["user_validIDURL"] = downloadUri.toString()
 
                                 database.update(userAddedDetails as Map<String, Any>).addOnCompleteListener {
                                         task: Task<Void> ->
                                     if (task.isSuccessful) {
-                                        var alertDialog = AlertDialog.Builder(this)
-                                        alertDialog.setMessage("Welcome to Okasyon, ${userMap[user_first_name!!]}")
-                                        alertDialog.setTitle("WELCOME")
-                                        alertDialog.show()
-
                                         val intent = Intent(this, ClientHomePage::class.java)
                                         intent.putExtra("isNewUser", true)
 
