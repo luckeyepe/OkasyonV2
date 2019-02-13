@@ -17,6 +17,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".testingImageSlider">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".activities.login_activities.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -31,11 +38,7 @@
         <activity
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -62,7 +65,6 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan">
-
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Set_Preference"
@@ -80,9 +82,8 @@
                 android:name=".activities.client_activities.ClientHomePage"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan"
-                android:theme="@style/AppTheme.NoActionBar">
-
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".activities.homepage_supplier_activities.SupplierHomePage"
@@ -132,9 +133,9 @@
         </activity>
         <activity android:name=".testingphase.testingpart">
         </activity>
-        <activity
-                android:name=".activities.client_activities.ClientViewItemsActivity">
-            <!--android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">-->
+        <activity android:name=".activities.client_activities.ClientViewItemsActivity">
+
+            <!-- android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"> -->
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
         </activity>
@@ -150,16 +151,16 @@
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".activities.client_activities.ClientViewCartActivty"
-                  android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
-        </activity>
         <activity
-            android:name=".activities.ocr_activities.ocr_supplier_registration">
+                android:name=".activities.client_activities.ClientViewCartActivty"
+                android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
         </activity>
-        <activity android:name=".activities.chat_activities.LatestMessagesActivity"></activity>
-        <activity android:name=".activities.chat_activities.NewMessagesActivity"></activity>
-        <activity android:name=".activities.chat_activities.MaxImageActivity"></activity>
-        <activity android:name=".activities.chat_activities.ChatLogActivitiy"></activity>
+        <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
+        </activity>
+        <activity android:name=".activities.chat_activities.LatestMessagesActivity"/>
+        <activity android:name=".activities.chat_activities.NewMessagesActivity"/>
+        <activity android:name=".activities.chat_activities.MaxImageActivity"/>
+        <activity android:name=".activities.chat_activities.ChatLogActivitiy"/>
     </application>
 
 </manifest>
