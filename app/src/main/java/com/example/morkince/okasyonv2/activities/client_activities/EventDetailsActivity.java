@@ -443,11 +443,105 @@ public class EventDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if(id == R.id.deleteItemButton)
+        if(id == R.id.deleteEventButton)
         {
-            Toast.makeText(getApplicationContext(),"hai",Toast.LENGTH_SHORT).show();
+            showAlertConfirmDelete("Are you sure you want to Delete Event?","Confirm");
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void showAlertConfirmDelete(String Message,String label)
+    {
+        //set alert for executing the task
+        AlertDialog.Builder alert = new AlertDialog.Builder(EventDetailsActivity.this);
+        alert.setTitle(""+label);
+        alert.setMessage(""+Message);
+
+        alert.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick (DialogInterface dialog, int id){
+                dialog.cancel();
+
+            }
+        });
+
+        alert.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DeleteItem();
+            }
+        });
+
+        Dialog dialog = alert.create();
+        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+    public void DeleteItem()
+    {
+
+
+
+        // Create a storage reference from our app
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+
+            // Create a reference to the file to delete
+            StorageReference desertRef = storageRef.child("event_images").child(event_id);
+
+            // Delete the file
+            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+
+                }
+            });
+
+
+        db.collection("Event").document(event_id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        showAlertSuccessfulDelete("Sucessfully Deleted Event", "SUCCESS");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showAlert("Error : " + e, "ERROR");
+                    }
+                });
+    }
+
+
+    public void showAlertSuccessfulDelete(String Message,String label)
+    {
+        //set alert for executing the task
+        AlertDialog.Builder alert = new AlertDialog.Builder(EventDetailsActivity.this);
+        alert.setTitle(""+label);
+        alert.setMessage(""+Message);
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick (DialogInterface dialog, int id){
+                Intent intent = new Intent(EventDetailsActivity.this,ClientHomePage.class);
+                startActivity(intent);
+                dialog.cancel();
+                finish();
+            }
+        });
+
+        Dialog dialog = alert.create();
+        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+
+
 }
