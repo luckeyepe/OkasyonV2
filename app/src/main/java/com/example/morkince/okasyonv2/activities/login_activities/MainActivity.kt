@@ -43,49 +43,97 @@ class MainActivity : AppCompatActivity() {
         val progress = ProgressDialog(this)
         progress.setTitle("PLEASE WAIT")
         progress.setMessage("Checking your credentials")
+
         progress.setCancelable(false)
         progress.show()
 
-        mAuthListener = FirebaseAuth.AuthStateListener {
-                firebaseAuth: FirebaseAuth ->
-            user = firebaseAuth.currentUser
-            if (user!= null){
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-                val currentUser = FirebaseAuth.getInstance().currentUser
-                FirebaseFirestore
-                    .getInstance()
-                    .collection("User")
-                    .document(currentUser!!.uid)
-                    .get().addOnCompleteListener {
-                            task: Task<DocumentSnapshot> ->
-                        if (task.isSuccessful){
-                            val userRole = task.result!!.getString("user_role")
-                            Log.d(TAG,"USER ROLE $userRole")
-                            when(userRole){
-                                "client" ->{
-                                    startActivity(Intent(this, ClientHomePage::class.java))
-                                    progress.dismiss()
-                                    finish()
-                                }
+        if (currentUser != null){
+            FirebaseFirestore
+                .getInstance()
+                .collection("User")
+                .document(currentUser!!.uid)
+                .get().addOnCompleteListener {
+                        task: Task<DocumentSnapshot> ->
+                    if (task.isSuccessful){
+                        val userRole = task.result!!.getString("user_role")
+                        Log.d(TAG,"USER ROLE $userRole")
+                        when(userRole){
+                            "client" ->{
+                                startActivity(Intent(this, ClientHomePage::class.java))
+                                finish()
+                                progress.dismiss()
+                            }
 
-                                "organizer" ->{
-                                    startActivity(Intent(this, ClientHomePage::class.java))
-                                    progress.dismiss()
-                                    finish()
-                                }
+                            "organizer" ->{
+                                startActivity(Intent(this, ClientHomePage::class.java))
+                                finish()
+                                progress.dismiss()
+                            }
 
-                                "supplier" ->{
-                                    startActivity(Intent(this, SupplierHomePage::class.java))
-                                    progress.dismiss()
-                                    finish()
-                                }
+                            "supplier" ->{
+                                startActivity(Intent(this, SupplierHomePage::class.java))
+                                finish()
+                                progress.dismiss()
                             }
                         }
                     }
-            }
-
+                }
+        }else{
             progress.dismiss()
         }
+
+//        mAuthListener = FirebaseAuth.AuthStateListener {
+//                firebaseAuth: FirebaseAuth ->
+//            user = firebaseAuth.currentUser
+//
+//            val progress = ProgressDialog(this)
+//            progress.setTitle("PLEASE WAIT")
+//            progress.setMessage("Checking your credentials")
+//
+//            progress.setCancelable(false)
+//            progress.show()
+//
+//            if (user!= null){
+//
+//                val currentUser = FirebaseAuth.getInstance().currentUser
+//                FirebaseFirestore
+//                    .getInstance()
+//                    .collection("User")
+//                    .document(currentUser!!.uid)
+//                    .get().addOnCompleteListener {
+//                            task: Task<DocumentSnapshot> ->
+//                        if (task.isSuccessful){
+//                            val userRole = task.result!!.getString("user_role")
+//                            Log.d(TAG,"USER ROLE $userRole")
+//                            when(userRole){
+//                                "client" ->{
+//                                    startActivity(Intent(this, ClientHomePage::class.java))
+//                                    finish()
+//                                    progress.dismiss()
+//                                }
+//
+//                                "organizer" ->{
+//                                    startActivity(Intent(this, ClientHomePage::class.java))
+//                                    finish()
+//                                    progress.dismiss()
+//                                }
+//
+//                                "supplier" ->{
+//                                    startActivity(Intent(this, SupplierHomePage::class.java))
+//                                    finish()
+//                                    progress.dismiss()
+//                                }
+//                            }
+//                        }
+//                    }
+//            }else{
+//                progress.dismiss()
+//            }
+//        }
+
+//        progress.dismiss()
 
         button_mainLogIn.setOnClickListener {
             Log.d(TAG, "Sign In Button Pressed")
@@ -194,17 +242,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        mAuth!!.addAuthStateListener(mAuthListener!!)
-    }
+//    public override fun onStart() {
+//        super.onStart()
+//        mAuth!!.addAuthStateListener(mAuthListener!!)
+//    }
 
-    override fun onStop() {
-        super.onStop()
-        if (mAuthListener != null){
-            mAuth!!.removeAuthStateListener(mAuthListener!!)
-        }
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        if (mAuthListener != null){
+//            mAuth!!.removeAuthStateListener(mAuthListener!!)
+//        }
+//    }
 
     private fun errorDialog(message: String, title: String) {
         var alertDialog = AlertDialog.Builder(this)
