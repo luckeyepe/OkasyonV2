@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.FaceDetector;
 import android.net.Uri;
-import android.provider.MediaStore;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserSummaryActivity;
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart3Activity;
@@ -23,10 +23,10 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
-public class ocr_supplier_registration extends AppCompatActivity {
+public class SignupOCRClientOrganizer extends AppCompatActivity {
     private String TAG = "ocr_supplier_registration";
-    ImageView ocr_supplier_valid_id,ocr_supplier_valid_business_permit;
-    ImageButton btn_supplier_valid_id,btn_supplier_valid_business_permit;
+    ImageView ocr_registration_client_validID_ImgView,ocr_supplier_valid_business_permit;
+    ImageButton ocr_registration_client_validID_imageBtn;
     Button btn_supplier_continue;
     boolean ifValidIdImageIsSelected=false;
     boolean ifBusinessPermitImageIsSelected =false;
@@ -52,6 +52,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         user_email = getIntent().getStringExtra("user_email");
         user_password = getIntent().getStringExtra("user_password");
         user_role = getIntent().getStringExtra("user_role");
@@ -73,13 +75,13 @@ public class ocr_supplier_registration extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ocr_supplier_registration);
+        setContentView(R.layout.activity_signup_ocrclient_organizer);
         refs();
         btn_supplier_continue.setEnabled(false);//button will not work without proper id
 
-        btn_supplier_valid_id.setOnClickListener(addValidID);
-        btn_supplier_valid_business_permit.setOnClickListener(addBusinesspermit);
+        ocr_registration_client_validID_imageBtn.setOnClickListener(addValidID);
         btn_supplier_continue.setOnClickListener(goToSummary);
+
     }
 
     private View.OnClickListener goToSummary = new View.OnClickListener() {
@@ -127,7 +129,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
         }
     };
 
-    //ON CLICK LISTENER TO ADD IMAGE TO VALID ID IMAGE VIEW AND CHOOSE FROM GALLERY
+
+
+
     private View.OnClickListener addValidID = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -136,19 +140,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener addBusinesspermit = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ifBusinessPermitImageIsSelected=true;
-            openGallery();
-        }
-    };
-
-
-    //METHOD FOR ADDING IMAGE TO VALID ID IMAGE VIEW AND CHOOSE FROM GALLERY
     public void openGallery()
     {
-        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent gallery = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery,PICK_IMAGE);
     }
 
@@ -167,7 +161,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
 
                     if( recognizeText() &&  detectFaceValidID()) {
-                        ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
+                        ocr_registration_client_validID_ImgView.setImageBitmap(bitmapValidID);
                         btn_supplier_continue.setEnabled(true);
                     }
                 }
@@ -247,6 +241,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     validIDText.append(myItem.getValue().trim());
                 }
 
+                Log.e("THIS IS OCR!", validIDText.toString());
+
                 for (String fname: firsnameArray)
                 {
                     Log.d("OCCCRRR", fname);
@@ -272,6 +268,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     isMatchingName= false;
                 }
 
+
                 Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name+"; First Name: "+ user_first_name);
                 if(isMatchingName)
                 {
@@ -286,6 +283,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     return false;
                 }
 
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -296,10 +294,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
     public void refs()
     {
-        ocr_supplier_valid_id=findViewById(R.id.ocr_registration_supplier_validID_ImgView);
-        ocr_supplier_valid_business_permit=findViewById(R.id.ocr_registration_supplier_busPermit_ImgView);
-        btn_supplier_valid_id=findViewById(R.id.ocr_registration_supplier_validID_imageBtn);
-        btn_supplier_valid_business_permit=findViewById(R.id.ocr_registration_supplier_businessPermit_imgBtn);
-        btn_supplier_continue = findViewById(R.id.ocr_supplier_registration_completeRegistrationBtn);
+        ocr_registration_client_validID_ImgView=findViewById(R.id.ocr_registration_client_validID_ImgView);
+        ocr_registration_client_validID_imageBtn=findViewById(R.id.ocr_registration_client_validID_imageBtn);
+        btn_supplier_continue = findViewById(R.id.ocr_client_registration_completeRegistrationBtn);
     }
 }

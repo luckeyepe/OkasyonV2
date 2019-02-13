@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.ocr_activities.SignupOCRClientOrganizer
 import com.example.morkince.okasyonv2.activities.ocr_activities.ocr_supplier_registration
 import kotlinx.android.synthetic.main.activity_sign_up_user_part2.*
 import java.util.*
@@ -48,7 +49,7 @@ class SignUpUserPart2Activity : AppCompatActivity() {
             //grab data
             if(isCompleteData()){
                 if(checkbox_signupPart2TermsAndCondition.isChecked){
-                    var intent = Intent(this, ocr_supplier_registration::class.java)
+                    var intent = Intent(this, SignupOCRClientOrganizer::class.java)
 
                     var user_gender: String?
                     if(spinner!!.selectedItem == "Male"){

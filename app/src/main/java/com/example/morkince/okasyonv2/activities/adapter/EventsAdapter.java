@@ -86,7 +86,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
 
         Calendar currentDate = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         try {
             currentDate.setTime(sdf.parse(events.get(position).getEvent_date()));// all done
         } catch (ParseException e) {
@@ -95,8 +95,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         // .set(selectedYear,selectedMonth,selectedDay);
         imageGenerator = new ImageGenerator(mContext);
-
-
         imageGenerator.setIconSize(100, 100);
         imageGenerator.setDateSize(40);
         imageGenerator.setMonthSize(20);
