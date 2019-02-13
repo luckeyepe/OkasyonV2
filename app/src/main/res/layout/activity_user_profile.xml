@@ -9,7 +9,7 @@
         tools:context=".activities.Homepage_organizer_activities.UserProfileActivity">
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ImageView_UserProfilePic"
-            android:layout_width="102dp"
+            android:layout_width="92dp"
             android:layout_height="92dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="80dp"
