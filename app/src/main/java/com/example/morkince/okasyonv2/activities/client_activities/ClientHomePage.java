@@ -8,15 +8,8 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
-import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -113,7 +106,15 @@ public class ClientHomePage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+        drawerImage =  headerView.findViewById(R.id.imageView_OrganizerImage);
+        drawerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClientHomePage.this,UserProfileActivity.class);
+                startActivity(intent);
+             }
+        });
         BottomNavigationView bottomNavigationView = findViewById(R.id.event_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(event_nav_listener);
 
