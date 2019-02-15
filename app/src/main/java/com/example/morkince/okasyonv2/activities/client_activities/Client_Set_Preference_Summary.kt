@@ -8,7 +8,7 @@ import com.example.morkince.okasyonv2.R
 class Client_Set_Preference_Summary: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_client_set_the_preference)
+        setContentView(R.layout.activity_client_set_the_preference_summary)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar2)
         setSupportActionBar(toolbar)
@@ -16,7 +16,11 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
+
+
     }
+
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
