@@ -15,6 +15,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.ImageButton;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
 import com.example.morkince.okasyonv2.activities.model.Store;
 import com.example.morkince.okasyonv2.activities.view_holders.BasicItemViewHolder;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -70,103 +72,54 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     }
 
     private void loadAllItemsInItemCategory(String itemCategory) {
-        searchForItem(" ", itemCategory).addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
-            @Override
-            public void onComplete(Task<ArrayList<String>> task) {
-                if (task.isSuccessful()){
-                    ArrayList<String> itemUid = task.getResult();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        CallableFunctions callableFunctions = new CallableFunctions();
 
-                    for (int i =0; i<itemUid.size(); i++) {
-                        FirebaseFirestore.getInstance()
-                                .collection("Items")
-                                .document(itemUid.get(i))
-                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    com.example.morkince.okasyonv2.activities.model.Item item =
-                                            task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
+        callableFunctions.getRelatedItems(itemCategory, currentUser.getUid())
+                .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
+                    @Override
+                    public void onComplete(Task<ArrayList<String>> task) {
+                        if (task.isSuccessful()){
+                            ArrayList<String> itemUid = task.getResult();
 
-                                    if (item.getItem_uid() != null) {
-                                        BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
-                                                item.getItem_average_rating(),
-                                                item.getItem_price(),
-                                                item.getItem_name(),
-                                                getApplicationContext(),
-                                                item.getItem_display_picture_url(), event_event_uid);
+                            for (int i =0; i<itemUid.size(); i++) {
+                                FirebaseFirestore.getInstance()
+                                        .collection("Items")
+                                        .document(itemUid.get(i))
+                                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            com.example.morkince.okasyonv2.activities.model.Item item =
+                                                    task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
 
-                                        groupieAdapter.add(basicItemViewHolder);
+                                            BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
+                                                    item.getItem_average_rating(),
+                                                    item.getItem_price(),
+                                                    item.getItem_name(),
+                                                    getApplicationContext(),
+                                                    item.getItem_display_picture_url(), event_event_uid);
+
+                                            groupieAdapter.add(basicItemViewHolder);
+                                        }
                                     }
-                                }
+
+                                });
                             }
 
-                        });
-                    }
 
-                    recyclerView.setAdapter(groupieAdapter);
-
-                }else {
-                    Exception e = task.getException();
-                    if (e instanceof FirebaseFunctionsException) {
-                        FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
-                        FirebaseFunctionsException.Code code = ffe.getCode();
-                        Object details = ffe.getDetails();
+                            recyclerView.setAdapter(groupieAdapter);
+                        }else {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseFunctionsException) {
+                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                FirebaseFunctionsException.Code code = ffe.getCode();
+                                Object details = ffe.getDetails();
+                            }
+                        }
                     }
-                }
-            }
-        });
-//        getRelatedItems(itemCategory).addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
-//            @Override
-//            public void onComplete(Task<ArrayList<String>> task) {
-//                if (task.isSuccessful()){
-//                    ArrayList<String> itemUid = task.getResult();
-//
-//                    for (int i =0; i<itemUid.size(); i++) {
-//                        FirebaseFirestore.getInstance()
-//                                .collection("Items")
-//                                .document(itemUid.get(i))
-//                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onComplete(Task<DocumentSnapshot> task) {
-//                                if (task.isSuccessful()) {
-//                                    com.example.morkince.okasyonv2.activities.model.Item item =
-//                                            task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
-//
-//                                    BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
-//                                            item.getItem_average_rating(),
-//                                            item.getItem_price(),
-//                                            item.getItem_name(),
-//                                            getApplicationContext(),
-//                                            item.getItem_display_picture_url(), event_event_uid);
-//
-//                                    groupieAdapter.add(basicItemViewHolder);
-//                                }
-//                            }
-//
-//                        });
-//                    }
-//
-//
-//                    recyclerView.setAdapter(groupieAdapter);
-//
-////                    groupieAdapter.setOnItemClickListener(new OnItemClickListener() {
-////                        @Override
-////                        public void onItemClick(@NonNull Item item, @NonNull View view) {
-////                            com.example.morkince.okasyonv2.activities.model.Item itemDetails = item;
-////                        }
-////                    });
-//
-//                }else {
-//                    Exception e = task.getException();
-//                    if (e instanceof FirebaseFunctionsException) {
-//                        FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
-//                        FirebaseFunctionsException.Code code = ffe.getCode();
-//                        Object details = ffe.getDetails();
-//                    }
-//                }
-//            }
-//        });
+                });
     }
 
     @Override
@@ -192,7 +145,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 // Do your task here
                 groupieAdapter.clear();
                 String itemQuery = (query.trim().toLowerCase());
-                searchForItem(itemQuery, itemCategory).addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
+                CallableFunctions callableFunctions = new CallableFunctions();
+                callableFunctions.searchForItem(itemQuery, itemCategory)
+                        .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
                     @Override
                     public void onComplete(Task<ArrayList<String>> task) {
                         if (task.isSuccessful()){
