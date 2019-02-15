@@ -2,18 +2,17 @@ package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
+import android.os.Bundle;
+import android.view.*;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.*;
-import android.widget.Button;
-import android.widget.ImageButton;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
@@ -44,13 +43,15 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     int size = 0;
     final Context context = this;
     private Button button;
-    ImageButton Logout;
+    Button saveFilterButton;
     private SearchView mSearchView;
     private FirebaseFunctions mFunctions;
     private String itemCategory = "Cake_and_Pastries";
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
     private String event_event_uid;
-
+   EditText txtBudget;
+    EditText txtStorename;
+    EditText txtLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -219,7 +220,18 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
                 window.setAttributes(wlp);
                 window.setAttributes(wlp);
-
+                saveFilterButton=view.findViewById(R.id.button_ApplyFilter);
+                txtBudget =view.findViewById(R.id.edittext_Budget);
+                txtStorename=view.findViewById(R.id.editText_Storename);
+                txtLocation=view.findViewById(R.id.editText_Location);
+                saveFilterButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), txtStorname.getText().toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), txtlocation.getText().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

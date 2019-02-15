@@ -6,12 +6,12 @@
 >
 
     <androidx.cardview.widget.CardView
-            android:layout_width="250dp"
+            android:layout_width="260dp"
             android:layout_height="613dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
     >
         <ImageView
                 android:src="@drawable/background_default_gradient"
@@ -25,15 +25,15 @@
                 android:layout_marginStart="85dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText"/>
+                android:id="@+id/edittext_Budget"/>
         <EditText
-                android:layout_width="148dp"
+                android:layout_width="147dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="85dp"
                 android:layout_marginStart="85dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText2"/>
+                android:id="@+id/editText_Storename"/>
         <EditText
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:layout_marginStart="85dp"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText3"/>
+                android:id="@+id/editText_Location"/>
         <TextView
                 android:text="  FILTERS"
                 android:background="@color/colorPrimary"
@@ -60,8 +60,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="170dp" tools:layout_editor_absoluteY="107dp"/>
         <TextView
-                android:text="Designer:"
-                android:layout_width="wrap_content"
+                android:text="Storename:"
+                android:layout_width="84dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="26dp"
@@ -94,17 +94,17 @@
         <Button
                 android:text="RESET"
                 android:layout_width="230dp"
-                android:layout_height="44dp" android:id="@+id/button_modalUserTypeSelectionSupplier"
+                android:layout_height="44dp" android:id="@+id/button_ResetFilter"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="550dp"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" android:background="@drawable/background_deafult_button_round"
                 android:textColor="@color/gradient1"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/button_modalUserTypeSelectionSupplier2"/>
+                app:layout_constraintBottom_toTopOf="@+id/button_ApplyFilter"/>
         <Button
                 android:layout_width="230dp"
-                android:layout_height="44dp" android:id="@+id/button_modalUserTypeSelectionSupplier2"
+                android:layout_height="44dp" android:id="@+id/button_ApplyFilter"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="500dp"
                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" android:text="APPLY"/>
         <RatingBar
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/ratingBar2"
+                android:layout_height="wrap_content" android:id="@+id/ratingBar_filterrating"
                 android:numStars="5"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_marginStart="80dp"
@@ -122,12 +122,12 @@
         <CheckBox
                 android:text="RENT"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/checkBox"
+                android:layout_height="wrap_content" android:id="@+id/checkBox_Rent"
                 android:layout_marginTop="185dp" android:layout_marginStart="100dp"/>
         <CheckBox
                 android:text="BUY"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/checkBox2"
+                android:layout_height="wrap_content" android:id="@+id/checkBox_Buy"
                 android:layout_marginTop="215dp" android:layout_marginStart="100dp"/>
 
     </androidx.cardview.widget.CardView>

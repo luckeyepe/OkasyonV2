@@ -161,6 +161,7 @@
         </activity>
 
         <activity android:name=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
+
         </activity>
 
         <activity android:name=".activities.chat_activities.LatestMessagesActivity"/>

@@ -7,17 +7,30 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_default_gradient"
         tools:context=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
-    <TextView
-            android:text="TextView"
-            android:layout_width="74dp"
-            android:layout_height="27dp"
-            android:id="@+id/textView_ItemDate2"
-            app:layout_constraintStart_toEndOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/textView17"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView4" app:layout_constraintVertical_bias="0.333"
-            app:layout_constraintHorizontal_bias="0.0"/>
+    <EditText
+            android:layout_width="29dp"
+            android:layout_height="39dp"
+            android:inputType="textPersonName"
+            android:text="5"
+            android:ems="10"
+            android:id="@+id/editText_ItemQuantity"
+            app:layout_constraintStart_toEndOf="@+id/textView17" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/editText_datefrom"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ActivityClientFindItemNameofTheItem2"
+            app:layout_constraintVertical_bias="0.42000002"/>
+    <EditText
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText_dateto"
+            app:layout_constraintStart_toEndOf="@+id/editText_datefrom" android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView4" app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"/>
     <ToggleButton
             android:text=""
             android:textOff=""
@@ -73,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.34"
-            android:textStyle="bold" app:layout_constraintHorizontal_bias="0.021"/>
+            android:textStyle="bold" app:layout_constraintHorizontal_bias="0.021" android:layout_marginStart="10dp"/>
     <RatingBar
             android:layout_width="236dp"
             android:layout_height="40dp"
@@ -92,7 +105,7 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.393"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.015"/>
+            app:layout_constraintHorizontal_bias="0.0"/>
     <TextView
             android:text="Item Details"
             android:layout_width="wrap_content"
@@ -120,12 +133,13 @@
     <ScrollView
             android:layout_width="338dp"
             android:layout_height="64dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:id="@+id/scrollView4" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView_ActivityClientFindItemRecyclerViewReviews2"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2">
+            app:layout_constraintTop_toBottomOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2"
+            app:layout_constraintHorizontal_bias="0.66">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <TextView android:layout_width="wrap_content"
@@ -159,39 +173,35 @@
             android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2"
             app:layout_constraintVertical_bias="0.0"/>
-    <TextView
-            android:text="5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textview_itemquantity" android:textSize="24sp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/textView17"
-            android:layout_marginStart="6dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView_ActivityClientFindItemNameofTheItem"
-            android:layout_marginBottom="76dp" app:layout_constraintBottom_toTopOf="@+id/scrollView4"
-            app:layout_constraintHorizontal_bias="0.107" app:layout_constraintVertical_bias="0.162"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="74dp"
-            android:layout_height="27dp"
-            android:id="@+id/textView_ItemDate"
-            app:layout_constraintStart_toEndOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp" app:layout_constraintTop_toBottomOf="@+id/textView17"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.011" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView4"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@drawable/editicon"
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButton_edititem"
             android:scaleType="fitXY" android:background="@android:color/transparent"
-            android:layout_marginEnd="36dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/button3" android:layout_marginBottom="16dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_saveitem" android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" android:layout_marginEnd="20dp"/>
     <Button
             android:text="save"
             android:visibility="invisible"
-            android:layout_width="wrap_content"
+            android:layout_width="79dp"
             android:layout_height="wrap_content"
-            android:id="@+id/button3" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginBottom="6dp" app:layout_constraintBottom_toTopOf="@+id/textView_ItemDate"/>
+            android:id="@+id/button_saveitem" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/editText_dateto"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ActivityClientFindItemNameofTheItem2"/>
+
+    <EditText
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText_datefrom"
+            app:layout_constraintStart_toEndOf="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale2"
+            android:layout_marginStart="3dp" app:layout_constraintEnd_toStartOf="@+id/editText_dateto"
+            android:layout_marginEnd="3dp" android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

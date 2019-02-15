@@ -40,7 +40,7 @@ TextView User_rolename;
 ImageView imageviewUserProfile;
 ImageButton imgbtnAddPic, imgBtnEditProfile;
 Button btnsave;
-User USER;
+User userprofile;
 FirebaseUser user;
 FirebaseFirestore db;
 StorageReference mStorageRef;
@@ -91,14 +91,14 @@ private Uri filePath=null;
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                  userAddress= document.getString("user_address");
-                                USER=document.toObject(User.class);
-                                UserFirstname.setText(USER.getUser_first_name());
-                                UserLastname.setText(USER.getUser_last_name());
-                                UserEmailAdress.setText(USER.getUser_email());
-                                User_rolename.setText(USER.getUser_role());
-                                UserDateofbirth.setText(USER.getUser_birth_date());
-                                UserContactnumber.setText(USER.getUser_contact_no());
-                                UserGender.setText(USER.getUser_gender());
+                                userprofile =document.toObject(User.class);
+                                UserFirstname.setText(userprofile.getUser_first_name());
+                                UserLastname.setText(userprofile.getUser_last_name());
+                                UserEmailAdress.setText(userprofile.getUser_email());
+                                User_rolename.setText(userprofile.getUser_role());
+                                UserDateofbirth.setText(userprofile.getUser_birth_date());
+                                UserContactnumber.setText(userprofile.getUser_contact_no());
+                                UserGender.setText(userprofile.getUser_gender());
                                 UserAddress.setText(userAddress);
                             } else {
                                 Log.d("", "No such document exist");
@@ -144,7 +144,7 @@ private Uri filePath=null;
     public void uploadImage(String txtid){
         if(filePath != null)
         {
-            Log.e("THIS IS THE USER UID", txtid);
+            Log.e("THIS IS THE user UID", txtid);
 
             final ProgressDialog progressDialog = new ProgressDialog(UserProfileActivity.this);
             progressDialog.setTitle("Uploading...");
@@ -190,7 +190,7 @@ private Uri filePath=null;
 //    public void uploadImage(String txtid){
 //        if(filePath != null)
 //        {
-//            Log.e("THIS IS THE USER UID", txtid);
+//            Log.e("THIS IS THE userprofile UID", txtid);
 //
 //            final ProgressDialog progressDialog = new ProgressDialog(UserProfileActivity.this);
 //            progressDialog.setTitle("Uploading...");
