@@ -4,10 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SearchView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -220,16 +217,35 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
                 window.setAttributes(wlp);
                 window.setAttributes(wlp);
+
                 saveFilterButton=view.findViewById(R.id.button_ApplyFilter);
                 txtBudget =view.findViewById(R.id.edittext_Budget);
                 txtStorename=view.findViewById(R.id.editText_Storename);
                 txtLocation=view.findViewById(R.id.editText_Location);
+                final RatingBar ratingBar = view.findViewById(R.id.ratingBar_filterrating);
+                final CheckBox forRent = view.findViewById(R.id.checkBox_Rent);
+
                 saveFilterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
+                        String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
+                        Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
+                        String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.toString().trim();
+                        Boolean isForRent = forRent.isChecked();
+                        Integer itemScore = ratingBar.getNumStars();
+
+//                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
 //                        Toast.makeText(getApplicationContext(), txtStorname.getText().toString(), Toast.LENGTH_LONG).show();
 //                        Toast.makeText(getApplicationContext(), txtlocation.getText().toString(), Toast.LENGTH_LONG).show();
+                        CallableFunctions callableFunctions = new CallableFunctions();
+
+                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForRent)
+                                .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
+                            @Override
+                            public void onComplete(@NonNull Task<ArrayList<String>> task) {
+
+                            }
+                        });
                     }
                 });
                 return true;
