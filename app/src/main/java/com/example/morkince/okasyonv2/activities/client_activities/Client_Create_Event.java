@@ -224,9 +224,9 @@ public class Client_Create_Event extends AppCompatActivity {
                 if(filePath!=null) {
                     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                     cal.setTimeInMillis(tsLong);
-                    String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", currentDate).toString();
+                    String date = DateFormat.format("dd-MM-yyyy", currentDate).toString();
 
-                    event = new Events(0.0, eventCategory, user.getUid() + "",date, eventDescription, "", eventIsPrivate, eventLocation, eventName, 0, 0, "", Double.parseDouble(eventBudget), tsLong,"s",eventTags);
+                    event = new Events(0.0, eventCategory, user.getUid() + "",date, eventDescription, "", eventIsPrivate, eventLocation, eventName, 0, Integer.parseInt(eventNumberOfAttendees), "", Double.parseDouble(eventBudget), tsLong,"s",eventTags);
                     db = FirebaseFirestore.getInstance();
                     db.collection("Event")
                             .add(event)

@@ -1,6 +1,7 @@
 package com.example.morkince.okasyonv2.activities.client_fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -82,6 +83,7 @@ public class YourEvents_Fragment extends Fragment {
 
                                             Events event = document.toObject(Events.class);
                                             events.add(event);
+                                            Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
                                         }
                                         adapter = new EventsAdapter(events, getActivity());
                                         RecyclerView_client_your_eventfragment.setAdapter(adapter);

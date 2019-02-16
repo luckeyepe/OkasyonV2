@@ -148,7 +148,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
     //METHOD FOR ADDING IMAGE TO VALID ID IMAGE VIEW AND CHOOSE FROM GALLERY
     public void openGallery()
     {
-        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent gallery = new Intent(Intent.ACTION_OPEN_DOCUMENT,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery,PICK_IMAGE);
     }
 
