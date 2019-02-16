@@ -43,17 +43,20 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     Button saveFilterButton;
     private SearchView mSearchView;
     private FirebaseFunctions mFunctions;
-    private String itemCategory = "Cake_and_Pastries";
+    private String itemCategory;
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
     private String event_event_uid;
-   EditText txtBudget;
+    EditText txtBudget;
     EditText txtStorename;
     EditText txtLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_viewitems);
+        itemCategory = getIntent().getStringExtra("item_category");
+
         getSupportActionBar().setTitle("Cake and Pastries");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
@@ -61,6 +64,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
         if (getIntent().hasExtra("event_event_uid")){
             event_event_uid = getIntent().getStringExtra("event_event_uid");
         }
+
+
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
