@@ -215,7 +215,6 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         for(int counter=0;counter<=5;counter++) {
             // Create a reference to the file to delete
             StorageReference desertRef = storageRef.child("item_images").child(item_uid).child(item_uid + counter);
-
             // Delete the file
             desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
