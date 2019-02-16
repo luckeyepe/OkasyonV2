@@ -1,5 +1,6 @@
 package com.example.morkince.okasyonv2.activities.view_holders
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import com.example.morkince.okasyonv2.R
@@ -25,16 +26,46 @@ class ItemBudgetViewHolder(val itemCategory: String,
         var itemSetBudgetTextView = viewHolder.itemView.textView_itemBudgetSummaryRowSetBudget
         var deleteButton = viewHolder.itemView.imageButton_itemBudgetSummaryRowDelete
 
-        itemCategoryTextView.text = itemCategory
+        if (itemCategory.contains("_")){
+            itemCategoryTextView.text = itemCategory.replace("_", " ")
+        }else{
+            itemCategoryTextView.text = itemCategory
+        }
+
         itemSetBudgetTextView.text = budgetSet.toString()
         itemSpentBudgetTextView.text = budgetSpent.toString()
 
+
+        itemSetBudgetTextView.setOnClickListener {
+            //update budget
+
+        }
+
+
         deleteButton.setOnClickListener {
-            FirebaseFirestore.getInstance()
-                .collection("Custom_Event_Item_Category")
-                .document(eventUid)
-                .collection("ceic_item_category")
-                .document(itemCategory).delete()
+            var alertDialog = AlertDialog.Builder(context)
+
+            alertDialog.setIcon(R.drawable.ic_info_outline_accent)
+            alertDialog.setMessage("Deleting this item category will also all items in your cart that belongs to this category")
+            alertDialog.setTitle("CONFIRM DELETE")
+            alertDialog.setCancelable(false)
+
+            alertDialog.setPositiveButton("OK") { dialog, which ->
+                FirebaseFirestore.getInstance()
+                    .collection("Custom_Event_Item_Category")
+                    .document(eventUid)
+                    .collection("ceic_item_category")
+                    .document(itemCategory).delete().addOnSuccessListener {
+                        dialog.dismiss()
+                    }
+            }
+
+            alertDialog.setNegativeButton("Cancel"){
+                dialog, which ->
+                dialog.dismiss()
+            }
+
+            alertDialog.show()
         }
 
         itemCategoryTextView.setOnClickListener {

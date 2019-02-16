@@ -37,6 +37,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     private ArrayList<Store> StoreItem = new ArrayList<>();
     ViewItemRecyclerAdapter adapter;
     RecyclerView recyclerView;
+    TextView textViewMessage;
     int size = 0;
     final Context context = this;
     private Button button;
@@ -57,7 +58,15 @@ public class ClientViewItemsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_viewitems);
         itemCategory = getIntent().getStringExtra("item_category");
 
-        getSupportActionBar().setTitle("Cake and Pastries");
+        String title = "";
+
+        if (itemCategory.contains("_")){
+            title = itemCategory.replace("_", " ");
+        }else {
+            title = itemCategory;
+        }
+
+        getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
 
@@ -85,6 +94,13 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                     public void onComplete(Task<ArrayList<String>> task) {
                         if (task.isSuccessful()){
                             ArrayList<String> itemUid = task.getResult();
+
+                            if (itemUid.size() == 0){
+                                textViewMessage.setVisibility(View.VISIBLE);
+                                return;
+                            }else {
+                                textViewMessage.setVisibility(View.INVISIBLE);
+                            }
 
                             for (int i =0; i<itemUid.size(); i++) {
                                 FirebaseFirestore.getInstance()
@@ -155,6 +171,13 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                     public void onComplete(Task<ArrayList<String>> task) {
                         if (task.isSuccessful()){
                             ArrayList<String> itemUid = task.getResult();
+
+                            if (itemUid.size() == 0){
+                                textViewMessage.setVisibility(View.VISIBLE);
+                                return;
+                            }else {
+                                textViewMessage.setVisibility(View.INVISIBLE);
+                            }
 
 
                             for (int i =0; i<itemUid.size(); i++) {
@@ -262,6 +285,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     public void refs() {
 
         recyclerView = findViewById(R.id.RecyclerView_ClientViewItems);
+        textViewMessage = findViewById(R.id.textView_clientViewItemsNoItem);
     }
 
     private Task<ArrayList<String>> getRelatedItems(String itemCategory) {

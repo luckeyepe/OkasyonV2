@@ -205,7 +205,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     public View.OnClickListener browseItems = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+//            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+            Intent intent = new Intent(EventDetailsActivity.this,  Client_Set_Preference_Summary.class);
             intent.putExtra("event_event_uid",event_id);
             startActivity(intent);
         }
