@@ -223,31 +223,80 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 txtStorename=view.findViewById(R.id.editText_Storename);
                 txtLocation=view.findViewById(R.id.editText_Location);
                 final RatingBar ratingBar = view.findViewById(R.id.ratingBar_filterrating);
-                final CheckBox forRent = view.findViewById(R.id.checkBox_Rent);
+               final RadioGroup Radiogroup_forRentorSale = view.findViewById(R.id.Radiogroup_forRentorSale);
+
+                final RadioButton forRent = view.findViewById(R.id.radioButton_Rent);
+                final RadioButton forsale = view.findViewById(R.id.radioButton_Buy);
 
                 saveFilterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean isForSale=false;
                         String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
                         Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
                         String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.toString().trim();
-                        Boolean isForSale = forRent.isChecked();
-                        Integer itemScore = ratingBar.getNumStars();
+                        int idOfChecked = Radiogroup_forRentorSale.getCheckedRadioButtonId();
 
+                        if(idOfChecked==R.id.radioButton_Buy)
+                        {
+                            isForSale=true;
+                        }
+                        else
+                        {
+                            isForSale=false;
+                        }
+
+                        Toast.makeText(getApplicationContext(), isForSale + "", Toast.LENGTH_SHORT).show();
+
+
+//                        Boolean isForSale = RadioButton.();
+//                        Toast.makeText(getApplicationContext(), forRent.getText(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), forsale.getText(), Toast.LENGTH_SHORT).show();
+
+                        int itemScore = Math.round(ratingBar.getRating());
+                        Toast.makeText(getApplicationContext(), itemScore+"", Toast.LENGTH_SHORT).show();
+//                        if(isForSale == true) {
+//                            Toast.makeText(getApplicationContext(), "Buy", Toast.LENGTH_SHORT).show();
+//                            forRent.setEnabled(false);
+////                            isForSale = true;
+//                        }
+//                        else if(forRent.isChecked()){
+//                            Toast.makeText(getApplicationContext(), "rent", Toast.LENGTH_SHORT).show();
+//                            forsale.setEnabled(false);
+//                        }
 //                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
 //                        Toast.makeText(getApplicationContext(), txtStorname.getText().toString(), Toast.LENGTH_LONG).show();
 //                        Toast.makeText(getApplicationContext(), txtlocation.getText().toString(), Toast.LENGTH_LONG).show();
-                        CallableFunctions callableFunctions = new CallableFunctions();
+//                        CallableFunctions callableFunctions = new CallableFunctions();
 
-                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
-                                .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
-                            @Override
-                            public void onComplete(@NonNull Task<ArrayList<String>> task) {
-
-                            }
-                        });
+//
+//                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
+//                                .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<ArrayList<String>> task) {
+//
+//                            }
+//                        });
+//                        forsale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+//
+//                            @Override
+//                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                                if (forsale.isChecked()){
+//                                    Toast.makeText(getApplicationContext(), "Buy" , Toast.LENGTH_SHORT).show();
+//                                    forsale.setEnabled(false); // disable checkbox
+//                                }
+//                            }
+//                        });
                     }
-                });
+
+
+
+
+                    });
+
+
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
