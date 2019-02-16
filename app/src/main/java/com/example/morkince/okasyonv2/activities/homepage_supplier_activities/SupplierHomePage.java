@@ -78,7 +78,7 @@ public class SupplierHomePage extends AppCompatActivity
         setContentView(R.layout.activity_supplier_homepage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Supplier Home");
+        getSupportActionBar().setTitle("Supplier");
 
         if (getIntent().hasExtra("isNewUser")){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

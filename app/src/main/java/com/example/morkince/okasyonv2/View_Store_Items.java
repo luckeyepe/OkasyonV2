@@ -36,6 +36,7 @@ public class View_Store_Items extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__store__items);
+        getSupportActionBar().setTitle("My Items");
         refs();
         viewStoreItems_addItemsButton.setOnClickListener(addItem);
 

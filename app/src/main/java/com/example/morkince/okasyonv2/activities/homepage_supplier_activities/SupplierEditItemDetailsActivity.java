@@ -55,6 +55,7 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supplier_edit_item_details);
+        getSupportActionBar().setTitle("Item Details");
         getValues();
         refs();
         fillSpinner();
