@@ -1,20 +1,22 @@
 package com.example.morkince.okasyonv2.testingphase;
 
+import android.net.Uri;
+
 public class ItemImagesModel {
 
-    String image;
+    Uri image;
 
-    public ItemImagesModel(String image) {
+    public ItemImagesModel(Uri image) {
         this.image = image;
     }
 
     public ItemImagesModel(){}
 
-    public String getImage() {
+    public Uri getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Uri image) {
         this.image = image;
     }
 }
