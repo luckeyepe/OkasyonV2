@@ -231,7 +231,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
                         Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
                         String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.toString().trim();
-                        Boolean isForRent = forRent.isChecked();
+                        Boolean isForSale = forRent.isChecked();
                         Integer itemScore = ratingBar.getNumStars();
 
 //                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
@@ -239,7 +239,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), txtlocation.getText().toString(), Toast.LENGTH_LONG).show();
                         CallableFunctions callableFunctions = new CallableFunctions();
 
-                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForRent)
+                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
                                 .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
                             @Override
                             public void onComplete(@NonNull Task<ArrayList<String>> task) {
