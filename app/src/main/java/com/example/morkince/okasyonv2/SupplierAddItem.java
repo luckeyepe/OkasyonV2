@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class SupplierAddItem extends AppCompatActivity {
 
-    TextInputEditText addItem_itemName,addItem_itemPrice,addItem_priceDescription,addItem_itemTag,addItem_itemDescription;
+    TextInputEditText addItem_itemName,addItem_itemPrice,addItem_priceDescription,addItem_itemTag,addItem_itemDescription,addItem_termsandCondtion;
     Spinner addItem_itemCategorySpinner;
     ToggleButton addItem_forRentforSale;
     boolean item_for_sale=true;
@@ -44,6 +44,7 @@ public class SupplierAddItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item__supplier_activity);
+        getSupportActionBar().setTitle("Add Item");
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -97,6 +98,10 @@ public class SupplierAddItem extends AppCompatActivity {
                 else if(addItem_itemDescription.getText().toString().isEmpty()){
                     addItem_itemDescription.setError("Blank Item Description");
                 }
+                else if(addItem_termsandCondtion.getText().toString().isEmpty()){
+                    addItem_termsandCondtion.setError("Blank Terms and Conditions");
+                }
+
                 else {
 
                     final ProgressDialog progressDialog = new ProgressDialog(SupplierAddItem.this);
@@ -216,5 +221,6 @@ public class SupplierAddItem extends AppCompatActivity {
         addItem_itemCategorySpinner=findViewById(R.id.addItem_itemCategorySpinner);
         checkBox_soldPersquareunit=findViewById(R.id.checkBox_soldPersquareunit);
         addItem_forRentforSale=findViewById(R.id.addItem_forRentforSale);
+        addItem_termsandCondtion =findViewById(R.id.addItem_termsandCondition);
     }
 }

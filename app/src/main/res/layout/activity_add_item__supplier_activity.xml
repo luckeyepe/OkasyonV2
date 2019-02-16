@@ -10,12 +10,10 @@
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="52dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/cardView2" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="108dp" android:layout_marginEnd="104dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="305dp" android:id="@+id/textInputLayout_itemName_text"
-            app:layout_constraintVertical_bias="0.114" app:layout_constraintHorizontal_bias="0.507">
+            android:id="@+id/textInputLayout_itemName_text"
+            app:layout_constraintVertical_bias="0.00999999" app:layout_constraintHorizontal_bias="0.507">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -48,11 +46,11 @@
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="298dp"
             android:layout_height="52dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
             android:id="@+id/textInputLayout9"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginTop="12dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.39999998">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -65,20 +63,20 @@
             android:text="is sold per square unit?"
             android:layout_width="152dp"
             android:layout_height="30dp"
-            android:id="@+id/checkBox_soldPersquareunit" android:layout_marginTop="3dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_itemName_text" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="101dp" android:textSize="10sp" app:layout_constraintHorizontal_bias="1.0"/>
+            android:id="@+id/checkBox_soldPersquareunit"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_itemName_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="10sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="57dp"
-            android:layout_marginTop="13dp"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox_soldPersquareunit"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/textInputLayout8"
-            app:layout_constraintHorizontal_bias="0.51">
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.3">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="310dp"
@@ -90,33 +88,32 @@
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="313dp"
             android:layout_height="61dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9"
             android:id="@+id/textInputLayout10" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.426">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:hint="Item Tag" android:inputType="text" android:id="@+id/addItem_itemTag"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="305dp"
-            android:layout_height="56dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout10"
-            app:layout_constraintVertical_bias="0.0" android:id="@+id/textInputLayout11"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:hint="Item Description" android:inputType="text" android:id="@+id/addItem_itemDescription"/>
+                android:hint="Item Tag" android:inputType="text" android:id="@+id/addItem_itemTag"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="313dp"
+            android:layout_height="61dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/textInputLayout11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.63">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="Item Description" android:inputType="text"
+                android:id="@+id/addItem_itemDescription"/>
     </com.google.android.material.textfield.TextInputLayout>
     <ToggleButton
             android:text=""
@@ -125,10 +122,32 @@
             android:layout_width="192dp"
             android:layout_height="45dp"
             android:background="@drawable/togglebutton"
-            android:id="@+id/addItem_forRentforSale" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout11" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="106dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="110dp" android:layout_marginBottom="7dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.416"
-            app:layout_constraintVertical_bias="0.333"/>
+            android:id="@+id/addItem_forRentforSale"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.901" app:layout_constraintHorizontal_bias="0.497"/>
+    <ScrollView
+            android:layout_width="313dp"
+            android:layout_height="86dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.782"
+            android:id="@+id/scrollView5" app:layout_constraintHorizontal_bias="0.571">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                         android:layout_height="match_parent"
+                                                                         android:hint="Terms and Conditions"
+                                                                         android:gravity="center"
+                                                                         android:inputType="textMultiLine"
+                                                                         android:id="@+id/addItem_termsandCondition"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
