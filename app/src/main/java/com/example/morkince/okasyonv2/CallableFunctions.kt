@@ -36,4 +36,23 @@ class CallableFunctions {
                 result["itemUids"] as ArrayList<String>
             }
     }
+
+    fun filterItems(storeName: String, budget: Double,
+                    location: String, itemScore: Int,
+                    isForRent: Boolean): Task<ArrayList<String>>{
+        val data = HashMap<String, Any>()
+        data["store_name"] = storeName
+        data["budget"] = budget
+        data["location"] = location
+        data["item_score"] = itemScore
+        data["is_for_rent"] = isForRent
+
+        return functions
+            .getHttpsCallable("filterItems")
+            .call(data)
+            .continueWith {task->
+                val result = task.result!!.data as Map<String, Any>
+                result["filterResult"] as ArrayList<String>
+            }
+    }
 }
