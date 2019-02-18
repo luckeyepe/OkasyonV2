@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,8 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -49,7 +46,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     String eventUID;
     FirebaseUser user;
     FirebaseFirestore db;
-
+    boolean item_for_sale=true;
     private ArrayList<Reviews> reviews = new ArrayList<>();
     StoreReviewsAdapter adapter;
 
@@ -152,8 +149,61 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                     int id = menuItem.getItemId();
                     if (id == R.id.navigation_addtocart)
                     {
-                        showAlert("Add Item to Cart?", "Confirm");
-                        HashMap<String, String> map = new HashMap<>();
+                        db = FirebaseFirestore.getInstance();
+                        db.collection("Items").document(item_uid).get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                Item itemDetails = document.toObject(Item.class);
+                                                if (itemDetails.isItem_for_sale() == false) {
+                                                    View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_rent, null);
+                                                    final Dialog dialog = new Dialog(ClientItemDetailActivity.this);
+                                                    dialog.setContentView(view);
+                                                    dialog.show();
+                                                    Window window = dialog.getWindow();
+                                                    WindowManager.LayoutParams wlp = window.getAttributes();
+                                                    wlp.gravity = Gravity.CENTER;
+                                                    window.setAttributes(wlp);
+                                                    window.setAttributes(wlp);
+                                                    final  Button saveFilterButton=view.findViewById(R.id.button_ApplyFilter);
+                                                    final EditText textxtBudget =view.findViewById(R.id.edittext_Budget);
+                                                    final EditText txtStorename=view.findViewById(R.id.editText_Storename);
+                                                    final EditText txtLocation=view.findViewById(R.id.editText_Location);
+
+                                                    saveFilterButton.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+
+                                                        }
+                                                    });
+    //                                                           showAlert("Add Item to Cart?", "Confirm");
+//                                                            HashMap<String, String> map = new HashMap<>();
+                                                }else if (itemDetails.isItem_for_sale() == true){
+                                                    View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_sale, null);
+                                                    final Dialog dialog = new Dialog(ClientItemDetailActivity.this);
+                                                    dialog.setContentView(view);
+                                                    dialog.show();
+                                                    Window window = dialog.getWindow();
+                                                    WindowManager.LayoutParams wlp = window.getAttributes();
+                                                    wlp.gravity = Gravity.CENTER;
+                                                    window.setAttributes(wlp);
+                                                    window.setAttributes(wlp);
+
+                                                }
+                                                else {
+                                                    Log.d("", "not available");
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+
+
+
+
 //                        map.put("cart_item_item_uid", item_uid); //this is a string
 //                        map.put("cart_item_event_uid", event_uid); //this is a string
 //                        map.put("cart_item_item_count", item_coun  t); // this is an integer
