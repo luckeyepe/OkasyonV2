@@ -488,6 +488,17 @@ public void ClientCreateEvent()
             Intent intent = new Intent (ClientHomePage.this, UserProfileActivity.class);
             startActivity(intent);
         }
+        else if(id == R.id.nav_transaction)
+        {
+            Intent intent = new Intent (ClientHomePage.this, Transaction_ClientView.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_cart)
+        {
+            Intent intent = new Intent (ClientHomePage.this, ClientViewCartActivty.class);
+            startActivity(intent);
+
+        }
         //else if (id == R.id.nav_gallery) {
 //
 //        } else if (id == R.id.nav_slideshow) {

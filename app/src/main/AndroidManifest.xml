@@ -46,6 +46,10 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity android:name=".activities.client_activities.Transaction_ClientView"
+                  android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+
+        </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart3Activity"
                 android:screenOrientation="portrait"
