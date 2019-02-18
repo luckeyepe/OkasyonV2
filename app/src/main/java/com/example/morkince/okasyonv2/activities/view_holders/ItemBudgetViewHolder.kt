@@ -14,6 +14,7 @@ class ItemBudgetViewHolder(val itemCategory: String,
                            val budgetSpent: Double,
                            val budgetSet: Double,
                            val eventUid: String,
+                           val cartGroup: String,
                            val context: Context): Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.row_item_budget_summary
@@ -72,6 +73,7 @@ class ItemBudgetViewHolder(val itemCategory: String,
             var intent = Intent(context, ClientViewItemsActivity::class.java)
             intent.putExtra("item_category", itemCategory)
             intent.putExtra("event_event_uid", eventUid)
+            intent.putExtra("event_cart_group_uid", cartGroup)
 
             context.startActivity(intent)
         }

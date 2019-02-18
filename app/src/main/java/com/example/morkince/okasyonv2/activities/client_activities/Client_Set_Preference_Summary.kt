@@ -22,12 +22,14 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventAddress: String ?= null
     private var eventSetBudget: Double ?= null
     private var eventSpentBudget: Double ?= null
+    private var cartGroup: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_set_the_preference_summary)
 
         eventUid = intent.getStringExtra("event_event_uid")
+        cartGroup = intent.getStringExtra("event_cart_group_uid")
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar2)
         setSupportActionBar(toolbar)
@@ -107,7 +109,7 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
                         val budgetSet = data["ceic_item_set_budget"].toString().toDouble()
                         val context = this
 
-                        adapter.add(ItemBudgetViewHolder(itemCategory, budgetSpent, budgetSet, eventUid!!, context))
+                        adapter.add(ItemBudgetViewHolder(itemCategory, budgetSpent, budgetSet, eventUid!!, cartGroup!!, context))
                     }
                 } else {
                     Log.e("Budget Summary", firebaseFirestoreException.toString())

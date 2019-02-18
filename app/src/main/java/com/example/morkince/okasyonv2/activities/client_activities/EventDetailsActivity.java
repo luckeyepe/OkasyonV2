@@ -48,6 +48,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     TextView eventDetails_setNumAttendeesTextView,numberofInterestedAttendees,numberofInterestedSponsors,textView_numberofEventsInterestedAttendees,textView_numberofEventsInterestedSponsor;
     Button buttonSave,foundEventDetails_browseItemsButton;
     String event_id;
+    String cart_group;
     Events event;
     EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
 
@@ -73,6 +74,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_event_uid");
+        cart_group = intent.getStringExtra("event_cart_group_uid");
 
 
         getEventDetails();
@@ -208,6 +210,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 //            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
             Intent intent = new Intent(EventDetailsActivity.this,  Client_Set_Preference_Summary.class);
             intent.putExtra("event_event_uid",event_id);
+            intent.putExtra("event_cart_group_uid", cart_group);
             startActivity(intent);
         }
     };

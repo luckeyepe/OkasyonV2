@@ -47,6 +47,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     private String itemCategory;
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
     private String event_event_uid;
+    private String event_cart_group_uid;
     EditText txtBudget;
     EditText txtStorename;
     EditText txtLocation;
@@ -72,6 +73,10 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("event_event_uid")){
             event_event_uid = getIntent().getStringExtra("event_event_uid");
+        }
+
+        if (getIntent().hasExtra("event_cart_group_uid")){
+            event_cart_group_uid = getIntent().getStringExtra("event_cart_group_uid");
         }
 
 
