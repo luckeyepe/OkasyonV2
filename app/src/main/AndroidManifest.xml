@@ -137,8 +137,6 @@
         <activity android:name=".testingphase.testingpart">
         </activity>
         <activity android:name=".activities.client_activities.ClientViewItemsActivity">
-
-            <!-- android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"> -->
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.Activity_Vieworganizer">
         </activity>
@@ -170,7 +168,8 @@
 
         </activity>
 
-        <activity android:name=".activities.chat_activities.LatestMessagesActivity"/>
+        <activity android:name=".activities.chat_activities.LatestMessagesActivity"
+                  android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"/>
         <activity android:name=".activities.chat_activities.NewMessagesActivity"/>
         <activity android:name=".activities.chat_activities.MaxImageActivity"/>
         <activity android:name=".activities.chat_activities.ChatLogActivitiy"/>

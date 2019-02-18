@@ -22,7 +22,7 @@ public class Transaction_ClientView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction__client_view);
-        getSupportActionBar().setTitle("Transaction00123456789012345");
+        getSupportActionBar().setTitle("My Transaction");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
         Cart item1 = new Cart();

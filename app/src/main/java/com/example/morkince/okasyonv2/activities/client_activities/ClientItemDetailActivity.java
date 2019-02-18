@@ -59,6 +59,9 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_item_detail);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Item Details");
+
         refs();
         Intent intent = getIntent();
         item_uid = intent.getStringExtra("item_uid");
@@ -201,5 +204,11 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         Dialog dialog = alert.create();
         //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

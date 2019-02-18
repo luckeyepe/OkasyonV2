@@ -22,7 +22,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__view_cart);
-        getSupportActionBar().setTitle("Your Cart");
+        getSupportActionBar().setTitle("My Cart");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
         Cart item1 = new Cart();

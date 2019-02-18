@@ -376,6 +376,12 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }
 
 
