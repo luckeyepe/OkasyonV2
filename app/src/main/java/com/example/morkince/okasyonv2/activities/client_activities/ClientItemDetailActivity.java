@@ -115,7 +115,9 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 textView_ActivityClientFindItemNameofTheItem.setText(itemDetails.getItem_name());
                                 textView_ActivityClientFindItemPriceofTheItem.setText(itemDetails.getItem_price() + "");
                                 textView_ActivityClientFindItemDetails.setText(itemDetails.getItem_description());
+                                toggleButton_ActivityClientFindItemToggleForRentAndSale.setChecked(itemDetails.isItem_for_sale());
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
+
 
                             } else {
                                 Log.d("", "No such document exist");
@@ -151,6 +153,19 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                     if (id == R.id.navigation_addtocart)
                     {
                         showAlert("Add Item to Cart?", "Confirm");
+                        HashMap<String, String> map = new HashMap<>();
+//                        map.put("cart_item_item_uid", item_uid); //this is a string
+//                        map.put("cart_item_event_uid", event_uid); //this is a string
+//                        map.put("cart_item_item_count", item_coun  t); // this is an integer
+//                        map.put("cart_item_item_price", item_price); //this is a double or float
+//                        map.put("cart_item_order_cost", item_count * item_price); //this is double or float
+//                        map.put("cart_item_status", status); //this is a string (default value pending)
+//                        map.put("cart_item_delivery_location", deliver_location); //this is a string
+//                        map.put("cart_item_rent_start_date", rent_start); // this is value can be null or a timestamp
+//                        map.put("cart_item_rent_end_date", rent_start); // this is value can be null or a timestamp
+//
+//                        db = FirebaseFirestore.getInstance();
+//                        db.collection("Cart_Items").document(cart_group_uid).collection("cart_items").document(item_uid).set(map);
 
                     }
                     else if (id == R.id.navigation_message_now)

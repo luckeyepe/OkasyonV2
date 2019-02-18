@@ -38,7 +38,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -156,6 +155,7 @@
         <activity
                 android:name=".activities.client_activities.ClientViewCartActivty"
                 android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
+
         </activity>
         <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
     </activity>
