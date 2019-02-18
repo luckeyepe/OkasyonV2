@@ -74,8 +74,6 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_event_uid");
-        cart_group = intent.getStringExtra("event_cart_group_uid");
-
 
         getEventDetails();
 
@@ -132,6 +130,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 detailsofevent.setText(event.getEvent_tags());
                                 dateofevent.setText(event.getEvent_date());
                                 eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
+                                cart_group = event.getEvent_cart_group_uid();
 
                                 Calendar currentDate = Calendar.getInstance();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
