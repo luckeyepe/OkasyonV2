@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_client_set_the_preference_summary_contents.*
+import kotlinx.android.synthetic.main.modal_update_set_budget.*
+import java.text.DecimalFormat
 
 class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventUid: String?=null
@@ -38,9 +40,20 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
 
         disableEditText(editText_ActivityClientSetThePreferenceSummaryBudget)
 
+        //update total set budget
         imageButton_ActivityClientSetThePreferenceSummaryEditBudget.setOnClickListener {
             if (editText_ActivityClientSetThePreferenceSummaryBudget.isEnabled){
                 disableEditText(editText_ActivityClientSetThePreferenceSummaryBudget)
+                //update
+                val newBudget = editText_ActivityClientSetThePreferenceSummaryBudget.text.toString().trim().toDouble()
+
+                FirebaseFirestore.getInstance()
+                    .collection("Event")
+                    .document(eventUid!!)
+                    .update("event_set_budget", newBudget)
+                    .addOnSuccessListener {
+                        editText_ActivityClientSetThePreferenceSummaryBudget.setText(DecimalFormat("##.##").format(newBudget))
+                    }
             }else{
                 enableEditText(editText_ActivityClientSetThePreferenceSummaryBudget)
             }
@@ -59,15 +72,11 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
     }
 
     private fun disableEditText(editText: EditText) {
-        editText.isFocusable = false
         editText.isEnabled = false
         editText.isCursorVisible = false
-        editText.keyListener = null
-        editText.setBackgroundColor(Color.TRANSPARENT)
     }
 
     private fun enableEditText(editText: EditText) {
-        editText.isFocusable = true
         editText.isEnabled = true
         editText.isCursorVisible = true
     }
