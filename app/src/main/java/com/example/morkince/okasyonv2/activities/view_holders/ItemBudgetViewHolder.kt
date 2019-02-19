@@ -39,6 +39,8 @@ class ItemBudgetViewHolder(val itemCategory: String,
 
         if (budgetSet<budgetSpent){
             itemSetBudgetTextView.setTextColor(Color.RED)
+        }else{
+            itemSetBudgetTextView.setTextColor(Color.DKGRAY)
         }
 
         itemSetBudgetTextView.text = budgetSet.toString()

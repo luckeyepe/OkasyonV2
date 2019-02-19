@@ -56,4 +56,17 @@ class CallableFunctions {
                 result["filterResult"] as ArrayList<String>
             }
     }
+
+    fun getUnusedItemCategories(eventUid: String): Task<ArrayList<String>>{
+        val data = HashMap<String, Any>()
+        data["event_uid"] = eventUid
+
+        return functions
+            .getHttpsCallable("getUnusedItemCategories")
+            .call(data)
+            .continueWith {task->
+                val result = task.result!!.data as Map<String, Any>
+                result["itemCategories"] as ArrayList<String>
+            }
+    }
 }

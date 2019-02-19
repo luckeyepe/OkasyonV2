@@ -1,5 +1,6 @@
 package com.example.morkince.okasyonv2.activities.client_activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.activities.CallableFunctions
 import com.example.morkince.okasyonv2.activities.view_holders.ItemBudgetViewHolder
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
@@ -17,6 +19,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_client_set_the_preference_summary_contents.*
 import kotlinx.android.synthetic.main.modal_update_set_budget.*
 import java.text.DecimalFormat
+import java.util.concurrent.Callable
 
 class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventUid: String?=null
@@ -61,7 +64,9 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
 
         imageButton_ActivityClientSetThePreferenceSummaryAddItemCategory.setOnClickListener {
             //add itemcategory
-
+            val intent = Intent(this, CilentAddItemCategoriesActivity::class.java)
+            intent.putExtra("event_event_uid", eventUid)
+            startActivity(intent)
         }
 
 
