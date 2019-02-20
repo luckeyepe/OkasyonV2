@@ -3,6 +3,7 @@ package com.example.morkince.okasyonv2.activities.view_holders
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import com.example.morkince.okasyonv2.R
@@ -39,8 +40,12 @@ class ItemBudgetViewHolder(val itemCategory: String,
 
         if (budgetSet<budgetSpent){
             itemSetBudgetTextView.setTextColor(Color.RED)
+            itemSpentBudgetTextView.setTextColor(Color.RED)
+            itemCategoryTextView.setTextColor(Color.RED)
         }else{
             itemSetBudgetTextView.setTextColor(Color.DKGRAY)
+            itemSpentBudgetTextView.setTextColor(Color.DKGRAY)
+            itemCategoryTextView.setTextColor(Color.DKGRAY)
         }
 
         itemSetBudgetTextView.text = budgetSet.toString()
@@ -99,7 +104,7 @@ class ItemBudgetViewHolder(val itemCategory: String,
             var alertDialog = AlertDialog.Builder(context)
 
             alertDialog.setIcon(R.drawable.ic_info_outline_accent)
-            alertDialog.setMessage("Deleting this item category will also all items in your cart that belongs to this category")
+            alertDialog.setMessage("Deleting this item category will also delete all items in your cart that belong to this category")
             alertDialog.setTitle("CONFIRM DELETE")
             alertDialog.setCancelable(false)
 

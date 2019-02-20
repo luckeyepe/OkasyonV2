@@ -4,22 +4,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.morkince.okasyonv2.R
-import com.example.morkince.okasyonv2.activities.CallableFunctions
 import com.example.morkince.okasyonv2.activities.view_holders.ItemBudgetViewHolder
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_client_set_the_preference_summary_contents.*
-import kotlinx.android.synthetic.main.modal_update_set_budget.*
 import java.text.DecimalFormat
-import java.util.concurrent.Callable
 
 class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventUid: String?=null
@@ -27,6 +23,7 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventAddress: String ?= null
     private var eventSetBudget: Double ?= null
     private var eventSpentBudget: Double ?= null
+    private var projectedBudget:Double ?= null
     private var cartGroup: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,20 +86,76 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
     private fun getEventBasicInfo() {
         FirebaseFirestore.getInstance()
             .collection("Event")
-            .document(eventUid!!).get()
-            .addOnCompleteListener { task: Task<DocumentSnapshot> ->
-                if (task.isSuccessful) {
-                    val data = task.result!!.data!!
-                    eventName = data["event_name"] as String
-                    eventAddress = data["event_location"] as String
-                    eventSetBudget = data["event_set_budget"].toString().toDouble()
-                    eventSpentBudget = data["event_budget_spent"].toString().toDouble()
+            .document(eventUid!!)
+            .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException!= null){
+                    Log.e("Budget Summary", firebaseFirestoreException.toString())
+                    return@addSnapshotListener
+                }
 
-                    textView_ActivityClientSetThePreferenceSummaryNameofParty.text = eventName
-                    textView_ActivityClientSetThePreferenceSummaryAddressofParty.text = eventAddress
-                    editText_ActivityClientSetThePreferenceSummaryBudget.setText(eventSetBudget.toString())
+                val data = documentSnapshot!!.data!!
+                eventName = data["event_name"] as String
+                eventAddress = data["event_location"] as String
+                eventSetBudget = data["event_set_budget"].toString().toDouble()
+                eventSpentBudget = data["event_budget_spent"].toString().toDouble()
+                projectedBudget = data["event_projected_budget_spent"].toString().toDouble()
+
+                textView_ActivityClientSetThePreferenceSummaryNameofParty.text = eventName
+                textView_ActivityClientSetThePreferenceSummaryAddressofParty.text = eventAddress
+                editText_ActivityClientSetThePreferenceSummaryBudget.setText(eventSetBudget.toString())
+                textView_ActivityClientSetThePreferenceSummaryBudgetSummary.text = "${eventSpentBudget.toString()}/${eventSetBudget.toString()}"
+
+                var spentBudgetDifference = eventSetBudget!! - eventSpentBudget!!
+                if(spentBudgetDifference>=0){
+                    if(spentBudgetDifference == 0.0){
+                        textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.INVISIBLE
+                    }else {
+                        textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.VISIBLE
+                        textView_ActivityClientSetThePreferenceSummaryMessage.text =
+                            "You still have P$spentBudgetDifference left to spend"
+                        textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.GREEN)
+                    }
+                }else{
+                    textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.VISIBLE
+                    textView_ActivityClientSetThePreferenceSummaryMessage.text = "You are P${spentBudgetDifference*-1} over the set budget"
+                    textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.RED)
+                }
+
+                var setBudgetDifference = eventSetBudget!! - projectedBudget!!
+                if(setBudgetDifference<0){
+                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.visibility = View.VISIBLE
+                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.text = "Your current budget is P${setBudgetDifference*-1} more than the set budget"
+                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.setTextColor(Color.RED)
+                }else{
+                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.visibility = View.INVISIBLE
                 }
             }
+//            .get()
+//            .addOnCompleteListener { task: Task<DocumentSnapshot> ->
+//                if (task.isSuccessful) {
+//                    val data = task.result!!.data!!
+//                    eventName = data["event_name"] as String
+//                    eventAddress = data["event_location"] as String
+//                    eventSetBudget = data["event_set_budget"].toString().toDouble()
+//                    eventSpentBudget = data["event_budget_spent"].toString().toDouble()
+//                    projectedBudget = data["event_projected_budget_spent"].toString().toDouble()
+//
+//                    textView_ActivityClientSetThePreferenceSummaryNameofParty.text = eventName
+//                    textView_ActivityClientSetThePreferenceSummaryAddressofParty.text = eventAddress
+//                    editText_ActivityClientSetThePreferenceSummaryBudget.setText(eventSetBudget.toString())
+//                    textView_ActivityClientSetThePreferenceSummaryBudgetSummary.text = "${eventSpentBudget.toString()}/${eventSetBudget.toString()}"
+//
+//                    var difference = eventSetBudget!! - projectedBudget!! - eventSpentBudget!!
+//                    if(difference>0){
+//                        textView_ActivityClientSetThePreferenceSummaryMessage.text = "You still have P$difference left to spend"
+//                        textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.GREEN)
+//                    }else{
+//                        textView_ActivityClientSetThePreferenceSummaryMessage.text = "You are P${difference*-1} over budget"
+//                        textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.RED)
+//                    }
+//
+//                }
+//            }
     }
 
     private fun getCustomItemCategories() {

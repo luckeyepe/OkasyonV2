@@ -51,7 +51,8 @@ public class YourEvents_Fragment extends Fragment {
     {
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        db.collection("Event").whereEqualTo("event_creator_id", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Event").whereEqualTo("event_creator_id", user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
