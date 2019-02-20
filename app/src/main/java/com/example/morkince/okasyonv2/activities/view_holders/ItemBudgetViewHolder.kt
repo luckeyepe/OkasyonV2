@@ -82,16 +82,28 @@ class ItemBudgetViewHolder(val itemCategory: String,
 
             popupUpdateButton.setOnClickListener {
                 //popup info
-                val newBudget = popupBudget.text.toString().trim().toDouble()
-                FirebaseFirestore.getInstance()
-                    .collection("Custom_Event_Item_Category")
-                    .document(eventUid)
-                    .collection("ceic_item_category")
-                    .document(itemCategory)
-                    .update("ceic_item_set_budget", newBudget)
-                    .addOnSuccessListener {
-                        dialog.dismiss()
-                    }
+                if ( popupBudget.text.toString().trim().isEmpty()){
+                    FirebaseFirestore.getInstance()
+                        .collection("Custom_Event_Item_Category")
+                        .document(eventUid)
+                        .collection("ceic_item_category")
+                        .document(itemCategory)
+                        .update("ceic_item_set_budget", budgetSet)
+                        .addOnSuccessListener {
+                            dialog.dismiss()
+                        }
+                }else {
+                    val newBudget = popupBudget.text.toString().trim().toDouble()
+                    FirebaseFirestore.getInstance()
+                        .collection("Custom_Event_Item_Category")
+                        .document(eventUid)
+                        .collection("ceic_item_category")
+                        .document(itemCategory)
+                        .update("ceic_item_set_budget", newBudget)
+                        .addOnSuccessListener {
+                            dialog.dismiss()
+                        }
+                }
             }
 
             popupCancelButton.setOnClickListener {
