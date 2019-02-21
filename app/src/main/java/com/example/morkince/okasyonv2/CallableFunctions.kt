@@ -38,14 +38,14 @@ class CallableFunctions {
     }
 
     fun filterItems(itemCategory: String, storeName: String, budget: Double,
-                    location: String, itemScore: Int,
+                    location: String, itemRating: Int,
                     isForSale: Boolean): Task<ArrayList<String>>{
         val data = HashMap<String, Any>()
         data["item_category"] = itemCategory
         data["store_name"] = storeName
         data["budget"] = budget
         data["location"] = location
-        data["item_score"] = itemScore
+        data["item_rating"] = itemRating
         data["is_for_sale"] = isForSale
 
         return functions
