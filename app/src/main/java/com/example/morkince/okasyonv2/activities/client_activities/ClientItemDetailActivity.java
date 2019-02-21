@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class ClientItemDetailActivity extends AppCompatActivity {
+    public static final String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String cart_group_uid;
     String cartItem_item_id;
     BottomNavigationView bottomNavigationView;
@@ -296,7 +297,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                     item_uid,
                                                                     "",
                                                                     cart_item_item_price,
-                                                                    cart_group_uid);
+                                                                    cart_group_uid,
+                                                                    currentUserUid);
                                                             db = FirebaseFirestore.getInstance();
                                                             db.collection("Cart_Items")
                                                                     .document(cart_group_uid)
