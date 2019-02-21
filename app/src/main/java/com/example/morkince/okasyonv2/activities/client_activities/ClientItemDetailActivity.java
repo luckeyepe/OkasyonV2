@@ -1,9 +1,12 @@
 package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,39 +17,40 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
-import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierEditItemDetailsActivity;
-import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
+import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.model.CartItem;
+import com.example.morkince.okasyonv2.activities.model.Cartv1;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
+import com.google.firebase.firestore.*;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ClientItemDetailActivity extends AppCompatActivity {
+    String cart_group_uid;
+    String cartItem_item_id;
     BottomNavigationView bottomNavigationView;
     TextView textView_ActivityClientFindItemNameofTheItem,textView_ActivityClientFindItemPriceofTheItem,textView_ActivityClientFindItemDetails,ClientItemDetail_reviewsTextView;
     RatingBar ratingBar_ActivityClientFindItemRating;
     RecyclerView recyclerView_ActivityClientFindItemRecyclerViewReviews,recyclerView_ActivityClientFindItemRecyclerViewImages;
     ToggleButton toggleButton_ActivityClientFindItemToggleForRentAndSale;
     String eventUID;
+     Calendar currentDate;
+    Bitmap generatedateIcon;
+     ImageGenerator imageGenerator;
     FirebaseUser user;
     FirebaseFirestore db;
-    boolean item_for_sale=true;
+//    boolean item_for_sale=true;
     private ArrayList<Reviews> reviews = new ArrayList<>();
     StoreReviewsAdapter adapter;
 
@@ -62,7 +66,20 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         eventUID = intent.getStringExtra("event_event_uid");
         getValues();
         loadReviews();
+        imageGenerator = new ImageGenerator(this);
 
+
+        imageGenerator.setIconSize(50, 50);
+        imageGenerator.setDateSize(30);
+        imageGenerator.setMonthSize(15);
+
+        imageGenerator.setDatePosition(42);
+        imageGenerator.setMonthPosition(15);
+
+        imageGenerator.setDateColor(Color.parseColor("#D81B60"));
+        imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
+
+        imageGenerator.setStorageToSDCard(true);
         bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
     }
@@ -168,19 +185,160 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     wlp.gravity = Gravity.CENTER;
                                                     window.setAttributes(wlp);
                                                     window.setAttributes(wlp);
-                                                    final  Button saveFilterButton=view.findViewById(R.id.button_ApplyFilter);
+                                                    final RadioGroup Radiogroup_forDeliveryornot = view.findViewById(R.id.radiogroup_deliverornot);
+
+                                                    final RadioButton forDelivered = view.findViewById(R.id.radioButton2_yes);
+                                                    final RadioButton notDelivered = view.findViewById(R.id.radioButton_no);
+                                                    final  Button addtocart=view.findViewById(R.id.button_modalAddtocart);
+                                                    final EditText txtQuantity=view.findViewById(R.id.editText_itemQuantity2);
                                                     final EditText textxtBudget =view.findViewById(R.id.edittext_Budget);
                                                     final EditText txtStorename=view.findViewById(R.id.editText_Storename);
                                                     final EditText txtLocation=view.findViewById(R.id.editText_Location);
-
-                                                    saveFilterButton.setOnClickListener(new View.OnClickListener() {
+                                                    final TextView dateofitemrented=view.findViewById(R.id.textView_DateRented);
+                                                    final TextView dateofitemreturned=view.findViewById(R.id.TextView_DateRented2);
+                                                    final ImageView setDate=view.findViewById(R.id.imageView_modalcalendarforrent);
+                                                    final ImageView setDate2=view.findViewById(R.id.imageView_modalcalendarforrent2);
+                                                    setDate.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
+                                                            Toast.makeText(getApplicationContext(), "hiCalendar", Toast.LENGTH_SHORT).show();
 
+                                                            currentDate = Calendar.getInstance();
+
+                                                            int yr= currentDate.get(Calendar.YEAR);
+                                                            int mon= currentDate.get(Calendar.MONTH);
+                                                            int day= currentDate.get(Calendar.DAY_OF_MONTH);
+
+                                                            DatePickerDialog datePickerDialog= new DatePickerDialog(ClientItemDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                                                                @Override
+                                                                public void onDateSet(DatePicker view, int  selectedYear, int selectedMonth, int selectedDay ) {
+                                                                    int monthToDisplay= selectedMonth + 1;
+                                                                    dateofitemrented.setText(selectedDay+"-"+monthToDisplay+"-"+selectedYear);
+
+                                                                    currentDate.set(selectedYear,selectedMonth,selectedDay);
+                                                                    generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+                                                                    setDate.setImageBitmap(generatedateIcon);
+                                                                }
+                                                            }, yr, mon, day);
+                                                            datePickerDialog.show();
                                                         }
                                                     });
-    //                                                           showAlert("Add Item to Cart?", "Confirm");
-//                                                            HashMap<String, String> map = new HashMap<>();
+                                                    setDate2.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Toast.makeText(getApplicationContext(), "hiCalendar", Toast.LENGTH_SHORT).show();
+
+                                                            currentDate = Calendar.getInstance();
+
+                                                            int yr= currentDate.get(Calendar.YEAR);
+                                                            int mon= currentDate.get(Calendar.MONTH);
+                                                            int day= currentDate.get(Calendar.DAY_OF_MONTH);
+
+                                                            DatePickerDialog datePickerDialog= new DatePickerDialog(ClientItemDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+                                                                @Override
+                                                                public void onDateSet(DatePicker view, int  selectedYear, int selectedMonth, int selectedDay ) {
+                                                                    int monthToDisplay= selectedMonth + 1;
+                                                                    dateofitemreturned.setText(selectedDay+"-"+monthToDisplay+"-"+selectedYear);
+
+                                                                    currentDate.set(selectedYear,selectedMonth,selectedDay);
+                                                                    generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+                                                                    setDate2.setImageBitmap(generatedateIcon);
+                                                                }
+                                                            }, yr, mon, day);
+                                                            datePickerDialog.show();
+                                                        }
+
+
+                                                    });
+
+                                                    addtocart.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
+                                                            progressDialog.setTitle("Adding Item...");
+                                                            // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                                            //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                                                            progressDialog.show();
+                                                            progressDialog.setCancelable(false);
+//                                                            String cartItem_delivery_location  = addItem_itemDescription.getText().toString();
+                                                            String cart_item_rent_end_date= dateofitemreturned.getText().toString();
+                                                            String cart_item_name=textView_ActivityClientFindItemNameofTheItem.getText().toString();
+                                                            final int cart_item_item_count= Integer.parseInt(txtQuantity.getText().toString());
+                                                            boolean isDeliver=false;
+                                                            String cart_item_rent_start_date = dateofitemrented.getText().toString();
+                                                            double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
+                                                            double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
+                                                            String cart_item_status = "Pending";
+                                                            final String cartItem_event_id;
+//                                                            String item_uid = "123";
+
+                                                            int idOfChecked = Radiogroup_forDeliveryornot.getCheckedRadioButtonId();
+                                                            if(idOfChecked== R.id.radioButton2_yes)
+                                                            {
+                                                               isDeliver=true;
+//                                                                isDelivered=true;
+                                                            }
+                                                            else
+                                                            {
+                                                                isDeliver=false;
+//                                                                isDelivered=false;
+                                                            }
+                                                            CartItem newItem = new CartItem(cart_item_name,
+                                                                    cart_item_order_cost,
+                                                                    0,
+                                                                    cart_item_item_count,
+                                                                    isDeliver,
+                                                                    cart_item_rent_end_date,
+                                                                    cart_item_rent_start_date,
+                                                                    eventUID,
+                                                                    item_uid,
+                                                                    cart_item_status,
+                                                                    "",
+                                                                    "",
+                                                                    cart_item_item_price);
+                                                            db = FirebaseFirestore.getInstance();
+                                                            db.collection("Cart_Items")
+                                                                    .document(cart_group_uid)
+                                                                    .collection("cart_items")
+                                                                    .document(item_uid)
+                                                                    .set(newItem)
+                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if(task.isSuccessful()){
+                                                                                progressDialog.dismiss();
+                                                                                showAlert("Successfully Saved Item", "SUCCESS!");
+                                                                            }else{
+                                                                                Log.w("", "Error adding document "+task.getException().toString());
+                                                                            }
+                                                                        }
+                                                                    });
+//                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                                                        @Override
+//                                                                        public void onSuccess(DocumentReference documentReference) {
+//                                                                            cart_group_uid = documentReference.getId();
+//                                                                            FirebaseFirestore.getInstance().collection("Cart_Items")
+//                                                                                    .document(cart_group_uid)
+//                                                                                    .collection("cart_items")
+//                                                                                    .document(item_uid)
+//                                                                                    .update("cart_item_item_uid", documentReference.getId());
+//
+//
+//                                                                        }
+//                                                                    })
+//
+//                                                                    .addOnFailureListener(new OnFailureListener() {
+//                                                                        @Override
+//                                                                        public void onFailure(@NonNull Exception e) {
+//
+//                                                                        }
+//                                                                    });
+                                                            showAlert("Add Item to Cartv1?", "Confirm");
+                                                            HashMap<String, String> map = new HashMap<>();
+                                                        }
+
+                                                    });
+
                                                 }else if (itemDetails.isItem_for_sale() == true){
                                                     View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_sale, null);
                                                     final Dialog dialog = new Dialog(ClientItemDetailActivity.this);
@@ -204,18 +362,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
 
 
-//                        map.put("cart_item_item_uid", item_uid); //this is a string
-//                        map.put("cart_item_event_uid", event_uid); //this is a string
-//                        map.put("cart_item_item_count", item_coun  t); // this is an integer
-//                        map.put("cart_item_item_price", item_price); //this is a double or float
-//                        map.put("cart_item_order_cost", item_count * item_price); //this is double or float
-//                        map.put("cart_item_status", status); //this is a string (default value pending)
-//                        map.put("cart_item_delivery_location", deliver_location); //this is a string
-//                        map.put("cart_item_rent_start_date", rent_start); // this is value can be null or a timestamp
-//                        map.put("cart_item_rent_end_date", rent_start); // this is value can be null or a timestamp
 //
-//                        db = FirebaseFirestore.getInstance();
-//                        db.collection("Cart_Items").document(cart_group_uid).collection("cart_items").document(item_uid).set(map);
+//
 
                     }
                     else if (id == R.id.navigation_message_now)

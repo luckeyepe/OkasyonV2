@@ -78,7 +78,7 @@
             android:layout_marginTop="8dp"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
-            android:rating="4"
+            android:rating="0"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.43"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
