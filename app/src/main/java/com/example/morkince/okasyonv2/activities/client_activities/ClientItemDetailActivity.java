@@ -64,6 +64,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         item_uid = intent.getStringExtra("item_uid");
         eventUID = intent.getStringExtra("event_event_uid");
+        cart_group_uid = intent.getStringExtra("event_cart_group_uid");
         getValues();
         loadReviews();
         imageGenerator = new ImageGenerator(this);
@@ -269,7 +270,6 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
                                                             double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
                                                             String cart_item_status = "Pending";
-                                                            final String cartItem_event_id;
 //                                                            String item_uid = "123";
 
                                                             int idOfChecked = Radiogroup_forDeliveryornot.getCheckedRadioButtonId();
@@ -291,20 +291,20 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                     cart_item_rent_end_date,
                                                                     cart_item_rent_start_date,
                                                                     eventUID,
-                                                                    item_uid,
+                                                                    "",
                                                                     cart_item_status,
+                                                                    item_uid,
                                                                     "",
-                                                                    "",
-                                                                    cart_item_item_price);
+                                                                    cart_item_item_price,
+                                                                    cart_group_uid);
                                                             db = FirebaseFirestore.getInstance();
                                                             db.collection("Cart_Items")
                                                                     .document(cart_group_uid)
                                                                     .collection("cart_items")
-                                                                    .document(item_uid)
-                                                                    .set(newItem)
-                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    .add(newItem)
+                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                                                         @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                             if(task.isSuccessful()){
                                                                                 progressDialog.dismiss();
                                                                                 showAlert("Successfully Saved Item", "SUCCESS!");
@@ -313,6 +313,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                             }
                                                                         }
                                                                     });
+
 //                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                                                                        @Override
 //                                                                        public void onSuccess(DocumentReference documentReference) {

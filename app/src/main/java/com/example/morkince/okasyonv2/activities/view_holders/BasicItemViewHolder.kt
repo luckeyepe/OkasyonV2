@@ -13,6 +13,7 @@ class BasicItemViewHolder(val item_uid: String,
                           val item_rating:Double,
                           val item_price: Double,
                           val item_name: String,
+                          val cart_group_uid: String,
                           val context:Context,
                           val item_display_picture_url:String, val event_event_uid: String): Item<ViewHolder>() {
 
@@ -40,6 +41,7 @@ class BasicItemViewHolder(val item_uid: String,
             var intent = Intent(context, ClientItemDetailActivity::class.java)
             intent.putExtra("item_uid", item_uid)
             intent.putExtra("event_event_uid", event_event_uid)
+            intent.putExtra("event_cart_group_uid", cart_group_uid)
             context.startActivity(intent)
         }
 

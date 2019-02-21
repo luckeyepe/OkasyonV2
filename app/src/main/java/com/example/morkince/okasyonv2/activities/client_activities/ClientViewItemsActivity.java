@@ -122,6 +122,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                     item.getItem_average_rating(),
                                                     item.getItem_price(),
                                                     item.getItem_name(),
+                                                    event_cart_group_uid,
                                                     getApplicationContext(),
                                                     item.getItem_display_picture_url(), event_event_uid);
 
@@ -200,6 +201,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                             item.getItem_average_rating(),
                                                             item.getItem_price(),
                                                             item.getItem_name(),
+                                                            event_cart_group_uid,
                                                             getApplicationContext(),
                                                             item.getItem_display_picture_url(), event_event_uid);
 
