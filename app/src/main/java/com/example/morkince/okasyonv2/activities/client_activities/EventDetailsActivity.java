@@ -78,7 +78,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         getEventDetails();
 
 
-        calendarHandler.setEnabled(false);
+                calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);
         foundEventDetails_browseItemsButton.setOnClickListener(browseItems);

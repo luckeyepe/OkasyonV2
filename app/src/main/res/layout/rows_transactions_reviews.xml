@@ -43,5 +43,5 @@
            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Widget.AppCompat.RatingBar" android:rating="3"/>
+            style="@style/Widget.AppCompat.RatingBar" android:rating="0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
