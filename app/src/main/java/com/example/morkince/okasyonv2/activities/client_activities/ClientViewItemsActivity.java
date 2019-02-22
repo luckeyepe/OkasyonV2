@@ -259,24 +259,20 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 txtStorename=view.findViewById(R.id.editText_Storename);
                 txtLocation=view.findViewById(R.id.editText_Location);
                 final RatingBar ratingBar = view.findViewById(R.id.ratingBar_filterrating);
-               final RadioGroup Radiogroup_forRentorSale = view.findViewById(R.id.Radiogroup_forRentorSale);
-
-                final RadioButton forRent = view.findViewById(R.id.radioButton_Rent);
-                final RadioButton forsale = view.findViewById(R.id.radioButton_Buy);
+                final RadioGroup Radiogroup_forRentorSale = view.findViewById(R.id.Radiogroup_forRentorSale);
 
                 saveFilterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         boolean isForSale;
 
-                        groupieAdapter.clear();
-                        dialog.dismiss();
-
+                        int itemScore = Math.round(ratingBar.getRating());
                         String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
                         Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
                         String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.getText().toString().trim();
 
                         int idOfChecked = Radiogroup_forRentorSale.getCheckedRadioButtonId();
+
 
                         if(idOfChecked == R.id.radioButton_Buy)
                         {
@@ -287,9 +283,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             isForSale=false;
                         }
 
-                        Toast.makeText(getApplicationContext(), isForSale + "", Toast.LENGTH_SHORT).show();
 
-                        int itemScore = Math.round(ratingBar.getRating());
+                        groupieAdapter.clear();
+                        dialog.dismiss();
 
                         CallableFunctions callableFunctions = new CallableFunctions();
                         callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
@@ -346,13 +342,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                 });
                     }
 
-
-
-
-                    });
-
-
-
+                });
 
                 return true;
             default:
