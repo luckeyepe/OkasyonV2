@@ -78,6 +78,7 @@ public class SupplierHomePage extends AppCompatActivity
         setContentView(R.layout.activity_supplier_homepage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setTitle("Supplier");
 
         if (getIntent().hasExtra("isNewUser")){
@@ -123,10 +124,10 @@ public class SupplierHomePage extends AppCompatActivity
 
 
 
-        setProfileInformation();
+
         ocr_registration_supplier_validID_imageBtn2.setOnClickListener(uploadBannerImage);
         supplierHomepage_viewItemsBtn.setOnClickListener(viewItems);
-
+        setProfileInformation();
 
 
 
@@ -154,7 +155,7 @@ public class SupplierHomePage extends AppCompatActivity
                                         Log.e("HERE IT IS ", evaluatorName + numStars + " " + reviewComment );
                                         reviews.add(new Reviews(evaluatorName,numStars,reviewComment));
                                     }
-                                    adapter = new StoreReviewsAdapter(reviews,SupplierHomePage.this);
+                                    adapter = new StoreReviewsAdapter(reviews, SupplierHomePage.this);
                                     supplierHomePage_recyclerView.setAdapter(adapter);
                                     supplierHomePage_recyclerView.addItemDecoration(new DividerItemDecoration(SupplierHomePage.this, LinearLayoutManager.VERTICAL));
                                     supplierHomePage_recyclerView.setLayoutManager(new LinearLayoutManager(SupplierHomePage.this));
@@ -248,6 +249,9 @@ public class SupplierHomePage extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //THIS IS THE BACK_END CODE
+    //
 
     //THIS IS THE BACK_END CODE
 

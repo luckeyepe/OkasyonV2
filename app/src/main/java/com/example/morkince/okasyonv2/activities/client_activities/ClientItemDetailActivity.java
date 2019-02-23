@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.view.View;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -46,9 +44,10 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     RatingBar ratingBar_ActivityClientFindItemRating;
     RecyclerView recyclerView_ActivityClientFindItemRecyclerViewReviews,recyclerView_ActivityClientFindItemRecyclerViewImages;
     ToggleButton toggleButton_ActivityClientFindItemToggleForRentAndSale;
-    String eventUID;
+    String eventUID,store_uid;
     FirebaseUser user;
     FirebaseFirestore db;
+    Button clientItemDetails_visitStoreBtn;
 
     private ArrayList<Reviews> reviews = new ArrayList<>();
     StoreReviewsAdapter adapter;
@@ -68,7 +67,18 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
+        clientItemDetails_visitStoreBtn.setOnClickListener(visitStore);
     }
+
+    public View.OnClickListener visitStore = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.e("THIS IS STORE ID", store_uid);
+            Intent intent = new Intent(ClientItemDetailActivity.this,ClientViewStoreDetails.class);
+            intent.putExtra("store_uid",store_uid);
+            startActivity(intent);
+        }
+    };
 
     public void loadReviews()
     {
@@ -116,6 +126,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 textView_ActivityClientFindItemPriceofTheItem.setText(itemDetails.getItem_price() + "");
                                 textView_ActivityClientFindItemDetails.setText(itemDetails.getItem_description());
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
+                                store_uid=itemDetails.getItem_store_id();
+
 
                             } else {
                                 Log.d("", "No such document exist");
@@ -140,6 +152,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         toggleButton_ActivityClientFindItemToggleForRentAndSale =findViewById(R.id.toggleButton_ActivityClientFindItemToggleForRentAndSale);
         recyclerView_ActivityClientFindItemRecyclerViewImages =findViewById(R.id.recyclerView_ActivityClientFindItemRecyclerViewImages);
         ClientItemDetail_reviewsTextView =findViewById(R.id.ClientItemDetail_reviewsTextView);
+        clientItemDetails_visitStoreBtn =findViewById(R.id.clientItemDetails_visitStoreBtn);
     }
 
 
