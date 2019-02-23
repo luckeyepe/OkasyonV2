@@ -100,7 +100,7 @@ private Uri filePath=null;
                                 UserContactnumber.setText(userprofile.getUser_contact_no());
                                 UserGender.setText(userprofile.getUser_gender());
                                 UserAddress.setText(userAddress);
-                            } else {
+                               } else {
                                 Log.d("", "No such document exist");
                             }
                         } else {

@@ -33,7 +33,7 @@ public class TransactionRecyclerClientAdapter extends RecyclerView.Adapter< Tran
     @Override
     public void onBindViewHolder(final  TransactionRecyclerClientAdapter.ViewHolder holder, final int position) {
 
-        holder.CartproductName.setText(cart.get(position).getStoreName());
+        holder.CartproductName.setText(cart.get(position).getItemName());
         holder.Price.setText(cart.get(position).getCart_item_order_cost() + "");
         holder.Productrate.setRating(cart.get(position).getCartItem_item_Rating());
     }

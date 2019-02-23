@@ -197,6 +197,13 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     final TextView dateofitemreturned=view.findViewById(R.id.TextView_DateRented2);
                                                     final ImageView setDate=view.findViewById(R.id.imageView_modalcalendarforrent);
                                                     final ImageView setDate2=view.findViewById(R.id.imageView_modalcalendarforrent2);
+                                                    final ImageView close=view.findViewById(R.id.imageButton_modalAddToCartForRentClose);
+                                                    close.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
                                                     setDate.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
@@ -268,12 +275,14 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
                                                             double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
                                                             String cart_item_status = "Pending";
+
 //                                                            String item_uid = "123";
 
                                                             int idOfChecked = Radiogroup_forDeliveryornot.getCheckedRadioButtonId();
                                                             if(idOfChecked== R.id.radioButton2_yes)
                                                             {
                                                                isDeliver=true;
+//                                                                btnsave.setVisibility(View.VISIBLE);
 //                                                                isDelivered=true;
                                                             }
                                                             else
@@ -341,15 +350,118 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
                                                 }else if (itemDetails.isItem_for_sale() == true){
                                                     View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_sale, null);
-                                                    final Dialog dialog = new Dialog(ClientItemDetailActivity.this);
-                                                    dialog.setContentView(view);
-                                                    dialog.show();
-                                                    Window window = dialog.getWindow();
+                                                    final Dialog dialog2 = new Dialog(ClientItemDetailActivity.this);
+                                                    dialog2.setContentView(view);
+                                                    dialog2.show();
+                                                    Window window = dialog2.getWindow();
                                                     WindowManager.LayoutParams wlp = window.getAttributes();
                                                     wlp.gravity = Gravity.CENTER;
                                                     window.setAttributes(wlp);
                                                     window.setAttributes(wlp);
+                                                    final RadioGroup Radiogroup_forDeliveryornot2 = view.findViewById(R.id.radiogroup_forsale);
+                                                    final RadioButton forDelivered = view.findViewById(R.id.radioButton_yesforsale);
+                                                    final RadioButton notDelivered = view.findViewById(R.id.radioButton_noforsale);
+                                                    final  Button addtocart2=view.findViewById(R.id.button_addtocartforsale);
+                                                    final EditText txtQuantity2=view.findViewById(R.id.editText2_quantityforsale);
+                                                    final ImageView close2=view.findViewById(R.id.imageButton_modalAddToCartForSaleClose);
+                                                    final TextView note= view.findViewById(R.id.textView_notesignforsale);
+                                                    close2.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog2.dismiss();
+                                                        }
+                                                    });
+                                                    addtocart2.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
+                                                            progressDialog.setTitle("Adding Item...");
+                                                            // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                                            //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                                                            progressDialog.show();
+                                                            progressDialog.setCancelable(false);
+//                                                            String cartItem_delivery_location  = addItem_itemDescription.getText().toString();
+                                                            String cart_item_name=textView_ActivityClientFindItemNameofTheItem.getText().toString();
+                                                            final int cart_item_item_count= Integer.parseInt(txtQuantity2.getText().toString());
+                                                            boolean isDeliver=false;
+                                                            double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
+                                                            double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
+                                                            String cart_item_status2 = "Pending";
+//                                                            String item_uid = "123";
 
+                                                            int idOfChecked = Radiogroup_forDeliveryornot2.getCheckedRadioButtonId();
+                                                            if(idOfChecked== R.id.radioButton_yesforsale)
+                                                            {
+                                                                note.setVisibility(View.VISIBLE);
+                                                                isDeliver=true;
+//                                                                isDelivered=true;
+
+                                                            }
+                                                            else
+                                                            {
+                                                                isDeliver=false;
+
+//                                                                isDelivered=false;
+                                                            }
+
+                                                            CartItem newItem = new CartItem(cart_item_name,
+                                                                    cart_item_order_cost,
+                                                                    0,
+                                                                    cart_item_item_count,
+                                                                    isDeliver,
+                                                                  "",
+                                                                    "",
+                                                                    eventUID,
+                                                                    "",
+                                                                    cart_item_status2,
+                                                                    item_uid,
+                                                                    "",
+                                                                    cart_item_item_price,
+                                                                    cart_group_uid,
+                                                                    currentUserUid);
+                                                            db = FirebaseFirestore.getInstance();
+                                                            db.collection("Cart_Items")
+                                                                    .document(cart_group_uid)
+                                                                    .collection("cart_items")
+                                                                    .add(newItem)
+                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                            if(task.isSuccessful()){
+                                                                                progressDialog.dismiss();
+                                                                                showAlert("Successfully Saved Item", "SUCCESS!");
+                                                                            }else{
+                                                                                Log.w("", "Error adding document "+task.getException().toString());
+                                                                            }
+                                                                            showAlert("Add Item to Cartv1?", "Confirm");
+                                                                            HashMap<String, String> map = new HashMap<>();
+                                                                        }
+                                                                    });
+
+//                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                                                        @Override
+//                                                                        public void onSuccess(DocumentReference documentReference) {
+//                                                                            cart_group_uid = documentReference.getId();
+//                                                                            FirebaseFirestore.getInstance().collection("Cart_Items")
+//                                                                                    .document(cart_group_uid)
+//                                                                                    .collection("cart_items")
+//                                                                                    .document(item_uid)
+//                                                                                    .update("cart_item_item_uid", documentReference.getId());
+//
+//
+//                                                                        }
+//                                                                    })
+//
+//                                                                    .addOnFailureListener(new OnFailureListener() {
+//                                                                        @Override
+//                                                                        public void onFailure(@NonNull Exception e) {
+//
+//                                                                        }
+//                                                                    });
+
+                                                        }
+
+                                                    });
                                                 }
                                                 else {
                                                     Log.d("", "not available");

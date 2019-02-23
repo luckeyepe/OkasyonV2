@@ -52,7 +52,7 @@ public class Cart_Item {
         this.cart_item_buyer_uid = cart_item_buyer_uid;
     }
 
-    public String getCart_item_name() {
+    public String getcart_item_name() {
         return cart_item_name;
     }
 
@@ -60,7 +60,7 @@ public class Cart_Item {
         this.cart_item_name = cart_item_name;
     }
 
-    public Double getCart_item_order_cost() {
+    public Double getcart_item_order_cost() {
         return cart_item_order_cost;
     }
 
@@ -68,7 +68,7 @@ public class Cart_Item {
         this.cart_item_order_cost = cart_item_order_cost;
     }
 
-    public int getCart_item_Rating() {
+    public int getcart_item_Rating() {
         return cart_item_Rating;
     }
 
