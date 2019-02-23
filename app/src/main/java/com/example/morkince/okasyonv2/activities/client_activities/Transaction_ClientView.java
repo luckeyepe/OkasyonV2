@@ -26,15 +26,15 @@ public class Transaction_ClientView extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
         Cartv1 item1 = new Cartv1();
-        item1.setStoreName("Marc's Gown");
+        item1.setItemName("Marc's Gown");
         item1.setCart_item_order_cost(100.00);
 
         Cartv1 item2 = new Cartv1();
-        item2.setStoreName("Japhet's SoundSystems");
+        item2.setItemName("Japhet's SoundSystems");
         item2.setCart_item_order_cost(200.00);
 
         Cartv1 item3 = new Cartv1();
-        item3.setStoreName("Mikay's Eatery");
+        item3.setItemName("Mikay's Eatery");
         item3.setCart_item_order_cost(300.00);
 
 

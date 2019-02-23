@@ -19,6 +19,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.client_activities.clientcarteventlistactivity">
+        </activity>
         <activity android:name=".activities.client_activities.CilentAddItemCategoriesActivity">
         </activity>
         <activity
@@ -158,7 +160,6 @@
         <activity
                 android:name=".activities.client_activities.ClientViewCartActivty"
                 android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity">
-
         </activity>
         <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
         </activity>
