@@ -19,8 +19,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.client_activities.CilentAddItemCategoriesActivity">
-        </activity>
         <activity
                 android:name=".activities.login_activities.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -40,6 +38,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
@@ -134,7 +133,9 @@
         </activity>
         <activity android:name=".testingphase.testingpart">
         </activity>
-        <activity android:name=".activities.client_activities.ClientViewItemsActivity">
+        <activity android:name=".activities.client_activities.ClientViewItemsActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan">
 
             <!-- android:parentActivityName=".activities.homepage_supplier_activities.HomePage_Supplier_Activity"> -->
         </activity>
@@ -142,10 +143,9 @@
         </activity>
         <activity android:name=".GetStoreDirections">
         </activity>
-        <activity
-                android:name=".SupplierAddItem"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan">
+        <activity android:name=".SupplierAddItem"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
 
         <meta-data
@@ -164,15 +164,19 @@
         </activity>
         <activity android:name=".activities.ocr_activities.SignupOCRClientOrganizer">
         </activity>
+
         <activity android:name=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
+
         </activity>
+
         <activity android:name=".activities.chat_activities.LatestMessagesActivity"/>
         <activity android:name=".activities.chat_activities.NewMessagesActivity"/>
         <activity android:name=".activities.chat_activities.MaxImageActivity"/>
         <activity android:name=".activities.chat_activities.ChatLogActivitiy"/>
         <activity
                 android:name=".activities.Homepage_organizer_activities.UserProfileActivity"
-                android:windowSoftInputMode="adjustPan">
+                android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".testingImageSlider">
         </activity>
     </application>
 

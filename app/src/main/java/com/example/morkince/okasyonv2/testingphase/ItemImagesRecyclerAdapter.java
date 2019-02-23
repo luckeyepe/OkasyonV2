@@ -1,6 +1,7 @@
 package com.example.morkince.okasyonv2.testingphase;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.View_Items_Recycler_Adapter;
+import com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -72,8 +74,11 @@ public class ItemImagesRecyclerAdapter extends RecyclerView.Adapter<ItemImagesRe
         @Override
         public void onClick(View view) {
 
+
+
         }
     }
+
 }
 
 

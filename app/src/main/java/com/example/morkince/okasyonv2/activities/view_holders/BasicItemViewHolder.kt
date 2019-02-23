@@ -2,6 +2,7 @@ package com.example.morkince.okasyonv2.activities.view_holders
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity
 import com.squareup.picasso.Picasso
@@ -42,6 +43,7 @@ class BasicItemViewHolder(val item_uid: String,
             intent.putExtra("item_uid", item_uid)
             intent.putExtra("event_event_uid", event_event_uid)
             intent.putExtra("event_cart_group_uid", cart_group_uid)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 

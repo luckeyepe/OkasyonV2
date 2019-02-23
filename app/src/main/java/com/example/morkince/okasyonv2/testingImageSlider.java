@@ -21,7 +21,7 @@ public class testingImageSlider extends AppCompatActivity {
     private ArrayList<ItemImagesModel> itemImages = new ArrayList<>();
     private ArrayList<ItemImagesModel> itemImagesFinal = new ArrayList<>();
     ItemImagesRecyclerAdapter adapter;
-
+int inCounter=1;
     RecyclerView  recyclerView_itemImages;
     FirebaseStorage firebaseStorage;
     private StorageReference mStorageRef;
@@ -33,25 +33,27 @@ public class testingImageSlider extends AppCompatActivity {
         recyclerView_itemImages = findViewById(R.id.recyclerView_itemImages);
         recyclerView_itemImages.setHasFixedSize(true);
 
-       /* for(int counter=1;counter<=5;counter++) {
+        for(int counter=1;counter<=5;counter++) {
             // Create a reference to the file to delete
-            Log.e("NAKASULOD KO!",mStorageRef.getName());
-            StorageReference desertRef = mStorageRef.child("item_images").child("18BJNznRPPHHstpRpKcJ").child("18BJNznRPPHHstpRpKcJ" + "1");
 
-           // itemImages.add((Uri)desertRef.getDownloadUrl());
-
-            desertRef.getDownloadUrl().
+            StorageReference desertRef = mStorageRef.child("item_images").child("18BJNznRPPHHstpRpKcJ").child("18BJNznRPPHHstpRpKcJ" + counter);
+            inCounter=counter;
+            desertRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                        if(inCounter<5)
+                            itemImages.add(new ItemImagesModel(uri));
+                        else
+                        {
+                            itemImages.add(new ItemImagesModel(uri));
+                            adapter = new ItemImagesRecyclerAdapter(itemImages,testingImageSlider.this);
+                            recyclerView_itemImages.setLayoutManager(new LinearLayoutManager(testingImageSlider.this,LinearLayoutManager.HORIZONTAL,false));
+                            //  recyclerView_itemImages.setLayoutManager(new GridLayoutManager(testingImageSlider.this,2));
+                            recyclerView_itemImages.setAdapter(adapter);
+                        }
+                }
+            });
    }
-*/
-        adapter = new ItemImagesRecyclerAdapter(itemImages,testingImageSlider.this);
-        recyclerView_itemImages.setLayoutManager(new LinearLayoutManager(testingImageSlider.this));
-        //  recyclerView_itemImages.setLayoutManager(new GridLayoutManager(testingImageSlider.this,2));
-        recyclerView_itemImages.setAdapter(adapter);
-
-
-
-
-
 
     }
 }

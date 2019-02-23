@@ -54,6 +54,7 @@ private Uri filePath=null;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        getSupportActionBar().setTitle("My Profile");
 
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
