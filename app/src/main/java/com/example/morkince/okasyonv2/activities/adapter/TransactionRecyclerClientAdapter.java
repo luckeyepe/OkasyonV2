@@ -25,7 +25,7 @@ public class TransactionRecyclerClientAdapter extends RecyclerView.Adapter< Tran
 
     @Override
     public TransactionRecyclerClientAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_transactionclientviewcontent, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_transaction_client, parent, false);
         TransactionRecyclerClientAdapter.ViewHolder holder = new  TransactionRecyclerClientAdapter.ViewHolder(view);
         return holder;
     }
@@ -52,9 +52,9 @@ public class TransactionRecyclerClientAdapter extends RecyclerView.Adapter< Tran
 
         public ViewHolder(View itemView) {
             super(itemView);
-            CartproductName= itemView.findViewById(R.id.textView_transaction_chat);
-            Price = itemView.findViewById(R.id.textView_transaction_chat3);
-            Productrate = itemView.findViewById(R.id.ratingBar_storeRate2);
+            CartproductName= itemView.findViewById(R.id.textView_transactionClientRowItemName);
+            Price = itemView.findViewById(R.id.textView_transactionClientRowCost);
+            Productrate = itemView.findViewById(R.id.ratingBar_transactionClientRow);
             parentLayout = itemView.findViewById(R.id.ParentLayout);
         }
     }

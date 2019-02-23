@@ -1,6 +1,6 @@
 package com.example.morkince.okasyonv2.activities.model;
 
-public class CartItem {
+public class Cart_Item {
     String cart_item_name;
     Double cart_item_order_cost;
     int cart_item_Rating;
@@ -33,8 +33,8 @@ public class CartItem {
         return cart_item_group_uid;
     }
 
-    public CartItem(){}
-    public CartItem(String cartItem_item_name, Double cart_item_order_cost, int cartItem_item_Rating, int cart_item_item_count, Boolean cartItem_item_Deliverable, String cart_item_rent_end_date, String cart_item_rent_start_date, String cart_item_event_uid, String cart_item_id, String cart_item_status, String cart_item_item_uid, String cart_item_delivery_location, Double cart_item_item_price,String cart_item_group_uid, String cart_item_buyer_uid) {
+    public Cart_Item(){}
+    public Cart_Item(String cartItem_item_name, Double cart_item_order_cost, int cartItem_item_Rating, int cart_item_item_count, Boolean cartItem_item_Deliverable, String cart_item_rent_end_date, String cart_item_rent_start_date, String cart_item_event_uid, String cart_item_id, String cart_item_status, String cart_item_item_uid, String cart_item_delivery_location, Double cart_item_item_price, String cart_item_group_uid, String cart_item_buyer_uid) {
         this.cart_item_name = cartItem_item_name;
         this.cart_item_order_cost = cart_item_order_cost;
         this.cart_item_Rating = cartItem_item_Rating;

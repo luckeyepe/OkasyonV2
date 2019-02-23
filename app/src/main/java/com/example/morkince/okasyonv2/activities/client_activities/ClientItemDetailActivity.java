@@ -18,12 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.model.CartItem;
-import com.example.morkince.okasyonv2.activities.model.Cartv1;
+import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -284,7 +281,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                 isDeliver=false;
 //                                                                isDelivered=false;
                                                             }
-                                                            CartItem newItem = new CartItem(cart_item_name,
+                                                            Cart_Item newItem = new Cart_Item(cart_item_name,
                                                                     cart_item_order_cost,
                                                                     0,
                                                                     cart_item_item_count,

@@ -25,6 +25,7 @@ public class Transaction_ClientView extends AppCompatActivity {
         getSupportActionBar().setTitle("Transaction00123456789012345");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
+
         Cartv1 item1 = new Cartv1();
         item1.setStoreName("Marc's Gown");
         item1.setCart_item_order_cost(100.00);
