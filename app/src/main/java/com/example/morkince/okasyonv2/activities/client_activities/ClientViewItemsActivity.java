@@ -184,6 +184,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                 return;
                             }else {
                                 textViewMessage.setVisibility(View.INVISIBLE);
+                                //thinkpad edit
                             }
 
 
