@@ -154,6 +154,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 Intent intent = new Intent(mContext,EventDetailsActivity.class);
                 intent.putExtra("event_event_uid",events.get(position).getEvent_event_uid());
                 intent.putExtra("event_category_id",events.get(position).getEvent_category_id());
+                intent.putExtra("event_cart_group_uid", events.get(position).getEvent_budget_spent());
 
                 mContext.startActivity(intent);
             }

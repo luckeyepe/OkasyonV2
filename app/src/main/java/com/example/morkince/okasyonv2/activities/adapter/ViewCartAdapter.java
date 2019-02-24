@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.model.Cart;
+import com.example.morkince.okasyonv2.activities.model.Cartv1;
 
 import java.util.ArrayList;
 
 public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewHolder> {
-    private ArrayList<Cart> cart;
+    private ArrayList<Cartv1> cart;
     private Context mContext;
     //  private StorageReference mStorageRef;
 
-    public ViewCartAdapter(ArrayList<Cart> cart, Context mContext) {
+    public ViewCartAdapter(ArrayList<Cartv1> cart, Context mContext) {
         this.cart = cart;
         this.mContext = mContext;
     }
@@ -33,9 +33,9 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewCartAdapter.ViewHolder holder, final int position) {
 
-        holder.CartproductName.setText(cart.get(position).getStoreName());
-        holder.Price.setText(cart.get(position).getPrice() + "");
-        holder.Productrate.setRating(cart.get(position).getRating());
+        holder.CartproductName.setText(cart.get(position).getItemName());
+        holder.Price.setText(cart.get(position).getCart_item_order_cost() + "");
+        holder.Productrate.setRating(cart.get(position).getCartItem_item_Rating());
     }
     @Override
     public int getItemCount () {
@@ -52,7 +52,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            CartproductName= itemView.findViewById(R.id.textView_storeTitle2);
+            CartproductName= itemView.findViewById(R.id.textView_ItemName3);
             Price = itemView.findViewById(R.id.textView_ItemPrice2);
             Productrate = itemView.findViewById(R.id.ratingBar_storeRate);
             parentLayout = itemView.findViewById(R.id.ParentLayout);

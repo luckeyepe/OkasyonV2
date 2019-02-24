@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.TransactionRecyclerClientAdapter;
-import com.example.morkince.okasyonv2.activities.model.Cart;
+import com.example.morkince.okasyonv2.activities.model.Cartv1;
 
 import java.util.ArrayList;
 
 public class Transaction_ClientView extends AppCompatActivity {
-    private ArrayList<Cart> CartItem = new ArrayList<>();
+    private ArrayList<Cartv1> CartItem = new ArrayList<>();
     TransactionRecyclerClientAdapter adapter;
     RecyclerView recyclerView;
     int size = 0;
@@ -25,17 +25,17 @@ public class Transaction_ClientView extends AppCompatActivity {
         getSupportActionBar().setTitle("Transaction00123456789012345");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
-        Cart item1 = new Cart();
-        item1.setStoreName("Marc's Gown");
-        item1.setPrice(100.00);
+        Cartv1 item1 = new Cartv1();
+        item1.setItemName("Marc's Gown");
+        item1.setCart_item_order_cost(100.00);
 
-        Cart item2 = new Cart();
-        item2.setStoreName("Japhet's SoundSystems");
-        item2.setPrice(200.00);
+        Cartv1 item2 = new Cartv1();
+        item2.setItemName("Japhet's SoundSystems");
+        item2.setCart_item_order_cost(200.00);
 
-        Cart item3 = new Cart();
-        item3.setStoreName("Mikay's Eatery");
-        item3.setPrice(300.00);
+        Cartv1 item3 = new Cartv1();
+        item3.setItemName("Mikay's Eatery");
+        item3.setCart_item_order_cost(300.00);
 
 
         CartItem.add(item1);

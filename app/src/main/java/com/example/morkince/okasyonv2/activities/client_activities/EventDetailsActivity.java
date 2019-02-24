@@ -48,6 +48,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     TextView eventDetails_setNumAttendeesTextView,numberofInterestedAttendees,numberofInterestedSponsors,textView_numberofEventsInterestedAttendees,textView_numberofEventsInterestedSponsor;
     Button buttonSave,foundEventDetails_browseItemsButton;
     String event_id;
+    String cart_group;
     Events event;
     EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
 
@@ -74,11 +75,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_event_uid");
 
-
         getEventDetails();
 
 
-        calendarHandler.setEnabled(false);
+                calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);
         foundEventDetails_browseItemsButton.setOnClickListener(browseItems);
@@ -130,6 +130,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 detailsofevent.setText(event.getEvent_tags());
                                 dateofevent.setText(event.getEvent_date());
                                 eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
+                                cart_group = event.getEvent_cart_group_uid();
 
                                 Calendar currentDate = Calendar.getInstance();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
@@ -205,8 +206,10 @@ public class EventDetailsActivity extends AppCompatActivity {
     public View.OnClickListener browseItems = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+//            Intent intent = new Intent(EventDetailsActivity.this,ClientViewItemsActivity.class);
+            Intent intent = new Intent(EventDetailsActivity.this,  Client_Set_Preference_Summary.class);
             intent.putExtra("event_event_uid",event_id);
+            intent.putExtra("event_cart_group_uid", cart_group);
             startActivity(intent);
         }
     };

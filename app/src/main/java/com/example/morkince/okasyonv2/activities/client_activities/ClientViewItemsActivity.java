@@ -37,30 +37,49 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     private ArrayList<Store> StoreItem = new ArrayList<>();
     ViewItemRecyclerAdapter adapter;
     RecyclerView recyclerView;
+    TextView textViewMessage;
     int size = 0;
     final Context context = this;
     private Button button;
     Button saveFilterButton;
     private SearchView mSearchView;
     private FirebaseFunctions mFunctions;
-    private String itemCategory = "Cake_and_Pastries";
+    private String itemCategory;
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
     private String event_event_uid;
-   EditText txtBudget;
+    private String event_cart_group_uid;
+    EditText txtBudget;
     EditText txtStorename;
     EditText txtLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_viewitems);
-        getSupportActionBar().setTitle("Cake and Pastries");
+        itemCategory = getIntent().getStringExtra("item_category");
+
+        String title = "";
+
+        if (itemCategory.contains("_")){
+            title = itemCategory.replace("_", " ");
+        }else {
+            title = itemCategory;
+        }
+
+        getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
 
         if (getIntent().hasExtra("event_event_uid")){
             event_event_uid = getIntent().getStringExtra("event_event_uid");
         }
+
+        if (getIntent().hasExtra("event_cart_group_uid")){
+            event_cart_group_uid = getIntent().getStringExtra("event_cart_group_uid");
+        }
+
+
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -81,6 +100,13 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             ArrayList<String> itemUid = task.getResult();
 
+                            if (itemUid.size() == 0){
+                                textViewMessage.setVisibility(View.VISIBLE);
+                                return;
+                            }else {
+                                textViewMessage.setVisibility(View.INVISIBLE);
+                            }
+
                             for (int i =0; i<itemUid.size(); i++) {
                                 FirebaseFirestore.getInstance()
                                         .collection("Items")
@@ -96,6 +122,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                     item.getItem_average_rating(),
                                                     item.getItem_price(),
                                                     item.getItem_name(),
+                                                    event_cart_group_uid,
                                                     getApplicationContext(),
                                                     item.getItem_display_picture_url(), event_event_uid);
 
@@ -143,6 +170,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 // Do your task here
                 groupieAdapter.clear();
                 String itemQuery = (query.trim().toLowerCase());
+
                 CallableFunctions callableFunctions = new CallableFunctions();
                 callableFunctions.searchForItem(itemQuery, itemCategory)
                         .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
@@ -150,6 +178,14 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                     public void onComplete(Task<ArrayList<String>> task) {
                         if (task.isSuccessful()){
                             ArrayList<String> itemUid = task.getResult();
+
+                            if (itemUid.size() == 0){
+                                textViewMessage.setVisibility(View.VISIBLE);
+                                return;
+                            }else {
+                                textViewMessage.setVisibility(View.INVISIBLE);
+                                //thinkpad edit
+                            }
 
 
                             for (int i =0; i<itemUid.size(); i++) {
@@ -167,6 +203,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                             item.getItem_average_rating(),
                                                             item.getItem_price(),
                                                             item.getItem_name(),
+                                                            event_cart_group_uid,
                                                             getApplicationContext(),
                                                             item.getItem_display_picture_url(), event_event_uid);
 
@@ -223,31 +260,91 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 txtStorename=view.findViewById(R.id.editText_Storename);
                 txtLocation=view.findViewById(R.id.editText_Location);
                 final RatingBar ratingBar = view.findViewById(R.id.ratingBar_filterrating);
-                final CheckBox forRent = view.findViewById(R.id.checkBox_Rent);
+                final RadioGroup Radiogroup_forRentorSale = view.findViewById(R.id.Radiogroup_forRentorSale);
 
                 saveFilterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean isForSale;
+
+                        int itemScore = Math.round(ratingBar.getRating());
                         String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
                         Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
-                        String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.toString().trim();
-                        Boolean isForRent = forRent.isChecked();
-                        Integer itemScore = ratingBar.getNumStars();
+                        String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.getText().toString().trim();
 
-//                        Toast.makeText(getApplicationContext(), txtBudget.getText().toString(), Toast.LENGTH_LONG).show();
-//                        Toast.makeText(getApplicationContext(), txtStorname.getText().toString(), Toast.LENGTH_LONG).show();
-//                        Toast.makeText(getApplicationContext(), txtlocation.getText().toString(), Toast.LENGTH_LONG).show();
+                        int idOfChecked = Radiogroup_forRentorSale.getCheckedRadioButtonId();
+
+
+                        if(idOfChecked == R.id.radioButton_Buy)
+                        {
+                            isForSale=true;
+                        }
+                        else
+                        {
+                            isForSale=false;
+                        }
+
+
+                        groupieAdapter.clear();
+                        dialog.dismiss();
+
                         CallableFunctions callableFunctions = new CallableFunctions();
-
-                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForRent)
+                        callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
                                 .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
-                            @Override
-                            public void onComplete(@NonNull Task<ArrayList<String>> task) {
+                                    @Override
+                                    public void onComplete(Task<ArrayList<String>> task) {
+                                        if (task.isSuccessful()){
+                                            ArrayList<String> itemUid = task.getResult();
 
-                            }
-                        });
+                                            if (itemUid.size() == 0){
+                                                textViewMessage.setVisibility(View.VISIBLE);
+                                                return;
+                                            }else {
+                                                textViewMessage.setVisibility(View.INVISIBLE);
+                                            }
+
+                                            for (int i =0; i<itemUid.size(); i++) {
+                                                FirebaseFirestore.getInstance()
+                                                        .collection("Items")
+                                                        .document(itemUid.get(i))
+                                                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            com.example.morkince.okasyonv2.activities.model.Item item =
+                                                                    task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
+
+                                                            BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
+                                                                    item.getItem_average_rating(),
+                                                                    item.getItem_price(),
+                                                                    item.getItem_name(),
+                                                                    event_cart_group_uid,
+                                                                    getApplicationContext(),
+                                                                    item.getItem_display_picture_url(), event_event_uid);
+
+                                                            groupieAdapter.add(basicItemViewHolder);
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+
+                                            recyclerView.setAdapter(groupieAdapter);
+
+                                        }else {
+                                            Exception e = task.getException();
+                                            if (e instanceof FirebaseFunctionsException) {
+                                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                                FirebaseFunctionsException.Code code = ffe.getCode();
+                                                Object details = ffe.getDetails();
+                                            }
+                                        }
+                                    }
+                                });
                     }
+
                 });
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -257,6 +354,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     public void refs() {
 
         recyclerView = findViewById(R.id.RecyclerView_ClientViewItems);
+        textViewMessage = findViewById(R.id.textView_clientViewItemsNoItem);
     }
 
     private Task<ArrayList<String>> getRelatedItems(String itemCategory) {
@@ -292,6 +390,12 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         return (ArrayList<String>) result.get("itemUids");
                     }
                 });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+       return true;
     }
 }
 

@@ -17,8 +17,29 @@ double event_set_budget;
 Long event_timestamp;
 String event_event_organizer_uid;
 String event_tags;
+String event_cart_group_uid;
 
     public Events(){}
+
+    public Events(double event_budget_spent, String event_category_id, String event_creator_id, String event_date, String event_description, String event_event_uid, boolean event_is_private, String event_location, String event_name, int event_num_of_sponsors, int event_num_of_attendees, String event_picture, double event_set_budget, Long event_timestamp, String event_event_organizer_uid, String event_tags, String event_cart_group_uid) {
+        this.event_budget_spent = event_budget_spent;
+        this.event_category_id = event_category_id;
+        this.event_creator_id = event_creator_id;
+        this.event_date = event_date;
+        this.event_description = event_description;
+        this.event_event_uid = event_event_uid;
+        this.event_is_private = event_is_private;
+        this.event_location = event_location;
+        this.event_name = event_name;
+        this.event_num_of_sponsors = event_num_of_sponsors;
+        this.event_num_of_attendees = event_num_of_attendees;
+        this.event_picture = event_picture;
+        this.event_set_budget = event_set_budget;
+        this.event_timestamp = event_timestamp;
+        this.event_event_organizer_uid=event_event_organizer_uid;
+        this.event_tags=event_tags;
+        this.event_cart_group_uid = event_cart_group_uid;
+    }
 
     public Events(double event_budget_spent, String event_category_id, String event_creator_id, String event_date, String event_description, String event_event_uid, boolean event_is_private, String event_location, String event_name, int event_num_of_sponsors, int event_num_of_attendees, String event_picture, double event_set_budget, Long event_timestamp, String event_event_organizer_uid, String event_tags) {
         this.event_budget_spent = event_budget_spent;
@@ -37,6 +58,14 @@ String event_tags;
         this.event_timestamp = event_timestamp;
         this.event_event_organizer_uid=event_event_organizer_uid;
         this.event_tags=event_tags;
+    }
+
+    public String getEvent_cart_group_uid() {
+        return event_cart_group_uid;
+    }
+
+    public void setEvent_cart_group_uid(String event_cart_group_uid) {
+        this.event_cart_group_uid = event_cart_group_uid;
     }
 
     public double getEvent_budget_spent() {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@drawable/background_default_gradient"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="250dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Name of The Store"
+                      android:textSize="19dp"
+                      android:textStyle="bold" android:id="@+id/textView_nearbyplacesNameofTheStore"/>
+            <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Rating" android:id="@+id/textView_nearbyplacesRating"/>
+                <RatingBar
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX=".5"
+                        android:scaleY=".5"
+                        android:isIndicator="true"
+
+                        style="@style/Widget.AppCompat.RatingBar.Small" android:numStars="5"
+                        android:rating="3" android:id="@+id/ratingBar_nearbyplacesRatingBar"/>
+                <TextView
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(0)" android:id="@+id/textView_nearbyplacesNumberofReviews"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Filipino" android:id="@+id/textView_nearbyplacesNationalityofStore"/>
+
+                <TextView
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" Cebu City" android:id="@+id/textView_nearbyplacesPlaceofTheStore"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Open Until"/>
+
+                <TextView
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9:00 PM" android:id="@+id/textView_nearbyplacesClosingTime"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="130dp"
+                      android:layout_marginStart="5dp"
+                      android:layout_height="130dp">
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/okasyon_icon"
+                    android:scaleType="fitXY"
+                    android:id="@+id/imageView_nearbyplacesPhoto"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

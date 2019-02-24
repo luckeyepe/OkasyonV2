@@ -14,7 +14,7 @@
             android:textOn=""
             android:enabled="false"
             android:layout_width="192dp"
-            android:layout_height="45dp"
+            android:layout_height="44dp"
             android:background="@drawable/togglebutton"
             android:id="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale"
             android:layout_marginBottom="8dp"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.489"
-            app:layout_constraintHorizontal_bias="1.0"/>
+            app:layout_constraintHorizontal_bias="1.0" android:checked="false"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -78,7 +78,7 @@
             android:layout_marginTop="8dp"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
-            android:rating="4"
+            android:rating="0"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.43"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"

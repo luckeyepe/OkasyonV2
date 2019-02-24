@@ -51,60 +51,58 @@ public class YourEvents_Fragment extends Fragment {
     {
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        db.collection("Event").whereEqualTo("event_creator_id", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Event").whereEqualTo("event_creator_id", user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
 
-                    if(task.getResult().size() !=0) {
+                    if(isAdded()) {
+                        if (task.getResult().size() != 0) {
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            Events event = document.toObject(Events.class);
-                            events.add(event);
-                        }
+                                Events event = document.toObject(Events.class);
+                                events.add(event);
+                            }
 
-                        adapter = new EventsAdapter(events, getActivity());
-                        RecyclerView_client_your_eventfragment.setAdapter(adapter);
-                        RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                        RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    }
-                    else
-                    {
+                            adapter = new EventsAdapter(events, getActivity());
+                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        } else {
 
-                        db.collection("Event").whereEqualTo("event_event_organizer_uid",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful() ) {
-                                    if(task.getResult().size() !=0)
-                                    {
+                            db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        if (task.getResult().size() != 0) {
 
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                            Events event = document.toObject(Events.class);
-                                            events.add(event);
-                                            Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
+                                                Events event = document.toObject(Events.class);
+                                                events.add(event);
+                                                Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
+                                            }
+                                            adapter = new EventsAdapter(events, getActivity());
+                                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                        } else {
+                                            if (isAdded()) {
+                                                Toast.makeText(getActivity(), "No Events to Show!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                        adapter = new EventsAdapter(events, getActivity());
-                                        RecyclerView_client_your_eventfragment.setAdapter(adapter);
-                                        RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                                        RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                    }
-                                    else
-                                    {
-                                        if(isAdded()) {
-                                            Toast.makeText(getActivity(), "No Events to Show!",
+                                    } else {
+                                        if (isAdded()) {
+                                            Toast.makeText(getActivity(), "Error in Retrieving Records!",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     }
-                                } else {
-                                    if (isAdded()) {
-                                        Toast.makeText(getActivity(), "Error in Retrieving Records!",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 } else {
                     if (isAdded()) {
