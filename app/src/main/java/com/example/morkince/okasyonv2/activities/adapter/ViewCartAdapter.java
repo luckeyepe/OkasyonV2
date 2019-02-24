@@ -33,7 +33,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewCartAdapter.ViewHolder holder, final int position) {
 
-        holder.CartproductName.setText(cart.get(position).getStoreName());
+        holder.CartproductName.setText(cart.get(position).getItemName());
         holder.Price.setText(cart.get(position).getCart_item_order_cost() + "");
         holder.Productrate.setRating(cart.get(position).getCartItem_item_Rating());
     }
@@ -52,7 +52,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            CartproductName= itemView.findViewById(R.id.textView_storeTitle2);
+            CartproductName= itemView.findViewById(R.id.textView_ItemName3);
             Price = itemView.findViewById(R.id.textView_ItemPrice2);
             Productrate = itemView.findViewById(R.id.ratingBar_storeRate);
             parentLayout = itemView.findViewById(R.id.ParentLayout);

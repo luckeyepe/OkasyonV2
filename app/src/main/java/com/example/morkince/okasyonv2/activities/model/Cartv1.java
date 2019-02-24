@@ -18,11 +18,11 @@ public class Cartv1 {
         cartItem_item_Rating = cartItemitemRating;
     }
 
-    public String getStoreName() {
+    public String getItemName() {
         return cartItem_item_name;
     }
 
-    public void setStoreName(String storeName) {
+    public void setItemName(String storeName) {
         cartItem_item_name = storeName;
     }
 
