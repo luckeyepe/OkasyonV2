@@ -23,6 +23,7 @@ import com.google.firebase.storage.StorageReference;
 public class CartItemDetailsActivity extends AppCompatActivity {
 ImageButton editcartitemdetails;
 Button saveitem;
+ToggleButton CartItemDetailstogglebutton;
 TextView Itemprice,  ItemName,  ItemDetails;
 EditText Itemquantity, ItemDatefrom, ItemDateto;
     CartItem cartitem;
@@ -46,8 +47,7 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
         Cart_item_group_id = intent.getStringExtra("Cart_item_group_id");
         Cart_item_item_id = intent.getStringExtra("Cart_item_item_id");
         Log.e("CART GROUP ID", Cart_item_group_id);
-        Toast.makeText(getApplicationContext(), Cart_item_id + " " + Cart_item_group_id,
-                Toast.LENGTH_SHORT).show();
+
 //        user_id= intent.getStringExtra("HAfVdDZQjRLEyI2VBil6");
 //        user_id2= intent.getStringExtra("user_profPic");
 
@@ -104,8 +104,20 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                        String itemDescription = document.getString("item_description");
+                       boolean itemIsForSale =(boolean) document.get("item_for_sale");
+//                        Toast.makeText(getApplicationContext(), itemIsForSale + "", Toast.LENGTH_SHORT).show();
+                      //  enable(false);
                        ItemDetails.setText(itemDescription);
-
+                       CartItemDetailstogglebutton.setChecked(itemIsForSale);
+                       if(itemIsForSale==true)
+                       {
+                           ItemDatefrom.setVisibility(View.INVISIBLE);
+                           ItemDateto.setVisibility(View.INVISIBLE);
+                       }
+                       else{
+                           ItemDatefrom.setVisibility(View.VISIBLE);
+                           ItemDateto.setVisibility(View.VISIBLE);
+                       }
                     }
                     else{
                         Log.d("", "No such document exist");
@@ -116,6 +128,7 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
             }
         });
     }
+
         /*db.collection("Cart_Items").document(Cart_item_id).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -209,6 +222,7 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
         Itemprice=findViewById(R.id.textView_ActivityClientFindItemPriceofTheItem2);
         Itemquantity=findViewById(R.id.editText_ItemQuantity);
         ItemName=findViewById(R.id.textView_ActivityClientFindItemNameofTheItem2);
+        CartItemDetailstogglebutton=findViewById(R.id.toggleButton_ActivityClientFindItemToggleForRentAndSale2);
         ItemDatefrom=findViewById(R.id.editText_datefrom);
         ItemDateto=findViewById(R.id.editText_dateto);
         ItemDetails=findViewById(R.id.textView_ActivityClientFindItemDetails2);
