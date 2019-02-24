@@ -14,7 +14,7 @@
                       android:layout_height="wrap_content"
                       android:text="Name of The Store"
                       android:textSize="19dp"
-                      android:textStyle="bold" android:id="@+id/textView_nearbyplacesNameofTheStore"/>
+                      android:textStyle="bold" android:id="@+id/textView_getnearbyplacesNameofTheStore"/>
             <LinearLayout
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
                     android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Rating" android:id="@+id/textView_nearbyplacesRating"/>
+                          android:text="Rating" android:id="@+id/textView_getnearbyplacesRating"/>
                 <RatingBar
                         android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
@@ -32,12 +32,12 @@
                         android:isIndicator="true"
 
                         style="@style/Widget.AppCompat.RatingBar.Small" android:numStars="5"
-                        android:rating="3" android:id="@+id/ratingBar_nearbyplacesRatingBar"/>
+                        android:rating="3" android:id="@+id/ratingBar_getnearbyplacesRatingBar"/>
                 <TextView
                         android:layout_marginStart="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(0)" android:id="@+id/textView_nearbyplacesNumberofReviews"/>
+                        android:text="(0)" android:id="@+id/textView_getnearbyplacesNumberofReviews"/>
             </LinearLayout>
             <LinearLayout
                     android:layout_marginTop="5dp"
@@ -46,13 +46,13 @@
                     android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Filipino" android:id="@+id/textView_nearbyplacesNationalityofStore"/>
+                          android:text="Filipino" android:id="@+id/textView_getnearbyplacesNationalityofStore"/>
 
                 <TextView
                         android:layout_marginStart="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Cebu City" android:id="@+id/textView_nearbyplacesPlaceofTheStore"/>
+                        android:text=" Cebu City" android:id="@+id/textView_getnearbyplacesPlaceofTheStore"/>
             </LinearLayout>
             <LinearLayout
                     android:layout_marginTop="5dp"
@@ -67,7 +67,7 @@
                         android:layout_marginStart="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="9:00 PM" android:id="@+id/textView_nearbyplacesClosingTime"/>
+                        android:text="9:00 PM" android:id="@+id/textView_getnearbyplacesClosingTime"/>
             </LinearLayout>
 
 
@@ -80,7 +80,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/okasyon_icon"
                     android:scaleType="fitXY"
-                    android:id="@+id/imageView_nearbyplacesPhoto"/>
+                    android:id="@+id/imageView_getnearbyplacesPhoto"/>
         </LinearLayout>
 
 
