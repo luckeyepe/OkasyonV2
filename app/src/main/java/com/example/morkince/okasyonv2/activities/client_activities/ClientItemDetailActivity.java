@@ -210,7 +210,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     setDate.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            Toast.makeText(getApplicationContext(), "hiCalendar", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
 
                                                             currentDate = Calendar.getInstance();
 
@@ -235,7 +235,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     setDate2.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            Toast.makeText(getApplicationContext(), "hiCalendar", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
 
                                                             currentDate = Calendar.getInstance();
 
@@ -263,67 +263,76 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     addtocart.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
-                                                            progressDialog.setTitle("Adding Item...");
-                                                            // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                                                            //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                                                            progressDialog.show();
-                                                            progressDialog.setCancelable(false);
+                                                            if (txtQuantity.getText().toString().isEmpty()) {
+                                                                txtQuantity.setError("Please Input Quantity");
+                                                            }
+                                                            else if (dateofitemrented.getText().toString().contains("start date"))
+                                                            {
+                                                                Toast.makeText(ClientItemDetailActivity.this, "Select Start Date", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                            else if (dateofitemreturned.getText().toString().contains("end date"))
+                                                            {
+                                                                Toast.makeText(ClientItemDetailActivity.this, "Select Return Date", Toast.LENGTH_SHORT).show();                                                            }
+                                                            else {
+                                                                final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
+                                                                progressDialog.setTitle("Adding Item...");
+                                                                // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                                                //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                                                                progressDialog.show();
+                                                                progressDialog.setCancelable(false);
 //                                                            String cartItem_delivery_location  = addItem_itemDescription.getText().toString();
-                                                            String cart_item_rent_end_date= dateofitemreturned.getText().toString();
-                                                            String cart_item_name=textView_ActivityClientFindItemNameofTheItem.getText().toString();
-                                                            final int cart_item_item_count= Integer.parseInt(txtQuantity.getText().toString());
-                                                            boolean isDeliver=false;
-                                                            String cart_item_rent_start_date = dateofitemrented.getText().toString();
-                                                            double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
-                                                            double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
-                                                            String cart_item_status = "Pending";
+                                                                String cart_item_rent_end_date = dateofitemreturned.getText().toString();
+                                                                String cart_item_name = textView_ActivityClientFindItemNameofTheItem.getText().toString();
+                                                                final int cart_item_item_count = Integer.parseInt(txtQuantity.getText().toString());
+                                                                boolean isDeliver = false;
+                                                                String cart_item_rent_start_date = dateofitemrented.getText().toString();
+                                                                double cart_item_item_price = Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
+                                                                double cart_item_order_cost = cart_item_item_price * cart_item_item_count;
+                                                                String cart_item_status = "Pending";
 
 //                                                            String item_uid = "123";
 
-                                                            int idOfChecked = Radiogroup_forDeliveryornot.getCheckedRadioButtonId();
-                                                            if(idOfChecked== R.id.radioButton2_yes)
-                                                            {
-                                                               isDeliver=true;
+                                                                int idOfChecked = Radiogroup_forDeliveryornot.getCheckedRadioButtonId();
+                                                                if (idOfChecked == R.id.radioButton2_yes) {
+                                                                    isDeliver = true;
 //                                                                btnsave.setVisibility(View.VISIBLE);
 //                                                                isDelivered=true;
-                                                            }
-                                                            else
-                                                            {
-                                                                isDeliver=false;
+                                                                } else {
+                                                                    isDeliver = false;
 //                                                                isDelivered=false;
-                                                            }
-                                                            CartItem newItem = new CartItem(cart_item_name,
-                                                                    cart_item_order_cost,
-                                                                    0,
-                                                                    cart_item_item_count,
-                                                                    isDeliver,
-                                                                    cart_item_rent_end_date,
-                                                                    cart_item_rent_start_date,
-                                                                    eventUID,
-                                                                    "",
-                                                                    cart_item_status,
-                                                                    item_uid,
-                                                                    "",
-                                                                    cart_item_item_price,
-                                                                    cart_group_uid,
-                                                                    currentUserUid);
-                                                            db = FirebaseFirestore.getInstance();
-                                                            db.collection("Cart_Items")
-                                                                    .document(cart_group_uid)
-                                                                    .collection("cart_items")
-                                                                    .add(newItem)
-                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                                            if(task.isSuccessful()){
-                                                                                progressDialog.dismiss();
-                                                                                showAlert("Successfully Saved Item", "SUCCESS!");
-                                                                            }else{
-                                                                                Log.w("", "Error adding document "+task.getException().toString());
+                                                                }
+                                                                CartItem newItem = new CartItem(cart_item_name,
+                                                                        cart_item_order_cost,
+                                                                        0,
+                                                                        cart_item_item_count,
+                                                                        isDeliver,
+                                                                        cart_item_rent_end_date,
+                                                                        cart_item_rent_start_date,
+                                                                        eventUID,
+                                                                        "",
+                                                                        cart_item_status,
+                                                                        item_uid,
+                                                                        "",
+                                                                        cart_item_item_price,
+                                                                        cart_group_uid,
+                                                                        currentUserUid);
+                                                                db = FirebaseFirestore.getInstance();
+                                                                db.collection("Cart_Items")
+                                                                        .document(cart_group_uid)
+                                                                        .collection("cart_items")
+                                                                        .add(newItem)
+                                                                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    progressDialog.dismiss();
+                                                                                    showAlert("Successfully Saved Item", "SUCCESS!");
+
+                                                                                } else {
+                                                                                    Log.w("", "Error adding document " + task.getException().toString());
+                                                                                }
                                                                             }
-                                                                        }
-                                                                    });
+                                                                        });
 
 //                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                                                                        @Override
@@ -345,10 +354,10 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //
 //                                                                        }
 //                                                                    });
-                                                            showAlert("Add Item to Cartv1?", "Confirm");
-                                                            HashMap<String, String> map = new HashMap<>();
+                                                                showAlert("Add Item to Cartv1?", "Confirm");
+                                                                HashMap<String, String> map = new HashMap<>();
+                                                            }
                                                         }
-
                                                     });
 
                                                 }else if (itemDetails.isItem_for_sale() == true){
@@ -377,69 +386,71 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     addtocart2.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
-                                                            progressDialog.setTitle("Adding Item...");
-                                                            // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                                                            //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                                                            progressDialog.show();
-                                                            progressDialog.setCancelable(false);
+                                                            if (txtQuantity2.getText().toString().isEmpty()) {
+                                                                txtQuantity2.setError("Please Input Quantity");
+                                                            } else {
+                                                                showAlert("Add Item to Cartv1?", "Confirm");
+                                                                HashMap<String, String> map = new HashMap<>();
+                                                                final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
+                                                                progressDialog.setTitle("Adding Item...");
+                                                                // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                                                                //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                                                                progressDialog.show();
+                                                                progressDialog.setCancelable(false);
 //                                                            String cartItem_delivery_location  = addItem_itemDescription.getText().toString();
-                                                            String cart_item_name=textView_ActivityClientFindItemNameofTheItem.getText().toString();
-                                                            final int cart_item_item_count= Integer.parseInt(txtQuantity2.getText().toString());
-                                                            boolean isDeliver=false;
-                                                            double cart_item_item_price= Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
-                                                            double cart_item_order_cost = cart_item_item_price*cart_item_item_count;
-                                                            String cart_item_status2 = "Pending";
+                                                                String cart_item_name = textView_ActivityClientFindItemNameofTheItem.getText().toString();
+                                                                final int cart_item_item_count = Integer.parseInt(txtQuantity2.getText().toString());
+                                                                boolean isDeliver = false;
+                                                                double cart_item_item_price = Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
+                                                                double cart_item_order_cost = cart_item_item_price * cart_item_item_count;
+                                                                String cart_item_status2 = "Pending";
 //                                                            String item_uid = "123";
 
-                                                            int idOfChecked = Radiogroup_forDeliveryornot2.getCheckedRadioButtonId();
-                                                            if(idOfChecked== R.id.radioButton_yesforsale)
-                                                            {
-                                                                note.setVisibility(View.VISIBLE);
-                                                                isDeliver=true;
+                                                                int idOfChecked = Radiogroup_forDeliveryornot2.getCheckedRadioButtonId();
+                                                                if (idOfChecked == R.id.radioButton_yesforsale) {
+                                                                    note.setVisibility(View.VISIBLE);
+                                                                    isDeliver = true;
 //                                                                isDelivered=true;
 
-                                                            }
-                                                            else
-                                                            {
-                                                                isDeliver=false;
+                                                                } else {
+                                                                    isDeliver = false;
 
 //                                                                isDelivered=false;
-                                                            }
+                                                                }
 
-                                                            CartItem newItem = new CartItem(cart_item_name,
-                                                                    cart_item_order_cost,
-                                                                    0,
-                                                                    cart_item_item_count,
-                                                                    isDeliver,
-                                                                  "",
-                                                                    "",
-                                                                    eventUID,
-                                                                    "",
-                                                                    cart_item_status2,
-                                                                    item_uid,
-                                                                    "",
-                                                                    cart_item_item_price,
-                                                                    cart_group_uid,
-                                                                    currentUserUid);
-                                                            db = FirebaseFirestore.getInstance();
-                                                            db.collection("Cart_Items")
-                                                                    .document(cart_group_uid)
-                                                                    .collection("cart_items")
-                                                                    .add(newItem)
-                                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                                            if(task.isSuccessful()){
-                                                                                progressDialog.dismiss();
-                                                                                showAlert("Successfully Saved Item", "SUCCESS!");
-                                                                            }else{
-                                                                                Log.w("", "Error adding document "+task.getException().toString());
+                                                                CartItem newItem = new CartItem(cart_item_name,
+                                                                        cart_item_order_cost,
+                                                                        0,
+                                                                        cart_item_item_count,
+                                                                        isDeliver,
+                                                                        "",
+                                                                        "",
+                                                                        eventUID,
+                                                                        "",
+                                                                        cart_item_status2,
+                                                                        item_uid,
+                                                                        "",
+                                                                        cart_item_item_price,
+                                                                        cart_group_uid,
+                                                                        currentUserUid);
+                                                                db = FirebaseFirestore.getInstance();
+                                                                db.collection("Cart_Items")
+                                                                        .document(cart_group_uid)
+                                                                        .collection("cart_items")
+                                                                        .add(newItem)
+                                                                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    progressDialog.dismiss();
+                                                                                    showAlert("Successfully Saved Item", "SUCCESS!");
+                                                                                } else {
+                                                                                    Log.w("", "Error adding document " + task.getException().toString());
+                                                                                }
+//                                                                                showAlert("Add Item to Cartv1?", "Confirm");
+//                                                                                HashMap<String, String> map = new HashMap<>();
                                                                             }
-                                                                            showAlert("Add Item to Cartv1?", "Confirm");
-                                                                            HashMap<String, String> map = new HashMap<>();
-                                                                        }
-                                                                    });
+                                                                        });
 
 //                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                                                                        @Override
@@ -462,8 +473,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //                                                                        }
 //                                                                    });
 
+                                                            }
                                                         }
-
                                                     });
                                                 }
                                                 else {
@@ -472,6 +483,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
+
                                 });
 
 
@@ -510,6 +522,14 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener()
+        {
+            public void onClick (DialogInterface dialog, int id)
+            {
+                dialog.cancel();
+            }
+        });
+
 
         Dialog dialog = alert.create();
         //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
