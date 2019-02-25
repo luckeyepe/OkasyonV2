@@ -16,7 +16,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_cilent_add_item_categories.*
 import java.util.ArrayList
 
-class CilentAddItemCategoriesActivity : AppCompatActivity() {
+class ClientAddItemCategoriesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

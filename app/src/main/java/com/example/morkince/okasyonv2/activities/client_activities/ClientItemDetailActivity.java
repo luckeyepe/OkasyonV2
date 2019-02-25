@@ -404,7 +404,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //                                                                isDelivered=false;
                                                             }
 
-                                                            CartItem newItem = new CartItem(cart_item_name,
+                                                            Cart_Item newItem = new Cart_Item(cart_item_name,
                                                                     cart_item_order_cost,
                                                                     0,
                                                                     cart_item_item_count,

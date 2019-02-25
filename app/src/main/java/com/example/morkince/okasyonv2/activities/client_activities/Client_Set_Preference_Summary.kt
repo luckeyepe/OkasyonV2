@@ -61,7 +61,7 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
 
         imageButton_ActivityClientSetThePreferenceSummaryAddItemCategory.setOnClickListener {
             //add itemcategory
-            val intent = Intent(this, CilentAddItemCategoriesActivity::class.java)
+            val intent = Intent(this, ClientAddItemCategoriesActivity::class.java)
             intent.putExtra("event_event_uid", eventUid)
             startActivity(intent)
         }

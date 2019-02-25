@@ -11,10 +11,26 @@
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-    />
+    >
+    </androidx.appcompat.widget.SearchView>
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="385dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:id="@+id/recyclerView_clientTopEvents"/>
+            android:id="@+id/recyclerView_clientTopEvents">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="No Events Available"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView_clientTopEventsFragementNoEvents"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="invisible"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

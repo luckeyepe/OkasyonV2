@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewCartItemAdapter;
-import com.example.morkince.okasyonv2.activities.model.CartItem;
+import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ClientViewCartActivty extends AppCompatActivity {
     FirebaseFirestore db;
     private StorageReference mStorageRef;
-    private ArrayList<CartItem> cartitem = new ArrayList<>();
+    private ArrayList<Cart_Item> cartitem = new ArrayList<>();
     CartEventAdapter adapterEvent;
     ViewCartItemAdapter adapter;
     FirebaseUser Cartitems;
@@ -63,7 +63,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
-                                CartItem Item = document.toObject(CartItem.class);
+                                Cart_Item Item = document.toObject(Cart_Item.class);
                                 Log.e("Item THIS",  "" + Item.getcart_item_name()  + " lALAA");
                                 Log.e("Item THIS",  "" + Item.getcart_item_Rating() + " lALAA");
                                 Log.e("Item THIS",  "" + Item.getcart_item_order_cost() + " lALAA");
