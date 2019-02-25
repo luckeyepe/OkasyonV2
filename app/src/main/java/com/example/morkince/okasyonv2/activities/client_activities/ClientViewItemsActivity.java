@@ -109,15 +109,23 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             }
 
                             for (int i =0; i<itemUid.size(); i++) {
+                                Log.e("Filter", "Current Index: "+i);
+                                Log.e("Filter", "Current Uid: "+itemUid.get(i));
+
+                                final int finalI = i;
+
                                 FirebaseFirestore.getInstance()
                                         .collection("Items")
                                         .document(itemUid.get(i))
                                         .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(Task<DocumentSnapshot> task) {
+
                                         if (task.isSuccessful()) {
                                             com.example.morkince.okasyonv2.activities.model.Item item =
                                                     task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
+
+                                            Log.e("Related", "["+ finalI +"]: "+item.getItem_uid());
 
                                             BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
                                                     item.getItem_average_rating(),
@@ -134,8 +142,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                 });
                             }
 
-
                             recyclerView.setAdapter(groupieAdapter);
+
                         }else {
                             Exception e = task.getException();
                             if (e instanceof FirebaseFunctionsException) {
