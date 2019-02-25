@@ -61,16 +61,18 @@ public class TopEvents_Fragment extends Fragment {
                 if (task.isSuccessful()) {
 
                     if(task.getResult().size() !=0) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(isAdded()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            Events event = document.toObject(Events.class);
-                            events.add(event);
+                                Events event = document.toObject(Events.class);
+                                events.add(event);
+                            }
+
+                            adapter = new EventsAdapter(events, getActivity());
+                            recyclerView_clientTopEvents.setAdapter(adapter);
+                            recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                            recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                         }
-
-                        adapter = new EventsAdapter(events, getActivity());
-                        recyclerView_clientTopEvents.setAdapter(adapter);
-                        recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                        recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
                     else
                     {

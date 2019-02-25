@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OkasyonV2</string>
+    <string name="app_name">Okasyon</string>
     <string name="title_activity_home_page__supplier_">HomePage_Supplier_Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

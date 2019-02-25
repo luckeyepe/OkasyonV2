@@ -54,7 +54,7 @@ private Uri filePath=null;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        getSupportActionBar().setTitle("My Profile");
+        getSupportActionBar().setTitle("Profile");
 
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -101,7 +101,7 @@ private Uri filePath=null;
                                 UserContactnumber.setText(userprofile.getUser_contact_no());
                                 UserGender.setText(userprofile.getUser_gender());
                                 UserAddress.setText(userAddress);
-                            } else {
+                               } else {
                                 Log.d("", "No such document exist");
                             }
                         } else {

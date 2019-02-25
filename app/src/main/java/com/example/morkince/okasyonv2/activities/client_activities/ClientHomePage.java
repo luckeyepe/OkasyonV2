@@ -488,6 +488,10 @@ public void ClientCreateEvent()
             Intent intent = new Intent (ClientHomePage.this, UserProfileActivity.class);
             startActivity(intent);
         }
+        else if(id == R.id.nav_cart){
+            Intent intent = new Intent (ClientHomePage.this, clientcarteventlistactivity.class);
+            startActivity(intent);
+        }
         //else if (id == R.id.nav_gallery) {
 //
 //        } else if (id == R.id.nav_slideshow) {

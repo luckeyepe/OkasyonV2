@@ -14,18 +14,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     <RatingBar
+
             android:layout_width="233dp"
             android:layout_height="39dp"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
             android:scaleX=".5"
             android:scaleY=".5"
-            android:theme="@style/RatingBar"
+            android:isIndicator="true"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/ratingBar_storeRate"
-            app:layout_constraintTop_toBottomOf="@+id/textView_storeTitle2"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ItemName3"
             app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="30dp"
-            app:layout_constraintHorizontal_bias="0.416"/>
+            app:layout_constraintHorizontal_bias="0.416"
+            app:layout_constraintBottom_toTopOf="@+id/textView_ItemPrice2"/>
     <TextView
             android:text="TextView"
             android:layout_width="196dp"
@@ -38,12 +40,12 @@
     <TextView
             android:text="TextView"
             android:layout_width="200dp"
-            android:layout_height="28dp"
-            android:id="@+id/textView_storeTitle2" app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="35dp"
+            android:id="@+id/textView_ItemName3" app:layout_constraintTop_toTopOf="parent"
             android:textAlignment="textStart" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="65dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.972" android:layout_marginTop="8dp"
-            android:layout_marginEnd="1dp"/>
+            android:layout_marginEnd="1dp" app:layout_constraintBottom_toTopOf="@+id/ratingBar_storeRate"/>
     <ImageView
             android:layout_width="64dp"
             android:layout_height="71dp" app:srcCompat="@drawable/account"
