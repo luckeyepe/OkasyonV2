@@ -13,16 +13,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.CartItemDetailsActivity;
-import com.example.morkince.okasyonv2.activities.model.CartItem;
+import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 
 import java.util.ArrayList;
 
 public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapter.ViewHolder>{
-    private ArrayList<CartItem> cartitem;
+    private ArrayList<Cart_Item> cartitem;
     private Context mContext;
     //  private StorageReference mStorageRef;
 
-    public ViewCartItemAdapter(ArrayList<CartItem> cartitem, Context mContext) {
+    public ViewCartItemAdapter(ArrayList<Cart_Item> cartitem, Context mContext) {
         this.cartitem = cartitem;
         this.mContext = mContext;
         Log.e("CART"," LOLAA" );
@@ -56,10 +56,10 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
         TextView Price2;
         RatingBar Productrate2;
         ConstraintLayout parentLayout2;
-        private ArrayList<CartItem> cartitem;
+        private ArrayList<Cart_Item> cartitem;
         private Context mContext;
 
-        public ViewHolder(View itemView,Context mContext, ArrayList<CartItem> cartitem) {
+        public ViewHolder(View itemView,Context mContext, ArrayList<Cart_Item> cartitem) {
             super(itemView);
             this.cartitem = cartitem;
             this.mContext = mContext;
