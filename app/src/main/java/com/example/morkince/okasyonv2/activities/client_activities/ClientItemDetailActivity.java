@@ -326,7 +326,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     progressDialog.dismiss();
-                                                                                    showAlert("Successfully Saved Item", "SUCCESS!");
+                                                                                    showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
 
                                                                                 } else {
                                                                                     Log.w("", "Error adding document " + task.getException().toString());
@@ -354,7 +354,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //
 //                                                                        }
 //                                                                    });
-                                                                showAlert("Add Item to Cartv1?", "Confirm");
+                                                               // showAlert("Add Item to Cartv1?", "Confirm");
                                                                 HashMap<String, String> map = new HashMap<>();
                                                             }
                                                         }
@@ -389,8 +389,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             if (txtQuantity2.getText().toString().isEmpty()) {
                                                                 txtQuantity2.setError("Please Input Quantity");
                                                             } else {
-                                                                showAlert("Add Item to Cartv1?", "Confirm");
-                                                                HashMap<String, String> map = new HashMap<>();
+                                                              //  showAlert("Add Item to Cart?", "Confirm");
+                                                               // HashMap<String, String> map = new HashMap<>();
                                                                 final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
                                                                 progressDialog.setTitle("Adding Item...");
                                                                 // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
@@ -443,12 +443,13 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     progressDialog.dismiss();
-                                                                                    showAlert("Successfully Saved Item", "SUCCESS!");
+                                                                                    finish();
+                                                                                    showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
                                                                                 } else {
                                                                                     Log.w("", "Error adding document " + task.getException().toString());
                                                                                 }
-//                                                                                showAlert("Add Item to Cartv1?", "Confirm");
-//                                                                                HashMap<String, String> map = new HashMap<>();
+                                                                             //   showAlert("Add Item to Cart1?", "Confirm");
+                                                                                HashMap<String, String> map = new HashMap<>();
                                                                             }
                                                                         });
 
@@ -501,8 +502,32 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                 }
             };
 
+    /*ublic boolean showAlertConfirmAddToCart(String Message,String label)
+    {
 
-    public void showAlert(String Message,String label)
+    }*/
+
+    public void showAlertSuccessfulAddedToCart(String Message,String label) {
+        //set alert for executing the task
+        AlertDialog.Builder alertSuccess = new AlertDialog.Builder(ClientItemDetailActivity.this);
+        alertSuccess.setTitle("" + label);
+        alertSuccess.setMessage("" + Message);
+
+        alertSuccess.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+        public void showAlert(String Message,String label)
     {
         //set alert for executing the task
         AlertDialog.Builder alert = new AlertDialog.Builder(ClientItemDetailActivity.this);
@@ -522,6 +547,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+
         alert.setNegativeButton("NO", new DialogInterface.OnClickListener()
         {
             public void onClick (DialogInterface dialog, int id)
