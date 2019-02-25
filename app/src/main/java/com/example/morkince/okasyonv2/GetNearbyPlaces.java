@@ -84,7 +84,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         getNearbyPlaces.execute(dataTransfer);
         Log.e("PLACES", "I GOT HERE TOO!");
 
-
+        getNearbyPlacesSeeDetails.setEnabled(true);
     }
 
     @Override
@@ -94,6 +94,8 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        getNearbyPlacesSeeDetails=findViewById(R.id.getNearbyPlacesSeeDetails);
+
         getNearbyPlacesSeeDetails.setEnabled(false);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -110,8 +112,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
             // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (android.location.LocationListener) locationListener);
         }
 
-        getNearbyPlacesSeeDetails=findViewById(R.id.getNearbyPlacesSeeDetails);
-        getNearbyPlacesSeeDetails.setOnClickListener(seeDetails);
+               getNearbyPlacesSeeDetails.setOnClickListener(seeDetails);
 
        db = FirebaseFirestore.getInstance();
         db.collection("NearbyPlaces").document("123").collection("nearby_places").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBxrSyb8yrK2JwQLQIYK7wOdHEt-p5bJ6c</string>
-    <string name="google_maps_key3" templateMergeStrategy="preserve" translatable="false">AIzaSyCo2VAECGjbvzIaUtuwTbL2sc97QjJKzZI</string>
+    <string name="google_maps_key3" templateMergeStrategy="preserve" translatable="false">AIzaSyBxrSyb8yrK2JwQLQIYK7wOdHEt-p5bJ6c</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCo2VAECGjbvzIaUtuwTbL2sc97QjJKzZI</string>
     <string name="google_maps_key_two" templateMergeStrategy="preserve" translatable="false"> AIzaSyA3zoVsV9gB7uAaYT6ZpUgMSrnS_fBkzzA</string>
     <string name="google_places_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBxrSyb8yrK2JwQLQIYK7wOdHEt-p5bJ6c</string>
     <string name="google_places_key2" templateMergeStrategy="preserve" translatable="false">AIzaSyCqd-mr3CzJBaKBbUh-8-JYFHI2Ga620Rw</string>

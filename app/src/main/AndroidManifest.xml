@@ -27,11 +27,7 @@
         <activity android:name=".ShowNearbyPlaces">
         </activity>
         <activity android:name=".GetNearbyPlaces">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".activities.login_activities.MainActivity"
@@ -47,6 +43,11 @@
         <activity
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
