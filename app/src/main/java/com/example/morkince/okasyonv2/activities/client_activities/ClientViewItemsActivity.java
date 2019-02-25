@@ -3,6 +3,7 @@ package com.example.morkince.okasyonv2.activities.client_activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -189,6 +190,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
 
                             for (int i =0; i<itemUid.size(); i++) {
+                                final int finalI = i;
                                 FirebaseFirestore.getInstance()
                                         .collection("Items")
                                         .document(itemUid.get(i))
@@ -198,6 +200,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     com.example.morkince.okasyonv2.activities.model.Item item =
                                                             task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
+
+                                                    Log.d("Search Item", "["+ finalI +"]: "+item.getItem_uid());
 
                                                     BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
                                                             item.getItem_average_rating(),
@@ -296,6 +300,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             ArrayList<String> itemUid = task.getResult();
 
+                                            Toast.makeText(getApplicationContext(),"Filter Items "+itemUid.toString(), Toast.LENGTH_SHORT);
+
                                             if (itemUid.size() == 0){
                                                 textViewMessage.setVisibility(View.VISIBLE);
                                                 return;
@@ -304,15 +310,19 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                             }
 
                                             for (int i =0; i<itemUid.size(); i++) {
+                                                final int finalI = i;
                                                 FirebaseFirestore.getInstance()
                                                         .collection("Items")
                                                         .document(itemUid.get(i))
                                                         .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                     @Override
                                                     public void onComplete(Task<DocumentSnapshot> task) {
+
                                                         if (task.isSuccessful()) {
                                                             com.example.morkince.okasyonv2.activities.model.Item item =
                                                                     task.getResult().toObject(com.example.morkince.okasyonv2.activities.model.Item.class);
+
+                                                            Toast.makeText(getApplicationContext(), "Filter Item["+ finalI +"]: "+item.getItem_uid(), Toast.LENGTH_SHORT).show();
 
                                                             BasicItemViewHolder basicItemViewHolder = new BasicItemViewHolder(item.getItem_uid(),
                                                                     item.getItem_average_rating(),
