@@ -11,6 +11,7 @@
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
             <TextView android:layout_width="wrap_content"
+                      android:layout_marginStart="5dp"
                       android:layout_height="wrap_content"
                       android:text="Name of The Store"
                       android:textSize="19dp"
@@ -21,6 +22,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
+                          android:layout_marginStart="5dp"
+
                           android:layout_height="wrap_content"
                           android:text="Rating" android:id="@+id/textView_getnearbyplacesRating"/>
                 <RatingBar
@@ -45,10 +48,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
+                          android:layout_marginStart="5dp"
+
                           android:layout_height="wrap_content"
                           android:text="Filipino" android:id="@+id/textView_getnearbyplacesNationalityofStore"/>
 
                 <TextView
+
                         android:layout_marginStart="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -60,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
+                          android:layout_marginStart="5dp"
                           android:layout_height="wrap_content"
                           android:text="Open Until"/>
 

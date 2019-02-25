@@ -166,6 +166,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     int id = menuItem.getItemId();
+
                     if (id == R.id.navigation_addtocart)
                     {
                         db = FirebaseFirestore.getInstance();
@@ -207,6 +208,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             dialog.dismiss();
                                                         }
                                                     });
+
                                                     setDate.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
@@ -232,6 +234,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             datePickerDialog.show();
                                                         }
                                                     });
+
                                                     setDate2.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
@@ -363,6 +366,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                 }else if (itemDetails.isItem_for_sale() == true){
                                                     View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_sale, null);
                                                     final Dialog dialog2 = new Dialog(ClientItemDetailActivity.this);
+
                                                     dialog2.setContentView(view);
                                                     dialog2.show();
                                                     Window window = dialog2.getWindow();
@@ -389,12 +393,9 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                             if (txtQuantity2.getText().toString().isEmpty()) {
                                                                 txtQuantity2.setError("Please Input Quantity");
                                                             } else {
-                                                              //  showAlert("Add Item to Cart?", "Confirm");
-                                                               // HashMap<String, String> map = new HashMap<>();
+
                                                                 final ProgressDialog progressDialog = new ProgressDialog(ClientItemDetailActivity.this);
                                                                 progressDialog.setTitle("Adding Item...");
-                                                                // THIS IS ALTERNATE //progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                                                                //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                                                                 progressDialog.show();
                                                                 progressDialog.setCancelable(false);
 //                                                            String cartItem_delivery_location  = addItem_itemDescription.getText().toString();
@@ -404,18 +405,15 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                 double cart_item_item_price = Double.parseDouble(textView_ActivityClientFindItemPriceofTheItem.getText().toString());
                                                                 double cart_item_order_cost = cart_item_item_price * cart_item_item_count;
                                                                 String cart_item_status2 = "Pending";
-//                                                            String item_uid = "123";
 
                                                                 int idOfChecked = Radiogroup_forDeliveryornot2.getCheckedRadioButtonId();
+
                                                                 if (idOfChecked == R.id.radioButton_yesforsale) {
                                                                     note.setVisibility(View.VISIBLE);
                                                                     isDeliver = true;
-//                                                                isDelivered=true;
-
                                                                 } else {
                                                                     isDeliver = false;
 
-//                                                                isDelivered=false;
                                                                 }
 
                                                                 CartItem newItem = new CartItem(cart_item_name,
@@ -433,6 +431,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                         cart_item_item_price,
                                                                         cart_group_uid,
                                                                         currentUserUid);
+
                                                                 db = FirebaseFirestore.getInstance();
                                                                 db.collection("Cart_Items")
                                                                         .document(cart_group_uid)
@@ -443,8 +442,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     progressDialog.dismiss();
-                                                                                    finish();
-                                                                                    showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
+                                                                                     showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
                                                                                 } else {
                                                                                     Log.w("", "Error adding document " + task.getException().toString());
                                                                                 }
@@ -486,11 +484,6 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                     }
 
                                 });
-
-
-
-
-//
 //
 
                     }
@@ -501,11 +494,6 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
-    /*ublic boolean showAlertConfirmAddToCart(String Message,String label)
-    {
-
-    }*/
 
     public void showAlertSuccessfulAddedToCart(String Message,String label) {
         //set alert for executing the task
@@ -522,43 +510,37 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-        public void showAlert(String Message,String label)
-    {
-        //set alert for executing the task
-        AlertDialog.Builder alert = new AlertDialog.Builder(ClientItemDetailActivity.this);
-        alert.setTitle(""+label);
-        alert.setMessage(""+Message);
-
-        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            public void onClick (DialogInterface dialog, int id){
-                //CODE GOES HERE TO ADD TO CART
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                HashMap<String, String> map = new HashMap<>();
-                map.put("cart_item_item_uid", item_uid);
-                map.put("cart_item_user_uid", currentUser.getUid());
-                db = FirebaseFirestore.getInstance();
-                db.collection("Cart_Items").document("cart_items").collection(eventUID).add(map);
-                dialog.cancel();
-            }
-        });
-
-        alert.setNegativeButton("NO", new DialogInterface.OnClickListener()
-        {
-            public void onClick (DialogInterface dialog, int id)
-            {
-                dialog.cancel();
-            }
-        });
-
-
-        Dialog dialog = alert.create();
-        //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        dialog.show();
-    }
+//    public void showAlert(String Message,String label)
+//    {
+//        //set alert for executing the task
+//        AlertDialog.Builder alert = new AlertDialog.Builder(ClientItemDetailActivity.this);
+//        alert.setTitle(""+label);
+//        alert.setMessage(""+Message);
+//
+//        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//            public void onClick (DialogInterface dialog, int id){
+//                //CODE GOES HERE TO ADD TO CART
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                HashMap<String, String> map = new HashMap<>();
+//                map.put("cart_item_item_uid", item_uid);
+//                map.put("cart_item_user_uid", currentUser.getUid());
+//                db = FirebaseFirestore.getInstance();
+//                db.collection("Cart_Items").document("cart_items").collection(eventUID).add(map);
+//                dialog.cancel();
+//            }
+//        });
+//
+//        alert.setNegativeButton("NO", new DialogInterface.OnClickListener()
+//        {
+//            public void onClick (DialogInterface dialog, int id)
+//            {
+//                dialog.cancel();
+//            }
+//        });
+//
+//
+//        Dialog dialog = alert.create();
+//        dialog.show();
+//    }
 }
