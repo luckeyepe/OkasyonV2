@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,10 @@ import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierEditItemDetailsActivity;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
 import com.example.morkince.okasyonv2.activities.model.Item;
+import com.example.morkince.okasyonv2.testingphase.ItemImagesModel;
+import com.example.morkince.okasyonv2.testingphase.ItemImagesRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
 import java.text.ParseException;
@@ -49,7 +55,13 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button clientItemDetails_visitStoreBtn;
 
+    ItemImagesRecyclerAdapter adapterForItemImages;
+    int inCounter=1;
+    FirebaseStorage firebaseStorage;
+    private StorageReference mStorageRef;
+
     private ArrayList<Reviews> reviews = new ArrayList<>();
+    private ArrayList<ItemImagesModel> itemImages = new ArrayList<>();
     StoreReviewsAdapter adapter;
 
 
@@ -59,16 +71,45 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_item_detail);
         refs();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         Intent intent = getIntent();
         item_uid = intent.getStringExtra("item_uid");
         eventUID = intent.getStringExtra("event_event_uid");
         getValues();
         loadReviews();
-
+        loadItemImages();
         bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
         clientItemDetails_visitStoreBtn.setOnClickListener(visitStore);
+        recyclerView_ActivityClientFindItemRecyclerViewImages.setHasFixedSize(true);
     }
+
+
+    public void loadItemImages()
+    {
+        for(int counter=1;counter<=5;counter++) {
+            // Create a reference to the file to delete
+
+            StorageReference desertRef = mStorageRef.child("item_images").child(item_uid).child(item_uid + counter);
+            inCounter=counter;
+            desertRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if(inCounter<5)
+                        itemImages.add(new ItemImagesModel(uri));
+                    else
+                    {
+                        itemImages.add(new ItemImagesModel(uri));
+                        adapterForItemImages = new ItemImagesRecyclerAdapter(itemImages,ClientItemDetailActivity.this);
+                        recyclerView_ActivityClientFindItemRecyclerViewImages.setLayoutManager(new LinearLayoutManager(ClientItemDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        //  recyclerView_itemImages.setLayoutManager(new GridLayoutManager(testingImageSlider.this,2));
+                        recyclerView_ActivityClientFindItemRecyclerViewImages.setAdapter(adapterForItemImages);
+                    }
+                }
+            });
+        }
+    }
+
 
     public View.OnClickListener visitStore = new View.OnClickListener() {
         @Override

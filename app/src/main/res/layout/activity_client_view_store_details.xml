@@ -106,7 +106,7 @@
 
    </ScrollView>-->
     <Button
-            android:text="VIEW MY ITEMS"
+            android:text="VIEW ITEMS"
             android:layout_width="420dp"
             android:layout_height="44dp"
             android:background="#5daeae"

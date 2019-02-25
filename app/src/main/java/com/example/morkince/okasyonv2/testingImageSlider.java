@@ -21,7 +21,7 @@ public class testingImageSlider extends AppCompatActivity {
     private ArrayList<ItemImagesModel> itemImages = new ArrayList<>();
     private ArrayList<ItemImagesModel> itemImagesFinal = new ArrayList<>();
     ItemImagesRecyclerAdapter adapter;
-int inCounter=1;
+    int inCounter=1;
     RecyclerView  recyclerView_itemImages;
     FirebaseStorage firebaseStorage;
     private StorageReference mStorageRef;
