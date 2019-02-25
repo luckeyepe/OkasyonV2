@@ -47,7 +47,7 @@ class BasicItemViewHolder(val item_uid: String,
 
                     itemName.text = item.item_name
                     itemPrice.text = "₱${item.item_price}"
-                    itemRating.numStars = item.item_average_rating.toInt()
+                    itemRating.rating = item.item_average_rating.toFloat()
 
                     viewHolder.itemView.ParentLayout.setOnClickListener {
                         var intent = Intent(context, ClientItemDetailActivity::class.java)
