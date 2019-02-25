@@ -71,14 +71,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Event Details");
         refs();
         enable(false);
-
+        currentDate= Calendar.getInstance();
         Intent intent = getIntent();
         event_id= intent.getStringExtra("event_event_uid");
 
         getEventDetails();
 
 
-                calendarHandler.setEnabled(false);
+        calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
         buttonSave.setOnClickListener(saveUpdatedData);
         foundEventDetails_browseItemsButton.setOnClickListener(browseItems);
@@ -132,7 +132,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
                                 cart_group = event.getEvent_cart_group_uid();
 
-                                Calendar currentDate = Calendar.getInstance();
+                                currentDate = Calendar.getInstance();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                                 try {
                                     currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
@@ -544,7 +544,5 @@ public class EventDetailsActivity extends AppCompatActivity {
         //  dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
     }
-
-
 
 }

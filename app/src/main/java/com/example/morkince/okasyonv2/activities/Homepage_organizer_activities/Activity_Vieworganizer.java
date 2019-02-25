@@ -2,6 +2,10 @@ package com.example.morkince.okasyonv2.activities.Homepage_organizer_activities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +14,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.*;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.Reviews;
+import com.example.morkince.okasyonv2.StoreReviewsAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewOrganizersAdapter;
+import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
 import com.example.morkince.okasyonv2.activities.model.Organizer;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class Activity_Vieworganizer extends AppCompatActivity {
+    FirebaseUser user;
+    FirebaseFirestore db;
     private ArrayList<Organizer> organizer = new ArrayList<>();
     ViewOrganizersAdapter adapter;
     RecyclerView recyclerView;
@@ -27,47 +43,35 @@ public class Activity_Vieworganizer extends AppCompatActivity {
         setContentView(R.layout.activity__vieworganizer);
         refs();
 
+        db = FirebaseFirestore.getInstance();
 
-        // add button listener
+        db.collection("User").whereEqualTo("user_role","organizer").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String OrganizerName = document.getString("user_first_name") + document.getString("user_last_name");
+                        String imageuri=document.getString("user_profilePictureURL");
+                        String location=document.getString("user_address");
+                        String user_uid=document.getString("user_uid");
+                        Double price=3500.00;
+                        double rating=3.5;
 
+                        organizer.add(new Organizer(OrganizerName,imageuri,location,price,rating,user_uid));
+                    }
 
-        // custom dialog
+                    adapter = new ViewOrganizersAdapter(organizer, Activity_Vieworganizer.this);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(Activity_Vieworganizer.this, LinearLayoutManager.VERTICAL));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(Activity_Vieworganizer.this));
 
-
-//                // set the custom dialog components - text, image and button
-////                TextView text = (TextView) dialog.findViewById(R.id.text);
-////                text.setText("Android custom dialog example!");
-////                ImageView image = (ImageView) dialog.findViewById(R.id.image);
-////                image.setImageResource(R.drawable.ic_launcher);
-
-
-
-        Organizer item1 = new Organizer();
-        item1.setStoreName("Marc's Gown");
-        item1.setLocation("Hernan Cortes");
-        item1.setPrice(100.00);
-
-        Organizer item2 = new Organizer();
-        item2.setStoreName("Japhet's SoundSystems");
-        item2.setLocation("Nasipit Talamban");
-        item2.setPrice(200.00);
-
-        Organizer item3 = new Organizer();
-        item3.setStoreName("Mikay's Eatery");
-        item3.setLocation("629 Gov. Cuenco Ave Banilad Cebu City");
-        item3.setPrice(300.00);
+                }
+            }
+        });
 
 
-        organizer.add(item1);
-        organizer.add(item2);
-        organizer.add(item3);
-
-        adapter = new ViewOrganizersAdapter(organizer, Activity_Vieworganizer.this);
-        recyclerView.setAdapter(adapter);
 
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 

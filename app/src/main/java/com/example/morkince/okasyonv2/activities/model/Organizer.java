@@ -4,34 +4,30 @@ import android.net.Uri;
 
 public class Organizer {
     String  organizerName;
-    Uri imageuri;
+    String imageuri;
     String Location;
     Double Price;
-    int Rating;
+    double Rating;
+    String user_uid;
 
 
     public Organizer(){}
-    public Organizer(String OrganizerName, Uri imageuri, String location, Double price, int rating) {
+    public Organizer(String OrganizerName, String imageuri, String location, Double price, double rating,String user_uid) {
         organizerName = OrganizerName;
         this.imageuri = imageuri;
         Location = location;
         Price = price;
         Rating = rating;
+        user_uid = user_uid;
     }
 
-    public String getStoreName() {
-        return organizerName;
-    }
 
-    public void setStoreName(String storeName) {
-        organizerName = storeName;
-    }
 
-    public Uri getImageuri() {
+    public String getImageuri() {
         return imageuri;
     }
 
-    public void setImageuri(Uri imageuri) {
+    public void setImageuri(String imageuri) {
         this.imageuri = imageuri;
     }
 
@@ -51,11 +47,27 @@ public class Organizer {
         Price = price;
     }
 
-    public int getRating() {
+    public double getRating() {
         return Rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         Rating = rating;
+    }
+
+    public String getOrganizerName() {
+        return organizerName;
+    }
+
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
+    }
+
+    public String getUser_uid() {
+        return user_uid;
+    }
+
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
     }
 }

@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             }else {
                 val progress = ProgressDialog(this)
                 progress.setTitle("Loading")
-                progress.setMessage("Grabbing you data, please wait...")
+                progress.setMessage("Grabbing your data, please wait...")
                 progress.setCancelable(false)
                 progress.show()
 

@@ -14,12 +14,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     <RatingBar
+
             android:layout_width="233dp"
             android:layout_height="39dp"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
             android:scaleX=".5"
             android:scaleY=".5"
+            android:isIndicator="true"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/ratingBar_storeRate"
             app:layout_constraintTop_toBottomOf="@+id/textView_ItemName3"

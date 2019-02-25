@@ -116,14 +116,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/ratingBar_filterrating"
                 android:numStars="5"
-                android:scaleX="1.5"
-                android:scaleY="2"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 android:isIndicator="false"
                 android:stepSize="1"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_marginStart="120dp"
+                android:theme="@style/RatingBar"
+
+                android:layout_marginStart="110dp"
                 android:layout_marginTop="163dp"
-        />
+                style="@android:style/Widget.Holo.Light.RatingBar.Small"/>
         <RadioGroup
                 android:id="@+id/Radiogroup_forRentorSale"
                 android:layout_width="103dp"
