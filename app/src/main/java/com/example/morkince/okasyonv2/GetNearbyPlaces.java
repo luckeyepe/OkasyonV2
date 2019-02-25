@@ -72,7 +72,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         stringBuilder.append("location=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude());
         stringBuilder.append("&radius=" + 1000);
-        stringBuilder.append("&keyword=" + "hotel");
+        stringBuilder.append("&keyword=" + "gowns");
         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
         Log.e("URL", stringBuilder.toString());
 
@@ -84,6 +84,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         getNearbyPlaces.execute(dataTransfer);
         Log.e("PLACES", "I GOT HERE TOO!");
 
+
     }
 
     @Override
@@ -93,7 +94,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        getNearbyPlacesSeeDetails.setEnabled(false);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override

@@ -13,7 +13,7 @@
     <application
             android:allowBackup="true"
             android:hardwareAccelerated="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/okasyon_icon"
             android:label="@string/app_name"
             android:largeHeap="true"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -27,6 +27,11 @@
         <activity android:name=".ShowNearbyPlaces">
         </activity>
         <activity android:name=".GetNearbyPlaces">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
                 android:name=".activities.login_activities.MainActivity"
@@ -42,11 +47,7 @@
         <activity
                 android:name=".SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity">
         </activity>
