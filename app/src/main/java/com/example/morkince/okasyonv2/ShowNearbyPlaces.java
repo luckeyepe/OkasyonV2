@@ -39,7 +39,7 @@ GetNearbyPlacesAPI getNearbyPlaces;
         db = FirebaseFirestore.getInstance();
         showNearbyPlacesRecyclerView=findViewById(R.id.showNearbyPlacesRecyclerView);
 
-        db.collection("NearbyPlaces").document(user.getUid()).collection("nearby_places").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("NearbyPlaces").document("123").collection("nearby_places").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

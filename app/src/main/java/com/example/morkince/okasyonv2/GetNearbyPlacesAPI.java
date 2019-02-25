@@ -112,7 +112,7 @@ public class GetNearbyPlacesAPI  extends AsyncTask<Object,String,String> {
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 db = FirebaseFirestore.getInstance();
                 nearbyPlacesModel= new NearbyPlacesModel(nameOfStore,vicinityOfStore,imageUrlOfStore,Double.parseDouble(starRatingofStore),"true",totalNumberOfRatings);
-                db.collection("NearbyPlaces").document(user.getUid()).collection("nearby_places")
+                db.collection("NearbyPlaces").document("123").collection("nearby_places")
                         .add(nearbyPlacesModel)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

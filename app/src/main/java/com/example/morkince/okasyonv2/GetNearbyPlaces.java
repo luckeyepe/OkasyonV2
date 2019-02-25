@@ -72,7 +72,7 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         stringBuilder.append("location=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude());
         stringBuilder.append("&radius=" + 1000);
-        stringBuilder.append("&keyword=" + "hotel");
+        stringBuilder.append("&keyword=" + "gowns");
         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
         Log.e("URL", stringBuilder.toString());
 
