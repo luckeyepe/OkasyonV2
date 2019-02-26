@@ -188,13 +188,13 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                final Custom_Progress_Dialog custom_progress_dialog1 = new Custom_Progress_Dialog(getApplicationContext());
+                custom_progress_dialog1.showDialog("LOADING", "Grabbing searched items");
 //                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 // Do your task here
                 groupieAdapter.clear();
                 String itemQuery = (query.trim().toLowerCase());
-                final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getApplicationContext());
-                custom_progress_dialog.showDialog("LOADING", "Grabbing searched items");
+
 
                 CallableFunctions callableFunctions = new CallableFunctions();
                 callableFunctions.searchForItem(itemQuery, itemCategory)
@@ -254,7 +254,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
                             recyclerView.setAdapter(groupieAdapter);
 
-                            custom_progress_dialog.dissmissDialog();
+                            custom_progress_dialog1.dissmissDialog();
 
                         }else {
                             Exception e = task.getException();

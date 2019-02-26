@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Toast;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
@@ -57,6 +58,9 @@ public class TopEvents_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
               @Override
               public boolean onQueryTextSubmit(String query) {
+
+                  final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
+                  custom_progress_dialog.showDialog("LOADING", "Searching events");
 
                   String eventQuery = searchView.getQuery().toString();
                   CallableFunctions callableFunctions = new CallableFunctions();
@@ -107,9 +111,11 @@ public class TopEvents_Fragment extends Fragment {
 
                                           }
 
+
                                           recyclerView_clientTopEvents.setAdapter(adapter);
                                           recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                                           recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                          custom_progress_dialog.dissmissDialog();
 
                                       }else {
                                           //show no events
@@ -135,6 +141,9 @@ public class TopEvents_Fragment extends Fragment {
 
     public void displayEvents()
     {
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
+        custom_progress_dialog.showDialog("LOADING", "Grabbing events");
+
         db = FirebaseFirestore.getInstance();
         db.collection("Event").whereEqualTo("event_is_private", false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -149,10 +158,12 @@ public class TopEvents_Fragment extends Fragment {
                                 events.add(event);
                             }
 
+
                             adapter = new EventsAdapter(events, getActivity());
                             recyclerView_clientTopEvents.setAdapter(adapter);
                             recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                             recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            custom_progress_dialog.dissmissDialog();
                         }
                     }
                     else

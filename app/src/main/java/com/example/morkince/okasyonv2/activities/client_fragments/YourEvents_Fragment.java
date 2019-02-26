@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.R;
@@ -49,6 +50,9 @@ public class YourEvents_Fragment extends Fragment {
 
     public void displayEvents()
     {
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
+        custom_progress_dialog.showDialog("LOADING", "Grabbing your events");
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         db.collection("Event").whereEqualTo("event_creator_id", user.getUid())
@@ -70,6 +74,7 @@ public class YourEvents_Fragment extends Fragment {
                             RecyclerView_client_your_eventfragment.setAdapter(adapter);
                             RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                             RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            custom_progress_dialog.dissmissDialog();
                         } else {
 
                             db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -88,6 +93,7 @@ public class YourEvents_Fragment extends Fragment {
                                             RecyclerView_client_your_eventfragment.setAdapter(adapter);
                                             RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                                             RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                            custom_progress_dialog.dissmissDialog();
                                         } else {
                                             if (isAdded()) {
                                                 Toast.makeText(getActivity(), "No Events to Show!",
