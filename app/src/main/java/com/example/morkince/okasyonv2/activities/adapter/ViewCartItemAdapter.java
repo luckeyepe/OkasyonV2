@@ -44,17 +44,19 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
         holder.CartproductName2.setText(cartitem.get(position).getcart_item_name());
         holder.Price2.setText(cartitem.get(position).getcart_item_order_cost() + "");
         holder.Productrate2.setRating(cartitem.get(position).getcart_item_Rating());
-holder.setItemClickListener(new ItemClickListener() {
-    @Override
-    public void onItemClick(View v, int pos) {
-        CheckBox chk= (CheckBox) v;
-        if(chk.isChecked())
-        {
-        checkedItem.add(cartitem.get(pos));
-        }else if(!chk.isChecked()){
-        checkedItem.remove (cartitem.get(pos));
-        }
-    }
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+//                if (v.getId() == holder.chk.getId()){
+//                    CheckBox checkbox= (CheckBox) v;
+//                    if(checkbox.isChecked())
+//                    {
+//                        checkedItem.add(cartitem.get(pos));
+//                    }else if(!checkbox.isChecked()){
+//                        checkedItem.remove (cartitem.get(pos));
+//                    }
+//                }
+            }
 });
         //dari kiri
 
@@ -75,6 +77,7 @@ holder.setItemClickListener(new ItemClickListener() {
         private ArrayList<Cart_Item> cartitem;
         private Context mContext;
         ItemClickListener itemClickListener;
+
         public ViewHolder(View itemView,Context mContext, ArrayList<Cart_Item> cartitem) {
             super(itemView);
             this.cartitem = cartitem;
@@ -87,16 +90,31 @@ holder.setItemClickListener(new ItemClickListener() {
             chk=(CheckBox) itemView.findViewById(R.id.checkBox_itemtoelacetoorder);
             chk.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
-            Intent intent = new Intent(mContext, CartItemDetailsActivity.class);
-            intent.putExtra("Cart_item_id",cartitem.get(position).getCart_item_id());
-            intent.putExtra("Cart_item_group_id",cartitem.get(position).getCart_item_group_uid());
-            intent.putExtra("Cart_item_item_id",cartitem.get(position).getCart_item_item_uid());
-            this.mContext.startActivity(intent);
-            this.itemClickListener.onItemClick(view,getLayoutPosition());
+            if (view.getId() == chk.getId()){
+                int position = getAdapterPosition();
+
+                if(chk.isChecked())
+                {
+                    checkedItem.add(cartitem.get(position));
+                }else if(!chk.isChecked()){
+                    checkedItem.remove (cartitem.get(position));
+                }
+
+            }else {
+                int position = getAdapterPosition();
+
+                Intent intent = new Intent(mContext, CartItemDetailsActivity.class);
+                intent.putExtra("Cart_item_id", cartitem.get(position).getCart_item_id());
+                intent.putExtra("Cart_item_group_id", cartitem.get(position).getCart_item_group_uid());
+                intent.putExtra("Cart_item_item_id", cartitem.get(position).getCart_item_item_uid());
+                this.mContext.startActivity(intent);
+                this.itemClickListener.onItemClick(view, getLayoutPosition());
+            }
         }
+
         public void setItemClickListener(ItemClickListener ic)
         {
             this.itemClickListener=ic;
