@@ -43,11 +43,19 @@ public class ItemImagesRecyclerAdapter extends RecyclerView.Adapter<ItemImagesRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ItemImagesRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemImagesRecyclerAdapter.ViewHolder holder, final int position) {
 
        Picasso.get().load(itemImages.get(position).getImage().toString()).into(holder.imageViewforImages);
 
-
+        holder.imageViewforImages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MaxImageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("sourceUrl", itemImages.get(position).getImage().toString());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

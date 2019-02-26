@@ -7,7 +7,7 @@
 
     <ImageView android:layout_width="match_parent"
                android:layout_height="250dp"
-               android:background="@color/colorAccent"
+               android:background="@android:color/transparent"
                android:id="@+id/imageViewforImages"
                android:scaleType="centerCrop"
     />
