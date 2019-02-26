@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
@@ -90,6 +91,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     }
 
     private void loadAllItemsInItemCategory(String itemCategory) {
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
+        custom_progress_dialog.showDialog("LOADING", "Grabbing items being sold");
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         CallableFunctions callableFunctions = new CallableFunctions();
@@ -153,7 +157,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             }
 
                             recyclerView.setAdapter(groupieAdapter);
-
+                            custom_progress_dialog.dissmissDialog();
                         }else {
                             Exception e = task.getException();
                             if (e instanceof FirebaseFunctionsException) {
@@ -189,6 +193,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 // Do your task here
                 groupieAdapter.clear();
                 String itemQuery = (query.trim().toLowerCase());
+                final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getApplicationContext());
+                custom_progress_dialog.showDialog("LOADING", "Grabbing searched items");
 
                 CallableFunctions callableFunctions = new CallableFunctions();
                 callableFunctions.searchForItem(itemQuery, itemCategory)
@@ -247,6 +253,8 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             }
 
                             recyclerView.setAdapter(groupieAdapter);
+
+                            custom_progress_dialog.dissmissDialog();
 
                         }else {
                             Exception e = task.getException();
@@ -320,6 +328,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         groupieAdapter.clear();
                         dialog.dismiss();
 
+                        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getApplicationContext());
+                        custom_progress_dialog.showDialog("LOADING", "Grabbing filtered items");
+
                         CallableFunctions callableFunctions = new CallableFunctions();
                         callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
                                 .addOnCompleteListener(new OnCompleteListener<ArrayList<String>>() {
@@ -377,6 +388,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                             }
 
                                             recyclerView.setAdapter(groupieAdapter);
+                                            custom_progress_dialog.dissmissDialog();
 
                                         }else {
                                             Exception e = task.getException();

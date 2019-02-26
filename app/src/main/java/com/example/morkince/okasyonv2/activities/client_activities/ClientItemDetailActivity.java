@@ -177,6 +177,9 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
     public void getValues()
     {
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
+        custom_progress_dialog.showDialog("LOADING", "Loading item data");
+
         db = FirebaseFirestore.getInstance();
         db.collection("Items").document(item_uid).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -194,6 +197,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
                                 store_uid=itemDetails.getItem_store_id();
 
+                                custom_progress_dialog.dissmissDialog();
 
                             } else {
                                 Log.d("", "No such document exist");
