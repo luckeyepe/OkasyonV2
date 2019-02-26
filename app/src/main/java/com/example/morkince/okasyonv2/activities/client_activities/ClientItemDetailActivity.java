@@ -327,7 +327,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                     addtocart.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            if (txtQuantity.getText().toString().isEmpty()) {
+                                                            if (txtQuantity.getText().toString().trim().isEmpty()) {
                                                                 txtQuantity.setError("Please Input Quantity");
                                                             }
                                                             else if (dateofitemrented.getText().toString().contains("start date"))
@@ -365,6 +365,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                     isDeliver = false;
 //                                                                isDelivered=false;
                                                                 }
+
                                                                 Cart_Item newItem = new Cart_Item(cart_item_name,
                                                                         cart_item_order_cost,
                                                                         0,
@@ -390,6 +391,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     progressDialog.dismiss();
+                                                                                    dialog.dismiss();
                                                                                     showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
 
                                                                                 } else {
@@ -424,7 +426,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                         }
                                                     });
 
-                                                }else if (itemDetails.isItem_for_sale() == true){
+                                                }else if (itemDetails.isItem_for_sale()){
                                                     View view = LayoutInflater.from(ClientItemDetailActivity.this).inflate(R.layout.modal_addtocart_for_sale, null);
                                                     final Dialog dialog2 = new Dialog(ClientItemDetailActivity.this);
 
@@ -504,6 +506,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                                 if (task.isSuccessful()) {
                                                                                     progressDialog.dismiss();
                                                                                     showAlertSuccessfulAddedToCart("Successfully Saved Item", "SUCCESS!");
+                                                                                    dialog2.dismiss();
                                                                                 } else {
                                                                                     Log.w("", "Error adding document " + task.getException().toString());
                                                                                 }
