@@ -25,7 +25,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/editText4_rateitemReview" android:layout_marginTop="9dp"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar_storeRate2"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar_transactionClientRow"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="30dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="34dp"/>
     <EditText
@@ -45,7 +45,7 @@
             android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="154dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="172dp" android:layout_marginBottom="9dp"
-            app:layout_constraintBottom_toTopOf="@+id/ratingBar_storeRate2"/>
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar_transactionClientRow"/>
     <TextView
             android:text="Rate Store"
             android:layout_width="wrap_content"
@@ -63,6 +63,7 @@
             android:transformPivotY="0dp"
             android:scaleX=".5"
             android:scaleY=".5"
+            android:theme="@style/RatingBar"
             android:id="@+id/ratingBar_ItemRate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +77,9 @@
             android:transformPivotY="0dp"
             android:scaleX=".5"
             android:scaleY=".5"
+            android:theme="@style/RatingBar"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/ratingBar_storeRate2"
+            android:id="@+id/ratingBar_transactionClientRow"
             android:layout_marginTop="44dp"
             android:layout_marginEnd="44dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="200dp" app:layout_constraintHorizontal_bias="0.698"

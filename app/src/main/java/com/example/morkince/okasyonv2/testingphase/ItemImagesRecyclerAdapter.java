@@ -1,6 +1,7 @@
 package com.example.morkince.okasyonv2.testingphase;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.View_Items_Recycler_Adapter;
+import com.example.morkince.okasyonv2.activities.chat_activities.MaxImageActivity;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,11 +43,19 @@ public class ItemImagesRecyclerAdapter extends RecyclerView.Adapter<ItemImagesRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ItemImagesRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemImagesRecyclerAdapter.ViewHolder holder, final int position) {
 
        Picasso.get().load(itemImages.get(position).getImage().toString()).into(holder.imageViewforImages);
 
-
+        holder.imageViewforImages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MaxImageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("sourceUrl", itemImages.get(position).getImage().toString());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -72,8 +82,11 @@ public class ItemImagesRecyclerAdapter extends RecyclerView.Adapter<ItemImagesRe
         @Override
         public void onClick(View view) {
 
+
+
         }
     }
+
 }
 
 

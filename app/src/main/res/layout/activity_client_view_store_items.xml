@@ -5,15 +5,16 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".testingImageSlider">
+        android:background="@drawable/background_default_gradient"
+        tools:context=".ClientViewStoreItems">
+
+
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="395dp"
-            android:layout_height="715dp"
-            android:id="@+id/recyclerView_itemImages"
-            android:orientation="horizontal"
+            android:layout_width="351dp"
+            android:layout_height="571dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/clientViewStoreItems_RecyclerView"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

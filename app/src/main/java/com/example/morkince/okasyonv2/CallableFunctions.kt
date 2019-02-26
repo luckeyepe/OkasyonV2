@@ -69,4 +69,17 @@ class CallableFunctions {
                 result["itemCategories"] as ArrayList<String>
             }
     }
+
+    fun searchForEvent(searchQuery: String): Task<ArrayList<String>> {
+        val data = HashMap<String, Any>()
+        data["query"] = searchQuery
+
+        return functions
+            .getHttpsCallable("searchForEvent")
+            .call(data)
+            .continueWith{ task ->
+                val result = task.result!!.data as Map<String, Any>
+                result["event_uids"] as ArrayList<String>
+            }
+    }
 }

@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_default_gradient"
-        tools:context=".activities.client_activities.CilentAddItemCategoriesActivity">
+        tools:context=".activities.client_activities.ClientAddItemCategoriesActivity">
 
     <TextView
             android:text="Add Item Categories to your Event"

@@ -17,7 +17,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_client_set_the_preference_summary_contents.*
 import java.text.DecimalFormat
 
-class Client_Set_Preference_Summary: AppCompatActivity() {
+ class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventUid: String?=null
     private var eventName: String?=null
     private var eventAddress: String ?= null
@@ -61,7 +61,7 @@ class Client_Set_Preference_Summary: AppCompatActivity() {
 
         imageButton_ActivityClientSetThePreferenceSummaryAddItemCategory.setOnClickListener {
             //add itemcategory
-            val intent = Intent(this, CilentAddItemCategoriesActivity::class.java)
+            val intent = Intent(this, ClientAddItemCategoriesActivity::class.java)
             intent.putExtra("event_event_uid", eventUid)
             startActivity(intent)
         }
