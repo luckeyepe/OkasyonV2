@@ -33,8 +33,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -44,6 +47,7 @@ import java.util.ArrayList;
 public class ClientHomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ActionBarDrawerToggle toggle;
+
     private BottomNavigationView.OnNavigationItemSelectedListener event_nav_listener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -78,6 +82,7 @@ public class ClientHomePage extends AppCompatActivity
     String typeOfEvent;
     private ArrayList<Events> events = new ArrayList<>();
     User userclient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +102,24 @@ public class ClientHomePage extends AppCompatActivity
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Client HP", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        DocumentReference db = FirebaseFirestore.getInstance().collection("User").document(user.getUid());
+                        db.update("user_token", token);
+                    }
+                });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
