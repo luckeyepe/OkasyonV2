@@ -19,13 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.model.Cart_Item;
-import com.example.morkince.okasyonv2.activities.model.Cartv1;
+import com.example.morkince.okasyonv2.activities.model.CartItem;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.example.morkince.okasyonv2.testingphase.ItemImagesModel;
 import com.example.morkince.okasyonv2.testingphase.ItemImagesRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,17 +32,13 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class ClientItemDetailActivity extends AppCompatActivity {
     public static final String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -365,7 +359,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                                                     isDeliver = false;
 //                                                                isDelivered=false;
                                                                 }
-                                                                Cart_Item newItem = new Cart_Item(cart_item_name,
+                                                                CartItem newItem = new CartItem(cart_item_name,
                                                                         cart_item_order_cost,
                                                                         0,
                                                                         cart_item_item_count,
@@ -477,7 +471,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
                                                                 }
 
-                                                                Cart_Item newItem = new Cart_Item(cart_item_name,
+                                                                CartItem newItem = new CartItem(cart_item_name,
                                                                         cart_item_order_cost,
                                                                         0,
                                                                         cart_item_item_count,
@@ -626,7 +620,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //import androidx.recyclerview.widget.RecyclerView;
 //import com.example.morkince.okasyonv2.*;
 //import com.example.morkince.okasyonv2.R;
-//import com.example.morkince.okasyonv2.activities.model.Cart_Item;
+//import com.example.morkince.okasyonv2.activities.model.CartItem;
 //import com.example.morkince.okasyonv2.activities.model.Item;
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
@@ -896,7 +890,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //                                                                isDeliver=false;
 ////                                                                isDelivered=false;
 //                                                            }
-//                                                            Cart_Item newItem = new Cart_Item(cart_item_name,
+//                                                            CartItem newItem = new CartItem(cart_item_name,
 //                                                                    cart_item_order_cost,
 //                                                                    0,
 //                                                                    cart_item_item_count,
@@ -1010,7 +1004,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 ////                                                                isDelivered=false;
 //                                                            }
 //
-//                                                            Cart_Item newItem = new Cart_Item(cart_item_name,
+//                                                            CartItem newItem = new CartItem(cart_item_name,
 //                                                                    cart_item_order_cost,
 //                                                                    0,
 //                                                                    cart_item_item_count,

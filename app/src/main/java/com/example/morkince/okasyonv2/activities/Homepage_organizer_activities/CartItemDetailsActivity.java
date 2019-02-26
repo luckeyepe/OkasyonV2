@@ -10,7 +10,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.morkince.okasyonv2.R;
-import com.example.morkince.okasyonv2.activities.model.Cart_Item;
+import com.example.morkince.okasyonv2.activities.model.CartItem;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +26,7 @@ Button saveitem;
 ToggleButton CartItemDetailstogglebutton;
 TextView Itemprice,  ItemName,  ItemDetails;
 EditText Itemquantity, ItemDatefrom, ItemDateto;
-    Cart_Item cartitem;
+    CartItem cartitem;
     Item cartdesc;
     FirebaseUser item;
     FirebaseFirestore db;
@@ -79,7 +79,7 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        cartitem=document.toObject(Cart_Item.class);
+                        cartitem=document.toObject(CartItem.class);
                         ItemName.setText(cartitem.getcart_item_name());
                         Itemprice.setText(cartitem.getcart_item_order_cost()+"");
                         Itemquantity.setText(cartitem.getCart_item_item_count() + "");
