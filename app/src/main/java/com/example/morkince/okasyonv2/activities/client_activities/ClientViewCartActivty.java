@@ -66,12 +66,15 @@ public class ClientViewCartActivty extends AppCompatActivity {
              String buffer="";
                 for(Cart_Item item : adapter.checkedItem)
                 {
-                    buffer+=item.getCart_item_id() + " ";
-                    buffer+=item.getCart_item_group_uid() + " ";
+//                    buffer+=item.getCart_item_id() + " ";
+//                    buffer+=item.getCart_item_group_uid() + " ";
+                    FirebaseFirestore.getInstance()
+                            .collection("Cart_Items")
+                            .document(item.getCart_item_group_uid())
+                            .collection("cart_items")
+                            .document(item.getCart_item_id())
+                            .update("cart_item_in_transaction", true);
                 }
-
-                Toast.makeText(getApplicationContext(), buffer,
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
