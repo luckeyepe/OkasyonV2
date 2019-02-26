@@ -262,7 +262,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 final RatingBar ratingBar = view.findViewById(R.id.ratingBar_filterrating);
                 final RadioGroup Radiogroup_forRentorSale = view.findViewById(R.id.Radiogroup_forRentorSale);
 
-                saveFilterButton.setOnClickListener(new View.OnClickListener() {
+                saveFilterButton.setOnClickListener(    new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         boolean isForSale;

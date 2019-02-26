@@ -1,5 +1,7 @@
 package com.example.morkince.okasyonv2.activities.model;
 
+import androidx.constraintlayout.solver.widgets.Snapshot;
+
 public class CartItem {
     String cart_item_name;
     Double cart_item_order_cost;
@@ -9,6 +11,15 @@ public class CartItem {
     String cart_item_rent_end_date;
     String cart_item_rent_start_date;
     String cart_item_event_uid;
+
+    public String getCart_item_id() {
+        return cart_item_id;
+    }
+
+    public void setCart_item_id(String cart_item_id) {
+        this.cart_item_id = cart_item_id;
+    }
+
     String cart_item_id;
     String cart_item_status;
     String cart_item_item_uid;
@@ -116,13 +127,7 @@ public class CartItem {
         this.cart_item_event_uid = cart_item_event_uid;
     }
 
-    public String getCart_item_id() {
-        return cart_item_id;
-    }
 
-    public void setCart_item_id(String cart_item_id) {
-        this.cart_item_id = cart_item_id;
-    }
 
     public String getCart_item_status() {
         return cart_item_status;

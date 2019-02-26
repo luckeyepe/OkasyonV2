@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
@@ -18,7 +18,8 @@ import com.example.morkince.okasyonv2.activities.model.CartItem;
 import java.util.ArrayList;
 
 public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapter.ViewHolder>{
-    private ArrayList<CartItem> cartitem;
+    public ArrayList<CartItem> cartitem;
+    public  ArrayList<CartItem> checkedItem=new ArrayList<>();
     private Context mContext;
     //  private StorageReference mStorageRef;
 
@@ -34,13 +35,28 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
         ViewCartItemAdapter.ViewHolder holder = new ViewCartItemAdapter.ViewHolder(view, mContext,cartitem);
         return holder;
     }
-
+//public void deleteItem(int position){
+//
+//}
     @Override
     public void onBindViewHolder(final ViewCartItemAdapter.ViewHolder holder, final int position) {
 
         holder.CartproductName2.setText(cartitem.get(position).getcart_item_name());
         holder.Price2.setText(cartitem.get(position).getcart_item_order_cost() + "");
         holder.Productrate2.setRating(cartitem.get(position).getcart_item_Rating());
+holder.setItemClickListener(new ItemClickListener() {
+    @Override
+    public void onItemClick(View v, int pos) {
+        CheckBox chk= (CheckBox) v;
+        if(chk.isChecked())
+        {
+        checkedItem.add(cartitem.get(pos));
+        }else if(!chk.isChecked()){
+        checkedItem.remove (cartitem.get(pos));
+        }
+    }
+});
+        //dari kiri
 
 
     }
@@ -51,14 +67,14 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
-
         TextView CartproductName2;
         TextView Price2;
         RatingBar Productrate2;
+        CheckBox chk;
         ConstraintLayout parentLayout2;
         private ArrayList<CartItem> cartitem;
         private Context mContext;
-
+        ItemClickListener itemClickListener;
         public ViewHolder(View itemView,Context mContext, ArrayList<CartItem> cartitem) {
             super(itemView);
             this.cartitem = cartitem;
@@ -68,6 +84,8 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
             Price2 = itemView.findViewById(R.id.textView_ItemPrice2);
             Productrate2 = itemView.findViewById(R.id.ratingBar_storeRate);
             parentLayout2 = itemView.findViewById(R.id.ParentLayout);
+            chk=(CheckBox) itemView.findViewById(R.id.checkBox_itemtoelacetoorder);
+            chk.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
@@ -77,6 +95,12 @@ public class ViewCartItemAdapter extends RecyclerView.Adapter<ViewCartItemAdapte
             intent.putExtra("Cart_item_group_id",cartitem.get(position).getCart_item_group_uid());
             intent.putExtra("Cart_item_item_id",cartitem.get(position).getCart_item_item_uid());
             this.mContext.startActivity(intent);
+            this.itemClickListener.onItemClick(view,getLayoutPosition());
         }
+        public void setItemClickListener(ItemClickListener ic)
+        {
+            this.itemClickListener=ic;
+        }
+
     }
 }
