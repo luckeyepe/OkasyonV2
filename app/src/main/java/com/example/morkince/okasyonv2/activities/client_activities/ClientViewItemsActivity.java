@@ -209,7 +209,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                final Custom_Progress_Dialog custom_progress_dialog1 = new Custom_Progress_Dialog(getApplicationContext());
+                final Custom_Progress_Dialog custom_progress_dialog1 = new Custom_Progress_Dialog(ClientViewItemsActivity.this);
                 custom_progress_dialog1.showDialog("LOADING", "Grabbing searched items");
 //                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 // Do your task here
@@ -349,7 +349,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         groupieAdapter.clear();
                         dialog.dismiss();
 
-                        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getApplicationContext());
+                        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(ClientViewItemsActivity.this);
                         custom_progress_dialog.showDialog("LOADING", "Grabbing filtered items");
 
                         CallableFunctions callableFunctions = new CallableFunctions();
@@ -360,7 +360,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             ArrayList<String> itemUid = task.getResult();
 
-                                            Toast.makeText(getApplicationContext(),"Filter Items "+itemUid.toString(), Toast.LENGTH_SHORT);
+                                            Toast.makeText(ClientViewItemsActivity.this,"Filter Items "+itemUid.toString(), Toast.LENGTH_SHORT);
 
                                             if (itemUid.size() == 0){
                                                 textViewMessage.setVisibility(View.VISIBLE);

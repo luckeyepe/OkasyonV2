@@ -28,4 +28,13 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:fontFamily="serif-monospace" android:textStyle="bold"
             android:textSize="24sp" android:id="@+id/btn_PlaceOrder"/>
+    <TextView
+            android:text="Empty Cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView_CartViewItemsNoMesage"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_PlaceOrder" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:textSize="18sp" android:visibility="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

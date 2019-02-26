@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewCartItemAdapter;
@@ -19,11 +20,10 @@ import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ClientViewCartActivty extends AppCompatActivity {
@@ -38,6 +38,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
     CheckBox checkItem;
     TextView ItemName, ItemPrice;
     String user_id;
+    TextView textView_CartViewItemsNoMesage;
 
     RecyclerView recyclerView,recyclerView2;
     int size = 0;
@@ -56,13 +57,11 @@ public class ClientViewCartActivty extends AppCompatActivity {
         Intent intent = getIntent();
         cart_group_uid = intent.getStringExtra("event_cart_group_uid");
         Cart_item_id = intent.getStringExtra("cart_item_id");
-        adapter= new ViewCartItemAdapter(getCartItems(),this);
+        adapter = new ViewCartItemAdapter(getCartItems(),this);
       //  Log.e("NAKUHA NAKO", adapter.)
         PlaceOrderbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
              String buffer="";
                 for(Cart_Item item : adapter.checkedItem)
@@ -70,10 +69,12 @@ public class ClientViewCartActivty extends AppCompatActivity {
                     buffer+=item.getCart_item_id() + " ";
                     buffer+=item.getCart_item_group_uid() + " ";
                 }
+
                 Toast.makeText(getApplicationContext(), buffer,
                         Toast.LENGTH_SHORT).show();
             }
         });
+
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -121,14 +122,31 @@ public class ClientViewCartActivty extends AppCompatActivity {
         final ArrayList<Cart_Item> cartitem = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
 
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
+        custom_progress_dialog.showDialog("LOADING", "Grabbing items from your cart");
+
         db.collection("Cart_Items")
                 .document(cart_group_uid)
-                .collection("cart_items").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .collection("cart_items")
+                .whereEqualTo("cart_item_in_transaction", false)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.e("View Cart", e.toString());
+                            return;
+                        }
+
+                        if (queryDocumentSnapshots != null && queryDocumentSnapshots.size()>0) {
+                            //clear the list
+                            textView_CartViewItemsNoMesage.setVisibility(View.INVISIBLE);
+                            cartitem.clear();
+                            adapter = new ViewCartItemAdapter(cartitem, ClientViewCartActivty.this);
+                            recyclerView.addItemDecoration(new DividerItemDecoration(ClientViewCartActivty.this, LinearLayoutManager.HORIZONTAL));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(ClientViewCartActivty.this));
+                            recyclerView.setAdapter(adapter);
+
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
                                 Cart_Item Item = document.toObject(Cart_Item.class);
                                 Log.e("Item THIS",  "" + Item.getcart_item_name()  + " lALAA");
@@ -144,20 +162,63 @@ public class ClientViewCartActivty extends AppCompatActivity {
                             {
                                 Toast.makeText(getApplicationContext(), "NO RECORDS TO SHOW",
                                         Toast.LENGTH_SHORT).show();
+                                custom_progress_dialog.dissmissDialog();
                             }
                             else {
-                               adapter = new ViewCartItemAdapter(cartitem, ClientViewCartActivty.this);
+                                adapter = new ViewCartItemAdapter(cartitem, ClientViewCartActivty.this);
                                 recyclerView.addItemDecoration(new DividerItemDecoration(ClientViewCartActivty.this, LinearLayoutManager.HORIZONTAL));
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ClientViewCartActivty.this));
                                 recyclerView.setAdapter(adapter);
+                                custom_progress_dialog.dissmissDialog();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Error in Retrieving Records!!",
-                                    Toast.LENGTH_SHORT).show();
+                            //clear the list
+                            cartitem.clear();
+                            adapter = new ViewCartItemAdapter(cartitem, ClientViewCartActivty.this);
+                            recyclerView.addItemDecoration(new DividerItemDecoration(ClientViewCartActivty.this, LinearLayoutManager.HORIZONTAL));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(ClientViewCartActivty.this));
+                            recyclerView.setAdapter(adapter);
+                            custom_progress_dialog.dissmissDialog();
+                            textView_CartViewItemsNoMesage.setVisibility(View.VISIBLE);
                         }
-
                     }
                 });
+
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
+//                                Cart_Item Item = document.toObject(Cart_Item.class);
+//                                Log.e("Item THIS",  "" + Item.getcart_item_name()  + " lALAA");
+//                                Log.e("Item THIS",  "" + Item.getcart_item_Rating() + " lALAA");
+//                                Log.e("Item THIS",  "" + Item.getcart_item_order_cost() + " lALAA");
+//                                cartitem.add(Item);
+//                                //recipes =task.getDocuments().get(0).toObject(questionObject.class);
+//                            }
+//
+//                            Log.d("RECIPES!", cartitem.toString());
+//
+//                            if(cartitem.isEmpty())
+//                            {
+//                                Toast.makeText(getApplicationContext(), "NO RECORDS TO SHOW",
+//                                        Toast.LENGTH_SHORT).show();
+//                            }
+//                            else {
+//                               adapter = new ViewCartItemAdapter(cartitem, ClientViewCartActivty.this);
+//                                recyclerView.addItemDecoration(new DividerItemDecoration(ClientViewCartActivty.this, LinearLayoutManager.HORIZONTAL));
+//                                recyclerView.setLayoutManager(new LinearLayoutManager(ClientViewCartActivty.this));
+//                                recyclerView.setAdapter(adapter);
+//                            }
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "Error in Retrieving Records!!",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//                });
 
         return  cartitem;
     }
@@ -180,6 +241,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
         ItemPrice = findViewById(R.id.textView_ItemName3);
         recyclerView = findViewById(R.id.RecyclerView_CartViewItems_Client);
         PlaceOrderbtn =findViewById(R.id.btn_PlaceOrder);
+        textView_CartViewItemsNoMesage = findViewById(R.id.textView_CartViewItemsNoMesage);
 //        checkItem = findViewById(R.id.checkBox_itemtoelacetoorder);
     }
 }
