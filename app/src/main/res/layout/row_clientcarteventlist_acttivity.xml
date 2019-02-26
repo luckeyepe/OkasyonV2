@@ -27,7 +27,7 @@
                         android:layout_height="match_parent"
                         android:text="Name of The Event"
                         android:textStyle="bold"
-                        android:textSize="16dp"
+                        android:textSize="30sp"
                         android:textColor="#ffffff"
                         android:fontFamily="serif"
                 />

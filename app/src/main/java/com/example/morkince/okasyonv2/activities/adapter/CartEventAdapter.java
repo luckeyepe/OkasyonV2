@@ -151,6 +151,7 @@ public class CartEventAdapter extends RecyclerView.Adapter<CartEventAdapter.View
                 intent.putExtra("event_category_id", events.get(position).getEvent_category_id());
                 intent.putExtra("event_cart_group_uid", events.get(position).getEvent_cart_group_uid());
 
+
                 mContext.startActivity(intent);
             } else {
 //                Intent intent = new Intent(mContext, FoundEventDetailsActivity.class);
