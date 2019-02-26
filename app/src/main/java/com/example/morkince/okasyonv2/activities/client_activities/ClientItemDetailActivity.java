@@ -633,7 +633,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 //import androidx.recyclerview.widget.RecyclerView;
 //import com.example.morkince.okasyonv2.*;
 //import com.example.morkince.okasyonv2.R;
-//import com.example.morkince.okasyonv2.activities.model.CartItem;
+//import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 //import com.example.morkince.okasyonv2.activities.model.Item;
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;

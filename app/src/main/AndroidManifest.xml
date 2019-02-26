@@ -190,6 +190,12 @@
         <activity android:name=".testingImageSlider">
         </activity>
 
+        <activity android:name=".GetNearbyPlaces">
+        </activity>
+
+        <activity android:name=".ShowNearbyPlaces">
+        </activity>
+
         <service android:name=".activities.firebase_token_class.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

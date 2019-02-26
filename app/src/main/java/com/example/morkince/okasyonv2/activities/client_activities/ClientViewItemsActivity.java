@@ -2,6 +2,7 @@ package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
+import com.example.morkince.okasyonv2.GetNearbyPlaces;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
+import com.example.morkince.okasyonv2.activities.PlaceHolderActivity;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
 import com.example.morkince.okasyonv2.activities.model.Store;
 import com.example.morkince.okasyonv2.activities.view_holders.BasicItemViewHolder;
@@ -50,9 +53,11 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     private GroupAdapter groupieAdapter = new GroupAdapter<ViewHolder>();
     private String event_event_uid;
     private String event_cart_group_uid;
+    private String location = "";
     EditText txtBudget;
     EditText txtStorename;
     EditText txtLocation;
+    Button nearbyPlaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,22 @@ public class ClientViewItemsActivity extends AppCompatActivity {
         mFunctions = FirebaseFunctions.getInstance();
 
         loadAllItemsInItemCategory(itemCategory);
+
+        nearbyPlaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String category = "";
+                if (itemCategory.contains("_")) {
+                    category = itemCategory.replace("_","&");
+                }else {
+                    category = itemCategory;
+                }
+                Intent intent = new Intent(getApplicationContext(), GetNearbyPlaces.class);
+                intent.putExtra("item_category", itemCategory);
+                intent.putExtra("location", location);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadAllItemsInItemCategory(String itemCategory) {
@@ -310,7 +331,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         int itemScore = Math.round(ratingBar.getRating());
                         String storeName = txtStorename.getText().toString().trim().isEmpty() ? "" : txtStorename.getText().toString().trim();
                         Double budget = txtBudget.getText().toString().trim().isEmpty() ? -1 : Double.valueOf(txtBudget.getText().toString().trim());
-                        String location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.getText().toString().trim();
+                        location = txtLocation.toString().trim().isEmpty() ? "" :txtLocation.getText().toString().trim();
 
                         int idOfChecked = Radiogroup_forRentorSale.getCheckedRadioButtonId();
 
@@ -414,6 +435,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.RecyclerView_ClientViewItems);
         textViewMessage = findViewById(R.id.textView_clientViewItemsNoItem);
+        nearbyPlaces = findViewById(R.id.button_clientViewItemsNearbyPlaces);
     }
 
     private Task<ArrayList<String>> getRelatedItems(String itemCategory) {

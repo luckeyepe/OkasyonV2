@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewCartItemAdapter;
-import com.example.morkince.okasyonv2.activities.model.CartItem;
+import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ClientViewCartActivty extends AppCompatActivity {
     FirebaseFirestore db;
     private StorageReference mStorageRef;
-   /* private ArrayList<CartItem> cartitem = new ArrayList<>();*/
+   /* private ArrayList<Cart_Item> cartitem = new ArrayList<>();*/
     CartEventAdapter adapterEvent;
     ViewCartItemAdapter adapter;
     FirebaseUser Cartitems;
@@ -65,7 +65,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
 
 
              String buffer="";
-                for(CartItem item : adapter.checkedItem)
+                for(Cart_Item item : adapter.checkedItem)
                 {
                     buffer+=item.getCart_item_id() + " ";
                     buffer+=item.getCart_item_group_uid() + " ";
@@ -117,8 +117,8 @@ public class ClientViewCartActivty extends AppCompatActivity {
 
     }
 
-    private ArrayList<CartItem> getCartItems() {
-        final ArrayList<CartItem> cartitem = new ArrayList<>();
+    private ArrayList<Cart_Item> getCartItems() {
+        final ArrayList<Cart_Item> cartitem = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
 
         db.collection("Cart_Items")
@@ -130,7 +130,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.e("THIS IS THE DATA", document.getId() + " => " + document.getData());
-                                CartItem Item = document.toObject(CartItem.class);
+                                Cart_Item Item = document.toObject(Cart_Item.class);
                                 Log.e("Item THIS",  "" + Item.getcart_item_name()  + " lALAA");
                                 Log.e("Item THIS",  "" + Item.getcart_item_Rating() + " lALAA");
                                 Log.e("Item THIS",  "" + Item.getcart_item_order_cost() + " lALAA");
@@ -163,8 +163,8 @@ public class ClientViewCartActivty extends AppCompatActivity {
     }
 
 
-//    private ArrayList<CartItem> getCartItem() {
-//       final  ArrayList<CartItem> cartitem= new ArrayList<>();
+//    private ArrayList<Cart_Item> getCartItem() {
+//       final  ArrayList<Cart_Item> cartitem= new ArrayList<>();
 //        Intent intent = getIntent();
 //        cart_group_uid = intent.getStringExtra("event_cart_group_uid");
 //        Cart_item_id = intent.getStringExtra("cart_Item_id");
