@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity
 import com.example.morkince.okasyonv2.activities.signup_supplier_activities.SignUpSupplierPart2Activity
 import com.google.android.gms.tasks.Task
@@ -25,6 +27,10 @@ class SignUpUserPart1Activity : AppCompatActivity() {
         textView_signupUserPart1UserType.text = "$user_role".toUpperCase()
 
         imagebutton_signupClientPart1Next.setOnClickListener {
+
+            val custom_Progress_Dialog = Custom_Progress_Dialog(this);
+            val randomMainActivity = RandomMessages()
+            custom_Progress_Dialog.showDialog("Loading", randomMainActivity.getRandomMessage())
 
             if(isCompleteData()) {
                 if (isValidPassword()) {
@@ -51,12 +57,14 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                                 intent.putExtra("user_role", user_role)
                                 // start your next activity
                                 startActivity(intent)
+                                custom_Progress_Dialog.dissmissDialog()
 
                                 //add animation
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
                             }else{
                                 Log.d("Emails", result.toString())
                                 //todo popup error email taken
+                                custom_Progress_Dialog.dissmissDialog()
                                 var alertDialog = AlertDialog.Builder(this)
                                 alertDialog.setMessage("Your email is already taken")
                                 alertDialog.setTitle("EMAIL TAKEN")
@@ -65,10 +73,12 @@ class SignUpUserPart1Activity : AppCompatActivity() {
 
                         }else{
                             //todo firebase auth error
+                            custom_Progress_Dialog.dissmissDialog()
                         }
                     }
                 }
             }else{
+                custom_Progress_Dialog.dissmissDialog()
                 //todo popup error that datafields are not full
                 var alertDialog = AlertDialog.Builder(this)
                 alertDialog.setMessage("Please enter all user details")
