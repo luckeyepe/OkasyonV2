@@ -19,9 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy;
 import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.example.morkince.okasyonv2.activities.model.Cartv1;
 import com.example.morkince.okasyonv2.activities.model.Item;
+import com.example.morkince.okasyonv2.activities.model.User;
 import com.example.morkince.okasyonv2.testingphase.ItemImagesModel;
 import com.example.morkince.okasyonv2.testingphase.ItemImagesRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,11 +36,11 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
+import javax.annotation.Nullable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +53,11 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     String cart_group_uid;
     String cartItem_item_id;
     BottomNavigationView bottomNavigationView;
-    TextView textView_ActivityClientFindItemNameofTheItem,textView_ActivityClientFindItemPriceofTheItem,textView_ActivityClientFindItemDetails,ClientItemDetail_reviewsTextView;
+    TextView textView_ActivityClientFindItemNameofTheItem,
+            textView_ActivityClientFindItemPriceofTheItem,
+            textView_ActivityClientFindItemDetails,
+            ClientItemDetail_reviewsTextView,
+            textView_clientItemDetailActivityStoreName;
     RatingBar ratingBar_ActivityClientFindItemRating;
     RecyclerView recyclerView_ActivityClientFindItemRecyclerViewReviews,recyclerView_ActivityClientFindItemRecyclerViewImages;
     ToggleButton toggleButton_ActivityClientFindItemToggleForRentAndSale;
@@ -62,7 +68,6 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     ImageGenerator imageGenerator;
     FirebaseUser user;
     FirebaseFirestore db;
-    Button clientItemDetails_visitStoreBtn;
 
     ItemImagesRecyclerAdapter adapterForItemImages;
     int inCounter=1;
@@ -90,7 +95,6 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         loadItemImages();
         imageGenerator = new ImageGenerator(this);
 
-
         imageGenerator.setIconSize(50, 50);
         imageGenerator.setDateSize(30);
         imageGenerator.setMonthSize(15);
@@ -104,8 +108,36 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         imageGenerator.setStorageToSDCard(true);
         bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
-        clientItemDetails_visitStoreBtn.setOnClickListener(visitStore);
+//        clientItemDetails_visitStoreBtn.setOnClickListener(visitStore);
+        textView_clientItemDetailActivityStoreName.setOnClickListener(visitStore);
+
+        ClientItemDetail_reviewsTextView.setOnClickListener(goToReviews);
+
         recyclerView_ActivityClientFindItemRecyclerViewImages.setHasFixedSize(true);
+    }
+
+    public View.OnClickListener goToReviews = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //start activity that show reviews
+        }
+    };
+
+
+    private void getStoreName(String store_uid) {
+        FirebaseFirestore.getInstance()
+                .collection("Store")
+                .document(store_uid)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (e!=null){
+                            return;
+                        }
+
+                        textView_clientItemDetailActivityStoreName.setText(documentSnapshot.get("store_store_name").toString());
+                    }
+                });
     }
 
 
@@ -169,7 +201,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
 
-                ClientItemDetail_reviewsTextView.setText("REVIEWS(" + reviews.size() + ")");
+                ClientItemDetail_reviewsTextView.setText("VIEW REVIEWS(" + reviews.size() + ")");
             }
         });
     }
@@ -197,6 +229,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
                                 store_uid=itemDetails.getItem_store_id();
 
+                                getStoreName(store_uid);
+
                                 custom_progress_dialog.dissmissDialog();
 
                             } else {
@@ -222,7 +256,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         toggleButton_ActivityClientFindItemToggleForRentAndSale =findViewById(R.id.toggleButton_ActivityClientFindItemToggleForRentAndSale);
         recyclerView_ActivityClientFindItemRecyclerViewImages =findViewById(R.id.recyclerView_ActivityClientFindItemRecyclerViewImages);
         ClientItemDetail_reviewsTextView =findViewById(R.id.ClientItemDetail_reviewsTextView);
-        clientItemDetails_visitStoreBtn =findViewById(R.id.clientItemDetails_visitStoreBtn);
+        textView_clientItemDetailActivityStoreName = findViewById(R.id.textView_clientItemDetailActivityStoreName);
     }
 
 
@@ -557,7 +591,72 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                     }
                     else if (id == R.id.navigation_message_now)
                     {
-                        Toast.makeText(getApplicationContext(),"Message Now",Toast.LENGTH_SHORT).show();
+                        //get store id
+                        //get supplier id
+                        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(ClientItemDetailActivity.this);
+                        RandomMessages randomMessages = new RandomMessages();
+                        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
+
+                        FirebaseFirestore.getInstance()
+                                .collection("Store")
+                                .document(store_uid)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        final String ownerUid = documentSnapshot.get("store_owner_id").toString();
+
+                                        FirebaseFirestore.getInstance()
+                                                .collection("User")
+                                                .document(currentUserUid)
+                                                .get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        final User sendingUser = documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User.class);
+
+                                                        FirebaseFirestore.getInstance()
+                                                                .collection("User")
+                                                                .document(ownerUid)
+                                                                .get()
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                        User receivingUser = documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User.class);
+
+                                                                        Intent intent = new Intent(ClientItemDetailActivity.this, ChatLogActivitiy.class);
+                                                                        intent.putExtra("sendingUser", sendingUser);
+                                                                        intent.putExtra("receivingUser", receivingUser);
+                                                                        startActivity(intent);
+
+                                                                        custom_progress_dialog.dissmissDialog();
+                                                                        finish();
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        custom_progress_dialog.dissmissDialog();
+                                                                    }
+                                                                });
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        custom_progress_dialog.dissmissDialog();
+                                                    }
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        custom_progress_dialog.dissmissDialog();
+                                        Toast.makeText(ClientItemDetailActivity.this, "Coudn't Reach the Dude", Toast.LENGTH_LONG);
+                                    }
+                                });
+                        //open chat log
                     }
                     return true;
                 }
