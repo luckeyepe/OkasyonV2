@@ -60,7 +60,8 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpUserPart2Activity">
+        <activity android:name=".activities.signup_client_activities.SignUpUserPart2Activity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserSummaryActivity">
         </activity>

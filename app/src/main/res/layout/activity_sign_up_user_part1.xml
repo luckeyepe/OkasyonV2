@@ -85,10 +85,9 @@
 
     <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="347dp"
+            android:layout_width="0dp"
             android:layout_height="226dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/img_okasyon_logo"/>
@@ -135,10 +134,10 @@
     <ImageView
             android:id="@+id/imageView3"
             android:layout_width="149dp"
-            android:layout_height="127dp"
+            android:layout_height="43dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/breadcrumbs"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="184dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.502"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_homepageSupplier"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
