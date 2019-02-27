@@ -108,7 +108,7 @@ import java.text.DecimalFormat
                 var spentBudgetDifference = eventSetBudget!! - eventSpentBudget!!
                 if(spentBudgetDifference>=0){
                     if(spentBudgetDifference == 0.0){
-                        textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.INVISIBLE
+                        textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.GONE
                     }else {
                         textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.VISIBLE
                         textView_ActivityClientSetThePreferenceSummaryMessage.text =
@@ -127,7 +127,7 @@ import java.text.DecimalFormat
                     textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.text = "Your current budget is P${setBudgetDifference*-1} more than the set budget"
                     textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.setTextColor(Color.RED)
                 }else{
-                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.visibility = View.INVISIBLE
+                    textView_ActivityClientSetThePreferenceSummaryOverBudgetMassage.visibility = View.GONE
                 }
             }
 //            .get()

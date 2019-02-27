@@ -48,11 +48,11 @@ import java.util.Locale;
 public class EventDetailsActivity extends AppCompatActivity {
     ImageView editDetails, calendarHandler,imageView_eventdetailsImage;
     TextView eventDetails_setNumAttendeesTextView,numberofInterestedAttendees,numberofInterestedSponsors,textView_numberofEventsInterestedAttendees,textView_numberofEventsInterestedSponsor;
-    Button buttonSave,foundEventDetails_browseItemsButton;
+    Button buttonSave,foundEventDetails_browseItemsButton, buttonCancel;
     String event_id;
     String cart_group;
     Events event;
-    EditText nameofEvent,dateofevent,addressofevent,descpitionofevent,detailsofevent;
+    EditText nameofEvent, dateofevent, addressofevent, descpitionofevent, detailsofevent;
 
 
     Calendar currentDate;
@@ -65,6 +65,11 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 100;
     private Uri filePath=null;
+    private String eventName;
+    private String eventAddress;
+    private String eventDescription;
+    private String eventDetails;
+    private String eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,16 +84,21 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         getEventDetails();
 
-
         calendarHandler.setEnabled(false);
         editDetails.setOnClickListener(edittheDetails);
+
         buttonSave.setOnClickListener(saveUpdatedData);
+
+        buttonCancel.setOnClickListener(cancelEdit);
+
         foundEventDetails_browseItemsButton.setOnClickListener(browseItems);
+
         calendarHandler.setOnClickListener(calendarHandlerDetails);
+        dateofevent.setOnClickListener(calendarHandlerDetails);
+
         imageView_eventdetailsImage.setOnClickListener(pickEventImage);
 
         imageGenerator = new ImageGenerator(this);
-
 
         imageGenerator.setIconSize(50, 50);
         imageGenerator.setDateSize(30);
@@ -214,6 +224,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 }else {
                     custom_progress_dialog.dissmissDialog();
                 }
+                custom_progress_dialog.dissmissDialog();
             }
         });
 //        db = FirebaseFirestore.getInstance();
@@ -420,7 +431,31 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             enable(true);
             buttonSave.setVisibility(View.VISIBLE);
+            buttonCancel.setVisibility(View.VISIBLE);
             editDetails.setVisibility(View.INVISIBLE);
+
+            eventName = nameofEvent.getText().toString();
+            eventAddress = addressofevent.getText().toString();
+            eventDescription = descpitionofevent.getText().toString();
+            eventDetails = detailsofevent.getText().toString();
+            eventDate=dateofevent.getText().toString();
+        }
+    };
+
+    public View.OnClickListener cancelEdit = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            enable(false);
+            buttonSave.setVisibility(View.INVISIBLE);
+            buttonCancel.setVisibility(View.INVISIBLE);
+            editDetails.setVisibility(View.VISIBLE);
+
+            nameofEvent.setText(eventName);
+            addressofevent.setText(eventAddress);
+            descpitionofevent.setText(eventDescription);
+            detailsofevent.setText(eventDetails);
+            dateofevent.setText(eventDate);
         }
     };
 
@@ -438,34 +473,46 @@ public class EventDetailsActivity extends AppCompatActivity {
     public View.OnClickListener saveUpdatedData = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(EventDetailsActivity.this);
+            RandomMessages randomMessages = new RandomMessages();
+            custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
+
             enable(false);
             buttonSave.setVisibility(View.INVISIBLE);
+            buttonCancel.setVisibility(View.INVISIBLE);
             editDetails.setVisibility(View.VISIBLE);
+
             String eventName = nameofEvent.getText().toString();
             String eventAddress = addressofevent.getText().toString();
             String eventDescription = descpitionofevent.getText().toString();
             String eventDetails = detailsofevent.getText().toString();
             String eventDate=dateofevent.getText().toString();
 
+
             if(eventName.isEmpty())
             {
                 nameofEvent.setError("Please Enter Name of Event");
+                custom_progress_dialog.dissmissDialog();
             }
             else if(eventAddress.isEmpty())
             {
                 addressofevent.setError("Please Enter Address of Event");
+                custom_progress_dialog.dissmissDialog();
             }
             else if(eventDescription.isEmpty())
             {
                 descpitionofevent.setError("Please Enter Description of Event");
+                custom_progress_dialog.dissmissDialog();
             }
             else if(eventDetails.isEmpty())
             {
                 detailsofevent.setError("Please Enter Details of Event");
+                custom_progress_dialog.dissmissDialog();
             }
             else if(eventDate.isEmpty())
             {
                 dateofevent.setText("Please Enter Date of Event");
+                custom_progress_dialog.dissmissDialog();
             }
             {
                 Long tsLong = System.currentTimeMillis()/1000;
@@ -483,10 +530,21 @@ public class EventDetailsActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+//                                eventName = nameofEvent.getText().toString();
+//                                eventAddress = addressofevent.getText().toString();
+//                                eventDescription = descpitionofevent.getText().toString();
+//                                eventDetails = detailsofevent.getText().toString();
+//                                eventDate=dateofevent.getText().toString();
+                                custom_progress_dialog.dissmissDialog();
                                 showAlert("Successfully Updated Data", "SUCCESS!");
                             }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                custom_progress_dialog.dissmissDialog();
+                            }
                         });
-
             }
 
 
@@ -528,6 +586,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         editDetails = findViewById(R.id.imageView_eventdetailsEdit);
         calendarHandler = findViewById(R.id.eventDetails_imageView_calendar);
         buttonSave = findViewById(R.id.Button_saveEditEvent);
+        buttonCancel = findViewById(R.id.button_eventDetailsCancel);
         numberofInterestedAttendees = findViewById(R.id.textView_numberofEventsInterestedAttendees);
         numberofInterestedSponsors = findViewById(R.id.textView_numberofEventsInterestedSponsor);
         imageView_eventdetailsImage = findViewById(R.id.imageView_eventdetailsImage);
