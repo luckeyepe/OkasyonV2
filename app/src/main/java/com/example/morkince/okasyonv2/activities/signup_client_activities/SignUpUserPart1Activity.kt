@@ -28,12 +28,12 @@ class SignUpUserPart1Activity : AppCompatActivity() {
 
         imagebutton_signupClientPart1Next.setOnClickListener {
 
-            val custom_Progress_Dialog = Custom_Progress_Dialog(this);
-            val randomMainActivity = RandomMessages()
-            custom_Progress_Dialog.showDialog("Loading", randomMainActivity.getRandomMessage())
-
             if(isCompleteData()) {
                 if (isValidPassword()) {
+                    val custom_Progress_Dialog = Custom_Progress_Dialog(this);
+                    val randomMainActivity = RandomMessages()
+                    custom_Progress_Dialog.showDialog("Loading", randomMainActivity.getRandomMessage())
+
                     var email = textInputEdittext_signupClientpart1EmailAddress.text.toString().trim()
                     var password =
                         textInputEdittext_signupClientPart1Password.text.toString().trim()
@@ -78,7 +78,6 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                     }
                 }
             }else{
-                custom_Progress_Dialog.dissmissDialog()
                 //todo popup error that datafields are not full
                 var alertDialog = AlertDialog.Builder(this)
                 alertDialog.setMessage("Please enter all user details")

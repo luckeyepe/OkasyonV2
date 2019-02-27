@@ -24,7 +24,6 @@ class SignUpSupplierPart2Activity : AppCompatActivity() {
 
         Log.d(TAG, "User Email $user_email, and Password $user_password")
 
-        supportActionBar!!.hide()
         imageButton_SignUpSupplierPart2Before.setOnClickListener()
         {
             onBackPressed()
