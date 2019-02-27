@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewCartItemAdapter;
 import com.example.morkince.okasyonv2.activities.model.Cart_Item;
@@ -125,8 +126,9 @@ public class ClientViewCartActivty extends AppCompatActivity {
         final ArrayList<Cart_Item> cartitem = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
 
+        RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
-        custom_progress_dialog.showDialog("LOADING", "Grabbing items from your cart");
+        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
         db.collection("Cart_Items")
                 .document(cart_group_uid)

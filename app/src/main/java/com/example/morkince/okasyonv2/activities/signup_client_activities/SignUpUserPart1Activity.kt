@@ -114,7 +114,7 @@ class SignUpUserPart1Activity : AppCompatActivity() {
         if(isStringContainNumber(password)){
             if(isStringContainUpperCase(password)){
                 if(isStringContainLowerCase(password)){
-                    if(isStringContainSpecialCharacter(password)){
+//                    if(isStringContainSpecialCharacter(password)){
                         if(password.length >=8){
                             if (password == password2){
                                 return true
@@ -124,7 +124,7 @@ class SignUpUserPart1Activity : AppCompatActivity() {
                                 alertDialog.setMessage("Please make sure you have matching passwords")
                                 alertDialog.setTitle("PASSWORD MISMATCH")
                                 alertDialog.show()
-                            }
+//                            }
                         }
                     }
                 }

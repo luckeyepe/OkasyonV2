@@ -10,19 +10,23 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.view.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.View;
 import android.widget.*;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,9 +36,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class Client_Create_Event extends AppCompatActivity {
@@ -48,12 +56,14 @@ public class Client_Create_Event extends AppCompatActivity {
     FirebaseUser user;
     FirebaseFirestore db;
     private Uri filePath=null;
-    private static final int PICK_IMAGE = 100;
+    private static final int PICK_CAMERA = 0;
+    private static final int PICK_IMAGE = 1;
 
 
     Calendar currentDate;
     Bitmap generatedateIcon;
     ImageGenerator imageGenerator;
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,31 +110,116 @@ public class Client_Create_Event extends AppCompatActivity {
     private View.OnClickListener chooseImage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            openGallery();
+            View layout = LayoutInflater.from(Client_Create_Event.this).inflate(R.layout.modal_camera_or_gallery, null);
+            final Dialog dialog = new Dialog(Client_Create_Event.this);
+            dialog.setContentView(layout);
+            dialog.show();
+            Window window = dialog.getWindow();
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            wlp.gravity = Gravity.CENTER;
+            window.setAttributes(wlp);
+            window.setAttributes(wlp);
+            Button button_cameroOrGalleryModalCamera = layout.findViewById(R.id.button_cameroOrGalleryModalCamera);
+            Button button_cameroOrGalleryModalGallery = layout.findViewById(R.id.button_cameroOrGalleryModalGallery);
+
+            button_cameroOrGalleryModalCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCamera();
+                    dialog.dismiss();
+                }
+            });
+
+            button_cameroOrGalleryModalGallery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openGallery();
+                    dialog.dismiss();
+                }
+            });
+
+
         }
     };
+
     public void openGallery()
     {
         Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery,PICK_IMAGE);
     }
 
+    public void openCamera()
+    {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, PICK_CAMERA);
+//        }
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.i("", "IOException");
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                startActivityForResult(cameraIntent, PICK_CAMERA);
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
-                && data != null && data.getData() != null ) {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                clientCreateEvent_ImageView.setImageBitmap(bitmap);
 
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+        switch (requestCode) {
+            case PICK_CAMERA:
+                if (resultCode == RESULT_OK) {
+                    Bitmap imageBitmap;
+
+                    try {
+                        imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(mCurrentPhotoPath));
+                        clientCreateEvent_ImageView.setImageBitmap(imageBitmap);
+                        filePath = Uri.parse(mCurrentPhotoPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+//                    Bitmap bitmap;
+//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+//                        Picasso.get().load(filePath).into(clientCreateEvent_ImageView);
+//                    clientCreateEvent_ImageView.setImageBitmap(bitmap);
+                }
+
+                break;
+            case PICK_IMAGE:
+                if (resultCode == RESULT_OK) {
+                    filePath = data.getData();
+                    clientCreateEvent_ImageView.setImageURI(filePath);
+                }
+                break;
         }
+
+//        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
+//                && data != null && data.getData() != null ) {
+//            filePath = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                clientCreateEvent_ImageView.setImageBitmap(bitmap);
+//
+//            }
+//            catch (IOException e)
+//            {
+//                e.printStackTrace();
+//            }
     }
 
 
@@ -261,7 +356,7 @@ public class Client_Create_Event extends AppCompatActivity {
     };
 
 
-    public void uploadImage(String txtid){
+    public void uploadImage(final String txtid){
         if(filePath != null)
         {
             Log.e("THIS IS THE client uid", txtid);
@@ -272,7 +367,7 @@ public class Client_Create_Event extends AppCompatActivity {
             //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             progressDialog.show();
             progressDialog.setCancelable(false);
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("event_images").child(txtid);
+            final StorageReference ref = FirebaseStorage.getInstance().getReference().child("event_images").child(txtid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -342,6 +437,22 @@ public class Client_Create_Event extends AppCompatActivity {
     }
 
 
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  // prefix
+                ".jpg",         // suffix
+                storageDir      // directory
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
 
     public void refs()
     {

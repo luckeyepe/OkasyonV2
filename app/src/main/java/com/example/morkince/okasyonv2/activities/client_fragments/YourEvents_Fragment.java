@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.client_activities.ClientHomePage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,8 +52,9 @@ public class YourEvents_Fragment extends Fragment {
 
     public void displayEvents()
     {
+        RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
-        custom_progress_dialog.showDialog("LOADING", "Grabbing your events");
+        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -96,15 +99,19 @@ public class YourEvents_Fragment extends Fragment {
                                             custom_progress_dialog.dissmissDialog();
                                         } else {
                                             if (isAdded()) {
+                                                custom_progress_dialog.dissmissDialog();
                                                 Toast.makeText(getActivity(), "No Events to Show!",
                                                         Toast.LENGTH_SHORT).show();
                                             }
+                                            custom_progress_dialog.dissmissDialog();
                                         }
                                     } else {
                                         if (isAdded()) {
+                                            custom_progress_dialog.dissmissDialog();
                                             Toast.makeText(getActivity(), "Error in Retrieving Records!",
                                                     Toast.LENGTH_SHORT).show();
                                         }
+                                        custom_progress_dialog.dissmissDialog();
                                     }
                                 }
                             });
@@ -112,12 +119,15 @@ public class YourEvents_Fragment extends Fragment {
                     }
                 } else {
                     if (isAdded()) {
+                        custom_progress_dialog.dissmissDialog();
                         Toast.makeText(getActivity(), "Error in Retrieving Records!",
                                 Toast.LENGTH_SHORT).show();
                     }
+                    custom_progress_dialog.dissmissDialog();
                 }
             }
         });
+//        custom_progress_dialog.dissmissDialog();
     }//END OF DISPLAY EVENTS METHOD
 
 

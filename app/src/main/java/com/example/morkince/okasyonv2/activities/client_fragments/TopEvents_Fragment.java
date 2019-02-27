@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.R;
@@ -59,8 +60,9 @@ public class TopEvents_Fragment extends Fragment {
               @Override
               public boolean onQueryTextSubmit(String query) {
 
+                  RandomMessages randomMessages = new RandomMessages();
                   final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
-                  custom_progress_dialog.showDialog("LOADING", "Searching events");
+                  custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
                   String eventQuery = searchView.getQuery().toString();
                   CallableFunctions callableFunctions = new CallableFunctions();
@@ -102,6 +104,8 @@ public class TopEvents_Fragment extends Fragment {
                                                                   }
                                                               } else {
                                                                   if(isAdded()) {
+                                                                      custom_progress_dialog.dissmissDialog();
+                                                                      noMessage.setVisibility(View.VISIBLE);
                                                                       Toast.makeText(getActivity(), "No Events to Show!",
                                                                               Toast.LENGTH_SHORT).show();
                                                                   }
@@ -120,6 +124,7 @@ public class TopEvents_Fragment extends Fragment {
                                       }else {
                                           //show no events
                                           noMessage.setVisibility(View.VISIBLE);
+                                          custom_progress_dialog.dissmissDialog();
                                       }
                                   }
                               }
@@ -141,8 +146,9 @@ public class TopEvents_Fragment extends Fragment {
 
     public void displayEvents()
     {
+        RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
-        custom_progress_dialog.showDialog("LOADING", "Grabbing events");
+        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
         db = FirebaseFirestore.getInstance();
         db.collection("Event").whereEqualTo("event_is_private", false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -152,6 +158,7 @@ public class TopEvents_Fragment extends Fragment {
 
                     if(task.getResult().size() !=0) {
                         if(isAdded()) {
+                            noMessage.setVisibility(View.INVISIBLE);
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 Events event = document.toObject(Events.class);
@@ -169,14 +176,18 @@ public class TopEvents_Fragment extends Fragment {
                     else
                     {
                         if(isAdded()) {
+                            noMessage.setVisibility(View.VISIBLE);
                             Toast.makeText(getActivity(), "No Events to Show!",
                                     Toast.LENGTH_SHORT).show();
+                            custom_progress_dialog.dissmissDialog();
                         }
                     }
                 } else {
                     if(isAdded()) {
+                        noMessage.setVisibility(View.VISIBLE);
                         Toast.makeText(getActivity(), "No Events to Show!",
                                 Toast.LENGTH_SHORT).show();
+                        custom_progress_dialog.dissmissDialog();
                     }
                 }
             }

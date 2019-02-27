@@ -20,8 +20,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -103,102 +105,203 @@ public class EventDetailsActivity extends AppCompatActivity {
     }
 
     public void getEventDetails(){
+        RandomMessages randomMessages = new RandomMessages();
+        final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
+        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
         mStorageRef = FirebaseStorage.getInstance().getReference().child("event_images").child(event_id);
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        mStorageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(imageView_eventdetailsImage);
-            }
-        });
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()){
+                    Uri uri = task.getResult();
+                    Picasso.get().load(uri.toString()).into(imageView_eventdetailsImage);
 
+                    db = FirebaseFirestore.getInstance();
+                    db.collection("Event").document(event_id).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-        db = FirebaseFirestore.getInstance();
-        db.collection("Event").document(event_id).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
 
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
+                                            event=document.toObject(Events.class);
+                                            nameofEvent.setText(event.getEvent_name());
+                                            addressofevent.setText(event.getEvent_location());
+                                            descpitionofevent.setText(event.getEvent_description());
+                                            detailsofevent.setText(event.getEvent_tags());
+                                            dateofevent.setText(event.getEvent_date());
+                                            eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
+                                            cart_group = event.getEvent_cart_group_uid();
 
-                                event=document.toObject(Events.class);
-                                nameofEvent.setText(event.getEvent_name());
-                                addressofevent.setText(event.getEvent_location());
-                                descpitionofevent.setText(event.getEvent_description());
-                                detailsofevent.setText(event.getEvent_tags());
-                                dateofevent.setText(event.getEvent_date());
-                                eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
-                                cart_group = event.getEvent_cart_group_uid();
+                                            currentDate = Calendar.getInstance();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
-                                currentDate = Calendar.getInstance();
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                                try {
-                                    currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                                            try {
+                                                currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            // .set(selectedYear,selectedMonth,selectedDay);
+                                            imageGenerator = new ImageGenerator(EventDetailsActivity.this);
+
+                                            imageGenerator.setIconSize(100, 100);
+                                            imageGenerator.setDateSize(40);
+                                            imageGenerator.setMonthSize(20);
+
+                                            imageGenerator.setDatePosition(80);
+                                            imageGenerator.setMonthPosition(24);
+
+                                            imageGenerator.setDateColor(Color.parseColor("#D81B60"));
+                                            imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
+
+                                            imageGenerator.setStorageToSDCard(true);
+
+                                            generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+                                            calendarHandler.setImageBitmap(generatedateIcon);
+
+                                            //GET NUMBER OF ATTENDEES
+                                            db.collection("Attendees_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful())
+                                                    {
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if (document.exists()) {
+                                                            int num_attendees =Integer.parseInt(document.get("attendees_list_list_size") + "");
+                                                            textView_numberofEventsInterestedAttendees.setText(num_attendees + "");
+                                                        }
+                                                    }else {
+                                                        custom_progress_dialog.dissmissDialog();
+                                                    }
+                                                }
+                                            });
+                                            // GET NUMBER OF SPONSORS
+
+                                            db.collection("Sponsors_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful())
+                                                    {
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if (document.exists()) {
+
+                                                            //int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
+                                                            int num_sponsors = Integer.parseInt(document.get("sponsors_list_list_size") + "");
+                                                            textView_numberofEventsInterestedSponsor.setText(num_sponsors + "");
+                                                        }
+                                                    }else {
+                                                        custom_progress_dialog.dissmissDialog();
+                                                    }
+                                                }
+                                            });
+
+                                            custom_progress_dialog.dissmissDialog();
+                                        } else {
+                                            custom_progress_dialog.dissmissDialog();
+                                            Log.d("", "No such document exist");
+                                        }
+                                    } else {
+                                        custom_progress_dialog.dissmissDialog();
+                                        Log.d("", "Failed with ", task.getException());
+                                    }
                                 }
+                            });
 
-                                // .set(selectedYear,selectedMonth,selectedDay);
-                                imageGenerator = new ImageGenerator(EventDetailsActivity.this);
-
-                                imageGenerator.setIconSize(100, 100);
-                                imageGenerator.setDateSize(40);
-                                imageGenerator.setMonthSize(20);
-
-                                imageGenerator.setDatePosition(80);
-                                imageGenerator.setMonthPosition(24);
-
-                                imageGenerator.setDateColor(Color.parseColor("#D81B60"));
-                                imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
-
-                                imageGenerator.setStorageToSDCard(true);
-
-                                generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
-                                calendarHandler.setImageBitmap(generatedateIcon);
-
-                            } else {
-                                Log.d("", "No such document exist");
-                            }
-                        } else {
-                            Log.d("", "Failed with ", task.getException());
-                        }
-                    }
-                });
-
-
-        //GET NUMBER OF ATTENDEES
-        db.collection("Attendees_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        int num_attendees =Integer.parseInt(document.get("attendees_list_list_size") + "");
-                        textView_numberofEventsInterestedAttendees.setText(num_attendees + "");
-                    }
+                }else {
+                    custom_progress_dialog.dissmissDialog();
                 }
             }
         });
-       // GET NUMBER OF SPONSORS
-
-        db.collection("Sponsors_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-
-                        //int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
-                        int num_sponsors = Integer.parseInt(document.get("sponsors_list_list_size") + "");
-                        textView_numberofEventsInterestedSponsor.setText(num_sponsors + "");
-                    }
-                }
-            }
-        });
+//        db = FirebaseFirestore.getInstance();
+//        db.collection("Event").document(event_id).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//
+//                                event=document.toObject(Events.class);
+//                                nameofEvent.setText(event.getEvent_name());
+//                                addressofevent.setText(event.getEvent_location());
+//                                descpitionofevent.setText(event.getEvent_description());
+//                                detailsofevent.setText(event.getEvent_tags());
+//                                dateofevent.setText(event.getEvent_date());
+//                                eventDetails_setNumAttendeesTextView.setText(event.getEvent_num_of_attendees() + "");
+//                                cart_group = event.getEvent_cart_group_uid();
+//
+//                                currentDate = Calendar.getInstance();
+//                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+//                                try {
+//                                    currentDate.setTime(sdf.parse(event.getEvent_date()));// all done
+//                                } catch (ParseException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                // .set(selectedYear,selectedMonth,selectedDay);
+//                                imageGenerator = new ImageGenerator(EventDetailsActivity.this);
+//
+//                                imageGenerator.setIconSize(100, 100);
+//                                imageGenerator.setDateSize(40);
+//                                imageGenerator.setMonthSize(20);
+//
+//                                imageGenerator.setDatePosition(80);
+//                                imageGenerator.setMonthPosition(24);
+//
+//                                imageGenerator.setDateColor(Color.parseColor("#D81B60"));
+//                                imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
+//
+//                                imageGenerator.setStorageToSDCard(true);
+//
+//                                generatedateIcon= imageGenerator.generateDateImage(currentDate,R.drawable.calendar_icon);
+//                                calendarHandler.setImageBitmap(generatedateIcon);
+//
+//                            } else {
+//                                Log.d("", "No such document exist");
+//                            }
+//                        } else {
+//                            Log.d("", "Failed with ", task.getException());
+//                        }
+//                    }
+//                });
+//
+//
+//        //GET NUMBER OF ATTENDEES
+//        db.collection("Attendees_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful())
+//                {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        int num_attendees =Integer.parseInt(document.get("attendees_list_list_size") + "");
+//                        textView_numberofEventsInterestedAttendees.setText(num_attendees + "");
+//                    }
+//                }
+//            }
+//        });
+//       // GET NUMBER OF SPONSORS
+//
+//        db.collection("Sponsors_List").document(event_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful())
+//                {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//
+//                        //int num_sponsors =(Integer)(document.get("sponsors_list_list_size"));
+//                        int num_sponsors = Integer.parseInt(document.get("sponsors_list_list_size") + "");
+//                        textView_numberofEventsInterestedSponsor.setText(num_sponsors + "");
+//                    }
+//                }
+//            }
+//        });
     }
 
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.GetNearbyPlaces;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.PlaceHolderActivity;
 import com.example.morkince.okasyonv2.activities.adapter.ViewItemRecyclerAdapter;
@@ -112,8 +113,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
     }
 
     private void loadAllItemsInItemCategory(String itemCategory) {
+        RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
-        custom_progress_dialog.showDialog("LOADING", "Grabbing items being sold");
+        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -128,6 +130,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
                             if (itemUid.size() == 0){
                                 textViewMessage.setVisibility(View.VISIBLE);
+                                custom_progress_dialog.dissmissDialog();
                                 return;
                             }else {
                                 textViewMessage.setVisibility(View.INVISIBLE);
@@ -181,6 +184,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             custom_progress_dialog.dissmissDialog();
                         }else {
                             Exception e = task.getException();
+                            custom_progress_dialog.dissmissDialog();
                             if (e instanceof FirebaseFunctionsException) {
                                 FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
                                 FirebaseFunctionsException.Code code = ffe.getCode();
@@ -209,8 +213,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
+                RandomMessages randomMessages = new RandomMessages();
                 final Custom_Progress_Dialog custom_progress_dialog1 = new Custom_Progress_Dialog(ClientViewItemsActivity.this);
-                custom_progress_dialog1.showDialog("LOADING", "Grabbing searched items");
+                custom_progress_dialog1.showDialog("LOADING", randomMessages.getRandomMessage());
 //                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 // Do your task here
                 groupieAdapter.clear();
@@ -226,6 +231,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                             ArrayList<String> itemUid = task.getResult();
 
                             if (itemUid.size() == 0){
+                                custom_progress_dialog1.dissmissDialog();
                                 textViewMessage.setVisibility(View.VISIBLE);
                                 return;
                             }else {
@@ -284,6 +290,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                 FirebaseFunctionsException.Code code = ffe.getCode();
                                 Object details = ffe.getDetails();
                             }
+                            custom_progress_dialog1.dissmissDialog();
                         }
                     }
                 });
@@ -350,7 +357,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                         dialog.dismiss();
 
                         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(ClientViewItemsActivity.this);
-                        custom_progress_dialog.showDialog("LOADING", "Grabbing filtered items");
+                        RandomMessages randomMessages = new RandomMessages();
+                        custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
+
 
                         CallableFunctions callableFunctions = new CallableFunctions();
                         callableFunctions.filterItems(itemCategory, storeName, budget, location, itemScore, isForSale)
@@ -364,6 +373,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
 
                                             if (itemUid.size() == 0){
                                                 textViewMessage.setVisibility(View.VISIBLE);
+                                                custom_progress_dialog.dissmissDialog();
                                                 return;
                                             }else {
                                                 textViewMessage.setVisibility(View.INVISIBLE);
@@ -418,6 +428,7 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                                                 FirebaseFunctionsException.Code code = ffe.getCode();
                                                 Object details = ffe.getDetails();
                                             }
+                                            custom_progress_dialog.dissmissDialog();
                                         }
                                     }
                                 });
