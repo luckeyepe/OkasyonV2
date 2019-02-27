@@ -5,14 +5,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
-import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +22,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class clientcarteventlistactivity extends AppCompatActivity {
+public class ClientCartEventListActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseFirestore db;
     private StorageReference mStorageRef;
@@ -52,10 +50,10 @@ public class clientcarteventlistactivity extends AppCompatActivity {
                             events.add(event);
                         }
 
-                        adapter = new CartEventAdapter(events, clientcarteventlistactivity.this);
+                        adapter = new CartEventAdapter(events, ClientCartEventListActivity.this);
                         RecyclerView_client_your_event.setAdapter(adapter);
-                        RecyclerView_client_your_event.addItemDecoration(new DividerItemDecoration(clientcarteventlistactivity.this, LinearLayoutManager.VERTICAL));
-                        RecyclerView_client_your_event.setLayoutManager(new LinearLayoutManager(clientcarteventlistactivity.this));
+                        RecyclerView_client_your_event.addItemDecoration(new DividerItemDecoration(ClientCartEventListActivity.this, LinearLayoutManager.VERTICAL));
+                        RecyclerView_client_your_event.setLayoutManager(new LinearLayoutManager(ClientCartEventListActivity.this));
                     }
                     else
                     {
@@ -73,21 +71,21 @@ public class clientcarteventlistactivity extends AppCompatActivity {
                                             events.add(event);
                                             Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
                                         }
-                                        adapter = new CartEventAdapter(events, clientcarteventlistactivity.this);
+                                        adapter = new CartEventAdapter(events, ClientCartEventListActivity.this);
                                         RecyclerView_client_your_event.setAdapter(adapter);
-                                        RecyclerView_client_your_event.addItemDecoration(new DividerItemDecoration(clientcarteventlistactivity.this, LinearLayoutManager.VERTICAL));
-                                        RecyclerView_client_your_event.setLayoutManager(new LinearLayoutManager(clientcarteventlistactivity.this));
+                                        RecyclerView_client_your_event.addItemDecoration(new DividerItemDecoration(ClientCartEventListActivity.this, LinearLayoutManager.VERTICAL));
+                                        RecyclerView_client_your_event.setLayoutManager(new LinearLayoutManager(ClientCartEventListActivity.this));
                                     }
                                     else
                                     {
                                         if(events.isEmpty()) {
-                                            Toast.makeText(clientcarteventlistactivity.this, "No Events to Show!",
+                                            Toast.makeText(ClientCartEventListActivity.this, "No Events to Show!",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 } else {
                                     if (events.isEmpty()) {
-                                        Toast.makeText(clientcarteventlistactivity.this, "Error in Retrieving Records!",
+                                        Toast.makeText(ClientCartEventListActivity.this, "Error in Retrieving Records!",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -96,7 +94,7 @@ public class clientcarteventlistactivity extends AppCompatActivity {
                     }
                 } else {
                     if (events.isEmpty()) {
-                        Toast.makeText(clientcarteventlistactivity.this, "Error in Retrieving Records!",
+                        Toast.makeText(ClientCartEventListActivity.this, "Error in Retrieving Records!",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }

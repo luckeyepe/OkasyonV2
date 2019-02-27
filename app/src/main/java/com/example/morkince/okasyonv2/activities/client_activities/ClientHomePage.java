@@ -272,7 +272,8 @@ public void ClientCreateEvent()
                     hireOrganizer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+                            Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
+                            intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
                         }
                     });
@@ -324,7 +325,8 @@ public void ClientCreateEvent()
                     hireOrganizer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+                            Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
+                            intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
                         }
                     });
@@ -374,7 +376,8 @@ public void ClientCreateEvent()
                     hireOrganizer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+                            Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
+                            intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
                         }
                     });
@@ -423,7 +426,8 @@ public void ClientCreateEvent()
                     hireOrganizer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
+                            Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
+                            intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
                         }
                     });
@@ -494,38 +498,76 @@ public void ClientCreateEvent()
         // Handle navigation view item clicks here.
      int id = item.getItemId();
 
-        if (id == R.id.nav_logout) {
-            // Handle the camera action
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(ClientHomePage.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else if(id == R.id.nav_messages)
-        {
-            Intent intent = new Intent(ClientHomePage.this,LatestMessagesActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.nav_profile)
-        {
-            Intent intent = new Intent (ClientHomePage.this, UserProfileActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.nav_cart){
-            Intent intent = new Intent (ClientHomePage.this, clientcarteventlistactivity.class);
-            startActivity(intent);
-        }
-        //else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
+     switch (id){
+         case R.id.nav_home:
+             Intent homeIntent = new Intent (ClientHomePage.this, ClientHomePage.class);
+             startActivity(homeIntent);
+             break;
+
+         case R.id.nav_profile:
+             Intent profileIntent = new Intent (ClientHomePage.this, UserProfileActivity.class);
+             startActivity(profileIntent);
+             break;
+
+         case R.id.nav_messages:
+             Intent messagesIntent = new Intent(ClientHomePage.this,LatestMessagesActivity.class);
+             startActivity(messagesIntent);
+             break;
+
+         case R.id.nav_notifications:
+             break;
+
+         case R.id.nav_cart:
+             Intent cartIntent = new Intent (ClientHomePage.this, ClientCartEventListActivity.class);
+             startActivity(cartIntent);
+             break;
+
+         case R.id.nav_transaction:
+             Intent transactionIntent = new Intent(ClientHomePage.this, Transaction_ClientView.class);
+             startActivity(transactionIntent);
+             break;
+
+         case R.id.nav_logout:
+             FirebaseAuth.getInstance().signOut();
+             Intent logoutIntent = new Intent(ClientHomePage.this,MainActivity.class);
+             startActivity(logoutIntent);
+             finish();
+             break;
+
+         default: break;
+     }
+//        if (id == R.id.nav_logout) {
+//            // Handle the camera action
+//            FirebaseAuth.getInstance().signOut();
+//            Intent intent = new Intent(ClientHomePage.this,MainActivity.class);
+//            startActivity(intent);
+//            finish();
 //        }
+//        else if(id == R.id.nav_messages)
+//        {
+//            Intent intent = new Intent(ClientHomePage.this,LatestMessagesActivity.class);
+//            startActivity(intent);
+//        }
+//        else if(id == R.id.nav_profile)
+//        {
+//            Intent intent = new Intent (ClientHomePage.this, UserProfileActivity.class);
+//            startActivity(intent);
+//        }
+//        else if(id == R.id.nav_cart){
+//            Intent intent = new Intent (ClientHomePage.this, ClientCartEventListActivity.class);
+//            startActivity(intent);
+//        }
+//        //else if (id == R.id.nav_gallery) {
+////
+////        } else if (id == R.id.nav_slideshow) {
+////
+////        } else if (id == R.id.nav_manage) {
+////
+////        } else if (id == R.id.nav_share) {
+////
+////        } else if (id == R.id.nav_send) {
+////
+////        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
