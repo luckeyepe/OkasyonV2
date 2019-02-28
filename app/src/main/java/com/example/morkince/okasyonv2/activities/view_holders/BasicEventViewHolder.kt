@@ -1,7 +1,6 @@
 package com.example.morkince.okasyonv2.activities.view_holders
 
 import android.net.Uri
-import com.example.morkince.okasyonv2.Events
 import com.example.morkince.okasyonv2.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
@@ -19,8 +18,8 @@ class BasicEventViewHolder(var eventUid: String):Item<ViewHolder>() {
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        var eventNameTextView = viewHolder.itemView.textView_basicEventDetailsRowEventName
-        var eventPicture = viewHolder.itemView.imageView_basicEventDetailsRowEventName
+        val eventNameTextView = viewHolder.itemView.textView_basicEventDetailsRowEventName
+        val eventPicture = viewHolder.itemView.imageView_basicEventDetailsRowEventName
 
         FirebaseFirestore.getInstance()
             .collection("Event")
@@ -40,9 +39,9 @@ class BasicEventViewHolder(var eventUid: String):Item<ViewHolder>() {
                         .child(eventUid)
                         .downloadUrl
                         .addOnCompleteListener {
-                            task: Task<Uri> ->
-                            if(task.isSuccessful){
-                                val uri = task.result
+                            task1: Task<Uri> ->
+                            if(task1.isSuccessful){
+                                val uri = task1.result
                                 Picasso.get().load(uri.toString()).into(eventPicture)
                             }else{
                                 Picasso.get().load(R.drawable.default_avata).into(eventPicture)

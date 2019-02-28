@@ -54,6 +54,6 @@ public class Transaction_ClientView extends AppCompatActivity {
     public void refs()
     {
 
-        recyclerView = findViewById(R.id.Recycler_TransactionView_Client);
+        recyclerView = findViewById(R.id.recyclerView_transactionViewActivtyRecyler);
     }
 }

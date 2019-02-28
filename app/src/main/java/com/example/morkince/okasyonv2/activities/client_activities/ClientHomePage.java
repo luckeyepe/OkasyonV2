@@ -523,7 +523,7 @@ public void ClientCreateEvent()
              break;
 
          case R.id.nav_transaction:
-             Intent transactionIntent = new Intent(ClientHomePage.this, Transaction_ClientView.class);
+             Intent transactionIntent = new Intent(ClientHomePage.this, ClientTransactionSelectEventActivity.class);
              startActivity(transactionIntent);
              break;
 

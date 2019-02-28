@@ -1,28 +1,35 @@
 package com.example.morkince.okasyonv2.activities.client_activities
 
-import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.PopUpDialogs
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
-import com.example.morkince.okasyonv2.activities.view_holders.BasicEventViewHolder
+import com.example.morkince.okasyonv2.activities.model.Transaction_Client
+import com.example.morkince.okasyonv2.activities.view_holders.TransactionItemViewHolder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_client_transaction_select_event.*
+import kotlinx.android.synthetic.main.activity_transaction__client_view.*
 
-class ClientTransactionSelectEventActivity : AppCompatActivity() {
+class ClientViewTransactionItem : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_client_transaction_select_event)
+        setContentView(R.layout.activity_transaction__client_view)
 
         val currentUser = FirebaseAuth.getInstance().currentUser!!
-        title = currentUser.displayName
+        var eventUid=""
+
+        if (intent.hasExtra("eventUid")){
+            eventUid = intent.getStringExtra("eventUid")
+        }else{
+            finish()
+        }
 
         val popupDialog = PopUpDialogs(this)
         val dialog = Custom_Progress_Dialog(this)
@@ -36,38 +43,30 @@ class ClientTransactionSelectEventActivity : AppCompatActivity() {
             .collection("Transaction_Client")
             .document(currentUser.uid)
             .collection("events")
+            .document(eventUid)
+            .collection("transaction_client")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null){
                     dialog.dissmissDialog()
-
                     popupDialog.errorDialog("Something went wrong", "ERROR")
-
                     return@addSnapshotListener
                 }
 
-                if (querySnapshot!=null && !querySnapshot.isEmpty){
-                    adapter.clear()
-                    //populate recyler
-                    for(document in querySnapshot){
-                        val eventUid = document.id
-                        adapter.add(BasicEventViewHolder(eventUid))
+                if(querySnapshot != null && !querySnapshot.isEmpty){
+                    //populate recycler
+                    for (document in querySnapshot) {
+                        var result = document.toObject(Transaction_Client::class.java)
+                        adapter.add(TransactionItemViewHolder(result))
                     }
 
-                    recylerView_clientTransactionSelectEventRecylerView.adapter = adapter
-                    recylerView_clientTransactionSelectEventRecylerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView_transactionViewActivtyRecyler.adapter = adapter
+                    recyclerView_transactionViewActivtyRecyler.layoutManager = LinearLayoutManager(this)
                     dialog.dissmissDialog()
                 }else{
                     dialog.dissmissDialog()
-                    popupDialog.infoDialog( "You don't have any transaction records", "INFO")
+                    popupDialog.infoDialog("Your transaction list in empty", "INFO")
                 }
             }
 
-        //on click listener for each row
-        adapter.setOnItemClickListener { item, view ->
-            val eventItem = item as BasicEventViewHolder
-            val intent = Intent(view.context, ClientViewTransactionItem::class.java)
-            intent.putExtra("eventUid", eventItem.eventUid)
-            startActivity(intent)
-        }
     }
 }

@@ -19,6 +19,7 @@ import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.Su
 import com.example.morkince.okasyonv2.activities.signup_client_activities.SignUpUserPart1Activity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
@@ -53,26 +54,57 @@ class MainActivity : AppCompatActivity() {
             FirebaseFirestore
                 .getInstance()
                 .collection("User")
-                .document(currentUser!!.uid)
+                .document(currentUser.uid)
                 .get().addOnCompleteListener {
                         task: Task<DocumentSnapshot> ->
                     if (task.isSuccessful){
                         val userRole = task.result!!.getString("user_role")
+                        val userFullname = task.result!!.getString("user_first_name") +" "+ task.result!!.getString("user_last_name")
                         Log.d(TAG,"USER ROLE $userRole")
                         when(userRole){
                             "client" ->{
+                                val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(userFullname)
+                                    .build()
+
+                                currentUser.updateProfile(profileUpdates).addOnCompleteListener { task1 ->
+                                    if (task1.isSuccessful) {
+                                        Log.d(TAG, "User profile updated.")
+                                    }
+                                }
+
                                 startActivity(Intent(this, ClientHomePage::class.java))
                                 finish()
                                 progress.dismiss()
                             }
 
                             "organizer" ->{
+                                val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(userFullname)
+                                    .build()
+
+                                currentUser.updateProfile(profileUpdates).addOnCompleteListener { task1 ->
+                                    if (task1.isSuccessful) {
+                                        Log.d(TAG, "User profile updated.")
+                                    }
+                                }
+
                                 startActivity(Intent(this, ClientHomePage::class.java))
                                 finish()
                                 progress.dismiss()
                             }
 
                             "supplier" ->{
+                                val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(userFullname)
+                                    .build()
+
+                                currentUser.updateProfile(profileUpdates).addOnCompleteListener { task1 ->
+                                    if (task1.isSuccessful) {
+                                        Log.d(TAG, "User profile updated.")
+                                    }
+                                }
+
                                 startActivity(Intent(this, SupplierHomePage::class.java))
                                 finish()
                                 progress.dismiss()
