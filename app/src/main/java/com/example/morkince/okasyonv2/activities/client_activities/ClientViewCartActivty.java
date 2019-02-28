@@ -2,6 +2,7 @@ package com.example.morkince.okasyonv2.activities.client_activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -19,6 +20,8 @@ import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
 import com.example.morkince.okasyonv2.activities.adapter.ViewCartItemAdapter;
 import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
@@ -58,6 +61,8 @@ public class ClientViewCartActivty extends AppCompatActivity {
         Intent intent = getIntent();
         cart_group_uid = intent.getStringExtra("event_cart_group_uid");
         Cart_item_id = intent.getStringExtra("cart_item_id");
+
+
         adapter = new ViewCartItemAdapter(getCartItems(),this);
       //  Log.e("NAKUHA NAKO", adapter.)
         PlaceOrderbtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +84,7 @@ public class ClientViewCartActivty extends AppCompatActivity {
             }
         });
 
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT ) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -89,11 +94,53 @@ public class ClientViewCartActivty extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 // Item swiped.
                 int pos = viewHolder.getAdapterPosition();
+                db = FirebaseFirestore.getInstance();
+                db.collection("Cart_Items").document(cart_group_uid).collection("cart_items").document(adapter.cartitem.get(pos).getCart_item_id())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "successfully deleted!",
+                                        Toast.LENGTH_SHORT).show();
+
+                                Log.d("", "DocumentSnapshot successfully deleted!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("", "Error deleting document", e);
+                            }
+                        });
 //                adapter.removeItem(pos);
 //                datasets.remove(pos);
-                adapter.notifyItemRemoved(pos);
+//                adapter.notifyItemRemoved(pos);
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                Paint p = new Paint();
+                Bitmap icon;
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if (dX < 0) {
+                        p.setColor(Color.parseColor("#D32F2F"));
+                        RectF background = new RectF((float) itemView.getRight() + dX/4, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.deletecartitem);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
+
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX/4, dY, actionState, isCurrentlyActive);
             }
         };
+
 
         // Attach it to recyclerview
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
