@@ -14,6 +14,7 @@ class Transaction_Supplier {
     var transaction_supplier_rent_start_date: String ?= null
     var transaction_supplier_rent_end_date: String ?= null
     var transaction_supplier_uid: String ?= null
+    var transaction_supplier_status: String ?= null
 
     constructor()
 

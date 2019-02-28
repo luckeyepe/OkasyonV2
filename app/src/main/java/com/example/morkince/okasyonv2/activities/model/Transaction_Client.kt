@@ -17,6 +17,7 @@ class Transaction_Client() : Parcelable {
     var transaction_client_rent_start_date: String ?= null
     var transaction_client_rent_end_date: String ?= null
     var transaction_client_uid: String ?= null
+    var transaction_client_status: String ?= null
 
     constructor(parcel: Parcel) : this() {
         transaction_client_is_deliverable = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
@@ -32,6 +33,7 @@ class Transaction_Client() : Parcelable {
         transaction_client_rent_start_date = parcel.readString()
         transaction_client_rent_end_date = parcel.readString()
         transaction_client_uid = parcel.readString()
+        transaction_client_status = parcel.readString()
     }
 
 //    constructor()

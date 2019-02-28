@@ -53,10 +53,11 @@ class ClientViewTransactionItem : AppCompatActivity() {
                 }
 
                 if(querySnapshot != null && !querySnapshot.isEmpty){
+                    adapter.clear()
                     //populate recycler
                     for (document in querySnapshot) {
                         var result = document.toObject(Transaction_Client::class.java)
-                        adapter.add(TransactionItemViewHolder(result))
+                        adapter.add(TransactionItemViewHolder(result, this))
                     }
 
                     recyclerView_transactionViewActivtyRecyler.adapter = adapter
