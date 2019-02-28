@@ -10,8 +10,11 @@ import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.adapter.TransactionRecyclerAdapter
 import com.example.morkince.okasyonv2.activities.model.Transaction_Supplier
+import com.example.morkince.okasyonv2.activities.view_holders.SupplierTransactionItemViewHolder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_transaction__supplier_.*
 
 class Transaction_Supplier_Activity : AppCompatActivity() {
@@ -25,6 +28,7 @@ class Transaction_Supplier_Activity : AppCompatActivity() {
         val popUpDialogs = PopUpDialogs(this)
         val custom_Progress_Dialog = Custom_Progress_Dialog(this)
         val randomMessages = RandomMessages()
+        val adapter = GroupAdapter<ViewHolder>()
 
         custom_Progress_Dialog.showDialog("Loading", randomMessages.getRandomMessage())
 
@@ -43,10 +47,19 @@ class Transaction_Supplier_Activity : AppCompatActivity() {
                 }
 
                 if (querySnapshot!=null && !querySnapshot.isEmpty){
+                    adapter.clear()
+
                     for (document in querySnapshot){
                         val result = document.toObject(Transaction_Supplier::class.java)
-
+                        adapter.add(SupplierTransactionItemViewHolder(result, this))
                     }
+
+                    recyclerView_transactionSupplierActivity.adapter = adapter
+                    recyclerView_transactionSupplierActivity.layoutManager = LinearLayoutManager(this)
+                    custom_Progress_Dialog.dissmissDialog()
+                }else{
+                    custom_Progress_Dialog.dissmissDialog()
+                    popUpDialogs.errorDialog("You have no transaction record","ERROR")
                 }
             }
 

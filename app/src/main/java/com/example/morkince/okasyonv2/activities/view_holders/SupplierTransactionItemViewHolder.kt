@@ -10,6 +10,7 @@ import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy
 import com.example.morkince.okasyonv2.activities.model.Transaction_Client
+import com.example.morkince.okasyonv2.activities.model.Transaction_Supplier
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
@@ -20,7 +21,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.row_transaction_client.view.*
 
-class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Client, val context: Context):Item<ViewHolder>() {
+class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Supplier, val context: Context):Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.row_transaction_client
     }
@@ -32,17 +33,17 @@ class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Client,
         var imageButton_transactionClientRowMessage = viewHolder.itemView.imageButton_transactionClientRowMessage
         var textView_transactionClientRowItemStatus = viewHolder.itemView.textView_transactionClientRowItemStatus
 
-        textView_transactionClientRowItemName.text = transactionItem.transaction_client_item_name
+        textView_transactionClientRowItemName.text = transactionItem.transaction_supplier_item_name
 
-        if (transactionItem.transaction_client_status != "closed") {
+        if (transactionItem.transaction_supplier_status != "closed") {
             button_transactionClientRowReview.visibility = View.GONE
         } else {
             button_transactionClientRowReview.visibility = View.VISIBLE
         }
 
-        textView_transactionClientRowItemStatus.text = "Order Status: ${transactionItem.transaction_client_status!!.toUpperCase()}"
+        textView_transactionClientRowItemStatus.text = "Order Status: ${transactionItem.transaction_supplier_status!!.toUpperCase()}"
 
-        textView_transactionClientRowCost.text = "₱${transactionItem.transaction_client_order_cost}"
+        textView_transactionClientRowCost.text = "₱${transactionItem.transaction_supplier_order_cost}"
 
         /////////////////////
         imageButton_transactionClientRowMessage.setOnClickListener {
@@ -55,7 +56,7 @@ class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Client,
 
             FirebaseFirestore.getInstance()
                 .collection("Items")
-                .document(transactionItem.transaction_client_item_uid!!)
+                .document(transactionItem.transaction_supplier_item_uid!!)
                 .get().addOnCompleteListener { task: Task<DocumentSnapshot> ->
                     if (task.isSuccessful) {
                         val store_uid = task.result!!.getString("item_store_id")!!
