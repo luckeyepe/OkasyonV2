@@ -2,14 +2,23 @@ package com.example.morkince.okasyonv2.activities.view_holders
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_view_transaction_details.*
 import kotlinx.android.synthetic.main.row_viewitemcontent_client.view.*
 
 class BasicItemViewHolder(val item_uid: String,
@@ -30,6 +39,11 @@ class BasicItemViewHolder(val item_uid: String,
         val itemPrice = viewHolder.itemView.textView_ItemPrice
         val itemRating = viewHolder.itemView.ratingBar_rowViewItemContentItemRating
 
+        itemRating.isClickable = false
+        itemRating.isFocusable = false
+
+        loadItemImages(item_uid, itemDisplayImage)
+
         FirebaseFirestore.getInstance()
             .collection("Items")
             .document(item_uid)
@@ -38,12 +52,6 @@ class BasicItemViewHolder(val item_uid: String,
                 task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful){
                     var item = task.result!!.toObject(com.example.morkince.okasyonv2.activities.model.Item::class.java)!!
-
-                    if (item.item_display_picture_url=="" || item.item_display_picture_url == "default"){
-                        Picasso.get().load(R.drawable.backgroundimage).into(itemDisplayImage)
-                    }else{
-                        Picasso.get().load(item_display_picture_url).into(itemDisplayImage)
-                    }
 
                     itemName.text = item.item_name
                     itemPrice.text = "₱${item.item_price}"
@@ -78,4 +86,21 @@ class BasicItemViewHolder(val item_uid: String,
 //        }
 
     }
+
+    fun loadItemImages(item_uid: String, imageView: ImageView) {
+        val desertRef = FirebaseStorage.getInstance().reference
+            .child("item_images")
+            .child(item_uid)
+            .child(item_uid+"1")
+
+        desertRef.downloadUrl
+            .addOnSuccessListener { uri ->
+                Picasso.get().load(uri.toString()).into(imageView)
+            }
+            .addOnFailureListener {
+                Log.e("Path", desertRef.path)
+                Log.e("images", it.toString())
+                Picasso.get().load(R.drawable.backgroundimage).into(imageView)
+            }
+        }
 }
