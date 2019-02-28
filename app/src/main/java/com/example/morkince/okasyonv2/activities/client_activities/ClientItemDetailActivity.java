@@ -84,6 +84,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_item_detail);
+        getSupportActionBar().hide();
         refs();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         Intent intent = getIntent();
