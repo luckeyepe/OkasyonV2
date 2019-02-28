@@ -9,10 +9,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
-    <uses-feature
-            android:name="android.hardware.camera"
-            android:required="true"/>
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="true" />
 
     <application
             android:allowBackup="true"
@@ -23,6 +21,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.ClientItemDetailsReviewActivity">
+        </activity>
+        <activity android:name=".activities.client_activities.clientcarteventlistactivity">
         <activity android:name=".activities.homepage_supplier_activities.ViewSupplierTransactionDetailsActivity">
         </activity>
         <activity android:name=".activities.common_activities.ViewTransactionDetailsActivity">
@@ -57,6 +58,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
         <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity"
                   android:theme="@style/AppTheme.NoActionBar">
@@ -223,5 +225,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>

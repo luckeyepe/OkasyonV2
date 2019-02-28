@@ -47,6 +47,9 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
     FirebaseFirestore db;
     boolean checkIfLocationChanged=false;
 
+    String item_category;
+    String locationOfNearbyPlaces;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -69,10 +72,19 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void findPlaces() {
+        String locationToSearchNearbyPlaces="";
+        if(locationOfNearbyPlaces.isEmpty())
+        {
+            locationToSearchNearbyPlaces= currentLocation.getLatitude() + "," + currentLocation.getLongitude();
+        }
+        else
+        {
+            locationToSearchNearbyPlaces=locationOfNearbyPlaces;
+        }
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        stringBuilder.append("location=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude());
+        stringBuilder.append("location=" + locationToSearchNearbyPlaces);
         stringBuilder.append("&radius=" + 1000);
-        stringBuilder.append("&keyword=" + "gowns");
+        stringBuilder.append("&keyword=" + item_category);
         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
         Log.e("URL", stringBuilder.toString());
 
@@ -95,6 +107,10 @@ public class GetNearbyPlaces extends FragmentActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         getNearbyPlacesSeeDetails=findViewById(R.id.getNearbyPlacesSeeDetails);
+
+        Intent intent = getIntent();
+         item_category=intent.getStringExtra("item_category");
+        locationOfNearbyPlaces=intent.getStringExtra("location");
 
         getNearbyPlacesSeeDetails.setEnabled(false);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);

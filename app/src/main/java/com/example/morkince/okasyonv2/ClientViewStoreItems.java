@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ClientViewStoreItems extends AppCompatActivity {
 
-    String storeID;
+    String storeID,user_role;
     FirebaseFirestore db;
 
     RecyclerView recyclerView;
@@ -32,6 +32,7 @@ public class ClientViewStoreItems extends AppCompatActivity {
         refs();
         Intent intent = getIntent();
         storeID = intent.getStringExtra("storeID");
+        user_role = intent.getStringExtra("user_role");
         showStoreItems();
     }
 
@@ -57,11 +58,13 @@ public class ClientViewStoreItems extends AppCompatActivity {
                         String price_description = document.getString("item_price_description");
                         String store_id = document.getString("item_store_id");
                         String item_tag=document.getString("item_tag");
+                        String item_doc=document.getString("item_doc");
+                        String item_termsAndConditions=document.getString("item_termsAndConditions");
 
 
                         // Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
-                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id,item_tag));
-                        adapter = new View_Items_Recycler_Adapter(items,ClientViewStoreItems.this);
+                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id,item_tag,item_termsAndConditions));
+                        adapter = new View_Items_Recycler_Adapter(items,ClientViewStoreItems.this,user_role);
                         recyclerView.setLayoutManager(new GridLayoutManager(ClientViewStoreItems.this,2));
                         recyclerView.setAdapter(adapter);
                     }

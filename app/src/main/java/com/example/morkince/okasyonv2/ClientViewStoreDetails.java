@@ -67,7 +67,7 @@ public class ClientViewStoreDetails extends AppCompatActivity {
     TextView drawerAccount;
     private ArrayList<Reviews> reviews = new ArrayList<>();
     StoreReviewsAdapter adapter;
-    String store_uid;
+    String store_uid,user_role,item_uid;
     RecyclerView supplierHomePage_recyclerView;
     int size = 0;
 
@@ -78,7 +78,9 @@ public class ClientViewStoreDetails extends AppCompatActivity {
         setContentView(R.layout.activity_client_view_store_details);
 
         Intent intent = getIntent();
-         store_uid=intent.getStringExtra("store_uid");
+        store_uid=intent.getStringExtra("store_uid");
+        user_role=intent.getStringExtra("user_role");
+        item_uid=intent.getStringExtra("item_uid");
 
         getSupportActionBar().setTitle("Store");
 
@@ -255,6 +257,7 @@ public class ClientViewStoreDetails extends AppCompatActivity {
         public void onClick(View view) {
             Intent intent = new Intent(ClientViewStoreDetails.this,ClientViewStoreItems.class);
             intent.putExtra("storeID",store_uid);
+            intent.putExtra("user_role",user_role);
             startActivity(intent);
         }
     };
