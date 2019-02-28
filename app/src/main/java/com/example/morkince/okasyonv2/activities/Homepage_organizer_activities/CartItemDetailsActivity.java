@@ -219,14 +219,14 @@ EditText Itemquantity, ItemDatefrom, ItemDateto;
     }
     public void refs()
     {
-        Itemprice=findViewById(R.id.textView_ActivityClientFindItemPriceofTheItem2);
+        Itemprice=findViewById(R.id.textView_viewTransactionDetailsCost);
         Itemquantity=findViewById(R.id.editText_ItemQuantity);
-        ItemName=findViewById(R.id.textView_ActivityClientFindItemNameofTheItem2);
+        ItemName=findViewById(R.id.textView__viewTransactionDetailsItemName);
         CartItemDetailstogglebutton=findViewById(R.id.toggleButton_ActivityClientFindItemToggleForRentAndSale2);
-        ItemDatefrom=findViewById(R.id.editText_datefrom);
+        ItemDatefrom=findViewById(R.id.textView_viewTransactionDetailsRentDuration);
         ItemDateto=findViewById(R.id.editText_dateto);
         ItemDetails=findViewById(R.id.textView_ActivityClientFindItemDetails2);
         editcartitemdetails=findViewById(R.id.imageButton_edititem);
-        saveitem=findViewById(R.id.button_saveitem);
+        saveitem=findViewById(R.id.button_viewTransactionDetailsSaveReview);
     }
 }

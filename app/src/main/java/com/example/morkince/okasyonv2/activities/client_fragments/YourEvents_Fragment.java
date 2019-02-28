@@ -23,9 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -59,15 +57,25 @@ public class YourEvents_Fragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
         db.collection("Event").whereEqualTo("event_creator_id", user.getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            if (isAdded()) {
+                                custom_progress_dialog.dissmissDialog();
+                                Toast.makeText(getActivity(), "Error in Retrieving Records!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            custom_progress_dialog.dissmissDialog();
+                            return;
+                        }
 
-                    if(isAdded()) {
-                        if (task.getResult().size() != 0) {
+                        if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
+                            events.clear();
+                            adapter = new EventsAdapter(events, getActivity());
+                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
                                 Events event = document.toObject(Events.class);
                                 events.add(event);
@@ -78,58 +86,161 @@ public class YourEvents_Fragment extends Fragment {
                             RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                             RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
                             custom_progress_dialog.dissmissDialog();
+
                         } else {
-
-                            db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        if (task.getResult().size() != 0) {
-
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                                Events event = document.toObject(Events.class);
-                                                events.add(event);
-                                                Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
-                                            }
-                                            adapter = new EventsAdapter(events, getActivity());
-                                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
-                                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                            custom_progress_dialog.dissmissDialog();
-                                        } else {
-                                            if (isAdded()) {
+                            db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid())
+                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                                            if (e != null) {
+                                                if (isAdded()) {
+                                                    custom_progress_dialog.dissmissDialog();
+                                                    Toast.makeText(getActivity(), "Error in Retrieving Records!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
                                                 custom_progress_dialog.dissmissDialog();
-                                                Toast.makeText(getActivity(), "No Events to Show!",
-                                                        Toast.LENGTH_SHORT).show();
+                                                return;
                                             }
-                                            custom_progress_dialog.dissmissDialog();
+
+                                            if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
+                                                events.clear();
+                                                adapter = new EventsAdapter(events, getActivity());
+                                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
+
+                                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+
+                                                    Events event = document.toObject(Events.class);
+                                                    events.add(event);
+                                                }
+
+                                                adapter = new EventsAdapter(events, getActivity());
+                                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                                                RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                                                RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                                custom_progress_dialog.dissmissDialog();
+
+                                            } else {
+                                                if (isAdded()) {
+                                                    custom_progress_dialog.dissmissDialog();
+                                                    Toast.makeText(getActivity(), "No Events to Show!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                                custom_progress_dialog.dissmissDialog();
+                                            }
                                         }
-                                    } else {
-                                        if (isAdded()) {
-                                            custom_progress_dialog.dissmissDialog();
-                                            Toast.makeText(getActivity(), "Error in Retrieving Records!",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                        custom_progress_dialog.dissmissDialog();
-                                    }
-                                }
-                            });
-                        }
-                    }
-                } else {
-                    if (isAdded()) {
-                        custom_progress_dialog.dissmissDialog();
-                        Toast.makeText(getActivity(), "Error in Retrieving Records!",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    custom_progress_dialog.dissmissDialog();
-                }
-            }
-        });
+                                    });
+//                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                    if (task.isSuccessful()) {
+//                                        if (task.getResult().size() != 0) {
+//
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                                Events event = document.toObject(Events.class);
+//                                                events.add(event);
+//                                                Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
+//                                            }
+//                                            adapter = new EventsAdapter(events, getActivity());
+//                                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+//                                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//                                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                                            custom_progress_dialog.dissmissDialog();
+//                                        } else {
+//                                            if (isAdded()) {
+//                                                custom_progress_dialog.dissmissDialog();
+//                                                Toast.makeText(getActivity(), "No Events to Show!",
+//                                                        Toast.LENGTH_SHORT).show();
+//                                            }
+//                                            custom_progress_dialog.dissmissDialog();
+//                                        }
+//                                    } else {
+//                                        if (isAdded()) {
+//                                            custom_progress_dialog.dissmissDialog();
+//                                            Toast.makeText(getActivity(), "Error in Retrieving Records!",
+//                                                    Toast.LENGTH_SHORT).show();
+//                                        }
+//                                        custom_progress_dialog.dissmissDialog();
+//                                    }
+//                                }
+//                            });
+//
+//                        }
+//                    }
+//                });
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//
+//                    if(isAdded()) {
+//                        if (task.getResult().size() != 0) {
+//
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                Events event = document.toObject(Events.class);
+//                                events.add(event);
+//                            }
+//
+//                            adapter = new EventsAdapter(events, getActivity());
+//                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+//                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                            custom_progress_dialog.dissmissDialog();
+//                        } else {
+//
+//                            db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                    if (task.isSuccessful()) {
+//                                        if (task.getResult().size() != 0) {
+//
+//                                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                                Events event = document.toObject(Events.class);
+//                                                events.add(event);
+//                                                Log.e("THIS IS THE EVENT", event.getEvent_event_uid());
+//                                            }
+//                                            adapter = new EventsAdapter(events, getActivity());
+//                                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+//                                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//                                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                                            custom_progress_dialog.dissmissDialog();
+//                                        } else {
+//                                            if (isAdded()) {
+//                                                custom_progress_dialog.dissmissDialog();
+//                                                Toast.makeText(getActivity(), "No Events to Show!",
+//                                                        Toast.LENGTH_SHORT).show();
+//                                            }
+//                                            custom_progress_dialog.dissmissDialog();
+//                                        }
+//                                    } else {
+//                                        if (isAdded()) {
+//                                            custom_progress_dialog.dissmissDialog();
+//                                            Toast.makeText(getActivity(), "Error in Retrieving Records!",
+//                                                    Toast.LENGTH_SHORT).show();
+//                                        }
+//                                        custom_progress_dialog.dissmissDialog();
+//                                    }
+//                                }
+//                            });
+//                        }
+//                    }
+//                } else {
+//                    if (isAdded()) {
+//                        custom_progress_dialog.dissmissDialog();
+//                        Toast.makeText(getActivity(), "Error in Retrieving Records!",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                    custom_progress_dialog.dissmissDialog();
+//                }
+//            }
+//        });
 //        custom_progress_dialog.dissmissDialog();
-    }//END OF DISPLAY EVENTS METHOD
+                        }//END OF DISPLAY EVENTS METHOD
 
 
-
+                    }
+                });
+    }
 }//END OF CLASS

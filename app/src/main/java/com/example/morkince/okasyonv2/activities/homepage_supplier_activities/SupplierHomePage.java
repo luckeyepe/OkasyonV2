@@ -231,18 +231,43 @@ public class SupplierHomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
        int id = item.getItemId();
 
-       if (id == R.id.nav_supplier_logout) {
-           FirebaseAuth.getInstance().signOut();
-           Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
-           startActivity(intent);
-           finish();
-     }
+       switch(id){
+           case R.id.nav_supplier_logout:
+               FirebaseAuth.getInstance().signOut();
+               Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
+               startActivity(intent);
+               finish();
+               break;
 
-     else if(id == R.id.nsv_supplier_messages)
-       {
-           Intent intent = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
-           startActivity(intent);
+           case R.id.nsv_supplier_messages:
+               Intent intent1 = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
+               startActivity(intent1);
+               break;
+
+           case R.id.nav_supplier_transaction:
+               Intent intent2 = new Intent (SupplierHomePage.this, Transaction_Supplier_Activity.class);
+               startActivity(intent2);
+               break;
+
+           case R.id.nav_supplier_notification:
+               break;
+
+           default: break;
+
        }
+
+//       if (id == R.id.nav_supplier_logout) {
+//           FirebaseAuth.getInstance().signOut();
+//           Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
+//           startActivity(intent);
+//           finish();
+//     }
+//
+//     else if(id == R.id.nsv_supplier_messages)
+//       {
+//           Intent intent = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
+//           startActivity(intent);
+//       }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

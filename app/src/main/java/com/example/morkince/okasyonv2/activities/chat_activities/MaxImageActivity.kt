@@ -14,6 +14,10 @@ class MaxImageActivity : AppCompatActivity() {
 
         val sourceUrl = intent.getStringExtra("sourceUrl")
 
-        Picasso.get().load(sourceUrl).into(imageView_maxImageImage)
+        if (sourceUrl.isEmpty()){
+            Picasso.get().load(R.drawable.ic_error_black_24dp).into(imageView_maxImageImage)
+        }else {
+            Picasso.get().load(sourceUrl).into(imageView_maxImageImage)
+        }
     }
 }

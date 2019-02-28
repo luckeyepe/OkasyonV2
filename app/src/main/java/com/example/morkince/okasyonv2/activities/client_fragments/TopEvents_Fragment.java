@@ -24,10 +24,7 @@ import com.example.morkince.okasyonv2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -144,53 +141,98 @@ public class TopEvents_Fragment extends Fragment {
     }
 
 
-    public void displayEvents()
-    {
+    public void displayEvents() {
         RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
         custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
+
+
         db = FirebaseFirestore.getInstance();
-        db.collection("Event").whereEqualTo("event_is_private", false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-
-                    if(task.getResult().size() !=0) {
-                        if(isAdded()) {
-                            noMessage.setVisibility(View.INVISIBLE);
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                Events event = document.toObject(Events.class);
-                                events.add(event);
+        db.collection("Event").whereEqualTo("event_is_private", false)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            if (isAdded()) {
+                                noMessage.setVisibility(View.VISIBLE);
+                                Toast.makeText(getActivity(), "No Events to Show!",
+                                        Toast.LENGTH_SHORT).show();
+                                custom_progress_dialog.dissmissDialog();
+                                return;
                             }
+                        }
+
+                        if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
+                            if (isAdded()) {
+                                events.clear();
+                                adapter = new EventsAdapter(events, getActivity());
+                                recyclerView_clientTopEvents.setAdapter(adapter);
+
+                                noMessage.setVisibility(View.INVISIBLE);
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                    Events event = document.toObject(Events.class);
+                                    events.add(event);
+                                }
 
 
-                            adapter = new EventsAdapter(events, getActivity());
-                            recyclerView_clientTopEvents.setAdapter(adapter);
-                            recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                            recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            custom_progress_dialog.dissmissDialog();
+                                adapter = new EventsAdapter(events, getActivity());
+                                recyclerView_clientTopEvents.setAdapter(adapter);
+                                recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                                recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                custom_progress_dialog.dissmissDialog();
+                            }
+                        } else {
+                            if (isAdded()) {
+                                noMessage.setVisibility(View.VISIBLE);
+                                Toast.makeText(getActivity(), "No Events to Show!",
+                                        Toast.LENGTH_SHORT).show();
+                                custom_progress_dialog.dissmissDialog();
+                            }
                         }
                     }
-                    else
-                    {
-                        if(isAdded()) {
-                            noMessage.setVisibility(View.VISIBLE);
-                            Toast.makeText(getActivity(), "No Events to Show!",
-                                    Toast.LENGTH_SHORT).show();
-                            custom_progress_dialog.dissmissDialog();
-                        }
-                    }
-                } else {
-                    if(isAdded()) {
-                        noMessage.setVisibility(View.VISIBLE);
-                        Toast.makeText(getActivity(), "No Events to Show!",
-                                Toast.LENGTH_SHORT).show();
-                        custom_progress_dialog.dissmissDialog();
-                    }
-                }
-            }
-        });
+
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//
+//                    if(task.getResult().size() !=0) {
+//                        if(isAdded()) {
+//                            noMessage.setVisibility(View.INVISIBLE);
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                Events event = document.toObject(Events.class);
+//                                events.add(event);
+//                            }
+//
+//
+//                            adapter = new EventsAdapter(events, getActivity());
+//                            recyclerView_clientTopEvents.setAdapter(adapter);
+//                            recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//                            recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                            custom_progress_dialog.dissmissDialog();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        if(isAdded()) {
+//                            noMessage.setVisibility(View.VISIBLE);
+//                            Toast.makeText(getActivity(), "No Events to Show!",
+//                                    Toast.LENGTH_SHORT).show();
+//                            custom_progress_dialog.dissmissDialog();
+//                        }
+//                    }
+//                } else {
+//                    if(isAdded()) {
+//                        noMessage.setVisibility(View.VISIBLE);
+//                        Toast.makeText(getActivity(), "No Events to Show!",
+//                                Toast.LENGTH_SHORT).show();
+//                        custom_progress_dialog.dissmissDialog();
+//                    }
+//                }
+//            }
+//        });
+                });
     }
 }
