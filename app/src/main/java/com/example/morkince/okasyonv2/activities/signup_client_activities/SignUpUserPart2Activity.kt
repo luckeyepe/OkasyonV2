@@ -46,35 +46,27 @@ class SignUpUserPart2Activity : AppCompatActivity() {
         imageButton_signupclientPart2NextButton.setOnClickListener {
             //grab data
             if(isCompleteData()){
-                if(checkbox_signupPart2TermsAndCondition.isChecked){
-                    var intent = Intent(this, SignupOCRClientOrganizer::class.java)
+                var intent = Intent(this, SignupOCRClientOrganizer::class.java)
 
-                    var user_gender: String?
-                    if(spinner!!.selectedItem == "Male"){
-                        user_gender= "m"
-                    }else{
-                        user_gender = "f"
-                    }
-
-                    intent.putExtra("user_email",user_email )
-                    intent.putExtra("user_password", user_password)
-                    intent.putExtra("user_role", user_role)
-                    intent.putExtra("user_first_name", textInputEditText_signupclientPart2FirstName.text.toString().trim())
-                    intent.putExtra("user_last_name", textInputEditText_signupclientPart2LastName.text.toString().trim())
-                    intent.putExtra("user_address", textInputEditText_signupclientPart2Address.text.toString().trim())
-                    intent.putExtra("user_contact_no", textInputEditText_signupClientclientPart2ContactNumber.text.toString())
-                    intent.putExtra("user_birth_date", textInputEditText_signupclientPart2DateOfBirth.text.toString().trim())
-                    intent.putExtra("user_gender", user_gender)
-
-                    // start your next activity
-                    startActivity(intent)
+                var user_gender: String?
+                if(spinner!!.selectedItem == "Male"){
+                    user_gender= "m"
                 }else{
-                    //popup error that terms and conditions have not been agreed
-                    var alertDialog = AlertDialog.Builder(this)
-                    alertDialog.setMessage("Make sure you agree to our tems and services")
-                    alertDialog.setTitle("TERMS AND SERVICES")
-                    alertDialog.show()
+                    user_gender = "f"
                 }
+
+                intent.putExtra("user_email",user_email )
+                intent.putExtra("user_password", user_password)
+                intent.putExtra("user_role", user_role)
+                intent.putExtra("user_first_name", textInputEditText_signupclientPart2FirstName.text.toString().trim())
+                intent.putExtra("user_last_name", textInputEditText_signupclientPart2LastName.text.toString().trim())
+                intent.putExtra("user_address", textInputEditText_signupclientPart2Address.text.toString().trim())
+                intent.putExtra("user_contact_no", textInputEditText_signupClientclientPart2ContactNumber.text.toString())
+                intent.putExtra("user_birth_date", textInputEditText_signupclientPart2DateOfBirth.text.toString().trim())
+                intent.putExtra("user_gender", user_gender)
+
+                // start your next activity
+                startActivity(intent)
             }else{
                 //todo popup error for incomplete data
                 var alertDialog = AlertDialog.Builder(this)
