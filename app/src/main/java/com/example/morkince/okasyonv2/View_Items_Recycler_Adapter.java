@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierEditItemDetailsActivity;
 import com.example.morkince.okasyonv2.activities.model.Item;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,13 +26,15 @@ import java.util.ArrayList;
 public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items_Recycler_Adapter.ViewHolder>{
     private ArrayList<Item> items;
     private Context mContext;
+    private String user_role;
     private StorageReference mStorageRef;
     String item_uid="",item_name="",star_rating="",item_price="",item_category="",item_description="",isForSale="",isPerSquareUnit="",price_description="",store_id="";
 
 
-    public View_Items_Recycler_Adapter(ArrayList<Item> items, Context mContext) {
+    public View_Items_Recycler_Adapter(ArrayList<Item> items, Context mContext, String user_role) {
         this.items = items;
         this.mContext = mContext;
+        this.user_role = user_role;
     }
 
 
@@ -98,30 +101,42 @@ public class View_Items_Recycler_Adapter extends RecyclerView.Adapter<View_Items
         @Override
         public void onClick(View view) {
         int position = getAdapterPosition();
-        Item item = this.items.get(position);
-            item_uid=item.getItem_uid();
-            item_name=item.getItem_name();
-            item_price=item.getItem_price() + "";
-            star_rating=item.getItem_average_rating()+"";
-            item_category=item.getItem_category_id()+"";
-            item_description=item.getItem_description()+"";
-            isForSale=item.isItem_for_sale()+"";
-            isPerSquareUnit=item.isItem_is_per_sqr_unit_of_measurement()+"";
-            price_description=item.getItem_price_description()+"";
-            store_id=item.getItem_store_id()+"";
+            Item item = this.items.get(position);
+            item_uid = item.getItem_uid();
+            item_name = item.getItem_name();
+            item_price = item.getItem_price() + "";
+            star_rating = item.getItem_average_rating() + "";
+            item_category = item.getItem_category_id() + "";
+            item_description = item.getItem_description() + "";
+            isForSale = item.isItem_for_sale() + "";
+            isPerSquareUnit = item.isItem_is_per_sqr_unit_of_measurement() + "";
+            price_description = item.getItem_price_description() + "";
+            store_id = item.getItem_store_id() + "";
 
-            Intent intent = new Intent(mContext,SupplierEditItemDetailsActivity.class);
-            intent.putExtra("item_uid",item_uid);
-            intent.putExtra("item_name",item_name);
-            intent.putExtra("item_price",item_price);
-            intent.putExtra("star_rating",star_rating);
-            intent.putExtra("item_category",item_category);
-            intent.putExtra("item_description",item_description);
-            intent.putExtra("isForSale",isForSale);
-            intent.putExtra("isPerSquareUnit",isPerSquareUnit);
-            intent.putExtra("price_description",price_description);
-            intent.putExtra("store_id",store_id);
+        if(user_role.equals("Supplier")) {
+
+
+            Intent intent = new Intent(mContext, SupplierEditItemDetailsActivity.class);
+            intent.putExtra("item_uid", item_uid);
+            intent.putExtra("item_name", item_name);
+            intent.putExtra("item_price", item_price);
+            intent.putExtra("star_rating", star_rating);
+            intent.putExtra("item_category", item_category);
+            intent.putExtra("item_description", item_description);
+            intent.putExtra("isForSale", isForSale);
+            intent.putExtra("isPerSquareUnit", isPerSquareUnit);
+            intent.putExtra("price_description", price_description);
+            intent.putExtra("store_id", store_id);
             this.mContext.startActivity(intent);
+        }
+        else
+            {
+                Intent intent = new Intent(mContext, ClientItemDetailActivity.class);
+                intent.putExtra("user_role",user_role);
+                intent.putExtra("item_uid", item_uid);
+                this.mContext.startActivity(intent);
+            }
+
         }
     }
 }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,9 @@ import android.widget.*;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.Reviews;
 import com.example.morkince.okasyonv2.StoreReviewsAdapter;
+import com.example.morkince.okasyonv2.activities.client_activities.ClientItemDetailActivity;
+import com.example.morkince.okasyonv2.testingphase.ItemImagesModel;
+import com.example.morkince.okasyonv2.testingphase.ItemImagesRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +53,11 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
     StoreReviewsAdapter adapter;
     private ArrayList<Reviews> reviews = new ArrayList<>();
 
+    ItemImagesRecyclerAdapter adapterForItemImages;
+    int inCounter=1;
+    private ArrayList<ItemImagesModel> itemImages = new ArrayList<>();
+    RecyclerView editItemDetails_recyclerViewImages;
+
 
 
     @Override
@@ -58,11 +67,12 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Item Details");
         getValues();
         refs();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         fillSpinner();
         IsEnabled(false);
         setValues();
+        loadItemImages();
         editItemDetails_saveBtn.setVisibility(View.GONE);
-
 
         edit.setOnClickListener(editItem);
         editItemDetails_saveBtn.setOnClickListener(saveItemInfo);
@@ -70,20 +80,25 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         supplierEditItemDetailsToggleButtonForRentAndSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    isItemforSale=false;
-                    Toast.makeText(getApplicationContext(), "FOR RENT",
-                            Toast.LENGTH_SHORT).show();
+                    isItemforSale=true;
+                   /* Toast.makeText(getApplicationContext(), "FOR SALE",
+                            Toast.LENGTH_SHORT).show();*/
 
                 } else {
                     // The toggle is disabled
 
-                    isItemforSale = true;
-                    Toast.makeText(getApplicationContext(), "FOR SALE",
-                            Toast.LENGTH_SHORT).show();
+                    isItemforSale = false;
+                   /* Toast.makeText(getApplicationContext(), "FOR RENT",
+                            Toast.LENGTH_SHORT).show();*/
 
                 }
             }
         });
+
+        //SET FOR SALE OR FOR RENT
+        supplierEditItemDetailsToggleButtonForRentAndSale.setChecked(Boolean.parseBoolean(isForSale));
+
+
 
 
 
@@ -115,6 +130,39 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
                             }
                         });
 
+        editItemDetails_recyclerViewImages.setHasFixedSize(true);
+
+        if(item_category.equals("Gowns") || item_category.equals("Suits"))
+        {
+            supplierEditItemDetailsToggleButtonForRentAndSale.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+
+    public void loadItemImages()
+    {
+        for(int counter=1;counter<=5;counter++) {
+            // Create a reference to the file to delete
+
+            StorageReference desertRef = mStorageRef.child("item_images").child(item_uid).child(item_uid + counter);
+            inCounter=counter;
+            desertRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if(inCounter<5)
+                        itemImages.add(new ItemImagesModel(uri));
+                    else
+                    {
+                        itemImages.add(new ItemImagesModel(uri));
+                        adapterForItemImages = new ItemImagesRecyclerAdapter(itemImages, SupplierEditItemDetailsActivity.this);
+                        editItemDetails_recyclerViewImages.setLayoutManager(new LinearLayoutManager(SupplierEditItemDetailsActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        //  recyclerView_itemImages.setLayoutManager(new GridLayoutManager(testingImageSlider.this,2));
+                        editItemDetails_recyclerViewImages.setAdapter(adapterForItemImages);
+                    }
+                }
+            });
+        }
     }
 
 
@@ -173,8 +221,17 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
                 userToUpdate.update("item_name",editText_supplierEditItemDetailsNameofItem.getText().toString());
                 userToUpdate.update("item_price_description",editText_supplierEditItemDetailsPriceDescriptionofItem.getText().toString());
                 userToUpdate.update("item_for_sale",isItemforSale);
-                userToUpdate.update("item_price",editText_supplierEditItemDetailsPriceofItem.getText().toString());
-                userToUpdate.update("item_description", editText_supplierEditItemDetails.getText().toString())
+                userToUpdate.update("item_price",Double.parseDouble(editText_supplierEditItemDetailsPriceofItem.getText().toString()));
+                userToUpdate.update("item_description", editText_supplierEditItemDetails.getText().toString());
+                userToUpdate.update("item_for_sale", isItemforSale);
+
+                if (editItem_itemCategorySpinner.getSelectedItem().toString().contains(" ")){
+                    item_category = editItem_itemCategorySpinner.getSelectedItem()
+                            .toString().replace(" ", "_");
+                }else {
+                    item_category = editItem_itemCategorySpinner.getSelectedItem().toString();
+                }
+                userToUpdate.update("item_category_id", item_category)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -374,6 +431,7 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         editItemDetails_reviewsTxtView =findViewById(R.id.editItemDetails_reviewsTxtView);
         editItemDetails_saveBtn =findViewById(R.id.editItemDetails_saveBtn);
         supplierEditItemDetailsToggleButtonForRentAndSale =findViewById(R.id.supplierEditItemDetailsToggleButtonForRentAndSale);
+        editItemDetails_recyclerViewImages =findViewById(R.id.editItemDetails_recyclerViewImages);
     }
 
 }

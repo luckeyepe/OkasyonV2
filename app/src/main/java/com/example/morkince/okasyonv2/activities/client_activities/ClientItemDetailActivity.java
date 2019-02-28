@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.ClientItemDetailsReviewActivity;
 import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy;
 import com.example.morkince.okasyonv2.activities.model.Cart_Item;
 import com.example.morkince.okasyonv2.activities.model.Cartv1;
@@ -50,14 +51,15 @@ import java.util.Locale;
 
 public class ClientItemDetailActivity extends AppCompatActivity {
     public static final String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    String cart_group_uid;
+    String cart_group_uid,user_role;
     String cartItem_item_id;
     BottomNavigationView bottomNavigationView;
     TextView textView_ActivityClientFindItemNameofTheItem,
             textView_ActivityClientFindItemPriceofTheItem,
             textView_ActivityClientFindItemDetails,
             ClientItemDetail_reviewsTextView,
-            textView_clientItemDetailActivityStoreName;
+            textView_clientItemDetailActivityStoreName,
+            textView_ActivityClientFindItemTermsandConditions;
     RatingBar ratingBar_ActivityClientFindItemRating;
     RecyclerView recyclerView_ActivityClientFindItemRecyclerViewReviews,recyclerView_ActivityClientFindItemRecyclerViewImages;
     ToggleButton toggleButton_ActivityClientFindItemToggleForRentAndSale;
@@ -90,8 +92,17 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         item_uid = intent.getStringExtra("item_uid");
         eventUID = intent.getStringExtra("event_event_uid");
         cart_group_uid = intent.getStringExtra("event_cart_group_uid");
+        user_role = intent.getStringExtra("user_role");
+        bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
+
+        if(user_role.equals("Client"))
+        {
+            bottomNavigationView.setVisibility(View.GONE);
+        }
+
         getValues();
-        loadReviews();
+       // loadReviews();
         loadItemImages();
         imageGenerator = new ImageGenerator(this);
 
@@ -106,8 +117,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         imageGenerator.setMonthColor(Color.parseColor("#ffffff"));
 
         imageGenerator.setStorageToSDCard(true);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart);
-        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationViewListener);
+
 //        clientItemDetails_visitStoreBtn.setOnClickListener(visitStore);
         textView_clientItemDetailActivityStoreName.setOnClickListener(visitStore);
 
@@ -119,6 +129,9 @@ public class ClientItemDetailActivity extends AppCompatActivity {
     public View.OnClickListener goToReviews = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent= new Intent(ClientItemDetailActivity.this, ClientItemDetailsReviewActivity.class);
+            intent.putExtra("item_uid", item_uid);
+            startActivity(intent);
             //start activity that show reviews
         }
     };
@@ -173,6 +186,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
             Log.e("THIS IS STORE ID", store_uid);
             Intent intent = new Intent(ClientItemDetailActivity.this,ClientViewStoreDetails.class);
             intent.putExtra("store_uid",store_uid);
+            intent.putExtra("user_role","Client");
+            intent.putExtra("item_uid",item_uid);
             startActivity(intent);
         }
     };
@@ -201,7 +216,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
 
-                ClientItemDetail_reviewsTextView.setText("VIEW REVIEWS(" + reviews.size() + ")");
+                //ClientItemDetail_reviewsTextView.setText("VIEW REVIEWS(" + reviews.size() + ")");
             }
         });
     }
@@ -228,6 +243,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 toggleButton_ActivityClientFindItemToggleForRentAndSale.setChecked(itemDetails.isItem_for_sale());
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
                                 store_uid=itemDetails.getItem_store_id();
+                                textView_ActivityClientFindItemTermsandConditions.setText(itemDetails.getItem_termsAndConditions());
 
                                 getStoreName(store_uid);
 
@@ -257,6 +273,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         recyclerView_ActivityClientFindItemRecyclerViewImages =findViewById(R.id.recyclerView_ActivityClientFindItemRecyclerViewImages);
         ClientItemDetail_reviewsTextView =findViewById(R.id.ClientItemDetail_reviewsTextView);
         textView_clientItemDetailActivityStoreName = findViewById(R.id.textView_clientItemDetailActivityStoreName);
+        textView_ActivityClientFindItemTermsandConditions =findViewById(R.id.textView_ActivityClientFindItemTermsandConditions);
     }
 
 

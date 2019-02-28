@@ -27,6 +27,7 @@ public class View_Store_Items extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseUser user;
     FirebaseFirestore db;
+    String user_role="Supplier";
   //  Task<QuerySnapshot>  taskUpdated=null;
     CollectionReference taskUpdated;
     private StorageReference mStorageRef;
@@ -68,11 +69,12 @@ public class View_Store_Items extends AppCompatActivity {
                         String price_description = document.getString("item_price_description");
                         String store_id = document.getString("item_store_id");
                         String item_tag=document.getString("item_tag");
+                        String item_termsAndConditions=document.getString("item_termsAndConditions");
 
 
                        // Log.e("HERE IT IS ", itemName + numStars + " " + itemPrice );
-                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id,item_tag));
-                        adapter = new View_Items_Recycler_Adapter(items,View_Store_Items.this);
+                        items.add(new Item(itemName,numStars,itemPrice,item_uid,item_category,item_description,isForSale,isPerSquareUnit,price_description,store_id,item_tag,item_termsAndConditions));
+                        adapter = new View_Items_Recycler_Adapter(items,View_Store_Items.this,user_role);
                         recyclerView.setLayoutManager(new GridLayoutManager(View_Store_Items.this,2));
                         recyclerView.setAdapter(adapter);
                     }
