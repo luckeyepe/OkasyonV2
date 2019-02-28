@@ -2,9 +2,11 @@ package com.example.morkince.okasyonv2.activities.view_holders
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog
+import com.example.morkince.okasyonv2.PopUpDialogs
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy
@@ -56,37 +58,68 @@ class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Supplie
                     button_transactionSupplierRowReview.text = "Transaction has been closed"
                     button_transactionSupplierRowReview.isClickable = false
 
+                    var dialog = Custom_Progress_Dialog(context)
+                    dialog.showDialog("Loading",RandomMessages().getRandomMessage())
+
                     FirebaseFirestore.getInstance()
                         .collection("Transaction_Supplier")
                         .document(currentUser.uid)
-                        .update("transaction_supplier_status", "closed")
-
-                    FirebaseFirestore.getInstance()
-                        .collection("Transaction_Client")
-                        .document(transactionItem.transaction_supplier_buyer_uid!!)
-                        .collection("events")
-                        .document(transactionItem.transaction_supplier_event_uid!!)
-                        .collection("transaction_client")
+                        .collection("transaction_supplier")
                         .document(transactionItem.transaction_supplier_uid!!)
-                        .update("transaction_client_status", "closed")
+                        .update("transaction_supplier_status", "closed")
+                        .addOnCompleteListener {
+                            task: Task<Void> ->
+                            if (task.isSuccessful){
+                                dialog.dissmissDialog()
+                                FirebaseFirestore.getInstance()
+                                    .collection("Transaction_Client")
+                                    .document(transactionItem.transaction_supplier_buyer_uid!!)
+                                    .collection("events")
+                                    .document(transactionItem.transaction_supplier_event_uid!!)
+                                    .collection("transaction_client")
+                                    .document(transactionItem.transaction_supplier_uid!!)
+                                    .update("transaction_client_status", "closed")
+                            }else{
+                                dialog.dissmissDialog()
+                                Log.e("trans sup", task.exception.toString())
+                                PopUpDialogs(context).errorDialog("Error Time", "Error")
+                            }
+                        }
+
+
                 }
 
                 "Open transaction"->{
                     button_transactionSupplierRowReview.text = "Close transaction"
                     button_transactionSupplierRowReview.isClickable = true
+
+                    var dialog = Custom_Progress_Dialog(context)
+                    dialog.showDialog("Loading",RandomMessages().getRandomMessage())
+
                     FirebaseFirestore.getInstance()
                         .collection("Transaction_Supplier")
                         .document(currentUser.uid)
-                        .update("transaction_supplier_status", "open")
-
-                    FirebaseFirestore.getInstance()
-                        .collection("Transaction_Client")
-                        .document(transactionItem.transaction_supplier_buyer_uid!!)
-                        .collection("events")
-                        .document(transactionItem.transaction_supplier_event_uid!!)
-                        .collection("transaction_client")
+                        .collection("transaction_supplier")
                         .document(transactionItem.transaction_supplier_uid!!)
-                        .update("transaction_client_status", "open")
+                        .update("transaction_supplier_status", "open")
+                        .addOnCompleteListener {
+                            task: Task<Void> ->
+                            if (task.isSuccessful){
+                                dialog.dissmissDialog()
+                                FirebaseFirestore.getInstance()
+                                    .collection("Transaction_Client")
+                                    .document(transactionItem.transaction_supplier_buyer_uid!!)
+                                    .collection("events")
+                                    .document(transactionItem.transaction_supplier_event_uid!!)
+                                    .collection("transaction_client")
+                                    .document(transactionItem.transaction_supplier_uid!!)
+                                    .update("transaction_client_status", "open")
+                            }else{
+                                dialog.dissmissDialog()
+                                Log.e("trans sup", task.exception.toString())
+                                PopUpDialogs(context).errorDialog("Error Time", "Error")
+                            }
+                        }
                 }
             }
         }
@@ -129,56 +162,6 @@ class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Supplie
                         .addOnFailureListener { custom_progress_dialog.dissmissDialog() }
                 }
                 .addOnFailureListener { custom_progress_dialog.dissmissDialog() }
-//
-//            FirebaseFirestore.getInstance()
-//                .collection("Items")
-//                .document(transactionItem.transaction_supplier_item_uid!!)
-//                .get().addOnCompleteListener { task: Task<DocumentSnapshot> ->
-//                    if (task.isSuccessful) {
-//                        val store_uid = task.result!!.getString("item_store_id")!!
-//
-//                        FirebaseFirestore.getInstance()
-//                            .collection("Store")
-//                            .document(store_uid)
-//                            .get()
-//                            .addOnSuccessListener { documentSnapshot ->
-//                                val ownerUid = documentSnapshot.get("store_owner_id")!!.toString()
-//
-//                                FirebaseFirestore.getInstance()
-//                                    .collection("User")
-//                                    .document(currentUserUid)
-//                                    .get()
-//                                    .addOnSuccessListener { documentSnapshot ->
-//                                        val sendingUser =
-//                                            documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User::class.java)
-//
-//                                        FirebaseFirestore.getInstance()
-//                                            .collection("User")
-//                                            .document(ownerUid)
-//                                            .get()
-//                                            .addOnSuccessListener { documentSnapshot ->
-//                                                val receivingUser =
-//                                                    documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User::class.java)
-//
-//                                                val intent = Intent(context, ChatLogActivitiy::class.java)
-//                                                intent.putExtra("sendingUser", sendingUser)
-//                                                intent.putExtra("receivingUser", receivingUser)
-//                                                context.startActivity(intent)
-//
-//                                                custom_progress_dialog.dissmissDialog()
-//                                            }
-//                                            .addOnFailureListener { custom_progress_dialog.dissmissDialog() }
-//                                    }
-//                                    .addOnFailureListener { custom_progress_dialog.dissmissDialog() }
-//                            }
-//                            .addOnFailureListener {
-//                                custom_progress_dialog.dissmissDialog()
-//                                Toast.makeText(context, "Coudn't Reach the Dude", Toast.LENGTH_LONG)
-//                            }
-//                    } else {
-//                        custom_progress_dialog.dissmissDialog()
-//                    }
-//                }
         }
     }
 }
