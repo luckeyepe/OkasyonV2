@@ -82,6 +82,7 @@ class Transaction_Client() : Parcelable {
         parcel.writeString(transaction_client_rent_start_date)
         parcel.writeString(transaction_client_rent_end_date)
         parcel.writeString(transaction_client_uid)
+        parcel.writeString(transaction_client_status)
     }
 
     override fun describeContents(): Int {

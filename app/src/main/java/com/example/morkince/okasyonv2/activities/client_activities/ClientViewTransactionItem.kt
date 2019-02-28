@@ -1,13 +1,15 @@
 package com.example.morkince.okasyonv2.activities.client_activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.PopUpDialogs
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
+import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.CartItemDetailsActivity
+import com.example.morkince.okasyonv2.activities.common_activities.ViewTransactionDetailsActivity
 import com.example.morkince.okasyonv2.activities.model.Transaction_Client
 import com.example.morkince.okasyonv2.activities.view_holders.TransactionItemViewHolder
 import com.google.firebase.auth.FirebaseAuth
@@ -68,6 +70,16 @@ class ClientViewTransactionItem : AppCompatActivity() {
                     popupDialog.infoDialog("Your transaction list in empty", "INFO")
                 }
             }
+
+        //on click listener for each row
+        adapter.setOnItemClickListener { item, view ->
+            if (view.id != R.id.imageButton_transactionClientRowMessage) {
+                val transactionItem = item as TransactionItemViewHolder
+                val intent = Intent(view.context, ViewTransactionDetailsActivity::class.java)
+                intent.putExtra("transactionItem",transactionItem.transactionItem)
+                startActivity(intent)
+            }
+        }
 
     }
 }
