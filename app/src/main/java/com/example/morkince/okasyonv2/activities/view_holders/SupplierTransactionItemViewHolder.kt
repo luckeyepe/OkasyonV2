@@ -20,7 +20,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.row_transaction_client.view.*
 
-class TransactionItemViewHolder(val transactionItem: Transaction_Client, val context: Context):Item<ViewHolder>() {
+class SupplierTransactionItemViewHolder(val transactionItem: Transaction_Client, val context: Context):Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.row_transaction_client
     }

@@ -4,32 +4,52 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog
+import com.example.morkince.okasyonv2.PopUpDialogs
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.adapter.TransactionRecyclerAdapter
+import com.example.morkince.okasyonv2.activities.model.Transaction_Supplier
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_transaction__supplier_.*
 
 class Transaction_Supplier_Activity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var myDataset: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction__supplier_)
         val actionbar = supportActionBar
         actionbar!!.title = "TRANSACTION"
         actionbar.setDisplayHomeAsUpEnabled(true)
-        var myDataset2 = ArrayList<String>()
-        myDataset2.add("Marc Shop")
-        myDataset2.add("Mikay Shop")
-        myDataset2.add("Mikky Shop")
-        myDataset2.add("japhet Shop")
-        var viewManager = LinearLayoutManager(this)
-        var viewAdapter = TransactionRecyclerAdapter(myDataset2, this)
 
+        val popUpDialogs = PopUpDialogs(this)
+        val custom_Progress_Dialog = Custom_Progress_Dialog(this)
+        val randomMessages = RandomMessages()
 
-      transactionRecycler.adapter = viewAdapter
-     transactionRecycler.layoutManager = viewManager
+        custom_Progress_Dialog.showDialog("Loading", randomMessages.getRandomMessage())
+
+        //current user
+        val currentUser = FirebaseAuth.getInstance().currentUser!!
+        //
+        FirebaseFirestore.getInstance()
+            .collection("Transaction_Supplier")
+            .document(currentUser.uid)
+            .collection("transaction_supplier")
+            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                if (firebaseFirestoreException!=null){
+                    custom_Progress_Dialog.dissmissDialog()
+                    popUpDialogs.errorDialog("Something went wrong","ERROR")
+                    return@addSnapshotListener
+                }
+
+                if (querySnapshot!=null && !querySnapshot.isEmpty){
+                    for (document in querySnapshot){
+                        val result = document.toObject(Transaction_Supplier::class.java)
+
+                    }
+                }
+            }
+
 
     }
     override fun  onSupportNavigateUp():Boolean{
