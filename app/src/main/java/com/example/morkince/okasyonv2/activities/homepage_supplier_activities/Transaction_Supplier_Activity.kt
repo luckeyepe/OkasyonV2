@@ -70,7 +70,7 @@ class Transaction_Supplier_Activity : AppCompatActivity() {
         adapter.setOnItemClickListener { item, view ->
             if (view.id != R.id.imageButton_transactionSupplierRowMessage) {
                 val transactionItem = item as SupplierTransactionItemViewHolder
-                val intent = Intent(view.context, ViewTransactionDetailsActivity::class.java)
+                val intent = Intent(view.context, ViewSupplierTransactionDetailsActivity::class.java)
                 intent.putExtra("transactionItem", transactionItem.transactionItem)
                 startActivity(intent)
             }
