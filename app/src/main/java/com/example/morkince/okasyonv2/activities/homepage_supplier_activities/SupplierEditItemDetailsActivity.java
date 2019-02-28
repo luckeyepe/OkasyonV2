@@ -173,7 +173,7 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
                 userToUpdate.update("item_name",editText_supplierEditItemDetailsNameofItem.getText().toString());
                 userToUpdate.update("item_price_description",editText_supplierEditItemDetailsPriceDescriptionofItem.getText().toString());
                 userToUpdate.update("item_for_sale",isItemforSale);
-                userToUpdate.update("item_price",editText_supplierEditItemDetailsPriceofItem.getText().toString());
+                userToUpdate.update("item_price",Double.parseDouble(editText_supplierEditItemDetailsPriceofItem.getText().toString()));
                 userToUpdate.update("item_description", editText_supplierEditItemDetails.getText().toString())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

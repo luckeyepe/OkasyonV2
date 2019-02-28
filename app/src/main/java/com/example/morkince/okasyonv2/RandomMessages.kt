@@ -6,8 +6,15 @@ class RandomMessages {
     private fun loadMessages(){
         messages.addAll(listOf<String>(
             "Please wait, Looking for best lechon? visit Paray's Lechon ",
+            "Please wait, Looking for best lechon? visit Paray's Lechon ",
+            "Please wait, Looking for best lechon? visit Paray's Lechon ",
+            "Please wait, Looking for best maker of uniforms and jerseys? visit Janine's Botique ",
+            "Please wait, Looking for best maker of uniforms and jerseys? visit Janine's Botique ",
             "Please wait, Looking for best maker of uniforms and jerseys? visit Janine's Botique ",
             "Please wait, Looking for best maker of gowns for your wedding? visit Idea events and designs ",
+            "Please wait, Looking for best maker of gowns for your wedding? visit Idea events and designs ",
+            "Please wait, Looking for best maker of gowns for your wedding? visit Idea events and designs ",
+            "Please wait, Need a catering service? Go to Sonnet's Store! ",
 //            "Please wait, Don't forget about flowers",
 //            "Please wait, You look nice today",
 //            "Please wait, Have a nice day",
@@ -22,8 +29,8 @@ class RandomMessages {
 //            "Please wait, Dogs can't digest chocolate",
             "Please wait, Make sure to try the dresses you want before buying them",
             "Please wait, Don't have a bachelor party with your bride's father? visit Danny Booc",
-            "Please wait, Peanut butter pairs well with chocolate",
-            "Please wait, Don't get a haircut a day before the party",
+            //"Please wait, Peanut butter pairs well with chocolate",
+           // "Please wait, Don't get a haircut a day before the party",
             "Please wait, Remember to check you budget"))
     }
 
