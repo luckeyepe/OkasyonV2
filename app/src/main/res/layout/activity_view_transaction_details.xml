@@ -16,7 +16,7 @@
             android:id="@+id/linearLayout">
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:id="@+id/recyclerView_ActivityClientFindItemRecyclerViewImages2"
+                android:id="@+id/recyclerView_viewTransactionDetails"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"/>
 
