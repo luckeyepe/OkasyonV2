@@ -374,7 +374,7 @@ public class Client_Create_Event extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             progressDialog.dismiss();
-                            showAlertSuccess("Successfully Created Event!","Success");
+                            showAlertSuccess("Successfully Created Event!","Success", txtid);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -397,17 +397,22 @@ public class Client_Create_Event extends AppCompatActivity {
         }
 
     }
-    public void showAlertSuccess(String Message,String label)
+
+    public void showAlertSuccess(String Message, String label, final String eventUid)
     {
         //set alert for executing the task
         AlertDialog.Builder alert = new AlertDialog.Builder(Client_Create_Event.this);
         alert.setTitle(""+label);
         alert.setMessage(""+Message);
+        alert.setCancelable(false);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick (DialogInterface dialog, int id){
-                Intent intent = new Intent(Client_Create_Event.this,ClientHomePage.class);
+                Intent intent = new Intent(Client_Create_Event.this,EventDetailsActivity.class);
+                intent.putExtra("event_event_uid", eventUid);
                 startActivity(intent);
-                dialog.cancel();
+                finish();
+                dialog.dismiss();
+
 
             }
         });

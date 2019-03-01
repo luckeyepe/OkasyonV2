@@ -154,6 +154,7 @@ public void ClientCreateEvent()
         Intent intent = new Intent(ClientHomePage.this, Client_Create_Event.class);
         intent.putExtra("event_category",typeOfEvent);
         startActivity(intent);
+
     }
 
     @Override
@@ -172,7 +173,7 @@ public void ClientCreateEvent()
 
             ImageButton buttonClose = dialogView.findViewById(R.id.imageButton_modalCreateEventClose);
 
-            Button chooseWedding= dialogView.findViewById(R.id.button_modalCreateEventWedding);
+            final Button chooseWedding= dialogView.findViewById(R.id.button_modalCreateEventWedding);
 
             Button chooseParty= dialogView.findViewById(R.id.button_modalCreateOwnEvent);
             Button chooseBusinessEvents =dialogView.findViewById(R.id.button_modalCreateEventBusinessEvents);
@@ -183,6 +184,7 @@ public void ClientCreateEvent()
             dialog.setContentView(dialogView);
             dialog.setCancelable(false);
             dialog.show();
+
 
             buttonClose.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -215,7 +217,9 @@ public void ClientCreateEvent()
                         @Override
                         public void onClick(View v) {
                            ClientCreateEvent();
-                        }
+                            dialog.dismiss();
+                           dialogWedding.dismiss();
+                         }
                     });
 
                     //hireOrganizer
@@ -225,6 +229,9 @@ public void ClientCreateEvent()
                             Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
                             intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
+                            finish();
+                            dialog.dismiss();
+                            dialogWedding.dismiss();
                         }
                     });
 
@@ -265,6 +272,8 @@ public void ClientCreateEvent()
                         @Override
                         public void onClick(View v) {
                             ClientCreateEvent();
+                            dialog.dismiss();
+                            dialogParty.dismiss();
                         }
                     });
 
@@ -275,6 +284,7 @@ public void ClientCreateEvent()
                             Intent intent = new Intent(ClientHomePage.this, Activity_Vieworganizer.class);
                             intent.putExtra("event_category",typeOfEvent);
                             startActivity(intent);
+
                         }
                     });
 
@@ -318,6 +328,8 @@ public void ClientCreateEvent()
                         @Override
                         public void onClick(View v) {
                             ClientCreateEvent();
+                            dialog.dismiss();
+                            dialogBusiness.dismiss();
                         }
                     });
 
@@ -369,6 +381,8 @@ public void ClientCreateEvent()
                         @Override
                         public void onClick(View v) {
                             ClientCreateEvent();
+                            dialog.dismiss();
+                            dialogSports.dismiss();
                         }
                     });
 
@@ -419,6 +433,8 @@ public void ClientCreateEvent()
                         @Override
                         public void onClick(View v) {
                             ClientCreateEvent();
+                            dialog.dismiss();
+                            dialogCustomize.dismiss();
                         }
                     });
 

@@ -149,7 +149,8 @@
         <activity
                 android:name=".activities.client_activities.EventDetailsActivity"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan">
+                android:windowSoftInputMode="adjustPan"
+        android:parentActivityName=".activities.client_activities.ClientHomePage">
         </activity>
         <activity
                 android:name=".ClientViewStoreDetails"
