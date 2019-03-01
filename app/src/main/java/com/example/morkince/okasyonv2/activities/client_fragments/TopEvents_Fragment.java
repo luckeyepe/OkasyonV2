@@ -1,5 +1,6 @@
 package com.example.morkince.okasyonv2.activities.client_fragments;
 
+import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.client_activities.EventDetailsActivity;
 import com.example.morkince.okasyonv2.activities.view_holders.EventViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
 import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
@@ -129,6 +133,16 @@ public class TopEvents_Fragment extends Fragment {
                                   }
                               }
                           });
+
+                  groupAdapter.setOnItemClickListener(new OnItemClickListener() {
+                      @Override
+                      public void onItemClick(@NonNull Item item, @NonNull View view) {
+                          EventViewHolder eventViewHolder = (EventViewHolder) item;
+                          Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
+                          intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
+                          startActivity(intent);
+                      }
+                  });
 
                   return false;
               }
@@ -233,5 +247,15 @@ public class TopEvents_Fragment extends Fragment {
 //            }
 //        });
                 });
+
+        groupAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                EventViewHolder eventViewHolder = (EventViewHolder) item;
+                Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
+                intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
+                startActivity(intent);
+            }
+        });
     }
 }
