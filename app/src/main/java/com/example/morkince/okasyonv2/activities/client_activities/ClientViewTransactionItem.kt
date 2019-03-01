@@ -72,12 +72,28 @@ class ClientViewTransactionItem : AppCompatActivity() {
 
         //on click listener for each row
         adapter.setOnItemClickListener { item, view ->
-            if (view.id != R.id.imageButton_transactionClientRowMessage) {
-                val transactionItem = item as ClientTransactionItemViewHolder
-                val intent = Intent(view.context, ViewTransactionDetailsActivity::class.java)
-                intent.putExtra("transactionItem",transactionItem.transactionItem)
-                startActivity(intent)
+            when(view.id){
+                R.id.button_transactionClientRowReview->{
+                    //nothing
+                }
+
+                R.id.imageButton_transactionClientRowMessage->{
+                    //nothing
+                }
+
+                else->{
+                    val transactionItem = item as ClientTransactionItemViewHolder
+                    val intent = Intent(view.context, ViewTransactionDetailsActivity::class.java)
+                    intent.putExtra("transactionItem",transactionItem.transactionItem)
+                    startActivity(intent)
+                }
             }
+//            if (view.id != R.id.imageButton_transactionClientRowMessage) {
+//                val transactionItem = item as ClientTransactionItemViewHolder
+//                val intent = Intent(view.context, ViewTransactionDetailsActivity::class.java)
+//                intent.putExtra("transactionItem",transactionItem.transactionItem)
+//                startActivity(intent)
+//            }
         }
 
     }

@@ -1,12 +1,17 @@
 package com.example.morkince.okasyonv2.activities.common_activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog
+import com.example.morkince.okasyonv2.PopUpDialogs
 import com.example.morkince.okasyonv2.R
 import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy
@@ -20,6 +25,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_view_transaction_details.*
+import kotlinx.android.synthetic.main.modal_user_review.view.*
+import kotlinx.android.synthetic.main.modal_user_type_selection.view.*
 
 class ViewTransactionDetailsActivity : AppCompatActivity() {
 
@@ -76,6 +83,68 @@ class ViewTransactionDetailsActivity : AppCompatActivity() {
 
         button_viewTransactionDetailsWriteReview.setOnClickListener {
             //launch modal
+            //setup modal
+            var dialog: Dialog?
+            var view = LayoutInflater.from(this).inflate(R.layout.modal_user_review, null)//inflate the modal
+
+            //assign buttons from the modal
+            var review = view.editText_modalUserReviewComments
+            var rating = view.ratingBar_modalUserReviewRating
+            var submitt = view.button_modalUserReviewSumbitButton
+            var cancel = view.button_modalUserReviewCancelButton
+
+            //instantiate the dialog
+            dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(view)
+            dialog.setCancelable(false)
+
+            val lp = WindowManager.LayoutParams()
+            lp.copyFrom(dialog.window.attributes)
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+            dialog.window.attributes = lp
+            dialog.show()
+
+
+            //add functionality to buttons
+            submitt.setOnClickListener {
+                if (rating.rating.equals(0)){
+                    PopUpDialogs(this).infoDialog("You must give a rating of atleast 1","Error")
+                }else{
+                    val rev = if(review.text.toString().trim().isNullOrEmpty()) "" else review.text.toString().trim()
+
+                    FirebaseFirestore.getInstance()
+                        .collection("Transaction_Client")
+                        .document(transactionItem.transaction_client_buyer_uid!!)
+                        .collection("events")
+                        .document(transactionItem.transaction_client_event_uid!!)
+                        .collection("transaction_client")
+                        .document(transactionItem.transaction_client_uid!!)
+                        .update(
+                            "transaction_client_review", rev,
+                            "transaction_client_item_rating", rating.rating
+                        )
+                        .addOnCompleteListener { task: Task<Void> ->
+                            if (task.isSuccessful) {
+                                button_viewTransactionDetailsWriteReview.visibility = View.GONE
+                                textView_viewTransactionDetailsWriteReviewLabel.visibility = View.VISIBLE
+                                ratingBar_viewTransactionDetailsStare.visibility = View.VISIBLE
+                                ratingBar_viewTransactionDetailsStare.rating = rating.rating
+                                textView_viewTransactionDetailsReview.text = rev
+                                scrollView_viewTransacitionDetailsScroll.visibility = View.VISIBLE
+                                dialog.dismiss()
+                            } else {
+                                //dedede
+                            }
+                        }
+                }
+            }
+
+            cancel.setOnClickListener {
+                dialog.dismiss()
+            }
         }
 
         imageButton_viewTransactionDetailsMessage.setOnClickListener {
