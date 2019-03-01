@@ -65,6 +65,7 @@ public class SupplierHomePage extends AppCompatActivity
     FirebaseUser user;
     FirebaseFirestore db;
     private StorageReference mStorageRef;
+    String userID;
 
     ImageView drawerImage;
     TextView drawerUsername;
@@ -119,6 +120,7 @@ public class SupplierHomePage extends AppCompatActivity
 
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        userID=user.getUid();
         updateSupplierProfileInfo();
         enableEditText(false);
         supplierHomepage_editBtn.setOnClickListener(editInfo);
@@ -518,7 +520,7 @@ public class SupplierHomePage extends AppCompatActivity
             }
     public void updateSupplierProfileInfo()
     {
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(user.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(userID);
 
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
