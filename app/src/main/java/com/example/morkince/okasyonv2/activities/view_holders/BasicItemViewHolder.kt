@@ -51,9 +51,10 @@ class BasicItemViewHolder(val item_uid: String,
             .addOnCompleteListener {
                 task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful){
-                    var item = task.result!!.toObject(com.example.morkince.okasyonv2.activities.model.Item::class.java)!!
+                    var result = task.result
+                    var item = result!!.toObject(com.example.morkince.okasyonv2.activities.model.Item::class.java)
 
-                    itemName.text = item.item_name
+                    itemName.text = item!!.item_name
                     itemPrice.text = "₱${item.item_price}"
                     itemRating.rating = item.item_average_rating.toFloat()
 
