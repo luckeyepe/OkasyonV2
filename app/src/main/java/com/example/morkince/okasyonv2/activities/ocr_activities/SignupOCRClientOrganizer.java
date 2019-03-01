@@ -49,6 +49,8 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
     private String user_gender = "";
     private String store_store_name = "";
     private String store_description = "";
+    String validIDOCRText="";
+    String validIDOCRTextUppercase="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,6 +220,7 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
 
     private boolean recognizeText()
     {
+        boolean isMatchingName = false;
         try {
             bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
             TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
@@ -231,56 +234,46 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
                 Frame frame = new Frame.Builder().setBitmap(bitmapValidID).build();
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
                 StringBuilder validIDText = new StringBuilder();
-                String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
-                String[] firsnameArray = user_first_name.split(" ");
-                Boolean isMatchingName = false;
+                String fullName = (""+user_last_name + " " +user_first_name+"").toUpperCase();
+                //fullName="ABANTO, JAPHET TITUS HINGPIT";
+                String[] firsnameArray = fullName.split(" ");
+
 
                 for(int ctr=0;ctr<items.size();ctr++)
                 {
                     TextBlock myItem = items.valueAt(ctr);
-                    validIDText.append(myItem.getValue().trim());
+                    validIDText.append(myItem.getValue().trim().toUpperCase() + " ");
+
                 }
 
-                Log.e("THIS IS OCR!", validIDText.toString());
 
-                for (String fname: firsnameArray)
+                validIDOCRTextUppercase= validIDText.toString();
+
+                if (validIDText.toString().contains(",")){
+                    validIDOCRTextUppercase = validIDText.toString().replace(",", "");
+                }else {
+                    validIDOCRTextUppercase = validIDText.toString();
+                }
+
+                Log.e("VALID OCR TEXT ", validIDOCRTextUppercase);
+
+                for (String name: firsnameArray)
                 {
-                    Log.d("OCCCRRR", fname);
-                    Log.d("OCCCRRR", validIDText.toString());
-                    if(validIDText.toString().contains(fname.toUpperCase()))
+
+                    if(validIDOCRTextUppercase.contains(name.toUpperCase()))
                     {
-                        Log.d("OCRRRRRRRRRRRRR",fname);
+                       /* Toast.makeText(getApplication(), "CHECK NAME : " + name , Toast.LENGTH_SHORT).show();*/
+                        Log.e("CHECK NAME",name);
                         isMatchingName =true;
                     }
                     else
                     {
                         isMatchingName= false;
+                       /* Toast.makeText(getApplication(), "WRONG NAME : " + name , Toast.LENGTH_SHORT).show();*/
+                        Toast.makeText(getApplication(), "NAME DOES NOT MATCH : " + fullName , Toast.LENGTH_SHORT).show();
+                        break;
                     }
 
-                }
-
-                if(validIDText.toString().contains(user_last_name.toUpperCase()))
-                {
-                    isMatchingName =true;
-                }
-                else
-                {
-                    isMatchingName= false;
-                }
-
-
-                Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name+"; First Name: "+ user_first_name);
-                if(isMatchingName)
-                {
-                    Toast.makeText(getApplication(), "CONTAINS NAME!! "+fullName, Toast.LENGTH_LONG).show();
-                    Log.e("TEXT : ", validIDText + "");
-                    return true;
-                }
-                else
-                {
-                    Toast.makeText(getApplication(), "NAMES DO NOT MATCH!! "+fullName, Toast.LENGTH_SHORT).show();
-                    Log.e("TEXT : ", validIDText + "");
-                    return false;
                 }
 
 
@@ -289,7 +282,8 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return false;
+
+        return isMatchingName;
     }
 
     public void refs()

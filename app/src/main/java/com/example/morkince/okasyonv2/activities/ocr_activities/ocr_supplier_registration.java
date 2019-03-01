@@ -49,6 +49,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private String user_gender = "";
     private String store_store_name = "";
     private String store_description = "";
+    String validIdTextOCR="";
+    String validBusinessPermitTextOCR="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,7 +227,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
     }
     private boolean recognizeTextBusinessPermit()
     {
-        boolean isMatchingBusinessPermit=false;
+        boolean isMatchingBusinessPermit=true;
         try {
             bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
             TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
@@ -239,11 +241,11 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 Frame frame = new Frame.Builder().setBitmap(bitmapBusinessPermit).build();
                 SparseArray<TextBlock> itemsBusinessPermit = textRecognizer.detect(frame);
                 StringBuilder businessPermitText = new StringBuilder();
-                String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+               //String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
               //  fullName="MARLONITO COLINA";
               //  store_store_name="MCAV TARPAULIN PRINTING SERVICES";
                 //user_address="1077 H. Cortes T., SUBANGDAKU, MANDAUE CITY";
-                // String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+                String fullName = (""+user_last_name+" "+user_first_name+"").toUpperCase();
                 String[] nameArray = fullName.split(" ");
                 String[] storeNameArray = store_store_name.split(" ");
                 String[] addressArray = user_address.split(" ");
@@ -252,17 +254,23 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 for(int ctr=0;ctr<itemsBusinessPermit.size();ctr++)
                 {
                     TextBlock myItemBusinessPermit = itemsBusinessPermit.valueAt(ctr);
-                    businessPermitText.append(" " + myItemBusinessPermit.getValue().trim().toUpperCase());
+                    businessPermitText.append(" " + myItemBusinessPermit.getValue().trim().toUpperCase()+ " ");
                 }
 
+                if (businessPermitText.toString().contains(",")){
+                    validBusinessPermitTextOCR = businessPermitText.toString().replace(",", "");
+                }else {
+                    validBusinessPermitTextOCR = businessPermitText.toString();
+                }
 
+                validBusinessPermitTextOCR=businessPermitText.toString().toUpperCase();
               //  Log.e("BUSINESS PERMIT ",businessPermitText.toString());
 
                 //CHECK OWNER NAME
-                for (String name: nameArray)
+             /*   for (String name: nameArray)
                 {
 
-                    if(businessPermitText.toString().contains(name.toUpperCase()))
+                    if(validBusinessPermitTextOCR.contains(name.toUpperCase()))
                     {
                         Log.e("CHECK ",name);
                         isMatchingBusinessPermit =true;
@@ -275,7 +283,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                         break;
                     }
 
-                }
+                }*/
 
                 //CHECK STORE NAME
                 if(isMatchingBusinessPermit)
@@ -313,7 +321,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(getApplication(), "Store ADDRESS does not macth " + user_address, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "Store ADDRESS does not match " + user_address, Toast.LENGTH_SHORT).show();
                             isMatchingBusinessPermit= false;
                             Log.e("WRONG  STORE ADDRESS",address);
                             break;
@@ -361,7 +369,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 Frame frame = new Frame.Builder().setBitmap(bitmapValidID).build();
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
                 StringBuilder validIDText = new StringBuilder();
-                String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+                String fullName = (""+user_last_name+" "+user_first_name+"").toUpperCase();
                 //fullName="ABANTO, JAPHET TITUS HINGPIT";
                 String[] firsnameArray = fullName.split(" ");
 
@@ -369,13 +377,20 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 for(int ctr=0;ctr<items.size();ctr++)
                 {
                     TextBlock myItem = items.valueAt(ctr);
-                    validIDText.append(myItem.getValue().trim());
+                    validIDText.append(myItem.getValue().trim().toUpperCase() + " ");
                 }
+
+                if (validIDText.toString().contains(",")){
+                    validIdTextOCR = validIDText.toString().replace(",", "");
+                }else {
+                    validIdTextOCR = validIDText.toString();
+                }
+                validIdTextOCR=validIDText.toString().toUpperCase();
 
                 for (String name: firsnameArray)
                 {
 
-                    if(validIDText.toString().contains(name.toUpperCase()))
+                    if(validIdTextOCR.contains(name.toUpperCase()))
                     {
                         Log.e("CHECK NAME",name);
                         isMatchingName =true;
