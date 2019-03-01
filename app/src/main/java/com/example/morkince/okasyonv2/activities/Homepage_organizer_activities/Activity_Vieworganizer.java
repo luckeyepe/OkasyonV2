@@ -131,4 +131,10 @@ public class Activity_Vieworganizer extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.RecyclerView_viewOrganizer_activity);
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

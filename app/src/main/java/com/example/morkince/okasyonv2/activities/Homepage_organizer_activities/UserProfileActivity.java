@@ -39,7 +39,7 @@ EditText UserEmailAdress, UserFirstname, UserLastname, UserAddress, UserContactn
 TextView User_rolename;
 ImageView imageviewUserProfile;
 ImageButton imgbtnAddPic, imgBtnEditProfile;
-Button btnsave;
+Button btnsave,btnCancel;
 User userprofile;
 FirebaseUser user;
 FirebaseFirestore db;
@@ -70,6 +70,7 @@ private Uri filePath=null;
         imgbtnAddPic.setOnClickListener(pickEventImage);
         imgBtnEditProfile.setOnClickListener(edittheDetails);
         btnsave.setOnClickListener(saveUpdatedData);
+        btnCancel.setOnClickListener(CancelData);
 
     }
     public void getUserDetails(){
@@ -259,6 +260,7 @@ private Uri filePath=null;
             enable(true);
             imgBtnEditProfile.setVisibility(View.INVISIBLE);
             btnsave.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
 
 
 
@@ -273,6 +275,15 @@ private Uri filePath=null;
         UserContactnumber.setEnabled(status);
 
     }
+    public View.OnClickListener CancelData = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            imgBtnEditProfile.setVisibility(View.VISIBLE);
+            btnsave.setVisibility(View.INVISIBLE);
+            btnCancel.setVisibility(View.INVISIBLE);
+            enable(false);
+        }
+    };
     public View.OnClickListener saveUpdatedData = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -280,6 +291,7 @@ private Uri filePath=null;
             enable(false);
             imgBtnEditProfile.setVisibility(View.VISIBLE);
             btnsave.setVisibility(View.INVISIBLE);
+            btnCancel.setVisibility(View.INVISIBLE);
             db = FirebaseFirestore.getInstance();
             DocumentReference userToUpdate = db.collection("User").document("" + user.getUid());
             userToUpdate.update("user_first_name",  UserFirstname.getText().toString());
@@ -313,5 +325,6 @@ private Uri filePath=null;
         imgBtnEditProfile=findViewById(R.id.imageButton_EditProfile);
         imgbtnAddPic=findViewById(R.id.imageButton_ProfileAddPic);
         btnsave=findViewById(R.id.button_saveUserDetails);
+        btnCancel=findViewById(R.id.button_cancelUserDetails);
     }
 }
