@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-feature android:name="android.hardware.camera"
-                  android:required="true" />
+
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
 
     <application
             android:allowBackup="true"
@@ -21,9 +23,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.NotificationsActivity">
+        </activity>
         <activity android:name=".activities.ClientItemDetailsReviewActivity">
         </activity>
-        <activity android:name=".activities.client_activities.ClientCartEventListActivity"></activity>
+        <activity android:name=".activities.client_activities.ClientCartEventListActivity"/>
         <activity android:name=".activities.homepage_supplier_activities.ViewSupplierTransactionDetailsActivity">
         </activity>
         <activity android:name=".activities.common_activities.ViewTransactionDetailsActivity">
@@ -45,8 +49,9 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".activities.signup_supplier_activities.SignUpSupplierPart1Activity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".SplashScreen"
@@ -56,10 +61,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpUserPart1Activity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".activities.signup_client_activities.SignUpUserPart1Activity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".activities.signup_supplier_activities.SignUpSupplierPart2Activity"
@@ -75,16 +80,18 @@
         </activity>
         <activity
                 android:name=".activities.signup_client_activities.SignUpUserPart2Activity"
-                android:windowSoftInputMode="adjustPan"
-                  android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".activities.signup_client_activities.SignUpUserSummaryActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".activities.signup_client_activities.SignUpUserSummaryActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activities.PlaceHolderActivity">
         </activity>
-        <activity android:name=".activities.signup_supplier_activities.SignUpSupplierPart4Activity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".activities.signup_supplier_activities.SignUpSupplierPart4Activity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".activities.client_activities.Client_Create_Event"
@@ -128,8 +135,9 @@
         <activity android:name=".activities.homepage_supplier_activities.Transaction_Supplier_Activity"/>
         <activity android:name=".Content_Home_Page_Supplier">
         </activity>
-        <activity android:name=".Select_Multiple_Images"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+                android:name=".Select_Multiple_Images"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <meta-data
@@ -223,4 +231,5 @@
             </intent-filter>
         </service>
     </application>
+
 </manifest>

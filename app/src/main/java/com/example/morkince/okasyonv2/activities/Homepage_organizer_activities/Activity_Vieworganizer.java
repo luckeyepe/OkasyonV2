@@ -41,6 +41,8 @@ public class Activity_Vieworganizer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__vieworganizer);
+        getSupportActionBar().setTitle("Choose Organizer");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
 
         db = FirebaseFirestore.getInstance();
