@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -122,7 +123,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         TextView textView_clientTopEventsToBeRecycleNameoftheEvent;
         TextView textView_clientTopEventsToBeRecycleLocationoftheEvent;
         ImageView imageView_topEventsToBeRecycled,ImageView_clientTopEventsPicture;
-        LinearLayout eventsToBeRecycled_layout;
+        ConstraintLayout eventsToBeRecycled_layout;
         ArrayList<Events> events;
         Context mContext;
 
