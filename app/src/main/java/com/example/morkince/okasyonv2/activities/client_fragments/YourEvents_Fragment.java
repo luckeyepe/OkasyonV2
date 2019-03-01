@@ -70,22 +70,24 @@ public class YourEvents_Fragment extends Fragment {
                             return;
                         }
 
-                        if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
-                            events.clear();
-                            adapter = new EventsAdapter(events, getActivity());
-                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                        if (isAdded()) {
+                            if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
+                                events.clear();
+                                adapter = new EventsAdapter(events, getActivity());
+                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
 
-                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
-                                Events event = document.toObject(Events.class);
-                                events.add(event);
-                            }
+                                    Events event = document.toObject(Events.class);
+                                    events.add(event);
+                                }
 
-                            adapter = new EventsAdapter(events, getActivity());
-                            RecyclerView_client_your_eventfragment.setAdapter(adapter);
-                            RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                            RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            custom_progress_dialog.dissmissDialog();
+                                adapter = new EventsAdapter(events, getActivity());
+                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                                RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                                RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                custom_progress_dialog.dissmissDialog();
+                        }
 
                         } else {
                             db.collection("Event").whereEqualTo("event_event_organizer_uid", user.getUid())
@@ -102,22 +104,24 @@ public class YourEvents_Fragment extends Fragment {
                                                 return;
                                             }
 
-                                            if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
-                                                events.clear();
-                                                adapter = new EventsAdapter(events, getActivity());
-                                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                                            if (isAdded()) {
+                                                if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
+                                                    events.clear();
+                                                    adapter = new EventsAdapter(events, getActivity());
+                                                    RecyclerView_client_your_eventfragment.setAdapter(adapter);
 
-                                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
-                                                    Events event = document.toObject(Events.class);
-                                                    events.add(event);
+                                                        Events event = document.toObject(Events.class);
+                                                        events.add(event);
+                                                    }
+
+                                                    adapter = new EventsAdapter(events, getActivity());
+                                                    RecyclerView_client_your_eventfragment.setAdapter(adapter);
+                                                    RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                                                    RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                                    custom_progress_dialog.dissmissDialog();
                                                 }
-
-                                                adapter = new EventsAdapter(events, getActivity());
-                                                RecyclerView_client_your_eventfragment.setAdapter(adapter);
-                                                RecyclerView_client_your_eventfragment.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                                                RecyclerView_client_your_eventfragment.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                                custom_progress_dialog.dissmissDialog();
 
                                             } else {
                                                 if (isAdded()) {

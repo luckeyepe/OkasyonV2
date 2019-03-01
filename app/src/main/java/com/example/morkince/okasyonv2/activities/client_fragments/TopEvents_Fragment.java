@@ -19,13 +19,15 @@ import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.CallableFunctions;
-import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.view_holders.EventViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
+import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,6 @@ public class TopEvents_Fragment extends Fragment {
     FirebaseFirestore db;
     private StorageReference mStorageRef;
     RecyclerView recyclerView_clientTopEvents;
-    EventsAdapter adapter;
     TextView noMessage;
     private ArrayList<Events> events = new ArrayList<>();
     SearchView searchView;
@@ -56,6 +57,7 @@ public class TopEvents_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
               @Override
               public boolean onQueryTextSubmit(String query) {
+                  final GroupAdapter<ViewHolder> groupAdapter = new GroupAdapter<>();
 
                   RandomMessages randomMessages = new RandomMessages();
                   final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
@@ -69,12 +71,12 @@ public class TopEvents_Fragment extends Fragment {
                               public void onComplete(@NonNull Task<ArrayList<String>> task) {
                                   if (task.isSuccessful()){
                                       ArrayList<String> result = task.getResult();
-
-                                      events.clear();
-                                      adapter = new EventsAdapter(events, getActivity());
-                                      recyclerView_clientTopEvents.setAdapter(adapter);
-                                      recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                                      recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                        groupAdapter.clear();
+//                                      events.clear();
+//                                      adapter = new EventsAdapter(events, getActivity());
+//                                      recyclerView_clientTopEvents.setAdapter(adapter);
+//                                      recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//                                      recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
 
                                       if (result.size()>0){
                                           //show events
@@ -95,8 +97,9 @@ public class TopEvents_Fragment extends Fragment {
                                                                   if(isAdded()) {
                                                                       Events event = task.getResult().toObject(Events.class);
                                                                       if (!event.isEvent_is_private()) {
-                                                                          events.add(event);
-                                                                          adapter = new EventsAdapter(events, getActivity());
+                                                                          groupAdapter.add(new EventViewHolder(event.getEvent_event_uid(), getContext()));
+//                                                                          events.add(event);
+//                                                                          adapter = new EventsAdapter(events, getActivity());
                                                                       }
                                                                   }
                                                               } else {
@@ -113,7 +116,7 @@ public class TopEvents_Fragment extends Fragment {
                                           }
 
 
-                                          recyclerView_clientTopEvents.setAdapter(adapter);
+                                          recyclerView_clientTopEvents.setAdapter(groupAdapter);
                                           recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                                           recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                                           custom_progress_dialog.dissmissDialog();
@@ -146,7 +149,7 @@ public class TopEvents_Fragment extends Fragment {
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(getActivity());
         custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
 
-
+        final GroupAdapter<ViewHolder> groupAdapter = new GroupAdapter<>();
 
         db = FirebaseFirestore.getInstance();
         db.collection("Event").whereEqualTo("event_is_private", false)
@@ -165,19 +168,15 @@ public class TopEvents_Fragment extends Fragment {
 
                         if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
                             if (isAdded()) {
-                                events.clear();
-                                adapter = new EventsAdapter(events, getActivity());
-                                recyclerView_clientTopEvents.setAdapter(adapter);
+                                groupAdapter.clear();
 
                                 noMessage.setVisibility(View.INVISIBLE);
                                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                     Events event = document.toObject(Events.class);
-                                    events.add(event);
+                                    groupAdapter.add(new EventViewHolder(event.getEvent_event_uid(), getContext()));
                                 }
 
-
-                                adapter = new EventsAdapter(events, getActivity());
-                                recyclerView_clientTopEvents.setAdapter(adapter);
+                                recyclerView_clientTopEvents.setAdapter(groupAdapter);
                                 recyclerView_clientTopEvents.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
                                 recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 custom_progress_dialog.dissmissDialog();
