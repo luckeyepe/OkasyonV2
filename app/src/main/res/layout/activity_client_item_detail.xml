@@ -68,8 +68,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView22" android:layout_marginStart="1dp"
             app:layout_constraintTop_toTopOf="@+id/textView22"/>
     <RatingBar
-            android:layout_width="245dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/ratingBar_ActivityClientFindItemRating"
             android:isIndicator="true"
             android:theme="@style/RatingBar"
@@ -87,7 +87,7 @@
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@+id/textView_ActivityClientFindItemPriceofTheItem"
-            style="@android:style/Widget.DeviceDefault.RatingBar" android:numStars="5"/>
+            style="@android:style/Widget.DeviceDefault.RatingBar.Indicator" android:numStars="5"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="389dp"
             android:layout_height="50dp"
@@ -116,7 +116,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_ActivityClientFindItemBottomNavigationforMessageandAddtoCart"/>
     <ScrollView
             android:layout_width="0dp"
-            android:layout_height="214dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
             android:id="@+id/scrollView6" android:layout_marginBottom="8dp"
@@ -125,21 +125,21 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Item Details"
-            android:textStyle="bold" android:textSize="16dp"
-            android:textColor="#fff" android:layout_marginBottom="10dp"/>
-            <TextView android:layout_width="wrap_content"
+                      android:text="Item Details"
+                      android:textStyle="bold" android:textSize="16dp"
+                      android:textColor="#fff" android:layout_marginBottom="10dp"/>
+            <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:textColor="#fff"
                       android:id="@+id/textView_ActivityClientFindItemDetails"
                       android:textSize="16sp"
                       android:text="This item is desiged by Mikhaelo Nheal Bongo himself. It is durable and convenient to use. This is a top choice for brides "/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="Terms and Conditions"
                       android:layout_marginTop="5dp"
                       android:textStyle="bold" android:textSize="16dp"
                       android:textColor="#fff" android:layout_marginBottom="10dp"/>
-            <TextView android:layout_width="wrap_content"
+            <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:textColor="#fff"
                       android:id="@+id/textView_ActivityClientFindItemTermsandConditions"
@@ -168,7 +168,7 @@
             android:id="@+id/textView22"
             android:textColor="@android:color/white" android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" android:layout_marginTop="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView_clientItemDetailActivityStoreName"/>
     <TextView
             android:text="Sold By:"
             android:layout_width="wrap_content"
@@ -178,24 +178,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_ActivityClientFindItemNameofTheItem"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/bg_gray"
-            app:layout_constraintEnd_toStartOf="@+id/textView25"
-            app:layout_constraintHorizontal_bias="0.951"/>
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
             android:text="Store Name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView_clientItemDetailActivityStoreName"
-            app:layout_constraintTop_toTopOf="@+id/textView23"
-            app:layout_constraintBottom_toBottomOf="@+id/textView23" android:textSize="16sp"
+            android:textSize="16sp"
             android:textColor="@color/bg_gray"
-            app:layout_constraintVertical_bias="0.571" app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0" android:layout_marginStart="1dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView25" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/textView23"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView23" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:textAlignment="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
