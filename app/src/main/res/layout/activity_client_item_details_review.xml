@@ -10,18 +10,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
-            android:layout_height="644dp"
+            android:layout_height="489dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/recyclerView_ClientItemDetailsReviews"/>
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/recyclerView_ClientItemDetailsReviews"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/clientItemDetails_viewReviews_txtView"/>
     <TextView
             android:text="REVIEWS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/clientItemDetails_viewReviews_txtView" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_ClientItemDetailsReviews" app:layout_constraintHorizontal_bias="0.023"
-            app:layout_constraintVertical_bias="0.423" android:textColor="#FFFFFF"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            android:textColor="#FFFFFF" android:textSize="20sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

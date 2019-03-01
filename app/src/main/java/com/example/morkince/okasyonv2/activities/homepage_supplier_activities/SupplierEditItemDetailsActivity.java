@@ -65,6 +65,7 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supplier_edit_item_details);
         getSupportActionBar().setTitle("Item Details");
+
         getValues();
         refs();
         mStorageRef = FirebaseStorage.getInstance().getReference();

@@ -38,6 +38,7 @@ public class ClientItemDetailsReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView;
         setContentView(R.layout.activity_client_item_details_review);
+        getSupportActionBar().hide();
         refs();
         Intent intent = getIntent();
         item_uid=intent.getStringExtra("item_uid");
