@@ -186,7 +186,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 filePathBusinessPermit = data.getData();
                 try {
                     bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
-                    ocr_supplier_valid_business_permit.setImageBitmap(bitmapBusinessPermit);
+                    if(recognizeTextBusinessPermit()) {
+                        ocr_supplier_valid_business_permit.setImageBitmap(bitmapBusinessPermit);
+                    }
                 }
                 catch (IOException e)
                 {
@@ -221,9 +223,131 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
         return false;
     }
+    private boolean recognizeTextBusinessPermit()
+    {
+        boolean isMatchingBusinessPermit=false;
+        try {
+            bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
+            TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+            if(!textRecognizer.isOperational())
+            {
+                Toast.makeText(getApplication(), "COULD NOT GET TEXT! ", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Frame frame = new Frame.Builder().setBitmap(bitmapBusinessPermit).build();
+                SparseArray<TextBlock> itemsBusinessPermit = textRecognizer.detect(frame);
+                StringBuilder businessPermitText = new StringBuilder();
+                String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+              //  fullName="MARLONITO COLINA";
+              //  store_store_name="MCAV TARPAULIN PRINTING SERVICES";
+                //user_address="1077 H. Cortes T., SUBANGDAKU, MANDAUE CITY";
+                // String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+                String[] nameArray = fullName.split(" ");
+                String[] storeNameArray = store_store_name.split(" ");
+                String[] addressArray = user_address.split(" ");
+                // Boolean isMatchingName = false;
+
+                for(int ctr=0;ctr<itemsBusinessPermit.size();ctr++)
+                {
+                    TextBlock myItemBusinessPermit = itemsBusinessPermit.valueAt(ctr);
+                    businessPermitText.append(" " + myItemBusinessPermit.getValue().trim().toUpperCase());
+                }
+
+
+              //  Log.e("BUSINESS PERMIT ",businessPermitText.toString());
+
+                //CHECK OWNER NAME
+                for (String name: nameArray)
+                {
+
+                    if(businessPermitText.toString().contains(name.toUpperCase()))
+                    {
+                        Log.e("CHECK ",name);
+                        isMatchingBusinessPermit =true;
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplication(), "Name in Image Does not Match " + fullName, Toast.LENGTH_SHORT).show();
+                        isMatchingBusinessPermit= false;
+                        Log.e("WRONG ",name);
+                        break;
+                    }
+
+                }
+
+                //CHECK STORE NAME
+                if(isMatchingBusinessPermit)
+                {
+                    for (String word: storeNameArray)
+                    {
+
+                        if(businessPermitText.toString().contains(word.toUpperCase()))
+                        {
+                            Log.e("CHECK  STORE NAME",word);
+                            isMatchingBusinessPermit =true;
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplication(), "Store Name does not macth " + store_store_name, Toast.LENGTH_SHORT).show();
+                            isMatchingBusinessPermit= false;
+                            Log.e("WRONG  STORE NAME",word);
+                            break;
+                        }
+
+                    }
+
+                }
+
+                //CHECK ADDRESS
+                if(isMatchingBusinessPermit)
+                {
+                    for (String address: addressArray)
+                    {
+
+                        if(businessPermitText.toString().contains(address.toUpperCase()))
+                        {
+                            Log.e("CHECK  STORE ADDRESS",address);
+                            isMatchingBusinessPermit =true;
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplication(), "Store ADDRESS does not macth " + user_address, Toast.LENGTH_SHORT).show();
+                            isMatchingBusinessPermit= false;
+                            Log.e("WRONG  STORE ADDRESS",address);
+                            break;
+                        }
+                    }
+                }
+
+                if(isMatchingBusinessPermit)
+                {
+                    if(businessPermitText.toString().contains("BUSINESS PERMIT"))
+                    {
+                        Log.e("HERE", "GOT BUSINESS PERMIT!");
+                        isMatchingBusinessPermit=true;
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplication(), "Image is not a BUSINESS PERMIT DOCUMENT", Toast.LENGTH_SHORT).show();
+                        isMatchingBusinessPermit=false;
+                    }
+                }
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return isMatchingBusinessPermit;
+    }
 
     private boolean recognizeText()
     {
+        boolean isMatchingName = false;
         try {
             bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
             TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
@@ -238,8 +362,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 SparseArray<TextBlock> items = textRecognizer.detect(frame);
                 StringBuilder validIDText = new StringBuilder();
                 String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
-                String[] firsnameArray = user_first_name.split(" ");
-                Boolean isMatchingName = false;
+                //fullName="ABANTO, JAPHET TITUS HINGPIT";
+                String[] firsnameArray = fullName.split(" ");
+
 
                 for(int ctr=0;ctr<items.size();ctr++)
                 {
@@ -247,51 +372,32 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     validIDText.append(myItem.getValue().trim());
                 }
 
-                for (String fname: firsnameArray)
+                for (String name: firsnameArray)
                 {
-                    Log.d("OCCCRRR", fname);
-                    Log.d("OCCCRRR", validIDText.toString());
-                    if(validIDText.toString().contains(fname.toUpperCase()))
+
+                    if(validIDText.toString().contains(name.toUpperCase()))
                     {
-                        Log.d("OCRRRRRRRRRRRRR",fname);
+                        Log.e("CHECK NAME",name);
                         isMatchingName =true;
                     }
                     else
                     {
                         isMatchingName= false;
+                        Log.e("WRONG NAME",name);
+                        Toast.makeText(getApplication(), "NAME DOEST NOT MATCH : " +fullName , Toast.LENGTH_SHORT).show();
+                        break;
                     }
 
                 }
 
-                if(validIDText.toString().contains(user_last_name.toUpperCase()))
-                {
-                    isMatchingName =true;
-                }
-                else
-                {
-                    isMatchingName= false;
-                }
-
-                Log.d("OCR", "OCR result: "+validIDText.toString()+"; USER Last NAME: "+user_last_name+"; First Name: "+ user_first_name);
-                if(isMatchingName)
-                {
-                    Toast.makeText(getApplication(), "CONTAINS NAME!! "+fullName, Toast.LENGTH_LONG).show();
-                    Log.e("TEXT : ", validIDText + "");
-                    return true;
-                }
-                else
-                {
-                    Toast.makeText(getApplication(), "NAMES DO NOT MATCH!! "+fullName, Toast.LENGTH_SHORT).show();
-                    Log.e("TEXT : ", validIDText + "");
-                    return false;
-                }
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return false;
+
+        return isMatchingName;
     }
 
     public void refs()

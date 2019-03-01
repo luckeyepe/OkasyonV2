@@ -16,11 +16,12 @@ Item {
     String item_display_picture_url = "";
     String item_doc="";
     String item_tag="";
+    String item_termsAndConditions;
 
     public Item() {
     }
 
-    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description,  boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement,String item_price_description, String item_store_id, String item_tag) {
+    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description,  boolean item_for_sale, boolean item_is_per_sqr_unit_of_measurement,String item_price_description, String item_store_id, String item_tag, String item_termsAndConditions) {
         this.item_name = item_name;
         this.item_average_rating = item_average_rating;
         this.item_price = item_price;
@@ -32,9 +33,10 @@ Item {
         this.item_price_description = item_price_description;
         this.item_store_id = item_store_id;
         this.item_tag=item_tag;
+        this.item_termsAndConditions=item_termsAndConditions;
     }
 
-    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description, boolean item_is_per_sqr_unit_of_measurement, boolean item_for_sale, String item_price_description, String item_store_id, String item_display_picture_url, String item_doc) {
+    public Item(String item_name, double item_average_rating, double item_price, String item_uid, String item_category_id, String item_description, boolean item_is_per_sqr_unit_of_measurement, boolean item_for_sale, String item_price_description, String item_store_id, String item_display_picture_url, String item_doc, String item_termsAndConditions) {
         this.item_name = item_name;
         this.item_average_rating = item_average_rating;
         this.item_price = item_price;
@@ -47,6 +49,7 @@ Item {
         this.item_store_id = item_store_id;
         this.item_display_picture_url = item_display_picture_url;
         this.item_doc = item_doc;
+        this.item_termsAndConditions = item_termsAndConditions;
     }
 
     public String getItem_name() {
@@ -151,6 +154,14 @@ Item {
 
     public void setItem_tag(String item_tag) {
         this.item_tag = item_tag;
+    }
+
+    public String getItem_termsAndConditions() {
+        return item_termsAndConditions;
+    }
+
+    public void setItem_termsAndConditions(String item_termsAndConditions) {
+        this.item_termsAndConditions = item_termsAndConditions;
     }
 }
 

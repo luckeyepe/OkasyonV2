@@ -14,6 +14,7 @@
             android:textOn=""
             android:layout_width="192dp"
             android:layout_height="45dp"
+            android:visibility="gone"
             android:background="@drawable/togglebutton"
             android:id="@+id/supplierEditItemDetailsToggleButtonForRentAndSale"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -150,15 +151,16 @@
             android:gravity="center"
             android:enabled="false"
             android:textColorHint="@color/tabcolor"
-            android:textColor="@color/tabcolor"
+            android:textColor="#FFFFFF"
 
             android:id="@+id/editText_supplierEditItemDetailsNameofItem"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.24000001" android:hint="NAME OF ITEM" android:textSize="20dp"
-            android:textStyle="bold"/>
+            app:layout_constraintVertical_bias="0.272" android:hint="NAME OF ITEM" android:textSize="20dp"
+            android:textStyle="bold" app:layout_constraintHorizontal_bias="0.497"
+            android:text="@android:string/defaultMsisdnAlphaTag"/>
     <EditText
             android:layout_width="108dp"
             android:maxWidth="108dp"

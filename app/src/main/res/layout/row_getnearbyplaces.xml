@@ -39,7 +39,7 @@
                             android:isIndicator="true"
                             android:theme="@style/RatingBar"
                             style="@style/Widget.AppCompat.RatingBar.Small" android:numStars="5"
-                            android:rating="3" android:id="@+id/ratingBar_getnearbyplacesRatingBar"/>
+                            android:rating="4.5" android:id="@+id/ratingBar_getnearbyplacesRatingBar"/>
                     <TextView
                             android:layout_marginStart="3dp"
                             android:layout_width="wrap_content"

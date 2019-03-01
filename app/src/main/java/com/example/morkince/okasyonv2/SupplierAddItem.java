@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import androidx.annotation.NonNull;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.core.app.NavUtils;
@@ -34,11 +35,12 @@ public class SupplierAddItem extends AppCompatActivity {
     boolean item_for_sale=true;
     ArrayList<String> listOfItemCategories = new ArrayList<>();
     CheckBox checkBox_soldPersquareunit;
-    String itemId;
+    String itemId,item_category_id = "";
     FirebaseUser user;
     FirebaseFirestore db;
+    ArrayList<String> categoriesForSale = new ArrayList<>();
+    ArrayList<String> categoriesForRent = new ArrayList<>();
     private StorageReference mStorageRef;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,22 +48,82 @@ public class SupplierAddItem extends AppCompatActivity {
         setContentView(R.layout.activity_add_item__supplier_activity);
         getSupportActionBar().setTitle("Add Item");
         refs();
+
+        addItem_forRentforSale.setVisibility(View.GONE);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        categoriesForSale.add("Cake and Pastries");
+        categoriesForSale.add("Food");
+        categoriesForSale.add("Event Give-Aways");
+        categoriesForSale.add("Flowers");
+        categoriesForSale.add("Jewelry");
+        categoriesForSale.add("Printed Materials");
+
+        categoriesForRent.add("Catering Service");
+        categoriesForRent.add("Church");
+        categoriesForRent.add("Event Coordinator");
+        categoriesForRent.add("Event Entertainer");
+        categoriesForRent.add("Event Stylist");
+        categoriesForRent.add("Hair and Make-up");
+        categoriesForRent.add("Host");
+        categoriesForRent.add("Lights");
+        categoriesForRent.add("Photography");
+        categoriesForRent.add("Sounds");
+        categoriesForRent.add("Venue");
+        categoriesForRent.add("Videography");
+        categoriesForRent.add("Wedding Vehicle");
 
         //GET ITEM CATEGORIES
          fillSpinner();
 
+
         addItem_forRentforSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    item_for_sale=false;
+                    item_for_sale=true;
+
 
                 } else {
                     // The toggle is disabled
 
-                    item_for_sale = true;
+                    item_for_sale = false;
 
                 }
+            }
+        });
+
+        addItem_itemCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String itemCategory=parent.getItemAtPosition(position).toString();
+                if(categoriesForSale.contains(itemCategory))
+                {
+                  /*  Toast.makeText(getApplicationContext(), itemCategory + " FOR SALE",
+                            Toast.LENGTH_SHORT).show();*/
+                    item_for_sale=true;
+                    addItem_forRentforSale.setVisibility(View.GONE);
+                }
+                else if(categoriesForRent.contains(itemCategory))
+                {
+                    /*Toast.makeText(getApplicationContext(), itemCategory + " FOR RENT",
+                            Toast.LENGTH_SHORT).show();*/
+                    item_for_sale=false;
+                    addItem_forRentforSale.setVisibility(View.GONE);
+
+                }
+                else
+                {
+
+                        addItem_forRentforSale.setVisibility(View.VISIBLE);
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -111,7 +173,7 @@ public class SupplierAddItem extends AppCompatActivity {
                     progressDialog.show();
                     progressDialog.setCancelable(false);
                     // Create a new user with a first and last name
-                    String item_category_id = "";
+
                     if (addItem_itemCategorySpinner.getSelectedItem().toString().contains(" ")){
                         item_category_id = addItem_itemCategorySpinner.getSelectedItem()
                                 .toString().replace(" ", "_");
@@ -119,9 +181,10 @@ public class SupplierAddItem extends AppCompatActivity {
                         item_category_id = addItem_itemCategorySpinner.getSelectedItem().toString();
                     }
 
+
                     String item_description = addItem_itemDescription.getText().toString();
                     String item_tag = addItem_itemDescription.getText().toString();
-
+                    String item_terms_and_conditions = addItem_termsandCondtion.getText().toString();
                     boolean item_is_per_sqr_unit_of_measurement;
                     String item_name = addItem_itemName.getText().toString();
                     double item_price = Double.parseDouble(addItem_itemPrice.getText().toString());
@@ -138,7 +201,7 @@ public class SupplierAddItem extends AppCompatActivity {
                     //GET STORE ID
                     Intent intent = getIntent();
                     item_store_id = intent.getStringExtra("storeID");
-                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid, item_tag);
+                    ItemDetailsModel newItem = new ItemDetailsModel(item_category_id, item_description, item_for_sale, item_is_per_sqr_unit_of_measurement, item_name, item_price, item_price_description, item_store_id, item_uid, item_tag,item_terms_and_conditions);
 
 
                     // Add a new document with a generated ID

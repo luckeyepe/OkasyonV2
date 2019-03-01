@@ -113,7 +113,7 @@ import java.text.DecimalFormat
                         textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.VISIBLE
                         textView_ActivityClientSetThePreferenceSummaryMessage.text =
                             "You still have P$spentBudgetDifference left to spend"
-                        textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.GREEN)
+                        textView_ActivityClientSetThePreferenceSummaryMessage.setTextColor(Color.BLUE)
                     }
                 }else{
                     textView_ActivityClientSetThePreferenceSummaryMessage.visibility = View.VISIBLE

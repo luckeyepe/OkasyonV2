@@ -104,8 +104,9 @@ public class ClientViewItemsActivity extends AppCompatActivity {
                 }else {
                     category = itemCategory;
                 }
+
                 Intent intent = new Intent(getApplicationContext(), GetNearbyPlaces.class);
-                intent.putExtra("item_category", itemCategory);
+                intent.putExtra("item_category", category);
                 intent.putExtra("location", location);
                 startActivity(intent);
             }

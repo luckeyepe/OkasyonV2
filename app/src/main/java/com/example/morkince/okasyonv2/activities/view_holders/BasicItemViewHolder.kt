@@ -62,6 +62,7 @@ class BasicItemViewHolder(val item_uid: String,
                         intent.putExtra("item_uid", item_uid)
                         intent.putExtra("event_event_uid", event_event_uid)
                         intent.putExtra("event_cart_group_uid", cart_group_uid)
+                        intent.putExtra("user_role", "IsClient")
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         context.startActivity(intent)
                     }

@@ -31,7 +31,7 @@
             android:background="@color/grey_200"/>
     <EditText
             android:id="@+id/editText_eventdetailsNameoftheEvent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Name of The Event"
             android:textColor="@android:color/white"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button_eventDetailsCancel"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="1dp"/>
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="1dp" android:layout_marginEnd="16dp"/>
     <EditText
             android:id="@+id/textView_eventdetailsDescription"
             android:layout_width="0dp"
