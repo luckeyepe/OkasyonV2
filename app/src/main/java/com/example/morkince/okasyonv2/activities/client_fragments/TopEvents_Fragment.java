@@ -215,6 +215,8 @@ public class TopEvents_Fragment extends Fragment {
                                 custom_progress_dialog.dissmissDialog();
                                 return;
                             }
+
+                            custom_progress_dialog.dissmissDialog();
                         }
 
                         if (!queryDocumentSnapshots.isEmpty() && queryDocumentSnapshots != null) {
@@ -232,6 +234,8 @@ public class TopEvents_Fragment extends Fragment {
                                 recyclerView_clientTopEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 custom_progress_dialog.dissmissDialog();
                             }
+
+                            custom_progress_dialog.dissmissDialog();
                         } else {
                             if (isAdded()) {
                                 noMessage.setVisibility(View.VISIBLE);
@@ -239,7 +243,11 @@ public class TopEvents_Fragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
                                 custom_progress_dialog.dissmissDialog();
                             }
+
+                            custom_progress_dialog.dissmissDialog();
                         }
+
+                        custom_progress_dialog.dissmissDialog();
                     }
 
 //                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
