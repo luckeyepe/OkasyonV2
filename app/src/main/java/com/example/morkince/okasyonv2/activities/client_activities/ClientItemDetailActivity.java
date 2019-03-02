@@ -685,6 +685,7 @@ public class ClientItemDetailActivity extends AppCompatActivity {
         AlertDialog.Builder alertSuccess = new AlertDialog.Builder(ClientItemDetailActivity.this);
         alertSuccess.setTitle("" + label);
         alertSuccess.setMessage("" + Message);
+        alertSuccess.show();
 
         alertSuccess.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -692,6 +693,8 @@ public class ClientItemDetailActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 

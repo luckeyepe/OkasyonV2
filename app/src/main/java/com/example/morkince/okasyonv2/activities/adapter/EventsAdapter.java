@@ -64,21 +64,25 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final EventsAdapter.ViewHolder holder, int position) {
 
-        mStorageRef = FirebaseStorage
-                .getInstance()
-                .getReference()
-                .child("event_images")
-                .child(events.get(position)
-                        .getEvent_event_uid());
+        try {
+            mStorageRef = FirebaseStorage
+                    .getInstance()
+                    .getReference()
+                    .child("event_images")
+                    .child(events.get(position)
+                            .getEvent_event_uid());
 
-        mStorageRef
-                .getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(holder.ImageView_clientTopEventsPicture);
-                    }
-                });
+            mStorageRef
+                    .getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(holder.ImageView_clientTopEventsPicture);
+                        }
+                    });
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.default_banner_picture).into(holder.ImageView_clientTopEventsPicture);
+        }
 
         eventName = events.get(position).getEvent_name();
         eventLocation = events.get(position).getEvent_location() + "";
