@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -115,6 +116,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     }
 
     public void getEventDetails(){
+        final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         RandomMessages randomMessages = new RandomMessages();
         final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(this);
         custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
@@ -136,8 +138,13 @@ public class EventDetailsActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
                                         if (document.exists()) {
-
                                             event=document.toObject(Events.class);
+
+//                                            if (event.getEvent_creator_id() != currentUser.getUid()){
+//                                                editDetails.setVisibility(View.INVISIBLE);
+//                                                foundEventDetails_browseItemsButton.setVisibility(View.INVISIBLE);
+//                                            }
+
                                             nameofEvent.setText(event.getEvent_name());
                                             addressofevent.setText(event.getEvent_location());
                                             descpitionofevent.setText(event.getEvent_description());

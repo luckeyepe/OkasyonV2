@@ -52,20 +52,26 @@ class BasicItemViewHolder(val item_uid: String,
                 task: Task<DocumentSnapshot> ->
                 if (task.isSuccessful){
                     var result = task.result
-                    var item = result!!.toObject(com.example.morkince.okasyonv2.activities.model.Item::class.java)
+                    if (result != null){
 
-                    itemName.text = item!!.item_name
-                    itemPrice.text = "₱${item.item_price}"
-                    itemRating.rating = item.item_average_rating.toFloat()
+                        var item = result.toObject(com.example.morkince.okasyonv2.activities.model.Item::class.java)
 
-                    viewHolder.itemView.ParentLayout.setOnClickListener {
-                        var intent = Intent(context, ClientItemDetailActivity::class.java)
-                        intent.putExtra("item_uid", item_uid)
-                        intent.putExtra("event_event_uid", event_event_uid)
-                        intent.putExtra("event_cart_group_uid", cart_group_uid)
-                        intent.putExtra("user_role", "IsClient")
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        context.startActivity(intent)
+                        if (item != null){
+
+                            itemName.text = item.item_name
+                            itemPrice.text = "₱${item.item_price}"
+                            itemRating.rating = item.item_average_rating.toFloat()
+
+                            viewHolder.itemView.ParentLayout.setOnClickListener {
+                                var intent = Intent(context, ClientItemDetailActivity::class.java)
+                                intent.putExtra("item_uid", item_uid)
+                                intent.putExtra("event_event_uid", event_event_uid)
+                                intent.putExtra("event_cart_group_uid", cart_group_uid)
+                                intent.putExtra("user_role", "IsClient")
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                context.startActivity(intent)
+                            }
+                        }
                     }
                 }
             }
