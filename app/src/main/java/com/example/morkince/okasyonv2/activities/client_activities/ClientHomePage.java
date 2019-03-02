@@ -20,6 +20,7 @@ import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.UserProfileActivity;
+import com.example.morkince.okasyonv2.activities.NotificationsActivity;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.example.morkince.okasyonv2.activities.client_fragments.TopEvents_Fragment;
@@ -531,6 +532,8 @@ public void ClientCreateEvent()
              break;
 
          case R.id.nav_notifications:
+             Intent notificationIntent = new Intent(ClientHomePage.this, NotificationsActivity.class);
+             startActivity(notificationIntent);
              break;
 
          case R.id.nav_cart:
