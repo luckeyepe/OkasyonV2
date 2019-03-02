@@ -140,10 +140,10 @@ public class EventDetailsActivity extends AppCompatActivity {
                                         if (document.exists()) {
                                             event=document.toObject(Events.class);
 
-                                            if (event.getEvent_creator_id() != currentUser.getUid()){
-                                                editDetails.setVisibility(View.INVISIBLE);
-                                                foundEventDetails_browseItemsButton.setVisibility(View.INVISIBLE);
-                                            }
+//                                            if (event.getEvent_creator_id() != currentUser.getUid()){
+//                                                editDetails.setVisibility(View.INVISIBLE);
+//                                                foundEventDetails_browseItemsButton.setVisibility(View.INVISIBLE);
+//                                            }
 
                                             nameofEvent.setText(event.getEvent_name());
                                             addressofevent.setText(event.getEvent_location());
