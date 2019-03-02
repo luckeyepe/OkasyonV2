@@ -23,6 +23,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                android:screenOrientation="portrait" />
         <activity android:name=".activities.NotificationsActivity">
         </activity>
         <activity android:name=".activities.ClientItemDetailsReviewActivity">
@@ -61,6 +64,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
         <activity
                 android:name=".activities.signup_client_activities.SignUpUserPart1Activity"
@@ -207,6 +211,7 @@
         <activity android:name=".activities.ocr_activities.ocr_supplier_registration">
         </activity>
         <activity android:name=".activities.ocr_activities.SignupOCRClientOrganizer">
+
         </activity>
         <activity android:name=".activities.Homepage_organizer_activities.CartItemDetailsActivity">
         </activity>

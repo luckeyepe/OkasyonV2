@@ -262,14 +262,14 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
 
                     if(validIDOCRTextUppercase.contains(name.toUpperCase()))
                     {
-                       /* Toast.makeText(getApplication(), "CHECK NAME : " + name , Toast.LENGTH_SHORT).show();*/
+                        /* Toast.makeText(getApplication(), "CHECK NAME : " + name , Toast.LENGTH_SHORT).show();*/
                         Log.e("CHECK NAME",name);
                         isMatchingName =true;
                     }
                     else
                     {
                         isMatchingName= false;
-                       /* Toast.makeText(getApplication(), "WRONG NAME : " + name , Toast.LENGTH_SHORT).show();*/
+                        /* Toast.makeText(getApplication(), "WRONG NAME : " + name , Toast.LENGTH_SHORT).show();*/
                         Toast.makeText(getApplication(), "NAME DOES NOT MATCH : " + fullName , Toast.LENGTH_SHORT).show();
                         break;
                     }
