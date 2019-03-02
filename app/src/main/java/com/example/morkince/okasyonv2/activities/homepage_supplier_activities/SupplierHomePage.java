@@ -89,9 +89,9 @@ public class SupplierHomePage extends AppCompatActivity
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
-        userID = currentUser.getUid();
+//        userID = currentUser.getUid();
 
-        updateSupplierProfileInfo();
+
         enableEditText(false);
         supplierHomepage_editBtn.setOnClickListener(editInfo);
         supplierHomepage_saveBtn.setOnClickListener(saveInfo);
@@ -108,8 +108,7 @@ public class SupplierHomePage extends AppCompatActivity
 
         Intent intent = getIntent();
          user_uid=intent.getStringExtra("user_uid");
-
-
+        updateSupplierProfileInfo();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -119,9 +118,9 @@ public class SupplierHomePage extends AppCompatActivity
                 db.update("user_token", instanceIdResult.getToken());
                 db.update("user_instanceID", instanceIdResult.getId());
                 Log.d("Dashboard", "Token: "+instanceIdResult.getToken());
+
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -174,6 +173,7 @@ public class SupplierHomePage extends AppCompatActivity
                         });
                     }
                 }
+                updateSupplierProfileInfo();
             }
         });
 
@@ -410,6 +410,55 @@ public class SupplierHomePage extends AppCompatActivity
         }
 
     }
+    public void updateSupplierProfileInfo()
+    {
+        NavigationView drawer =  findViewById(R.id.nav_view1);
+        View headerView = drawer.getHeaderView(0);
+        drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
+        drawerUsername =  headerView.findViewById(R.id.textView_SupplierName);
+        drawerAccount =headerView.findViewById(R.id.textView_SupplierEmail);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        try {
+            mStorageRef = FirebaseStorage.getInstance().getReference().child("user_profPic").child(currentUser.getUid());
+
+            mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+//                    Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
+                    Picasso.get().load(uri.toString()).into(drawerImage);
+                }
+            });
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.default_avata).into(drawerImage);
+        }
+
+        db = FirebaseFirestore.getInstance();
+        db.collection("User").document(currentUser.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                usersupplier =document.toObject(User.class);
+                                drawerUsername.setText(usersupplier.getUser_first_name()+" "+usersupplier.getUser_last_name());
+                                drawerAccount.setText(usersupplier.getUser_email());
+                                Log.e("NAA DISPLAY", usersupplier.getUser_first_name());
+                            } else {
+                                Log.d("", "No such document exist");
+                            }
+                        } else {
+                            Log.d("", "Failed with ", task.getException());
+                        }
+                    }
+                });
+
+        //     Intent intent = new Intent(MainActivity.this, homepage.class);
+        //    intent.putExtra("name", personName+"");     }
+    }
+
 
 
 
@@ -523,57 +572,6 @@ public class SupplierHomePage extends AppCompatActivity
                 });
             }
 
-
-    public void updateSupplierProfileInfo()
-    {
-        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
-        NavigationView drawer =  findViewById(R.id.nav_view1);
-        View headerView = drawer.getHeaderView(0);
-        drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
-        drawerUsername =  headerView.findViewById(R.id.textView_SupplierName);
-        drawerAccount =headerView.findViewById(R.id.textView_SupplierEmail);
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        try {
-            mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(currentUser.getUid());
-
-            mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
-//                Picasso.get().load(uri.toString()).into(drawerImage);
-                }
-            });
-        }catch (Exception e){
-            Picasso.get().load(R.drawable.default_avata).into(drawerImage);
-        }
-
-        db = FirebaseFirestore.getInstance();
-        assert currentUser != null;
-        db.collection("User").document(currentUser.getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                     if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                usersupplier =document.toObject(User.class);
-                                drawerUsername.setText(usersupplier.getUser_first_name()+" "+usersupplier.getUser_last_name());
-                                drawerAccount.setText(usersupplier.getUser_email());
-                                Log.e("NAA DISPLAY", usersupplier.getUser_first_name());
-                            } else {
-                                Log.d("", "No such document exist");
-                            }
-                        } else {
-                            Log.d("", "Failed with ", task.getException());
-                        }
-                    }
-                });
-
-        //     Intent intent = new Intent(MainActivity.this, homepage.class);
-        //    intent.putExtra("name", personName+"");     }
-    }
 
 
     public void refs()
