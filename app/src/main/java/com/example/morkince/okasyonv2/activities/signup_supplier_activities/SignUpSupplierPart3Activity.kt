@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -49,8 +51,6 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
         store_store_name = intent.getStringExtra("store_store_name")
         store_description = intent.getStringExtra("store_description")
 
-        createUser()
-
         fillInData()
 
         imageButton_SignUpSupplierPart3EditSummary.setOnClickListener()
@@ -62,6 +62,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
             textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =true
             textInputEditText_SignUpSupplierPart3About.isEnabled =true
         }
+
         imageButton_SignUpSupplierPart3Before.setOnClickListener()
         {
             onBackPressed()
@@ -71,9 +72,10 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
 
         imageButton_SignUpSupplierPart3Next.setOnClickListener()
         {
-            val intent = Intent(this, SupplierHomePage::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+            createUser()
+//            val intent = Intent(this, SupplierHomePage::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
     }
 
@@ -88,6 +90,9 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
 
     private fun createUser()
     {
+        var custom_Progress_Dialog = Custom_Progress_Dialog(this)
+        custom_Progress_Dialog.showDialog("Loading", RandomMessages().getRandomMessage())
+
         var mAuth = FirebaseAuth.getInstance()
         var db = FirebaseFirestore.getInstance()
 
@@ -130,12 +135,14 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
 
                                                         finishAffinity()
                                                         startActivity(intent)
+                                                        custom_Progress_Dialog.dissmissDialog()
                                                 }
                                     }
                                 }
                             }
                     } else {
                         Log.e(TAG, task.exception.toString())
+                        custom_Progress_Dialog.dissmissDialog()
                     }
                 }
             }

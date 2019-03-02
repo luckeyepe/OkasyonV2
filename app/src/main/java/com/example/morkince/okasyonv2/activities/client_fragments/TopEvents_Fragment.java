@@ -16,15 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Toast;
-import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
-import com.example.morkince.okasyonv2.Events;
-import com.example.morkince.okasyonv2.RandomMessages;
-import com.example.morkince.okasyonv2.activities.CallableFunctions;
+import com.example.morkince.okasyonv2.*;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.activities.CallableFunctions;
 import com.example.morkince.okasyonv2.activities.client_activities.EventDetailsActivity;
+import com.example.morkince.okasyonv2.activities.client_activities.FoundEventDetailsActivity;
 import com.example.morkince.okasyonv2.activities.view_holders.EventViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 import com.google.firebase.storage.StorageReference;
@@ -46,7 +46,7 @@ public class TopEvents_Fragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.client_top_events_fragment, container, false);
         displayEvents();
 
@@ -137,10 +137,47 @@ public class TopEvents_Fragment extends Fragment {
                   groupAdapter.setOnItemClickListener(new OnItemClickListener() {
                       @Override
                       public void onItemClick(@NonNull Item item, @NonNull View view) {
+                          final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
                           EventViewHolder eventViewHolder = (EventViewHolder) item;
-                          Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
-                          intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
-                          startActivity(intent);
+//                          Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
+//                          intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
+//                          startActivity(intent);
+                          FirebaseFirestore.getInstance()
+                                  .collection("Event")
+                                  .document(eventViewHolder.getEventUid())
+                                  .get()
+                                  .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                      @Override
+                                      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                          if (task.isSuccessful()){
+                                              Events events = task.getResult().toObject(Events.class);
+
+                                              if (events.getEvent_creator_id().equalsIgnoreCase(currentUser.getUid()) ||
+                                                      events.getEvent_event_organizer_uid().equalsIgnoreCase(currentUser.getUid()))
+                                              {
+                                                  Intent intent = new Intent(getContext(),EventDetailsActivity.class);
+                                                  intent.putExtra("event_event_uid",events.getEvent_event_uid());
+                                                  intent.putExtra("event_category_id",events.getEvent_category_id());
+                                                  intent.putExtra("event_cart_group_uid", events.getEvent_budget_spent());
+
+                                                  startActivity(intent);
+                                              }
+                                              else
+                                              {
+                                                  Intent intent = new Intent(getContext(), FoundEventDetailsActivity.class);
+                                                  intent.putExtra("event_event_uid",events.getEvent_event_uid());
+                                                  intent.putExtra("event_category_id",events.getEvent_category_id());
+
+                                                  startActivity(intent);
+                                              }
+                                          }else {
+                                              //error
+                                              new PopUpDialogs(getContext()).errorDialog("Something went wrong", "ERROR");
+                                          }
+                                      }
+                                  });
+                          /////////////////////////
                       }
                   });
 
@@ -251,10 +288,47 @@ public class TopEvents_Fragment extends Fragment {
         groupAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
+                final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
                 EventViewHolder eventViewHolder = (EventViewHolder) item;
-                Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
-                intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
-                startActivity(intent);
+//                          Intent intent = new Intent(view.getContext(), EventDetailsActivity.class);
+//                          intent.putExtra("event_event_uid", eventViewHolder.getEventUid());
+//                          startActivity(intent);
+                FirebaseFirestore.getInstance()
+                        .collection("Event")
+                        .document(eventViewHolder.getEventUid())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    Events events = task.getResult().toObject(Events.class);
+
+                                    if (events.getEvent_creator_id().equalsIgnoreCase(currentUser.getUid()) ||
+                                            events.getEvent_event_organizer_uid().equalsIgnoreCase(currentUser.getUid()))
+                                    {
+                                        Intent intent = new Intent(getContext(),EventDetailsActivity.class);
+                                        intent.putExtra("event_event_uid",events.getEvent_event_uid());
+                                        intent.putExtra("event_category_id",events.getEvent_category_id());
+                                        intent.putExtra("event_cart_group_uid", events.getEvent_budget_spent());
+
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        Intent intent = new Intent(getContext(), FoundEventDetailsActivity.class);
+                                        intent.putExtra("event_event_uid",events.getEvent_event_uid());
+                                        intent.putExtra("event_category_id",events.getEvent_category_id());
+
+                                        startActivity(intent);
+                                    }
+                                }else {
+                                    //error
+                                    new PopUpDialogs(getContext()).errorDialog("Something went wrong", "ERROR");
+                                }
+                            }
+                        });
+                /////////////////////////
             }
         });
     }

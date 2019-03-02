@@ -8,7 +8,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog
 import com.example.morkince.okasyonv2.R
+import com.example.morkince.okasyonv2.RandomMessages
 import com.example.morkince.okasyonv2.activities.client_activities.ClientHomePage
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -51,9 +53,9 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
 
         //fill up the data fields
         fillEditTexts()
-
-        //create user after loading summary
-        createUser()
+//
+//        //create user after loading summary
+//        createUser()
 
         editText_summaryDateOfBirth.setOnClickListener{
             popupDateTimePicker()
@@ -62,77 +64,82 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
         //finish signup
         button_summaryClientCreateAccount.setOnClickListener {
             //update
-            var mAuth = FirebaseAuth.getInstance()
-            var currentUser = mAuth.currentUser
-            var userMap = HashMap<String, String>()
-            userMap["user_address"] = editText_summaryAddress.text.toString().trim()
-            userMap["user_birth_date"] = editText_summaryDateOfBirth.text.toString().trim()
-            userMap["user_contact_no"] = editText_summaryContactNumber.text.toString().trim()
-            userMap["user_email"] = currentUser!!.email.toString()
-            userMap["user_first_name"] = editText_summaryFirstName.text.toString().trim()
-            userMap["user_gender"] = editText_summaryGender.text.toString().trim()
-            userMap["user_last_name"] = editText_summaryLastName.text.toString().trim()
-            userMap["user_profPic"] = "default"
+//            var mAuth = FirebaseAuth.getInstance()
+//            var currentUser = mAuth.currentUser
+//            var userMap = HashMap<String, String>()
+//            userMap["user_address"] = editText_summaryAddress.text.toString().trim()
+//            userMap["user_birth_date"] = editText_summaryDateOfBirth.text.toString().trim()
+//            userMap["user_contact_no"] = editText_summaryContactNumber.text.toString().trim()
+//            userMap["user_email"] = user_email
+//            userMap["user_first_name"] = editText_summaryFirstName.text.toString().trim()
+//            userMap["user_gender"] = editText_summaryGender.text.toString().trim()
+//            userMap["user_last_name"] = editText_summaryLastName.text.toString().trim()
+//            userMap["user_profPic"] = "default"
 
-            var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
-                .update(userMap as Map<String, Any>).addOnCompleteListener {
-                        task: Task<Void> ->
-                    if (task.isSuccessful){
-                        //upload valid id image
-                        val database = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
-                        val mStorage = FirebaseStorage.getInstance().reference
+            createUser()
 
-                        val thumbnailPath = mStorage!!.child("user_valid_id").child("${currentUser.uid}.jpg")
-
-                        val uri = Uri.parse(user_validIDURL!!)
-
-                        val uploadTask = thumbnailPath.putFile(uri)
-
-                        var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-                            if (!task.isSuccessful) {
-                                task.exception?.let {
-                                    throw it
-                                }
-                            }
-                            return@Continuation thumbnailPath.downloadUrl
-                        }).addOnCompleteListener {
-                                task ->
-                            if(task.isSuccessful){
-                                val downloadUri = task.result
-                                var userAddedDetails = HashMap<String, String>()
-                                userAddedDetails["user_validIDURL"] = downloadUri.toString()
-
-                                database.update(userAddedDetails as Map<String, Any>).addOnCompleteListener {
-                                        task: Task<Void> ->
-                                    if (task.isSuccessful) {
-                                        val intent = Intent(this, ClientHomePage::class.java)
-                                        intent.putExtra("isNewUser", true)
-
-                                        finishAffinity()
-                                        startActivity(intent)
-                                    }
-                                    else{
-                                        //loading end
-                                        Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
-                                    }
-                                }
-                            }else{
-                                //loading end
-                                Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
-                            }
-                        }
-
-                    }else{
-                        var alertDialog = AlertDialog.Builder(this)
-                        alertDialog.setMessage("Please check your internet connection and try again")
-                        alertDialog.setTitle("ERROR")
-                        alertDialog.show()
-                    }
-                }
+//            var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
+//                .update(userMap as Map<String, Any>).addOnCompleteListener {
+//                        task: Task<Void> ->
+//                    if (task.isSuccessful){
+//                        //upload valid id image
+//                        val database = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
+//                        val mStorage = FirebaseStorage.getInstance().reference
+//
+//                        val thumbnailPath = mStorage!!.child("user_valid_id").child("${currentUser.uid}.jpg")
+//
+//                        val uri = Uri.parse(user_validIDURL!!)
+//
+//                        val uploadTask = thumbnailPath.putFile(uri)
+//
+//                        var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+//                            if (!task.isSuccessful) {
+//                                task.exception?.let {
+//                                    throw it
+//                                }
+//                            }
+//                            return@Continuation thumbnailPath.downloadUrl
+//                        }).addOnCompleteListener {
+//                                task ->
+//                            if(task.isSuccessful){
+//                                val downloadUri = task.result
+//                                var userAddedDetails = HashMap<String, String>()
+//                                userAddedDetails["user_validIDURL"] = downloadUri.toString()
+//
+//                                database.update(userAddedDetails as Map<String, Any>).addOnCompleteListener {
+//                                        task: Task<Void> ->
+//                                    if (task.isSuccessful) {
+//                                        val intent = Intent(this, ClientHomePage::class.java)
+//                                        intent.putExtra("isNewUser", true)
+//
+//                                        finishAffinity()
+//                                        startActivity(intent)
+//                                    }
+//                                    else{
+//                                        //loading end
+//                                        Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+//                                    }
+//                                }
+//                            }else{
+//                                //loading end
+//                                Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+//                            }
+//                        }
+//
+//                    }else{
+//                        var alertDialog = AlertDialog.Builder(this)
+//                        alertDialog.setMessage("Please check your internet connection and try again")
+//                        alertDialog.setTitle("ERROR")
+//                        alertDialog.show()
+//                    }
+//                }
         }
     }
 
     private fun createUser() {
+        var custom_Progress_Dialog = Custom_Progress_Dialog(this)
+        custom_Progress_Dialog.showDialog("Loading", RandomMessages().getRandomMessage())
+
         var mAuth = FirebaseAuth.getInstance()
         mAuth.createUserWithEmailAndPassword(this!!.user_email!!, this!!.user_password!!)
             .addOnCompleteListener { task: Task<AuthResult> ->
@@ -150,17 +157,78 @@ class SignUpUserSummaryActivity : AppCompatActivity() {
                         userMap["user_role"] = user_role!!
                         userMap["user_uid"] = currentUser.uid
 
-                        var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
+                        var fdb = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
                             .set(userMap as Map<String, Any>).addOnCompleteListener { task: Task<Void> ->
                                 if (task.isSuccessful) {
                                     if (task.isSuccessful){
                                         Log.d("SIGN UP USER PT 2", "User ${currentUser.uid} created")
+
+                                        var db = FirebaseFirestore.getInstance().collection("User").document(currentUser!!.uid)
+                                            .update(userMap as Map<String, Any>).addOnCompleteListener {
+                                                    task: Task<Void> ->
+                                                if (task.isSuccessful){
+                                                    //upload valid id image
+                                                    val database = FirebaseFirestore.getInstance().collection("User").document(currentUser.uid)
+                                                    val mStorage = FirebaseStorage.getInstance().reference
+
+                                                    val thumbnailPath = mStorage!!.child("user_valid_id").child("${currentUser.uid}.jpg")
+
+                                                    val uri = Uri.parse(user_validIDURL!!)
+
+                                                    val uploadTask = thumbnailPath.putFile(uri)
+
+                                                    var urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                                                        if (!task.isSuccessful) {
+                                                            task.exception?.let {
+                                                                throw it
+                                                            }
+                                                        }
+                                                        return@Continuation thumbnailPath.downloadUrl
+                                                    }).addOnCompleteListener {
+                                                            task ->
+                                                        if(task.isSuccessful){
+                                                            val downloadUri = task.result
+                                                            var userAddedDetails = HashMap<String, String>()
+                                                            userAddedDetails["user_validIDURL"] = downloadUri.toString()
+
+                                                            database.update(userAddedDetails as Map<String, Any>).addOnCompleteListener {
+                                                                    task: Task<Void> ->
+                                                                if (task.isSuccessful) {
+                                                                    val intent = Intent(this, ClientHomePage::class.java)
+                                                                    intent.putExtra("isNewUser", true)
+
+                                                                    finishAffinity()
+                                                                    startActivity(intent)
+                                                                    custom_Progress_Dialog.dissmissDialog()
+                                                                }
+                                                                else{
+                                                                    //loading end
+                                                                    Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+                                                                    custom_Progress_Dialog.dissmissDialog()
+                                                                }
+                                                            }
+                                                        }else{
+                                                            //loading end
+                                                            Toast.makeText(applicationContext, "Upload error", Toast.LENGTH_LONG).show()
+                                                            custom_Progress_Dialog.dissmissDialog()
+                                                        }
+                                                    }
+
+                                                }else{
+                                                    custom_Progress_Dialog.dissmissDialog()
+                                                    var alertDialog = AlertDialog.Builder(this)
+                                                    alertDialog.setMessage("Please check your internet connection and try again")
+                                                    alertDialog.setTitle("ERROR")
+                                                    alertDialog.show()
+                                                }
+                                            }
                                     }
                                 }
 
                             }
                     } else {
                         Log.e("SIGN UP USER PT 2", task.exception.toString())
+                        custom_Progress_Dialog.dissmissDialog()
                     }
                 }
             }
