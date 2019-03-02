@@ -65,7 +65,7 @@ public class SupplierHomePage extends AppCompatActivity
     FirebaseUser user;
     FirebaseFirestore db;
     private StorageReference mStorageRef;
-    String userID;
+    String userID,user_uid;
 
     ImageView drawerImage;
     TextView drawerUsername;
@@ -85,6 +85,18 @@ public class SupplierHomePage extends AppCompatActivity
 
         getSupportActionBar().setTitle("Supplier");
 
+        refs();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        userID = currentUser.getUid();
+
+        updateSupplierProfileInfo();
+        enableEditText(false);
+        supplierHomepage_editBtn.setOnClickListener(editInfo);
+        supplierHomepage_saveBtn.setOnClickListener(saveInfo);
+        SupplierHomepage_addressImageView.setOnClickListener(getDirections);
+
         if (getIntent().hasExtra("isNewUser")){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage("Welcome to Okasyon");
@@ -93,6 +105,9 @@ public class SupplierHomePage extends AppCompatActivity
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+
+        Intent intent = getIntent();
+         user_uid=intent.getStringExtra("user_uid");
 
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
@@ -117,23 +132,9 @@ public class SupplierHomePage extends AppCompatActivity
 
 
         //CODE STARTS HERE
-
-        refs();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userID=user.getUid();
-        updateSupplierProfileInfo();
-        enableEditText(false);
-        supplierHomepage_editBtn.setOnClickListener(editInfo);
-        supplierHomepage_saveBtn.setOnClickListener(saveInfo);
-        SupplierHomepage_addressImageView.setOnClickListener(getDirections);
-
-
-
-
         ocr_registration_supplier_validID_imageBtn2.setOnClickListener(uploadBannerImage);
         supplierHomepage_viewItemsBtn.setOnClickListener(viewItems);
-        setProfileInformation();
-
+        setProfileInformation(currentUser.getUid());
 
 
         //ADD REVIEWS TO RECYCLER VIEW
@@ -141,7 +142,7 @@ public class SupplierHomePage extends AppCompatActivity
        getStoreID();
        //FIRST GET THE ID OF STORE TO LOCATE THE REVIEWS OF THE SPECIFIC STORE
         db = FirebaseFirestore.getInstance();
-        db.collection("Store").whereEqualTo("store_owner_id",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Store").whereEqualTo("store_owner_id",currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -185,7 +186,7 @@ public class SupplierHomePage extends AppCompatActivity
 
 
         //LOAD IMAGE BANNER
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(user.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(currentUser.getUid());
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -285,10 +286,10 @@ public class SupplierHomePage extends AppCompatActivity
 
     //THIS IS THE BACK_END CODE
 
-    public void setProfileInformation()
+    public void setProfileInformation(String currentUserUid)
     {
         db = FirebaseFirestore.getInstance();
-        db.collection("Store").whereEqualTo("store_owner_id",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Store").whereEqualTo("store_owner_id",currentUserUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -302,7 +303,7 @@ public class SupplierHomePage extends AppCompatActivity
             }
         });
 
-        db.collection("User").document("" + user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("User").document("" + currentUserUid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -457,7 +458,7 @@ public class SupplierHomePage extends AppCompatActivity
     private View.OnClickListener saveInfo = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
             if (supplierHomepage_storeName_txtView.getText().toString().isEmpty()) {
                 supplierHomepage_storeName_txtView.setError("Store Name is Blank");
             } else if (supplierHomepage_storeContact.getText().toString().isEmpty()) {
@@ -472,7 +473,7 @@ public class SupplierHomePage extends AppCompatActivity
 
 
                 db = FirebaseFirestore.getInstance();
-                db.collection("Store").whereEqualTo("store_owner_id", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Store").whereEqualTo("store_owner_id", currentuser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -486,7 +487,7 @@ public class SupplierHomePage extends AppCompatActivity
                 });
 
                 db = FirebaseFirestore.getInstance();
-                DocumentReference userToUpdate = db.collection("User").document("" + user.getUid());
+                DocumentReference userToUpdate = db.collection("User").document("" + currentuser.getUid());
                 userToUpdate.update("user_contact_no", supplierHomepage_storeContact.getText().toString())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -503,8 +504,11 @@ public class SupplierHomePage extends AppCompatActivity
 
     //THIS IS A METHOD TO GET STORE ID BOTH IN SAVING DATA AND UPON LOADING OF THE UI
             public void getStoreID(){
+                FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
+
                 db = FirebaseFirestore.getInstance();
-                db.collection("Store").whereEqualTo("store_owner_id",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                assert currentuser != null;
+                db.collection("Store").whereEqualTo("store_owner_id",currentuser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -518,19 +522,35 @@ public class SupplierHomePage extends AppCompatActivity
                     }
                 });
             }
+
+
     public void updateSupplierProfileInfo()
     {
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(userID);
+        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
+        NavigationView drawer =  findViewById(R.id.nav_view1);
+        View headerView = drawer.getHeaderView(0);
+        drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
+        drawerUsername =  headerView.findViewById(R.id.textView_SupplierName);
+        drawerAccount =headerView.findViewById(R.id.textView_SupplierEmail);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
+        try {
+            mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(currentUser.getUid());
+
+            mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
 //                Picasso.get().load(uri.toString()).into(drawerImage);
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.default_avata).into(drawerImage);
+        }
+
         db = FirebaseFirestore.getInstance();
-        db.collection("User").document(user.getUid()).get()
+        assert currentUser != null;
+        db.collection("User").document(currentUser.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -539,7 +559,7 @@ public class SupplierHomePage extends AppCompatActivity
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 usersupplier =document.toObject(User.class);
-                                drawerUsername.setText(usersupplier.getUser_first_name()+ usersupplier.getUser_last_name());
+                                drawerUsername.setText(usersupplier.getUser_first_name()+" "+usersupplier.getUser_last_name());
                                 drawerAccount.setText(usersupplier.getUser_email());
                                 Log.e("NAA DISPLAY", usersupplier.getUser_first_name());
                             } else {
@@ -553,14 +573,6 @@ public class SupplierHomePage extends AppCompatActivity
 
         //     Intent intent = new Intent(MainActivity.this, homepage.class);
         //    intent.putExtra("name", personName+"");     }
-
-        NavigationView drawer =  findViewById(R.id.nav_view1);
-        View headerView = drawer.getHeaderView(0);
-        drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
-        drawerUsername =  headerView.findViewById(R.id.textView_SupplierName);
-        drawerAccount =headerView.findViewById(R.id.textView_SupplierEmail);
-
-
     }
 
 

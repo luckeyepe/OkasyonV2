@@ -102,6 +102,7 @@ public class ClientHomePage extends AppCompatActivity
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+        final FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -116,7 +117,7 @@ public class ClientHomePage extends AppCompatActivity
                         String token = task.getResult().getToken();
 
                         // Log and toast
-                        DocumentReference db = FirebaseFirestore.getInstance().collection("User").document(user.getUid());
+                        DocumentReference db = FirebaseFirestore.getInstance().collection("User").document(currentuser.getUid());
                         db.update("user_token", token);
                     }
                 });
@@ -136,7 +137,7 @@ public class ClientHomePage extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(ClientHomePage.this,UserProfileActivity.class);
                 startActivity(intent);
-             }
+            }
         });
         BottomNavigationView bottomNavigationView = findViewById(R.id.event_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(event_nav_listener);
@@ -591,17 +592,30 @@ public void ClientCreateEvent()
     }
     public void updateProfileInfo()
     {
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("user_profPic").child(user.getUid());
 
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
-//                Picasso.get().load(uri.toString()).into(drawerImage);
-            }
-        });
+        NavigationView drawer =  findViewById(R.id.nav_view);
+        View headerView = drawer.getHeaderView(0);
+        drawerImage =  headerView.findViewById(R.id.imageView_OrganizerImage);
+        drawerUsername =  headerView.findViewById(R.id.textview_OrganizerName);
+        drawerAccount =headerView.findViewById(R.id.textView_OrganizerEmail);
+        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
+
+        try {
+            mStorageRef = FirebaseStorage.getInstance().getReference().child("user_profPic").child(currentuser.getUid());
+
+            mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+//                    Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher_round).into(drawerImage);
+                Picasso.get().load(uri.toString()).into(drawerImage);
+                }
+            });
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.default_avata).into(drawerImage);
+        }
+
         db = FirebaseFirestore.getInstance();
-        db.collection("User").document(user.getUid()).get()
+        db.collection("User").document(currentuser.getUid()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -625,11 +639,6 @@ public void ClientCreateEvent()
         //     Intent intent = new Intent(MainActivity.this, homepage.class);
             //    intent.putExtra("name", personName+"");     }
 
-        NavigationView drawer =  findViewById(R.id.nav_view);
-        View headerView = drawer.getHeaderView(0);
-       drawerImage =  headerView.findViewById(R.id.imageView_OrganizerImage);
-        drawerUsername =  headerView.findViewById(R.id.textview_OrganizerName);
-         drawerAccount =headerView.findViewById(R.id.textView_OrganizerEmail);
 
 
     }

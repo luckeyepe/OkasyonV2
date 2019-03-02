@@ -25,6 +25,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
     private var store_store_name: String ?= null
     private var store_description: String ?= null
     private val TAG = "SignUpSupplierPart3"
+    private var user_uid:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +99,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                 task: Task<AuthResult> ->
                 run {
                     if (task.isSuccessful) {
+                        user_uid=mAuth.currentUser!!.uid
                         var currentUser = mAuth.currentUser
                         var userHashMap = HashMap<String, String>()
                         userHashMap["user_email"] = user_email!!
@@ -127,6 +129,7 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
                                                     if (task.isSuccessful){
                                                         val intent = Intent(this, SupplierHomePage::class.java)
                                                         intent.putExtra("isNewUser", true)
+                                                        intent.putExtra("user_uid",true)
 
                                                         finishAffinity()
                                                         startActivity(intent)
