@@ -9,13 +9,13 @@
         tools:context=".activities.client_activities.ClientItemDetailActivity">
 
     <ToggleButton
-            android:text=""
+            android:text="For Rent"
             android:textOff=""
-            android:textOn=""
+            android:textOn="For Rent"
             android:enabled="false"
             android:layout_width="111dp"
             android:layout_height="20dp"
-            android:background="@drawable/togglebutton"
+            android:background="@drawable/roundbtn"
             android:id="@+id/toggleButton_ActivityClientFindItemToggleForRentAndSale"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
@@ -24,7 +24,8 @@
             app:layout_constraintHorizontal_bias="1.0" android:checked="false"
             app:layout_constraintTop_toBottomOf="@+id/textView_clientItemDetailActivityStoreName"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/ratingBar_ActivityClientFindItemRating"/>
+            app:layout_constraintStart_toEndOf="@+id/ratingBar_ActivityClientFindItemRating"
+            android:textColor="@android:color/white"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
