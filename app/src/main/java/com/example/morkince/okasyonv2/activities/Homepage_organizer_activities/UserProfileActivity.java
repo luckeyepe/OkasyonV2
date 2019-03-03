@@ -35,7 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 public class UserProfileActivity extends AppCompatActivity {
-EditText UserEmailAdress, UserFirstname, UserLastname, UserAddress, UserContactnumber, UserDateofbirth, UserGender, UserPrice;
+EditText UserEmailAdress, UserFirstname, UserLastname, UserAddress, UserContactnumber, UserDateofbirth, UserGender, UserPrice,UserAbout;
 TextView User_rolename;
 ImageView imageviewUserProfile;
 ImageButton imgbtnAddPic, imgBtnEditProfile;
@@ -92,7 +92,8 @@ private Uri filePath=null;
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                 userAddress= document.getString("user_address");
+
+                                userAddress= document.getString("user_address");
                                 userprofile =document.toObject(User.class);
                                 UserFirstname.setText(userprofile.getUser_first_name());
                                 UserLastname.setText(userprofile.getUser_last_name());
@@ -102,6 +103,17 @@ private Uri filePath=null;
                                 UserContactnumber.setText(userprofile.getUser_contact_no());
                                 UserGender.setText(userprofile.getUser_gender());
                                 UserAddress.setText(userAddress);
+
+                                if(userprofile.getUser_role().equalsIgnoreCase("organizer"))
+                                {
+                                    UserAbout.setText(document.getString("user_organizer_details"));
+                                    UserPrice.setText(document.get("user_price") + "");
+                                }
+                                else
+                                {
+                                    UserAbout.setVisibility(View.GONE);
+                                    UserPrice.setVisibility(View.GONE);
+                                }
                                } else {
                                 Log.d("", "No such document exist");
                             }
@@ -262,6 +274,8 @@ private Uri filePath=null;
             btnsave.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
             UserPrice.setVisibility(View.VISIBLE);
+            UserAbout.setVisibility(View.VISIBLE);
+
 
 
 
@@ -277,6 +291,7 @@ private Uri filePath=null;
         UserAddress.setEnabled(status);
         UserContactnumber.setEnabled(status);
         UserPrice.setEnabled(status);
+        UserAbout.setEnabled(status);
 
     }
     public View.OnClickListener CancelData = new View.OnClickListener() {
@@ -291,7 +306,7 @@ private Uri filePath=null;
     public View.OnClickListener saveUpdatedData = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+
             enable(false);
             imgBtnEditProfile.setVisibility(View.VISIBLE);
             btnsave.setVisibility(View.INVISIBLE);
@@ -304,7 +319,9 @@ private Uri filePath=null;
             userToUpdate.update("user_birth_date",  UserDateofbirth.getText().toString());
             userToUpdate.update("user_contact_no",  UserContactnumber.getText().toString());
             userToUpdate.update("user_gender",  UserGender.getText().toString());
-            userToUpdate.update("user_address",  UserAddress.getText().toString())
+            userToUpdate.update("user_address",  UserAddress.getText().toString());
+            userToUpdate.update("user_organizer_details",  UserAbout.getText().toString());
+            userToUpdate.update("user_price",  Double.parseDouble(UserPrice.getText().toString()))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -331,6 +348,7 @@ private Uri filePath=null;
         btnsave=findViewById(R.id.button_saveUserDetails);
         btnCancel=findViewById(R.id.button_cancelUserDetails);
         UserPrice = findViewById(R.id.editText_ProfilePrice);
+        UserAbout = findViewById(R.id.editText_ProfileAbout);
 
     }
 }
