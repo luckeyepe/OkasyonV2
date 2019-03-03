@@ -357,6 +357,7 @@ public class SupplierHomePage extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null ) {
@@ -364,7 +365,7 @@ public class SupplierHomePage extends AppCompatActivity
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 supplierHompage_bannerImg.setImageBitmap(bitmap);
-                uploadImage(user.getUid());
+                uploadImage(currentuser.getUid());
             }
             catch (IOException e)
             {
