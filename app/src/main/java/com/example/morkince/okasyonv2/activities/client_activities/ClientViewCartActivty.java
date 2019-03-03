@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
+import com.example.morkince.okasyonv2.PopUpDialogs;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.adapter.CartEventAdapter;
@@ -69,18 +70,24 @@ public class ClientViewCartActivty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-             String buffer="";
-                for(Cart_Item item : adapter.checkedItem)
-                {
-//                    buffer+=item.getCart_item_id() + " ";
-//                    buffer+=item.getCart_item_group_uid() + " ";
-                    FirebaseFirestore.getInstance()
-                            .collection("Cart_Items")
-                            .document(item.getCart_item_group_uid())
-                            .collection("cart_items")
-                            .document(item.getCart_item_id())
-                            .update("cart_item_in_transaction", true);
+                if (adapter.checkedItem.size() >0) {
+                    String buffer = "";
+                    for (Cart_Item item : adapter.checkedItem) {
+                        //                    buffer+=item.getCart_item_id() + " ";
+                        //                    buffer+=item.getCart_item_group_uid() + " ";
+                        FirebaseFirestore.getInstance()
+                                .collection("Cart_Items")
+                                .document(item.getCart_item_group_uid())
+                                .collection("cart_items")
+                                .document(item.getCart_item_id())
+                                .update("cart_item_in_transaction", true);
+                    }
+
+                    new PopUpDialogs(ClientViewCartActivty.this).successDialog("You have ordered "+adapter.checkedItem.size()+" items", "SUCCESS");
+                }else {
+                    new PopUpDialogs(ClientViewCartActivty.this).infoDialog("Please check an atleast 1 item in your cart", "INFO");
                 }
+
             }
         });
 
