@@ -66,9 +66,10 @@ public class Activity_Vieworganizer extends AppCompatActivity {
                         String location=document.getString("user_address");
                         String user_uid=document.getString("user_uid");
                         Double price= document.getLong("user_price").doubleValue();
+                        String organizerDetails = document.getString("user_organizer_details");
 //                        double rating=3.5;
 
-                        organizer.add(new Organizer(OrganizerName,imageuri,location,price,0, user_uid, finalEventCategoryUid));
+                        organizer.add(new Organizer(organizerDetails, OrganizerName,imageuri,location,price,0, user_uid, finalEventCategoryUid));
                     }
 
                     adapter = new ViewOrganizersAdapter(organizer, Activity_Vieworganizer.this);

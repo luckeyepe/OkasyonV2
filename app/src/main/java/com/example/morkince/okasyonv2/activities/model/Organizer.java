@@ -3,6 +3,7 @@ package com.example.morkince.okasyonv2.activities.model;
 import android.net.Uri;
 
 public class Organizer {
+    String organizerDetails;
     String  organizerName;
     String imageuri;
     String Location;
@@ -13,13 +14,23 @@ public class Organizer {
 
     public Organizer(){}
 
-    public Organizer(String OrganizerName, String imageuri, String location, Double price, double rating,String user_uid) {
-        organizerName = OrganizerName;
+    public String getOrganizerDetails() {
+        return organizerDetails;
+    }
+
+    public void setOrganizerDetails(String organizerDetails) {
+        this.organizerDetails = organizerDetails;
+    }
+
+    public Organizer(String organizerDetails, String organizerName, String imageuri, String location, Double price, double rating, String user_uid, String eventCategory) {
+        this.organizerDetails = organizerDetails;
+        this.organizerName = organizerName;
         this.imageuri = imageuri;
         Location = location;
         Price = price;
         Rating = rating;
-        user_uid = user_uid;
+        this.user_uid = user_uid;
+        this.eventCategory = eventCategory;
     }
 
     public Organizer(String organizerName, String imageuri, String location, Double price, double rating, String user_uid, String eventCategory) {

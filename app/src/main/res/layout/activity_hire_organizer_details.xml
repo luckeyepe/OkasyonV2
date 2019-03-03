@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.078"
-            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/textView_hireOrganizerLocation"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView_hireOrganizerDetailPrice"/>
     <TextView
             android:text="Organizer Location"
             android:layout_width="0dp"
@@ -123,5 +123,14 @@
             android:textColor="@drawable/tab_white"
             app:layout_constraintHorizontal_bias="0.497" android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" android:layout_marginBottom="8dp" android:textSize="18sp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_hireOrganizerDetailPrice" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_hireOrganizerLocation"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+            android:textColor="@android:color/white" android:layout_marginStart="32dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

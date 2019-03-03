@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 public class HireOrganizerDetails extends AppCompatActivity {
     ImageView imageView_hireOrganizerPhoto;
-    TextView textView_hireOrganizerName,textView_hireOrganizerLocation,textView_hireOrganizerDetails;
+    TextView textView_hireOrganizerName,textView_hireOrganizerLocation,textView_hireOrganizerDetails, textView_hireOrganizerDetailPrice;
     RecyclerView recyclerView_hireOrganizerReview;
     RatingBar ratingBar_hireOrganizerRate;
     Button button_hireOrganizerDetailsHire;
@@ -32,9 +32,13 @@ public class HireOrganizerDetails extends AppCompatActivity {
         String image_url = intent.getStringExtra("image_url");
         String Location = intent.getStringExtra("Location");
         final String eventCategory = intent.getStringExtra("eventCategory");
+        Double price = intent.getDoubleExtra("price", 0.0);
+        String organizerDetails = intent.getStringExtra("organizerDetails");
 
         textView_hireOrganizerName.setText(OrganizerName);
+        textView_hireOrganizerDetailPrice.setText("P"+price);
         textView_hireOrganizerLocation.setText(Location);
+        textView_hireOrganizerDetails.setText(organizerDetails);
         Picasso.get().load(image_url).error(R.drawable.default_avata).into(imageView_hireOrganizerPhoto);
 
 
@@ -60,7 +64,7 @@ public class HireOrganizerDetails extends AppCompatActivity {
         recyclerView_hireOrganizerReview = findViewById(R.id.recyclerView_hireOrganizerReview);
         ratingBar_hireOrganizerRate = findViewById(R.id.ratingBar_hireOrganizerRate);
         button_hireOrganizerDetailsHire = findViewById(R.id.button_hireOrganizerDetailsHire);
-
+        textView_hireOrganizerDetailPrice = findViewById(R.id.textView_hireOrganizerDetailPrice);
     }
     @Override
     public boolean onSupportNavigateUp() {
