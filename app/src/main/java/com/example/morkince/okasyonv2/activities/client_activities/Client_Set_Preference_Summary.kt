@@ -17,7 +17,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_client_set_the_preference_summary_contents.*
 import java.text.DecimalFormat
 
- class Client_Set_Preference_Summary: AppCompatActivity() {
+class Client_Set_Preference_Summary: AppCompatActivity() {
     private var eventUid: String?=null
     private var eventName: String?=null
     private var eventAddress: String ?= null

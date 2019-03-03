@@ -200,6 +200,8 @@ public void ClientCreateEvent()
             {
                 @Override
                 public void onClick(View v) {
+                    typeOfEvent="Wedding";
+
                    final Dialog dialogWedding = new Dialog(ClientHomePage.this);
                     LayoutInflater layoutInflater = LayoutInflater.from( ClientHomePage.this);
                     View view = layoutInflater.inflate(R.layout.modal_hireororganize_client,null);
@@ -254,6 +256,7 @@ public void ClientCreateEvent()
             {
                 @Override
                 public void onClick(View v) {
+                    typeOfEvent="Party";
                     final Dialog dialogParty = new Dialog(ClientHomePage.this);
                     LayoutInflater layoutInflater = LayoutInflater.from( ClientHomePage.this);
                     View view = layoutInflater.inflate(R.layout.modal_hireororganize_client,null);
@@ -309,6 +312,8 @@ public void ClientCreateEvent()
             {
                 @Override
                 public void onClick(View v) {
+                    typeOfEvent="Business_Events";
+
                     final Dialog dialogBusiness = new Dialog(ClientHomePage.this);
                     LayoutInflater layoutInflater = LayoutInflater.from( ClientHomePage.this);
                     View view = layoutInflater.inflate(R.layout.modal_hireororganize_client,null);
@@ -362,6 +367,8 @@ public void ClientCreateEvent()
             {
                 @Override
                 public void onClick(View v) {
+                    typeOfEvent="Sports_Events";
+
                     final Dialog dialogSports = new Dialog(ClientHomePage.this);
                     LayoutInflater layoutInflater = LayoutInflater.from( ClientHomePage.this);
                     View view = layoutInflater.inflate(R.layout.modal_hireororganize_client,null);
@@ -415,6 +422,8 @@ public void ClientCreateEvent()
             {
                 @Override
                 public void onClick(View v) {
+                    typeOfEvent="Customized_Events";
+
                     final Dialog dialogCustomize = new Dialog(ClientHomePage.this);
                     LayoutInflater layoutInflater = LayoutInflater.from( ClientHomePage.this);
                     View view = layoutInflater.inflate(R.layout.modal_hireororganize_client,null);

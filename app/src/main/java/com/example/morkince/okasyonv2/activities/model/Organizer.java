@@ -9,9 +9,10 @@ public class Organizer {
     Double Price;
     double Rating;
     String user_uid;
-
+    String eventCategory;
 
     public Organizer(){}
+
     public Organizer(String OrganizerName, String imageuri, String location, Double price, double rating,String user_uid) {
         organizerName = OrganizerName;
         this.imageuri = imageuri;
@@ -21,7 +22,23 @@ public class Organizer {
         user_uid = user_uid;
     }
 
+    public Organizer(String organizerName, String imageuri, String location, Double price, double rating, String user_uid, String eventCategory) {
+        this.organizerName = organizerName;
+        this.imageuri = imageuri;
+        Location = location;
+        Price = price;
+        Rating = rating;
+        this.user_uid = user_uid;
+        this.eventCategory = eventCategory;
+    }
 
+    public String getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(String eventCategory) {
+        this.eventCategory = eventCategory;
+    }
 
     public String getImageuri() {
         return imageuri;

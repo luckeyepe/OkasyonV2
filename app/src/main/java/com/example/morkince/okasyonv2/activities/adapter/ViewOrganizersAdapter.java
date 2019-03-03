@@ -94,6 +94,7 @@ public class ViewOrganizersAdapter extends RecyclerView.Adapter<ViewOrganizersAd
             intent.putExtra("OrganizerName",Organizer.get(position).getOrganizerName());
             intent.putExtra("Location",Organizer.get(position).getLocation());
             intent.putExtra("image_url",Organizer.get(position).getImageuri());
+            intent.putExtra("eventCategory", Organizer.get(position).getEventCategory());
             mContext.startActivity(intent);
 
 

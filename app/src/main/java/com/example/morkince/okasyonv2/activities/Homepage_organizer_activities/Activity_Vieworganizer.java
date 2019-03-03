@@ -45,8 +45,17 @@ public class Activity_Vieworganizer extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refs();
 
+        String eventCategoryUid = "";
+
+        if (getIntent().hasExtra("event_category")){
+            eventCategoryUid = getIntent().getStringExtra("event_category");
+        }
+
+
+
         db = FirebaseFirestore.getInstance();
 
+        final String finalEventCategoryUid = eventCategoryUid;
         db.collection("User").whereEqualTo("user_role","organizer").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -56,10 +65,10 @@ public class Activity_Vieworganizer extends AppCompatActivity {
                         String imageuri=document.getString("user_profilePictureURL");
                         String location=document.getString("user_address");
                         String user_uid=document.getString("user_uid");
-                        Double price=3500.00;
-                        double rating=3.5;
+                        Double price= document.getLong("user_price").doubleValue();
+//                        double rating=3.5;
 
-                        organizer.add(new Organizer(OrganizerName,imageuri,location,price,rating,user_uid));
+                        organizer.add(new Organizer(OrganizerName,imageuri,location,price,0, user_uid, finalEventCategoryUid));
                     }
 
                     adapter = new ViewOrganizersAdapter(organizer, Activity_Vieworganizer.this);

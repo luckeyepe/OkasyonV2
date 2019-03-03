@@ -1,12 +1,15 @@
 package com.example.morkince.okasyonv2;
 
 import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.morkince.okasyonv2.activities.client_activities.Client_Create_Event;
 import com.squareup.picasso.Picasso;
 
 public class HireOrganizerDetails extends AppCompatActivity {
@@ -14,6 +17,7 @@ public class HireOrganizerDetails extends AppCompatActivity {
     TextView textView_hireOrganizerName,textView_hireOrganizerLocation,textView_hireOrganizerDetails;
     RecyclerView recyclerView_hireOrganizerReview;
     RatingBar ratingBar_hireOrganizerRate;
+    Button button_hireOrganizerDetailsHire;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,17 +26,30 @@ public class HireOrganizerDetails extends AppCompatActivity {
         getSupportActionBar().setTitle("Organizer Details");
 
 
-        Intent intent= getIntent();
+        final Intent intent= getIntent();
         String OrganizerName = intent.getStringExtra("OrganizerName");
-        String user_uid = intent.getStringExtra("user_uid");
+        final String user_uid = intent.getStringExtra("user_uid");
         String image_url = intent.getStringExtra("image_url");
         String Location = intent.getStringExtra("Location");
+        final String eventCategory = intent.getStringExtra("eventCategory");
 
         textView_hireOrganizerName.setText(OrganizerName);
         textView_hireOrganizerLocation.setText(Location);
         Picasso.get().load(image_url).error(R.drawable.default_avata).into(imageView_hireOrganizerPhoto);
 
+
+        button_hireOrganizerDetailsHire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(HireOrganizerDetails.this, Client_Create_Event.class);
+                intent1.putExtra("organizerUid", user_uid);
+                intent1.putExtra("event_category", eventCategory);
+                startActivity(intent1);
+            }
+        });
     }
+
+
 
     public void refs()
     {
@@ -42,6 +59,8 @@ public class HireOrganizerDetails extends AppCompatActivity {
         textView_hireOrganizerDetails = findViewById(R.id.textView_hireOrganizerDetails);
         recyclerView_hireOrganizerReview = findViewById(R.id.recyclerView_hireOrganizerReview);
         ratingBar_hireOrganizerRate = findViewById(R.id.ratingBar_hireOrganizerRate);
+        button_hireOrganizerDetailsHire = findViewById(R.id.button_hireOrganizerDetailsHire);
+
     }
     @Override
     public boolean onSupportNavigateUp() {

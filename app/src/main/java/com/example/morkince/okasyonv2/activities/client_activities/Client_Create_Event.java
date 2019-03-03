@@ -270,6 +270,16 @@ public class Client_Create_Event extends AppCompatActivity {
     public View.OnClickListener createEvent = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            button_CreateEventBtn.setEnabled(false);
+
+            String eventOrganizerUid = "";
+            String eventCategoryID = "";
+
+            if (getIntent().hasExtra("organizerUid")){
+                eventOrganizerUid = getIntent().getStringExtra("organizerUid");
+                eventCategoryID= getIntent().getStringExtra("event_category");
+            }
+
             Long tsLong = System.currentTimeMillis()/1000;
             int checkedRadioButtonID = clientCreateEvent_radioGroup.getCheckedRadioButtonId();
 
@@ -287,24 +297,34 @@ public class Client_Create_Event extends AppCompatActivity {
 
 
             if (eventName.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventNameofEvent.setError("Event Name is Blank");
             } else if (eventLocation.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventLocation.setError("Event Location is Blank");
             }
             else if (eventDescription.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventDescription.setError("Event Description is Blank");
             }
 
             else if (eventTags.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventTags.setError("Event Tags is Blank");
             }
 
             else if(eventBudget.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventBudget.setError("Event Budget is Blank");
             }
 
             else if (eventNumberOfAttendees.isEmpty()) {
+                button_CreateEventBtn.setEnabled(true);
                 textInputEditText_clientCreateEventNumberOfAttendees.setError("Number of Attendees is Blank");
+            }
+            else if (textInputEditText_clientCreateEventDate.getText().toString().isEmpty()){
+                button_CreateEventBtn.setEnabled(true);
+                textInputEditText_clientCreateEventDate.setError("Set a date");
             }
             else{
 
@@ -324,7 +344,7 @@ public class Client_Create_Event extends AppCompatActivity {
                     String date = DateFormat.format("dd-MM-yyyy", currentDate).toString();
 
                     event = new Events(0.0,
-                            eventCategory,
+                            eventCategoryID,
                             currentUser.getUid() + "",
                             date,
                             eventDescription,
@@ -337,7 +357,7 @@ public class Client_Create_Event extends AppCompatActivity {
                             "",
                             Double.parseDouble(eventBudget),
                             tsLong,
-                            "s",
+                            eventOrganizerUid,
                             eventTags);
 
                     db = FirebaseFirestore.getInstance();
@@ -355,6 +375,8 @@ public class Client_Create_Event extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     showAlert("ERROR", "Couldn't Create Event!");
+                                    button_CreateEventBtn.setEnabled(true);
+
                                 }
                             });
 
@@ -362,6 +384,8 @@ public class Client_Create_Event extends AppCompatActivity {
                 else
                 {
                     showAlert("Please Choose Image First", "Warning");
+                    button_CreateEventBtn.setEnabled(true);
+
                 }
 
             }
@@ -400,8 +424,7 @@ public class Client_Create_Event extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             showAlert("An Error Occured","ERROR");
-
-
+                            button_CreateEventBtn.setEnabled(true);
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
