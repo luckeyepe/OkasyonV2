@@ -140,6 +140,7 @@ public class ClientHomePage extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(ClientHomePage.this,UserProfileActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         BottomNavigationView bottomNavigationView = findViewById(R.id.event_navigation);

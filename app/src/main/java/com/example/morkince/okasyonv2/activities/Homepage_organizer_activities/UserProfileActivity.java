@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.RandomMessages;
+import com.example.morkince.okasyonv2.activities.client_activities.ClientHomePage;
 import com.example.morkince.okasyonv2.activities.model.User;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.auth.FirebaseAuth;
@@ -373,5 +374,13 @@ private Uri filePath=null;
         UserPrice = findViewById(R.id.editText_ProfilePrice);
         UserAbout = findViewById(R.id.editText_ProfileAbout);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(UserProfileActivity.this, ClientHomePage.class);
+        startActivity(intent);
+        finish();
     }
 }
