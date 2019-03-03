@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             progress.dismiss()
                             errorDialog("Username and password not in the database", "INVALID CREDENTIALS")
-                            Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show()
+                           // Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show()
                         }
                     }
             }
