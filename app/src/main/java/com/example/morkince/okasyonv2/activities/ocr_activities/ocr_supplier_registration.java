@@ -168,10 +168,10 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 try {
                     bitmapValidID = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathValidID);
 
-                    //if( recognizeText() &&  detectFaceValidID()) {
+                    if( recognizeText() &&  detectFaceValidID()) {
                         ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
                         btn_supplier_continue.setEnabled(true);
-                  //  }
+                    }
                 }
                 catch (IOException e)
                 {
@@ -188,9 +188,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 filePathBusinessPermit = data.getData();
                 try {
                     bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
-//                    if(recognizeTextBusinessPermit()) {
+                    if(recognizeTextBusinessPermit()) {
                         ocr_supplier_valid_business_permit.setImageBitmap(bitmapBusinessPermit);
-//                    }
+                    }
                 }
                 catch (IOException e)
                 {

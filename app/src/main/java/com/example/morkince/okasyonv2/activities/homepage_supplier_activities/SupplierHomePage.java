@@ -87,6 +87,8 @@ public class SupplierHomePage extends AppCompatActivity
 
         refs();
 
+        supplierHomepage_storeName_txtView.setEnabled(false);
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
 //        userID = currentUser.getUid();
@@ -482,7 +484,7 @@ public class SupplierHomePage extends AppCompatActivity
 
     public void enableEditText(boolean booleanState)
     {
-        supplierHomepage_storeName_txtView.setEnabled(booleanState);
+      //  supplierHomepage_storeName_txtView.setEnabled(booleanState);
         supplierHomepage_storeContact.setEnabled(booleanState);
         supplierHomepage_saveBtn.setEnabled(booleanState);
     }
