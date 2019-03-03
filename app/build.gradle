@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
     implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.1'
 
     implementation 'com.xwray:groupie:2.3.0'//easy recyler view adapter
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'

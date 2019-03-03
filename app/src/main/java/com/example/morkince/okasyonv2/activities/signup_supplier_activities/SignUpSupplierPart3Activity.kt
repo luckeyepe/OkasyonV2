@@ -54,15 +54,15 @@ class SignUpSupplierPart3Activity : AppCompatActivity() {
 
         fillInData()
 
-        imageButton_SignUpSupplierPart3EditSummary.setOnClickListener()
-        {
-            textInputEditText_SignUpSupplierPart3StoreName.isEnabled = true
-            textInputEditText_SignUpSupplierPart3FirstName.isEnabled =true
-            textInputEditText_SignUpSupplierPart3LastName.isEnabled =true
-            textInputEditText_SignUpSupplierPart3Address.isEnabled = true
-            textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =true
-            textInputEditText_SignUpSupplierPart3About.isEnabled =true
-        }
+//        imageButton_SignUpSupplierPart3EditSummary.setOnClickListener()
+//        {
+//            textInputEditText_SignUpSupplierPart3StoreName.isEnabled = true
+//            textInputEditText_SignUpSupplierPart3FirstName.isEnabled =true
+//            textInputEditText_SignUpSupplierPart3LastName.isEnabled =true
+//            textInputEditText_SignUpSupplierPart3Address.isEnabled = true
+//            textInputEditText_SignUpSupplierPart3ContactNumber.isEnabled =true
+//            textInputEditText_SignUpSupplierPart3About.isEnabled =true
+//        }
 
         imageButton_SignUpSupplierPart3Before.setOnClickListener()
         {

@@ -20,7 +20,7 @@ import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.Activity_Vieworganizer;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.UserProfileActivity;
-import com.example.morkince.okasyonv2.activities.NotificationsActivity;
+import com.example.morkince.okasyonv2.activities.common_activities.NotificationsActivity;
 import com.example.morkince.okasyonv2.activities.adapter.EventsAdapter;
 import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.example.morkince.okasyonv2.activities.client_fragments.TopEvents_Fragment;
@@ -246,7 +246,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Wedding";
-                    Toast.makeText(getApplicationContext(),"Wedding Event",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -303,7 +303,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Party";
-                    Toast.makeText(getApplicationContext(),"Party Events!!",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -358,7 +358,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Business_Events";
-                    Toast.makeText(getApplicationContext(),"Business Event!!",Toast.LENGTH_SHORT).show();
+
                 }
             });
             //SPORTS BUTTON
@@ -414,7 +414,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Sports_Events";
-                    Toast.makeText(getApplicationContext(),"Sports Events",Toast.LENGTH_SHORT).show();
+
                 }
             });
             //CUSTOMIZE BUTTON
@@ -467,7 +467,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Customized_Events";
-                    Toast.makeText(getApplicationContext(),"Customize Events",Toast.LENGTH_SHORT).show();
+
 
                 }
 
@@ -475,7 +475,7 @@ public void ClientCreateEvent()
 
 
 
-            Toast.makeText(getApplicationContext(),"Success!!",Toast.LENGTH_SHORT).show();
+
             return true;
         }
 

@@ -59,7 +59,7 @@ public class View_Store_Items extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
 
                         String itemName=document.getString("item_name");
-                        double numStars=3.0;//(Long)document.get("storeRating_starRating");
+                        double numStars= (Double.parseDouble(document.get("item_average_rating") + " " ));
                         double itemPrice=Double.parseDouble(document.get("item_price").toString());
                         String item_uid=document.getString("item_uid");
                         String item_category=document.getString("item_category_id");

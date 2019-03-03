@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -45,6 +46,7 @@ public class GetStoreDirections extends FragmentActivity implements OnMapReadyCa
     private FusedLocationProviderClient clientLocation;
     LatLng latLngCurrent;
     boolean flag=false;
+    boolean checkIfInvalidAddress=false;
 
 
     @Override
@@ -126,13 +128,25 @@ public class GetStoreDirections extends FragmentActivity implements OnMapReadyCa
 
                 try {
                     address = coder.getFromLocationName(storeLocation, 5);
+                    if(checkIfInvalidAddress==false) {
+                        if (address.isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "INVALID STORE ADDRESS, NOW SHOWING YOUR CURRENT LOCATION", Toast.LENGTH_SHORT).show();
+                            checkIfInvalidAddress=true;
+                        } else {
+                            locationOfStore = address.get(0);
 
-                    locationOfStore = address.get(0);
 
+                            Log.e("LATITUDE OF STORE", locationOfStore.getLatitude() + "");
+                            Log.e("LONGITUDE OF STORE", locationOfStore.getLongitude() + "");
 
-                    Log.e("LATITUDE OF STORE", locationOfStore.getLatitude() + "");
-                    Log.e("LONGITUDE OF STORE", locationOfStore.getLongitude() + "");
+                            String slatitude = currentLocation.getLatitude() + "", slongitude = currentLocation.getLongitude() + "", dlatitude = locationOfStore.getLatitude() + "", dlongitude = locationOfStore.getLongitude() + "";
+                            final Intent intentGoogleMaps = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?" + "saddr=" + slatitude + "," + slongitude + "&daddr=" + dlatitude + "," + dlongitude));
+                            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                            startActivity(intentGoogleMaps);
+                            flag = true;
 
+                        }
+                    }
             /*    p1 = new Barcode.GeoPoint((double) (location.getLatitude() * 1E6),
                         (double) (location.getLongitude() * 1E6));
 
@@ -144,11 +158,7 @@ public class GetStoreDirections extends FragmentActivity implements OnMapReadyCa
 
 
                 //OPEN GOOGLE MAPS
-                String slatitude = currentLocation.getLatitude() + "", slongitude = currentLocation.getLongitude() + "", dlatitude = locationOfStore.getLatitude() + "", dlongitude = locationOfStore.getLongitude() + "";
-                final Intent intentGoogleMaps = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?" + "saddr=" + slatitude + "," + slongitude + "&daddr=" + dlatitude + "," + dlongitude));
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                startActivity(intentGoogleMaps);
-                flag=true;
+
             }
         }
     }

@@ -27,6 +27,7 @@ import com.example.morkince.okasyonv2.R;
 import com.example.morkince.okasyonv2.activities.Homepage_organizer_activities.UserProfileActivity;
 import com.example.morkince.okasyonv2.activities.chat_activities.LatestMessagesActivity;
 import com.example.morkince.okasyonv2.activities.client_activities.ClientHomePage;
+import com.example.morkince.okasyonv2.activities.common_activities.NotificationsActivity;
 import com.example.morkince.okasyonv2.activities.login_activities.MainActivity;
 import com.example.morkince.okasyonv2.activities.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -86,6 +87,8 @@ public class SupplierHomePage extends AppCompatActivity
         getSupportActionBar().setTitle("Supplier");
 
         refs();
+
+        supplierHomepage_storeName_txtView.setEnabled(false);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
@@ -256,6 +259,8 @@ public class SupplierHomePage extends AppCompatActivity
                break;
 
            case R.id.nav_supplier_notification:
+               Intent notificationIntent = new Intent(SupplierHomePage.this, NotificationsActivity.class);
+               startActivity(notificationIntent);
                break;
 
            default: break;
@@ -482,7 +487,7 @@ public class SupplierHomePage extends AppCompatActivity
 
     public void enableEditText(boolean booleanState)
     {
-        supplierHomepage_storeName_txtView.setEnabled(booleanState);
+      //  supplierHomepage_storeName_txtView.setEnabled(booleanState);
         supplierHomepage_storeContact.setEnabled(booleanState);
         supplierHomepage_saveBtn.setEnabled(booleanState);
     }
