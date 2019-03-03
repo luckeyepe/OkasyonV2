@@ -244,7 +244,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Wedding";
-                    Toast.makeText(getApplicationContext(),"Wedding Event",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -300,7 +300,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Party";
-                    Toast.makeText(getApplicationContext(),"Party Events!!",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -353,7 +353,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Business_Events";
-                    Toast.makeText(getApplicationContext(),"Business Event!!",Toast.LENGTH_SHORT).show();
+
                 }
             });
             //SPORTS BUTTON
@@ -407,7 +407,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Sports_Events";
-                    Toast.makeText(getApplicationContext(),"Sports Events",Toast.LENGTH_SHORT).show();
+
                 }
             });
             //CUSTOMIZE BUTTON
@@ -458,7 +458,7 @@ public void ClientCreateEvent()
                         }
                     });
                     typeOfEvent="Customized_Events";
-                    Toast.makeText(getApplicationContext(),"Customize Events",Toast.LENGTH_SHORT).show();
+
 
                 }
 
@@ -466,7 +466,7 @@ public void ClientCreateEvent()
 
 
 
-            Toast.makeText(getApplicationContext(),"Success!!",Toast.LENGTH_SHORT).show();
+
             return true;
         }
 

@@ -62,7 +62,7 @@ public class SupplierAddItem extends AppCompatActivity {
         categoriesForRent.add("Church");
         categoriesForRent.add("Event Coordinator");
         categoriesForRent.add("Event Entertainer");
-        categoriesForRent.add("Event Stylist");
+        categoriesForRent.add(" Event Stylist");
         categoriesForRent.add("Hair and Make-up");
         categoriesForRent.add("Host");
         categoriesForRent.add("Lights");

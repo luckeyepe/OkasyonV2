@@ -35,7 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 public class UserProfileActivity extends AppCompatActivity {
-EditText UserEmailAdress, UserFirstname, UserLastname, UserAddress, UserContactnumber, UserDateofbirth, UserGender;
+EditText UserEmailAdress, UserFirstname, UserLastname, UserAddress, UserContactnumber, UserDateofbirth, UserGender, UserPrice;
 TextView User_rolename;
 ImageView imageviewUserProfile;
 ImageButton imgbtnAddPic, imgBtnEditProfile;
@@ -261,6 +261,9 @@ private Uri filePath=null;
             imgBtnEditProfile.setVisibility(View.INVISIBLE);
             btnsave.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
+            UserPrice.setVisibility(View.VISIBLE);
+
+
 
 
 
@@ -273,6 +276,7 @@ private Uri filePath=null;
 
         UserAddress.setEnabled(status);
         UserContactnumber.setEnabled(status);
+        UserPrice.setEnabled(status);
 
     }
     public View.OnClickListener CancelData = new View.OnClickListener() {
@@ -326,5 +330,7 @@ private Uri filePath=null;
         imgbtnAddPic=findViewById(R.id.imageButton_ProfileAddPic);
         btnsave=findViewById(R.id.button_saveUserDetails);
         btnCancel=findViewById(R.id.button_cancelUserDetails);
+        UserPrice = findViewById(R.id.editText_ProfilePrice);
+
     }
 }

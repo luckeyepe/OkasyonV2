@@ -29,34 +29,30 @@
     <ImageView
             android:id="@+id/ocr_registration_client_validID_ImgView"
             android:layout_width="315dp"
-            android:layout_height="214dp"
+            android:layout_height="190dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:orientation="vertical"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.417"
-            app:srcCompat="@drawable/camera_icon"/>
+            app:layout_constraintVertical_bias="0.414"
+            app:srcCompat="@drawable/camera_icon" android:scaleType="fitXY"/>
 
     <ImageButton
             android:id="@+id/ocr_registration_client_validID_imageBtn"
             android:layout_width="49dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.757"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.568"
-            app:srcCompat="@drawable/ic_add_a_photo"/>
+            app:layout_constraintTop_toTopOf="@+id/ocr_registration_client_validID_ImgView"
+            app:srcCompat="@drawable/ic_add_a_photo"
+            app:layout_constraintVertical_bias="0.24000001"
+            app:layout_constraintEnd_toEndOf="@+id/ocr_registration_client_validID_ImgView"
+            app:layout_constraintStart_toStartOf="@+id/ocr_registration_client_validID_ImgView"
+            app:layout_constraintHorizontal_bias="0.96"/>
     <TextView
             android:text="Upload Documents"
             android:layout_width="wrap_content"

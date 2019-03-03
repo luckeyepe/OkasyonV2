@@ -241,9 +241,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 Frame frame = new Frame.Builder().setBitmap(bitmapBusinessPermit).build();
                 SparseArray<TextBlock> itemsBusinessPermit = textRecognizer.detect(frame);
                 StringBuilder businessPermitText = new StringBuilder();
-               //String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
-              //  fullName="MARLONITO COLINA";
-              //  store_store_name="MCAV TARPAULIN PRINTING SERVICES";
+                //String fullName = (""+user_last_name+", "+user_first_name+"").toUpperCase();
+                //  fullName="MARLONITO COLINA";
+                //  store_store_name="MCAV TARPAULIN PRINTING SERVICES";
                 //user_address="1077 H. Cortes T., SUBANGDAKU, MANDAUE CITY";
                 String fullName = (""+user_last_name+" "+user_first_name+"").toUpperCase();
                 String[] nameArray = fullName.split(" ");
@@ -264,7 +264,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 }
 
                 validBusinessPermitTextOCR=businessPermitText.toString().toUpperCase();
-              //  Log.e("BUSINESS PERMIT ",businessPermitText.toString());
+                //  Log.e("BUSINESS PERMIT ",businessPermitText.toString());
 
                 //CHECK OWNER NAME
              /*   for (String name: nameArray)
@@ -387,6 +387,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
                 }
                 validIdTextOCR=validIDText.toString().toUpperCase();
 
+                Log.e("OCR HERE ", validIdTextOCR);
+
                 for (String name: firsnameArray)
                 {
 
@@ -399,7 +401,9 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     {
                         isMatchingName= false;
                         Log.e("WRONG NAME",name);
-                        Toast.makeText(getApplication(), "NAME DOEST NOT MATCH : " +fullName , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "Wrong Name: " + name , Toast.LENGTH_SHORT).show();
+
+                        // Toast.makeText(getApplication(), "NAME DOEST NOT MATCH : " +fullName , Toast.LENGTH_SHORT).show();
                         break;
                     }
 
