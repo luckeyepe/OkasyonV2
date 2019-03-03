@@ -132,15 +132,6 @@
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.863" app:layout_constraintVertical_bias="0.32999998"/>
 
-    <ImageView
-            android:layout_width="25dp"
-            android:scaleType="fitXY"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
-            android:id="@+id/imageView_supplierUploadImage" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.976" app:layout_constraintVertical_bias="0.331"/>
     <EditText
             android:layout_width="164dp"
             android:maxWidth="108dp"
