@@ -110,7 +110,7 @@ public class SupplierHomePage extends AppCompatActivity
         }
 
         Intent intent = getIntent();
-         user_uid=intent.getStringExtra("user_uid");
+        user_uid=intent.getStringExtra("user_uid");
         updateSupplierProfileInfo();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
@@ -141,8 +141,8 @@ public class SupplierHomePage extends AppCompatActivity
 
         //ADD REVIEWS TO RECYCLER VIEW
 
-       getStoreID();
-       //FIRST GET THE ID OF STORE TO LOCATE THE REVIEWS OF THE SPECIFIC STORE
+        getStoreID();
+        //FIRST GET THE ID OF STORE TO LOCATE THE REVIEWS OF THE SPECIFIC STORE
         db = FirebaseFirestore.getInstance();
         db.collection("Store").whereEqualTo("store_owner_id",currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -238,34 +238,34 @@ public class SupplierHomePage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-       int id = item.getItemId();
+        int id = item.getItemId();
 
-       switch(id){
-           case R.id.nav_supplier_logout:
-               FirebaseAuth.getInstance().signOut();
-               Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
-               startActivity(intent);
-               finish();
-               break;
+        switch(id){
+            case R.id.nav_supplier_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(SupplierHomePage.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
 
-           case R.id.nsv_supplier_messages:
-               Intent intent1 = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
-               startActivity(intent1);
-               break;
+            case R.id.nsv_supplier_messages:
+                Intent intent1 = new Intent (SupplierHomePage.this, LatestMessagesActivity.class);
+                startActivity(intent1);
+                break;
 
-           case R.id.nav_supplier_transaction:
-               Intent intent2 = new Intent (SupplierHomePage.this, Transaction_Supplier_Activity.class);
-               startActivity(intent2);
-               break;
+            case R.id.nav_supplier_transaction:
+                Intent intent2 = new Intent (SupplierHomePage.this, Transaction_Supplier_Activity.class);
+                startActivity(intent2);
+                break;
 
-           case R.id.nav_supplier_notification:
-               Intent notificationIntent = new Intent(SupplierHomePage.this, NotificationsActivity.class);
-               startActivity(notificationIntent);
-               break;
+            case R.id.nav_supplier_notification:
+                Intent notificationIntent = new Intent(SupplierHomePage.this, NotificationsActivity.class);
+                startActivity(notificationIntent);
+                break;
 
-           default: break;
+            default: break;
 
-       }
+        }
 
 //       if (id == R.id.nav_supplier_logout) {
 //           FirebaseAuth.getInstance().signOut();
@@ -357,6 +357,7 @@ public class SupplierHomePage extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null ) {
@@ -364,7 +365,7 @@ public class SupplierHomePage extends AppCompatActivity
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 supplierHompage_bannerImg.setImageBitmap(bitmap);
-                uploadImage(user.getUid());
+                uploadImage(currentuser.getUid());
             }
             catch (IOException e)
             {
@@ -487,7 +488,7 @@ public class SupplierHomePage extends AppCompatActivity
 
     public void enableEditText(boolean booleanState)
     {
-      //  supplierHomepage_storeName_txtView.setEnabled(booleanState);
+        //  supplierHomepage_storeName_txtView.setEnabled(booleanState);
         supplierHomepage_storeContact.setEnabled(booleanState);
         supplierHomepage_saveBtn.setEnabled(booleanState);
     }
@@ -557,25 +558,25 @@ public class SupplierHomePage extends AppCompatActivity
     };
 
     //THIS IS A METHOD TO GET STORE ID BOTH IN SAVING DATA AND UPON LOADING OF THE UI
-            public void getStoreID(){
-                FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
+    public void getStoreID(){
+        FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
 
-                db = FirebaseFirestore.getInstance();
-                assert currentuser != null;
-                db.collection("Store").whereEqualTo("store_owner_id",currentuser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                documentID = document.getId();
-                                documentIDofStore=document.getId();
-                                Log.e("DOCUMENT INSIDEEE",documentID);
+        db = FirebaseFirestore.getInstance();
+        assert currentuser != null;
+        db.collection("Store").whereEqualTo("store_owner_id",currentuser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        documentID = document.getId();
+                        documentIDofStore=document.getId();
+                        Log.e("DOCUMENT INSIDEEE",documentID);
 
-                            }
-                        }
                     }
-                });
+                }
             }
+        });
+    }
 
 
 
