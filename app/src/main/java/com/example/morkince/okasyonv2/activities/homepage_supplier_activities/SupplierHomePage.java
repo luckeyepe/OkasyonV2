@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.PixelCopy;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -194,6 +195,10 @@ public class SupplierHomePage extends AppCompatActivity
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(supplierHompage_bannerImg);
+                NavigationView drawer =  findViewById(R.id.nav_view1);
+                View headerView = drawer.getHeaderView(0);
+                drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
+                Picasso.get().load(uri.toString()).error(R.mipmap.ic_launcher).into(drawerImage);
 
             }
         });
@@ -378,6 +383,7 @@ public class SupplierHomePage extends AppCompatActivity
         if(filePath != null)
         {
             Log.e("THIS IS supplier UID", txtid);
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
             final ProgressDialog progressDialog = new ProgressDialog(SupplierHomePage.this);
             progressDialog.setTitle("Uploading...");
@@ -385,14 +391,29 @@ public class SupplierHomePage extends AppCompatActivity
             //  progressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             progressDialog.show();
             progressDialog.setCancelable(false);
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images").child(txtid);
+            final StorageReference ref = FirebaseStorage.getInstance().getReference().child("images").child(txtid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            progressDialog.dismiss();
-                            showAlert("Successfully Updated!","Success");
+                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    FirebaseFirestore.getInstance()
+                                            .collection("User")
+                                            .document(currentUser.getUid())
+                                            .update("user_profPic", task.getResult().toString());
+
+                                    NavigationView drawer =  findViewById(R.id.nav_view1);
+                                    View headerView = drawer.getHeaderView(0);
+                                    drawerImage =  headerView.findViewById(R.id.imageView_SupplierImage);
+                                    Picasso.get().load(task.getResult().toString()).error(R.mipmap.ic_launcher).into(drawerImage);
+
+                                    progressDialog.dismiss();
+                                    showAlert("Successfully Updated Image!","Success");
+                                }
+                            });
 
                         }
                     })

@@ -8,18 +8,20 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.Events;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.RandomMessages;
+import com.example.morkince.okasyonv2.activities.chat_activities.ChatLogActivitiy;
 import com.example.morkince.okasyonv2.activities.homepage_supplier_activities.SupplierHomePage;
+import com.example.morkince.okasyonv2.activities.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +70,78 @@ public class FoundEventDetailsActivity extends AppCompatActivity {
 
         sponsor.setOnClickListener(sponsorEvent);
         attend.setOnClickListener(attendEvent);
+        eventdetailsmessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                final String currentUserUid = currentUser.getUid();
+
+                final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(FoundEventDetailsActivity.this);
+                RandomMessages randomMessages = new RandomMessages();
+                custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
+
+                FirebaseFirestore.getInstance()
+                        .collection("Event")
+                        .document(event_id)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                final String event_creator_id = documentSnapshot.get("event_creator_id").toString();
+
+                                FirebaseFirestore.getInstance()
+                                        .collection("User")
+                                        .document(currentUserUid)
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                final User sendingUser = documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User.class);
+
+                                                FirebaseFirestore.getInstance()
+                                                        .collection("User")
+                                                        .document(event_creator_id)
+                                                        .get()
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                User receivingUser = documentSnapshot.toObject(com.example.morkince.okasyonv2.activities.model.User.class);
+
+                                                                Intent intent = new Intent(FoundEventDetailsActivity.this, ChatLogActivitiy.class);
+                                                                intent.putExtra("sendingUser", sendingUser);
+                                                                intent.putExtra("receivingUser", receivingUser);
+                                                                startActivity(intent);
+
+                                                                custom_progress_dialog.dissmissDialog();
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                custom_progress_dialog.dissmissDialog();
+                                                            }
+                                                        });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                custom_progress_dialog.dissmissDialog();
+                                            }
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                custom_progress_dialog.dissmissDialog();
+                                Toast.makeText(FoundEventDetailsActivity.this, "Coudn't Reach the Dude", Toast.LENGTH_LONG);
+                            }
+                        });
+                //open chat log
+            }
+        });
 
     }
 
