@@ -426,7 +426,7 @@ public class SupplierHomePage extends AppCompatActivity
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
         try {
-            mStorageRef = FirebaseStorage.getInstance().getReference().child("user_profPic").child(currentUser.getUid());
+            mStorageRef = FirebaseStorage.getInstance().getReference().child("images").child(currentUser.getUid());
 
             mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
