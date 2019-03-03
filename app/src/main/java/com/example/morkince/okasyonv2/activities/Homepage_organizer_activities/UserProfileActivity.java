@@ -14,12 +14,11 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.morkince.okasyonv2.Custom_Progress_Dialog;
 import com.example.morkince.okasyonv2.R;
+import com.example.morkince.okasyonv2.RandomMessages;
 import com.example.morkince.okasyonv2.activities.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -316,25 +315,43 @@ private Uri filePath=null;
             db = FirebaseFirestore.getInstance();
             DocumentReference userToUpdate = db.collection("User").document("" + user.getUid());
 
+            RandomMessages randomMessages = new RandomMessages();
+            final Custom_Progress_Dialog custom_progress_dialog = new Custom_Progress_Dialog(UserProfileActivity.this);
+            custom_progress_dialog.showDialog("LOADING", randomMessages.getRandomMessage());
+
+
             if (!UserAbout.getText().toString().isEmpty() && !UserPrice.getText().toString().isEmpty()) {
-                userToUpdate.update("user_organizer_details", UserAbout.getText().toString());
-                userToUpdate.update("user_price", Double.parseDouble(UserPrice.getText().toString()));
+                userToUpdate.update("user_organizer_details", UserAbout.getText().toString(),
+                "user_price", Double.parseDouble(UserPrice.getText().toString()));
             }
 
-            userToUpdate.update("user_first_name",  UserFirstname.getText().toString());
-            userToUpdate.update("user_last_name",   UserLastname.getText().toString());
-            userToUpdate.update("user_email",  UserEmailAdress.getText().toString());
-            userToUpdate.update("user_birth_date",  UserDateofbirth.getText().toString());
-            userToUpdate.update("user_contact_no",  UserContactnumber.getText().toString());
-            userToUpdate.update("user_gender",  UserGender.getText().toString());
-            userToUpdate.update("user_address",  UserAddress.getText().toString())
+            userToUpdate.update("user_first_name",  UserFirstname.getText().toString(),
+            "user_last_name",   UserLastname.getText().toString(),
+            "user_email",  UserEmailAdress.getText().toString(),
+            "user_birth_date",  UserDateofbirth.getText().toString(),
+            "user_contact_no",  UserContactnumber.getText().toString(),
+            "user_gender",  UserGender.getText().toString(),
+            "user_address",  UserAddress.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 //                            progressDialog.dismiss(); add progress dialog later on
+                    custom_progress_dialog.dissmissDialog();
                     showAlert("Successfully Updated Data", "SUCCESS!");
                 }
-            });
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            custom_progress_dialog.dissmissDialog();
+                        }
+                    })
+                    .addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                            custom_progress_dialog.dissmissDialog();
+                        }
+                    });
         }
     };
 

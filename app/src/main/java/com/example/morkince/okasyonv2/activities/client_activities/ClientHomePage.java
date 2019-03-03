@@ -93,6 +93,7 @@ public class ClientHomePage extends AppCompatActivity
         getSupportActionBar().setTitle("Client");
         refs();
         user = FirebaseAuth.getInstance().getCurrentUser();
+
         updateProfileInfo();
 
         if (getIntent().hasExtra("isNewUser")){
@@ -103,6 +104,7 @@ public class ClientHomePage extends AppCompatActivity
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
         }
+
         final FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -602,6 +604,7 @@ public void ClientCreateEvent()
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void updateProfileInfo()
     {
 
