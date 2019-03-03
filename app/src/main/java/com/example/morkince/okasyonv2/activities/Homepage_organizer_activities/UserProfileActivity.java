@@ -175,13 +175,18 @@ private Uri filePath=null;
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            FirebaseFirestore.getInstance()
-                                    .collection("User")
-                                    .document(userprofile.getUser_uid())
-                                    .update("user_profPic", ref.getDownloadUrl());
+                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    FirebaseFirestore.getInstance()
+                                            .collection("User")
+                                            .document(userprofile.getUser_uid())
+                                            .update("user_profPic", task.getResult().toString());
 
-                            progressDialog.dismiss();
-                            showAlert("Successfully Updated Image!","Success");
+                                    progressDialog.dismiss();
+                                    showAlert("Successfully Updated Image!","Success");
+                                }
+                            });
 
                         }
                     })
