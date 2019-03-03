@@ -241,7 +241,14 @@ public class ClientItemDetailActivity extends AppCompatActivity {
                                 textView_ActivityClientFindItemNameofTheItem.setText(itemDetails.getItem_name());
                                 textView_ActivityClientFindItemPriceofTheItem.setText(itemDetails.getItem_price() + "");
                                 textView_ActivityClientFindItemDetails.setText(itemDetails.getItem_description());
-                                toggleButton_ActivityClientFindItemToggleForRentAndSale.setChecked(itemDetails.isItem_for_sale());
+
+                                if(!itemDetails.isItem_for_sale()){
+                                    toggleButton_ActivityClientFindItemToggleForRentAndSale.setChecked(!itemDetails.isItem_for_sale());
+                                    toggleButton_ActivityClientFindItemToggleForRentAndSale.setVisibility(View.VISIBLE);
+                                }else {
+                                    toggleButton_ActivityClientFindItemToggleForRentAndSale.setVisibility(View.GONE);
+                                }
+
                                 ratingBar_ActivityClientFindItemRating.setRating(Float.parseFloat(itemDetails.getItem_average_rating()+""));
                                 store_uid=itemDetails.getItem_store_id();
                                 textView_ActivityClientFindItemTermsandConditions.setText(itemDetails.getItem_termsAndConditions());
