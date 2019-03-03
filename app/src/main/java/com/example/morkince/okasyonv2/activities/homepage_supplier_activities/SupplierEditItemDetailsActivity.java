@@ -174,7 +174,7 @@ public class SupplierEditItemDetailsActivity extends AppCompatActivity {
         editText_supplierEditItemDetailsPriceofItem.setText(item_price);
         editText_supplierEditItemDetailsPriceDescriptionofItem.setText(price_description);
         editText_supplierEditItemDetails.setText(item_description);
-        itemDetails_starRating.setRating(5);
+        itemDetails_starRating.setRating(Float.valueOf(star_rating));
     }
 
 
