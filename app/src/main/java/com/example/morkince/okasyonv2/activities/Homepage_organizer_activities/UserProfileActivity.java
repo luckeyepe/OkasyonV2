@@ -165,7 +165,7 @@ private Uri filePath=null;
             progressDialog.show();
             progressDialog.setCancelable(false);
 
-            StorageReference ref = FirebaseStorage
+            final StorageReference ref = FirebaseStorage
                     .getInstance()
                     .getReference()
                     .child("user_profPic")
@@ -175,6 +175,10 @@ private Uri filePath=null;
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            FirebaseFirestore.getInstance()
+                                    .collection("User")
+                                    .document(userprofile.getUser_uid())
+                                    .update("user_profPic", ref.getDownloadUrl());
 
                             progressDialog.dismiss();
                             showAlert("Successfully Updated Image!","Success");
@@ -204,7 +208,7 @@ private Uri filePath=null;
 //    public void uploadImage(String txtid){
 //        if(filePath != null)
 //        {
-//            Log.e("THIS IS THE userprofile UID", txtid);
+//            Log.e("THIS IS THE userprofile UID", txtid);;
 //
 //            final ProgressDialog progressDialog = new ProgressDialog(UserProfileActivity.this);
 //            progressDialog.setTitle("Uploading...");
@@ -275,13 +279,6 @@ private Uri filePath=null;
             btnCancel.setVisibility(View.VISIBLE);
             UserPrice.setVisibility(View.VISIBLE);
             UserAbout.setVisibility(View.VISIBLE);
-
-
-
-
-
-
-
         }
     };
 
@@ -313,22 +310,26 @@ private Uri filePath=null;
             btnCancel.setVisibility(View.INVISIBLE);
             db = FirebaseFirestore.getInstance();
             DocumentReference userToUpdate = db.collection("User").document("" + user.getUid());
+
+            if (!UserAbout.getText().toString().isEmpty() && !UserPrice.getText().toString().isEmpty()) {
+                userToUpdate.update("user_organizer_details", UserAbout.getText().toString());
+                userToUpdate.update("user_price", Double.parseDouble(UserPrice.getText().toString()));
+            }
+
             userToUpdate.update("user_first_name",  UserFirstname.getText().toString());
             userToUpdate.update("user_last_name",   UserLastname.getText().toString());
             userToUpdate.update("user_email",  UserEmailAdress.getText().toString());
             userToUpdate.update("user_birth_date",  UserDateofbirth.getText().toString());
             userToUpdate.update("user_contact_no",  UserContactnumber.getText().toString());
             userToUpdate.update("user_gender",  UserGender.getText().toString());
-            userToUpdate.update("user_address",  UserAddress.getText().toString());
-            userToUpdate.update("user_organizer_details",  UserAbout.getText().toString());
-            userToUpdate.update("user_price",  Double.parseDouble(UserPrice.getText().toString()))
+            userToUpdate.update("user_address",  UserAddress.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
+                @Override
+                public void onSuccess(Void aVoid) {
 //                            progressDialog.dismiss(); add progress dialog later on
-                            showAlert("Successfully Updated Data", "SUCCESS!");
-                        }
-                    });
+                    showAlert("Successfully Updated Data", "SUCCESS!");
+                }
+            });
         }
     };
 
