@@ -51,6 +51,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private String store_description = "";
     String validIdTextOCR="";
     String validBusinessPermitTextOCR="";
+    boolean checkIfValidIdUploaded=false;
+    boolean checkIfValidBusinessPermitUploaded=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_supplier_registration);
         refs();
-        btn_supplier_continue.setEnabled(false);//button will not work without proper id
+       // btn_supplier_continue.setEnabled(false);//button will not work without proper id
 
         btn_supplier_valid_id.setOnClickListener(addValidID);
         btn_supplier_valid_business_permit.setOnClickListener(addBusinesspermit);
@@ -87,44 +89,52 @@ public class ocr_supplier_registration extends AppCompatActivity {
     private View.OnClickListener goToSummary = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "This is the user role: "+user_role);
 
-            if (!user_role.equals("supplier")) {
-                Log.d(TAG, "This is the user role: "+user_role);
-                Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
-                //grab data
-                intent.putExtra("user_email", user_email);
-                intent.putExtra("user_password",user_password);
-                intent.putExtra( "user_role",user_role);
-                intent.putExtra("user_first_name",user_first_name);
-                intent.putExtra("user_last_name",user_last_name);
-                intent.putExtra("user_address",user_address);
-                intent.putExtra("user_contact_no",user_contact_no);
-                intent.putExtra("user_birth_date", user_birth_date);
-                intent.putExtra("user_gender", user_gender);
-                intent.putExtra("user_validIDURL", filePathValidID.toString());
+            if (checkIfValidBusinessPermitUploaded == true && checkIfValidIdUploaded == true) {
+                btn_supplier_continue.setEnabled(true);
+                Log.d(TAG, "This is the user role: " + user_role);
 
-                startActivity(intent);
-                finish();
-            }else{
-                Log.d(TAG, "This is the user role: "+user_role);
-                Log.d(TAG, "User Email "+user_email+", and Password "+user_password);
+                if (!user_role.equals("supplier")) {
+                    Log.d(TAG, "This is the user role: " + user_role);
+                    Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
+                    //grab data
+                    intent.putExtra("user_email", user_email);
+                    intent.putExtra("user_password", user_password);
+                    intent.putExtra("user_role", user_role);
+                    intent.putExtra("user_first_name", user_first_name);
+                    intent.putExtra("user_last_name", user_last_name);
+                    intent.putExtra("user_address", user_address);
+                    intent.putExtra("user_contact_no", user_contact_no);
+                    intent.putExtra("user_birth_date", user_birth_date);
+                    intent.putExtra("user_gender", user_gender);
+                    intent.putExtra("user_validIDURL", filePathValidID.toString());
 
-                Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart3Activity.class);
-                //grab data if supplier, still need to think of how this should go
-                intent.putExtra("user_email", user_email);
-                intent.putExtra("user_password",user_password);
-                intent.putExtra( "user_role",user_role);
-                intent.putExtra("user_first_name",user_first_name);
-                intent.putExtra("user_last_name",user_last_name);
-                intent.putExtra("user_address",user_address);
-                intent.putExtra("user_contact_no",user_contact_no);
-                intent.putExtra("store_store_name",store_store_name);
-                intent.putExtra("store_description",store_description);
-                intent.putExtra("store_ownerIDURL", filePathValidID.toString());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.d(TAG, "This is the user role: " + user_role);
+                    Log.d(TAG, "User Email " + user_email + ", and Password " + user_password);
 
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart3Activity.class);
+                    //grab data if supplier, still need to think of how this should go
+                    intent.putExtra("user_email", user_email);
+                    intent.putExtra("user_password", user_password);
+                    intent.putExtra("user_role", user_role);
+                    intent.putExtra("user_first_name", user_first_name);
+                    intent.putExtra("user_last_name", user_last_name);
+                    intent.putExtra("user_address", user_address);
+                    intent.putExtra("user_contact_no", user_contact_no);
+                    intent.putExtra("store_store_name", store_store_name);
+                    intent.putExtra("store_description", store_description);
+                    intent.putExtra("store_ownerIDURL", filePathValidID.toString());
+
+                    startActivity(intent);
+                    finish();
+                }
+            }
+            else
+            {
+                Toast.makeText(getApplication(), "Please Upload Valid Documents First!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -170,7 +180,8 @@ public class ocr_supplier_registration extends AppCompatActivity {
 
                     if( recognizeText() &&  detectFaceValidID()) {
                         ocr_supplier_valid_id.setImageBitmap(bitmapValidID);
-                        btn_supplier_continue.setEnabled(true);
+                       // btn_supplier_continue.setEnabled(true);
+                        checkIfValidIdUploaded=true;
                     }
                 }
                 catch (IOException e)
@@ -190,6 +201,7 @@ public class ocr_supplier_registration extends AppCompatActivity {
                     bitmapBusinessPermit = MediaStore.Images.Media.getBitmap(getContentResolver(),filePathBusinessPermit);
                     if(recognizeTextBusinessPermit()) {
                         ocr_supplier_valid_business_permit.setImageBitmap(bitmapBusinessPermit);
+                        checkIfValidBusinessPermitUploaded=true;
                     }
                 }
                 catch (IOException e)

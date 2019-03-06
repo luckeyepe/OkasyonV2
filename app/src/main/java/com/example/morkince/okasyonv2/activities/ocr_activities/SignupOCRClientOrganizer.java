@@ -51,6 +51,7 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
     private String store_description = "";
     String validIDOCRText="";
     String validIDOCRTextUppercase="";
+    boolean checkIfValidIdUploaded=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_ocrclient_organizer);
         refs();
-        btn_supplier_continue.setEnabled(false);//button will not work without proper id
+        //btn_supplier_continue.setEnabled(false);//button will not work without proper id
 
         ocr_registration_client_validID_imageBtn.setOnClickListener(addValidID);
         btn_supplier_continue.setOnClickListener(goToSummary);
@@ -89,44 +90,52 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
     private View.OnClickListener goToSummary = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "This is the user role: "+user_role);
+            if(checkIfValidIdUploaded==true) {
+                btn_supplier_continue.setEnabled(true);
+                Log.d(TAG, "This is the user role: " + user_role);
 
-            if (!user_role.equals("supplier")) {
-                Log.d(TAG, "This is the user role: "+user_role);
-                Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
-                //grab data
-                intent.putExtra("user_email", user_email);
-                intent.putExtra("user_password",user_password);
-                intent.putExtra( "user_role",user_role);
-                intent.putExtra("user_first_name",user_first_name);
-                intent.putExtra("user_last_name",user_last_name);
-                intent.putExtra("user_address",user_address);
-                intent.putExtra("user_contact_no",user_contact_no);
-                intent.putExtra("user_birth_date", user_birth_date);
-                intent.putExtra("user_gender", user_gender);
-                intent.putExtra("user_validIDURL", filePathValidID.toString());
+                if (!user_role.equals("supplier")) {
+                    Log.d(TAG, "This is the user role: " + user_role);
+                    Intent intent = new Intent(getApplicationContext(), SignUpUserSummaryActivity.class);
+                    //grab data
+                    intent.putExtra("user_email", user_email);
+                    intent.putExtra("user_password", user_password);
+                    intent.putExtra("user_role", user_role);
+                    intent.putExtra("user_first_name", user_first_name);
+                    intent.putExtra("user_last_name", user_last_name);
+                    intent.putExtra("user_address", user_address);
+                    intent.putExtra("user_contact_no", user_contact_no);
+                    intent.putExtra("user_birth_date", user_birth_date);
+                    intent.putExtra("user_gender", user_gender);
+                    intent.putExtra("user_validIDURL", filePathValidID.toString());
 
-                startActivity(intent);
-                finish();
-            }else{
-                Log.d(TAG, "This is the user role: "+user_role);
-                Log.d(TAG, "User Email "+user_email+", and Password "+user_password);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.d(TAG, "This is the user role: " + user_role);
+                    Log.d(TAG, "User Email " + user_email + ", and Password " + user_password);
 
-                Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart3Activity.class);
-                //grab data if supplier, still need to think of how this should go
-                intent.putExtra("user_email", user_email);
-                intent.putExtra("user_password",user_password);
-                intent.putExtra( "user_role",user_role);
-                intent.putExtra("user_first_name",user_first_name);
-                intent.putExtra("user_last_name",user_last_name);
-                intent.putExtra("user_address",user_address);
-                intent.putExtra("user_contact_no",user_contact_no);
-                intent.putExtra("store_store_name",store_store_name);
-                intent.putExtra("store_description",store_description);
-                intent.putExtra("store_ownerIDURL", filePathValidID.toString());
+                    Intent intent = new Intent(getApplicationContext(), SignUpSupplierPart3Activity.class);
+                    //grab data if supplier, still need to think of how this should go
+                    intent.putExtra("user_email", user_email);
+                    intent.putExtra("user_password", user_password);
+                    intent.putExtra("user_role", user_role);
+                    intent.putExtra("user_first_name", user_first_name);
+                    intent.putExtra("user_last_name", user_last_name);
+                    intent.putExtra("user_address", user_address);
+                    intent.putExtra("user_contact_no", user_contact_no);
+                    intent.putExtra("store_store_name", store_store_name);
+                    intent.putExtra("store_description", store_description);
+                    intent.putExtra("store_ownerIDURL", filePathValidID.toString());
 
-                startActivity(intent);
-                finish();
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            else
+            {
+                Toast.makeText(getApplication(), "Please upload Valid Documents First! ", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -164,7 +173,8 @@ public class SignupOCRClientOrganizer extends AppCompatActivity {
 
                     if( recognizeText() &&  detectFaceValidID()) {
                         ocr_registration_client_validID_ImgView.setImageBitmap(bitmapValidID);
-                        btn_supplier_continue.setEnabled(true);
+                       // btn_supplier_continue.setEnabled(true);
+                        checkIfValidIdUploaded=true;
                     }
                 }
                 catch (IOException e)
